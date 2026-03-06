@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Button from "@/components/button";
 import Container from "@/components/container";
 import Section from "@/components/section";
@@ -43,9 +44,13 @@ export default function Home() {
               <div className="flex-1 flex justify-center w-full">
                 {/* We will copy the assets over next */}
                 <div className="relative w-full aspect-[3/4] max-w-sm rounded-[var(--lk-radius-l)] overflow-hidden shadow-elevation-3">
-                  <div className="absolute inset-0 bg-secondary-container flex items-center justify-center">
-                    <Text fontClass="body" className="text-on-secondary-container">Book Cover Image</Text>
-                  </div>
+                  <Image
+                    src="/0mockup.jp.png"
+                    alt="20代で考える 将来妊娠で困らないための選択"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
                 </div>
               </div>
             </Row>
@@ -85,8 +90,110 @@ export default function Home() {
             </div>
           </Container>
         </Section>
-
       </main>
+
+      {/* INSTAGRAM SECTION */}
+      <Section className="py-xl">
+        <Container className="max-w-screen-md">
+          <Text fontClass="heading-bold" className="text-center mb-l">
+            Instagram レター
+          </Text>
+          <div className="flex justify-center w-full">
+            <blockquote
+              className="instagram-media"
+              data-instgrm-permalink="https://www.instagram.com/reel/DVIHLS9k6B3/?utm_source=ig_embed&amp;utm_campaign=loading"
+              data-instgrm-version="14"
+              style={{
+                background: "#FFF",
+                border: "0",
+                borderRadius: "3px",
+                boxShadow: "0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)",
+                margin: "1px",
+                maxWidth: "540px",
+                minWidth: "326px",
+                padding: "0",
+                width: "calc(100% - 2px)",
+              }}
+            ></blockquote>
+            <script async src="//www.instagram.com/embed.js"></script>
+          </div>
+        </Container>
+      </Section>
+
+      {/* NOTES ARTICLES SECTION */}
+      <Section className="bg-surface-container-low py-xl">
+        <Container className="max-w-screen-lg">
+          <Text fontClass="heading-bold" className="mb-l text-center">
+            NOTES
+          </Text>
+          <Text fontClass="body" className="mb-l text-center text-on-surface-variant">
+            著者（生殖医療専門医）による、妊娠や不妊治療に関する解説記事です。
+          </Text>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-m">
+            {/* Note Link Card 1 */}
+            <a href="https://note.com/educatepress/n/n4db0a59be5fb" target="_blank" rel="noopener noreferrer" className="block outline-none hover:opacity-90 transition-opacity">
+              <Card variant="outline" className="h-full flex flex-col hover:border-primary transition-colors">
+                <div className="relative w-full aspect-video bg-surface-variant">
+                  <Image
+                    src="/assets/image%20(1).png"
+                    alt="20代の妊娠の実情"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-m flex-1 flex flex-col justify-between">
+                  <Text fontClass="title3" className="font-bold mb-xs line-clamp-2">生殖医療専門医がやさしく解説『20代で考える！将来、妊娠で困らないための選択』①20代の妊娠の実情</Text>
+                  <Text fontClass="body" className="text-primary mt-s">続きを読む →</Text>
+                </div>
+              </Card>
+            </a>
+
+            {/* Note Link Card 2 */}
+            <a href="https://note.com/educatepress/n/nf624ac923ca0" target="_blank" rel="noopener noreferrer" className="block outline-none hover:opacity-90 transition-opacity">
+              <Card variant="outline" className="h-full flex flex-col hover:border-primary transition-colors">
+                <div className="relative w-full aspect-video bg-surface-variant">
+                  <Image
+                    src="/assets/age-egg.png"
+                    alt="加齢とともに卵子はどうなる？"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-m flex-1 flex flex-col justify-between">
+                  <Text fontClass="title3" className="font-bold mb-xs line-clamp-2">生殖医療専門医がやさしく解説『20代で考える！将来、妊娠で困らないための選択』②加齢とともに卵子はどうなる？</Text>
+                  <Text fontClass="body" className="text-primary mt-s">続きを読む →</Text>
+                </div>
+              </Card>
+            </a>
+          </div>
+        </Container>
+      </Section>
+
+      {/* AUTHOR SECTION */}
+      <Section className="py-xl">
+        <Container className="max-w-screen-md">
+          <Card variant="fill" className="p-l md:p-xl flex flex-col md:flex-row gap-l items-center md:items-start text-center md:text-left">
+            <div className="relative w-32 h-32 rounded-full overflow-hidden shrink-0 border-4 border-surface shadow-elevation-1">
+              <Image
+                src="/assets/author-profile.jpg"
+                alt="佐藤 琢磨"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <Text fontClass="label" className="text-primary mb-2xs">AUTHOR</Text>
+              <Text fontClass="title2" className="font-bold mb-xs">佐藤 琢磨 (Takuma Sato)</Text>
+              <Text fontClass="body" className="text-on-surface-variant mb-m">生殖医療専門医・産婦人科専門医</Text>
+              <Text fontClass="body" className="text-on-surface-variant text-sm">
+                2013年福井大学医学部卒業。淀川キリスト教病院での初期臨床研修を経て、神戸大学医学部附属病院産科婦人科学教室に入局。その後、複数の総合病院や不妊治療専門クリニックで研鑽を積む。<br /><br />
+                現在は生殖医療専門医として、日々多くの患者様の妊娠・出産をサポート。確かな医学的知識と、一人ひとりに寄り添う丁寧な診療に定評がある。生殖医療の正しい知識をより多くの人に届けるため、啓発活動にも注力している。
+              </Text>
+            </div>
+          </Card>
+        </Container>
+      </Section>
+
     </>
   );
 }

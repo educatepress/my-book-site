@@ -1,1 +1,14 @@
 @import "@/lib/css/index.css";
+
+/* Override LiftKit Defaults with Brand Colors */
+:root {
+  --light__primary_lkv: #2270dd;
+  --light__onprimary_lkv: #ffffff;
+  --light__primarycontainer_lkv: #e0edff;
+  --light__onprimarycontainer_lkv: #001a41;
+
+  --dark__primary_lkv: #a3c9ff;
+  --dark__onprimary_lkv: #003171;
+  --dark__primarycontainer_lkv: #0048a1;
+  --dark__onprimarycontainer_lkv: #d4e3ff;
+}
