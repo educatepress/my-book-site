@@ -1,14 +1,70 @@
 @import "@/lib/css/index.css";
 
-/* Override LiftKit Defaults with Brand Colors */
+/* =============================================
+   Brand color overrides – Warm Rose/Pink theme
+   matching the original Educate Press site
+   ============================================= */
 :root {
-  --light__primary_lkv: #2270dd;
-  --light__onprimary_lkv: #ffffff;
-  --light__primarycontainer_lkv: #e0edff;
-  --light__onprimarycontainer_lkv: #001a41;
+    /* Primary: warm rose-pink (#B35E76) */
+    --light__primary_lkv: #B35E76;
+    --light__onprimary_lkv: #ffffff;
+    --light__primarycontainer_lkv: #FDEFF2;
+    --light__onprimarycontainer_lkv: #3D0718;
 
-  --dark__primary_lkv: #a3c9ff;
-  --dark__onprimary_lkv: #003171;
-  --dark__primarycontainer_lkv: #0048a1;
-  --dark__onprimarycontainer_lkv: #d4e3ff;
+    /* Surface – warm ivory */
+    --light__surface_lkv: #FFFBF7;
+    --light__onsurface_lkv: #574540;
+    --light__surfacevariant_lkv: #FFF0F2;
+    --light__onsurfacevariant_lkv: #8C7A75;
+    --light__outline_lkv: rgba(179, 94, 118, 0.25);
+    --light__outlinevariant_lkv: rgba(179, 94, 118, 0.12);
+
+    /* Background */
+    --light__background_lkv: #FFFBF7;
+    --light__onbackground_lkv: #574540;
+
+    /* Secondary */
+    --light__secondary_lkv: #D6859B;
+    --light__onsecondary_lkv: #ffffff;
+    --light__secondarycontainer_lkv: #FDEFF2;
+    --light__onsecondarycontainer_lkv: #3D0718;
+
+    --dark__primary_lkv: #e8a0b4;
+    --dark__onprimary_lkv: #5c000f;
+    --dark__primarycontainer_lkv: #7b3049;
+    --dark__onprimarycontainer_lkv: #ffd9e2;
+}
+
+/* =============================================
+   Global spacing & typography
+   ============================================= */
+body {
+    background-color: #FFFBF7;
+    color: #574540;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Ensure all containers have proper horizontal padding */
+.container,
+[class*="container"] {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+
+    .container,
+    [class*="container"] {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .container,
+    [class*="container"] {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
 }
