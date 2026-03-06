@@ -306,22 +306,35 @@ export default function Home() {
                 <div className="flex flex-wrap gap-2 justify-center">
                   <span className="text-xs font-bold px-3 py-1 rounded-full" style={{ background: "rgba(179,94,118,0.1)", color: "#B35E76" }}>生殖医療専門医</span>
                   <span className="text-xs font-bold px-3 py-1 rounded-full" style={{ background: "rgba(179,94,118,0.1)", color: "#B35E76" }}>産婦人科専門医</span>
+                  <span className="text-xs font-bold px-3 py-1 rounded-full" style={{ background: "rgba(179,94,118,0.1)", color: "#B35E76" }}>医学博士</span>
                 </div>
               </div>
               {/* Bio */}
               <div className="flex-1">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                   <div className="rounded-xl p-4" style={{ background: "#FFF7F5" }}>
-                    <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "#8C7A75" }}>学歴</p>
-                    <p style={{ color: "#574540" }}>2013年 福井大学医学部卒</p>
+                    <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "#8C7A75" }}>生年・出身</p>
+                    <p style={{ color: "#574540" }}>1986年生まれ</p>
                   </div>
                   <div className="rounded-xl p-4" style={{ background: "#FFF7F5" }}>
-                    <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "#8C7A75" }}>所属</p>
-                    <p style={{ color: "#574540" }}>表参道ARTクリニック</p>
+                    <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "#8C7A75" }}>学歴</p>
+                    <p style={{ color: "#574540" }}>2011年 東京慈恵会医科大学卒業</p>
+                  </div>
+                  <div className="rounded-xl p-4" style={{ background: "#FFF7F5" }}>
+                    <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "#8C7A75" }}>現在の所属</p>
+                    <p style={{ color: "#574540" }}>表参道ARTクリニック（2025年4月〜）</p>
+                  </div>
+                  <div className="rounded-xl p-4" style={{ background: "#FFF7F5" }}>
+                    <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "#8C7A75" }}>専門・研究</p>
+                    <p style={{ color: "#574540" }}>早発卵巣不全（POI）・生殖医療</p>
                   </div>
                 </div>
-                <p className="leading-loose mb-4" style={{ color: "#574540" }}>淀川キリスト教病院での初期臨床研修を経て、神戸大学医学部附属病院産科婦人科学教室に入局。複数の総合病院や不妊治療専門クリニックで研鑽を積む。</p>
-                <p className="leading-loose mb-6" style={{ color: "#574540" }}>現在は生殖医療専門医として、日々多くの患者様の妊娠・出産をサポート。確かな医学的知識と、一人ひとりに寄り添う丁寧な診療に定評がある。生殖医療の正しい知識をより多くの人に届けるため、啓発活動にも注力している。</p>
+                <p className="leading-loose mb-4" style={{ color: "#574540" }}>
+                  日本生殖医学会認定・生殖医療専門医。不妊治療の臨床と研究に従事し、患者教育にも注力。「note」「Instagram」で正確な医療知識をやさしく発信している。
+                </p>
+                <p className="leading-loose mb-6" style={{ color: "#574540" }}>
+                  日本赤十字社医療センターで初期研修を経て、東京慈恵会医科大学産婦人科学講座に入局。附属病院にて12年間勤務し、2025年4月より表参道ARTクリニックに入職。大学病院では早発卵巣不全（POI）の臨床研究で博士号を取得。現在はヘルスケア分野とも連携し、女性の健康に関する正しい情報をわかりやすく届けている。
+                </p>
                 <div className="pt-6" style={{ borderTop: "1px solid rgba(179,94,118,0.1)" }}>
                   <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: "#8C7A75" }}>書誌情報</p>
                   <dl className="grid grid-cols-2 gap-3 text-sm">
