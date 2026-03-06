@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>妊娠率と年齢の関係：20代・30代・40代で何が違う？｜医師解説</title>
+  <meta name="description" content="年齢と妊娠率の関係を、卵子の質・量・流産率の観点から医師がわかりやすく解説。20代・30代・40代で何が変わるのか、エビデンスの枠組みで整理します（AMH・卵巣予備能へのリンク付き）。" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://educatepressjp.netlify.app/note/age-and-fertility.html">
+
+  <!-- OG / SNS -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="妊娠率と年齢の関係：20代・30代・40代で何が違う？">
+  <meta property="og:description" content="年齢×妊娠率を、卵子の質・量・流産率の観点から医師が解説。">
+  <meta property="og:url" content="https://educatepressjp.netlify.app/note/age-and-fertility.html">
+  <meta property="og:image" content="https://educatepressjp.netlify.app/assets/age-fertility-thumb.jpg">
+  <meta property="og:locale" content="ja_JP">
+
+  <link rel="icon" href="/logo-educatepress.png" type="image/png">
+
+  <style>
+    :root{
+      --bg:#FFFBF7; --text:#574540; --sub:#8C7A75; --acc:#B35E76; --panel:#FEF6F7;
+      --shadow:0 10px 25px rgba(0,0,0,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      background:var(--bg); color:var(--text);
+      font-family:ui-sans-serif,system-ui,"Inter","Noto Sans JP",Roboto,Helvetica,Arial;
+      line-height:1.9; margin:0;
+    }
+    a{ color:var(--acc); text-decoration:none } a:hover{ text-decoration:underline }
+    .wrap{ max-width:1000px; margin:34px auto; padding:20px }
+    .breadcrumbs{ font-size:.95rem; color:var(--sub); margin-bottom:10px }
+    h1{ font-size:clamp(28px,3.2vw,36px); margin:0 0 10px; line-height:1.25 }
+    h2{ font-size:clamp(22px,2.6vw,28px); margin:26px 0 10px }
+    h3{ font-size:clamp(18px,2.0vw,22px); margin:16px 0 8px }
+    .subttl{ color:var(--sub); margin:0 0 14px }
+    .pill{ display:inline-block; background:#fff; border:1px solid rgba(0,0,0,.06);
+            border-radius:9999px; padding:.2rem .7rem; color:var(--sub); font-size:.9rem; margin-right:.4rem }
+    .muted{ color:var(--sub) }
+    .card{ background:var(--panel); border-radius:16px; padding:20px; margin:16px 0;
+            box-shadow:var(--shadow); border:1px solid rgba(179,94,118,.10) }
+    figure{ margin:14px 0; }
+    figure img{ width:100%; height:auto; display:block; background:#fff; border-radius:12px; border:1px solid rgba(0,0,0,.06) }
+    figcaption{ font-size:.95rem; color:var(--sub); margin-top:6px }
+    .foot{ font-size:.95rem; color:var(--sub) }
+
+    /* FAQ 開閉ブロック */
+    #faq details { border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:.6rem .9rem; margin:.6rem 0; background:#fff }
+    #faq summary { cursor:pointer; font-weight:600 }
+
+    /* chart wrapper */
+    .chartbox{height:320px}
+    canvas{background:#fff;border-radius:12px;padding:12px;border:1px solid rgba(0,0,0,.06);height:100% !important;width:100% !important;}
+  
+    .capsule-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem .9rem;border-radius:9999px;border:1px solid rgba(0,0,0,.08);background:#fff;box-shadow:0 6px 16px rgba(0,0,0,.08);font-weight:600}
+    .capsule-btn:hover{text-decoration:none;transform:translateY(-1px);box-shadow:0 10px 22px rgba(0,0,0,.1)}
+    
+/* 著者カードのスタイル衝突を防ぐ */
+#author-card, #author-card * {
+  counter-reset: none !important;
+  counter-increment: none !important;
+}
+#author-card li { list-style: none; }
+#author-card .badge, 
+#author-card [data-counter]::before, 
+#author-card::before { content: none !important; }
+
+
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body>
+<div class="wrap">
+
+  <!-- パンくず -->
+  <nav class="breadcrumbs"><a href="/">ホーム</a> / <a href="/#related-articles">関連記事</a> / 妊娠率と年齢</nav>
+
+  <!-- ヒーロー -->
+  <header class="card">
+    <h1>妊娠率と年齢の関係：20代・30代・40代で何が違う？</h1>
+    <p class="subttl">「卵子の質」と「卵子の残り数（卵巣予備能）」という2つの軸で、年齢と妊娠率の関係を整理します。</p>
+    <p class="muted">
+      <span class="pill">医師解説</span><span class="pill">年齢</span><span class="pill">自然妊娠率</span>
+    </p>
+  </header>
+
+  <!-- なぜ重要か -->
+  <section class="card">
+    <h2>なぜ「年齢×妊娠率」を知っておくべき？</h2>
+    <p>妊娠の成立には<strong>卵子の質（染色体の健全性）</strong>と<strong>卵子の残り数（卵巣予備能）</strong>の両方が関わります。
+      年齢が上がると平均的に<strong>質が低下</strong>し、同時に<strong>数も減る</strong>ため、妊娠率は少しずつ下がります。
+      個人差が大きいため、<a href="/note/amh.html">AMH</a>などで「時間の余裕」を把握しておくことが実践的です。</p>
+  </section>
+
+  <!-- 年代別の変化 -->
+  <section class="card">
+    <h2>20代・30代・40代で何が変わる？</h2>
+    <ul>
+      <li><strong>20代：</strong> 卵子の質・量ともに平均的に良好。避妊なしでは妊娠までの期間が短い傾向。</li>
+      <li><strong>30代前半：</strong> 多くは良好だが、<strong>個人差が拡大</strong>。AMHの低下や流産率の上昇が徐々に目立ち始める。</li>
+      <li><strong>30代後半：</strong> 卵子の染色体異常率の上昇に伴い妊娠率が逓減。複数人の出産を希望する場合は計画性が重要。</li>
+      <li><strong>40代：</strong> 自然妊娠率は低下し、流産率は高くなる。治療を含めた選択肢検討が現実的。</li>
+    </ul>
+  </section>
+
+  <!-- グラフ：自然妊娠率/流産率の目安（概念図） -->
+  
+  <section class="card">
+    <h2>年齢別の妊娠率・流産率（ART全国データ2023）</h2>
+    <p class="muted">日本産科婦人科学会「2023年 体外受精・胚移植等の臨床実施成績」年齢別指標から作図（定義：妊娠率＝胚移植あたりの妊娠数、流産率＝妊娠あたりの流産数）。</p>
+    <div class="chartbox"><canvas id="artAgeChart" aria-label="年齢別 ART 妊娠率・生産率・流産率（2023）" role="img"></canvas></div>
+    <figure>
+      <figcaption>出典：日本産科婦人科学会（2024）「2023年 体外受精・胚移植等の臨床実施成績」より作図。</figcaption>
+    </figure>
+  </section>
+
+
+  <!-- IVFの年齢効果（概論） -->
+  <section class="card">
+    <h2>不妊治療（IVF）の年齢効果：どこが変わる？</h2>
+    <a class="capsule-btn" href="https://chatgpt.com/canvas/shared/68b783ad34648191bf0ef3ba12ce8a96" target="_blank" rel="noopener" aria-label="IVFでの成功率は？">IVFでの成功率は？</a>
+
+
+    <ol>
+      <li><strong>採卵数：</strong> 加齢で平均的に減少（卵巣予備能）。</li>
+      <li><strong>胚の質：</strong> 染色体異数性の上昇により、移植あたり成績が低下。</li>
+      <li><strong>累積成績：</strong> 凍結・複数回移植で一定の回復が見込めるが、<strong>時間と採取可能卵の上限</strong>に制約。</li>
+    </ol>
+    <p>年齢は<strong>戦略の組み方</strong>に直結します。妊娠を急ぐ必要がある場合は、早めに検査を揃え、
+      タイミング法/人工授精/体外受精の<strong>移行ライン</strong>を短く設計します。</p>
+  </section>
+
+  <!-- 行動につなげるまとめ -->
+  <section class="card">
+    <h2>まとめ：今日からできる3つのこと</h2>
+    <ul>
+      <li><strong>自分の「残り時間」を知る：</strong> <a href="/note/amh.html">AMH検査</a>やAFC（超音波）で卵巣予備能を把握。</li>
+      <li><strong><a href="/note/when-to-start-treatment.html">6か月ルール</a>：</strong> 避妊をせずに6か月妊娠しなければ、年齢に関わらず検査へ。<a href="/note/when-to-start-treatment.html">不妊治療はいつから始めるべき？年齢別の目安と受診のタイミング</a> を参照。</li>
+      <li><strong>ライフプランと照合：</strong> 希望する子どもの人数と出産間隔から逆算し、必要に応じて治療を前倒し。</li>
+    </ul>
+  </section>
+
+  <!-- FAQ -->
+  <section class="card" id="faq">
+    <h2>よくある質問（FAQ）</h2>
+
+    <details><summary>35歳を過ぎると妊娠しにくいって本当？</summary>
+      <p>平均的には妊娠率が下がりやすくなりますが、個人差が大きいのも事実です。AMHや基礎検査で現状を確認しましょう。</p>
+    </details>
+
+    <details><summary>40歳でも自然妊娠は可能？</summary>
+      <p>可能性はありますが平均的には下がります。時間を意識し、早い段階で検査と計画を。</p>
+    </details>
+
+    <details><summary>AMHが高ければ年齢の影響を受けませんか？</summary>
+      <p>AMHは主に卵子の「数」の指標で、<strong>質（染色体の健全性）は年齢に依存</strong>します。両者を分けて考えることが大切です。</p>
+    </details>
+
+    <details><summary>まず何から始めれば良い？</summary>
+      <p>基礎検査（卵管通過性・排卵・精液検査）とAMHを揃え、治療の移行ラインを主治医と共有しましょう。</p>
+    </details>
+  </section>
+
+  <!-- 出典（方針・備考） -->
+  <section>
+    <h2>出典・備考</h2>
+    <ol class="foot">
+      <li>年齢と妊娠率・流産率の関係は主要教科書・大規模データの一般的傾向をもとに概念化（院内資料）。個別差があります。</li>
+      <li>AMHは卵巣予備能の参考指標であり、自然妊娠を単独で予測する検査ではありません。</li>
+    </ol>
+  </section>
+
+  <!-- LPへ戻る -->
+  <p style="margin:18px 0 0"><a href="/#related-articles">← 公式LPへ戻る</a></p>
+
+</div>
+
+<!-- 著者カード自動挿入（/note/配下で有効） -->
+<script src="/assets/author-inject.js" defer></script>
+
+
+
+<script>
+// JSOG 2023 ART 年齢別データチャート（妊娠率・流産率）
+(function(){
+  const el = document.getElementById('artAgeChart');
+  if (!el) return;
+  const labels = ['25','30','35','38','40','42','44','45','46','47'];
+  // JSOG 2023「ART妊娠率・生産率・流産率」表より：
+  // 妊娠率/総ET（%）→ 本図では「妊娠率（胚移植あたり）」として表記
+  const prET  = [54.4,51.1,46.1,39.7,33.3,24.4,15.4,11.4,7.4,6.1];
+  // 流産率/総妊娠（%）→ 本図では「流産率（妊娠あたり）」として表記
+  const misc  = [22.3,18.1,22.0,27.8,35.6,44.5,49.9,55.2,56.3,52.4];
+
+  new Chart(el,{
+    type:'line',
+    data:{
+      labels: labels.map(a => a + '歳'),
+      datasets:[
+        { label:'妊娠率（胚移植あたり）', data:prET, tension:0.3, fill:false, borderColor:'#B35E76', pointRadius:3 },
+        { label:'流産率（妊娠あたり）', data:misc, tension:0.3, fill:false, borderColor:'#8C7A75', pointRadius:3 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      scales:{
+        y:{ beginAtZero:true, suggestedMax:60, grid:{ color:'rgba(0,0,0,.06)' }, title:{ display:true, text:'割合（%）' } },
+        x:{ grid:{ display:false } }
+      },
+      plugins:{ legend:{ display:true } }
+    }
+  });
+})();
+</script>
+
+
+
+<!-- === FAQ構造化データ === -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"FAQPage",
+ "mainEntity":[
+  {"@type":"Question","name":"35歳を過ぎると妊娠しにくいって本当？",
+   "acceptedAnswer":{"@type":"Answer","text":"平均的には妊娠率が下がりやすくなりますが、個人差が大きいのも事実です。AMHや基礎検査で現状を確認しましょう。"}},
+  {"@type":"Question","name":"40歳でも自然妊娠は可能？",
+   "acceptedAnswer":{"@type":"Answer","text":"可能性はありますが平均的には下がります。時間を意識し、早い段階で検査と計画を。"}},
+  {"@type":"Question","name":"AMHが高ければ年齢の影響を受けませんか？",
+   "acceptedAnswer":{"@type":"Answer","text":"AMHは主に卵子の「数」の指標で、質（染色体の健全性）は年齢に依存します。両者を分けて考えることが大切です。"}},
+  {"@type":"Question","name":"まず何から始めれば良い？",
+   "acceptedAnswer":{"@type":"Answer","text":"基礎検査（卵管通過性・排卵・精液検査）とAMHを揃え、治療の移行ラインを主治医と共有しましょう。"}}
+ ]
+}
+</script>
+
+<!-- === Article構造化データ === -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "妊娠率と年齢の関係：20代・30代・40代で何が違う？",
+  "description": "年齢と妊娠率の関係を、卵子の質・量・流産率の観点から医師がわかりやすく解説。20代・30代・40代で何が変わるのかを整理。",
+  "datePublished": "2025-11-10",
+  "dateModified": "2025-11-10",
+  "author": { "@type": "Person", "name": "Takuma Sato, MD, PhD" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Educate Press",
+    "logo": { "@type": "ImageObject", "url": "https://educatepressjp.netlify.app/logo-educatepress.png" }
+  },
+  "mainEntityOfPage": "https://educatepressjp.netlify.app/note/age-and-fertility.html",
+  "image": "https://educatepressjp.netlify.app/assets/age-fertility-thumb.jpg"
+}
+</script>
+
+</body>
+</html>

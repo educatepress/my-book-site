@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>良好胚なのに流産をくり返すのはなぜ？年齢と染色体から考える｜医師解説</title>
+  <meta name="description" content="良好胚を移植しても流産や陰性が続くと、「なぜ私だけ？」と自分を責めてしまいがちです。このページでは、年齢と染色体のデータ・シミュレーションを用いて、感情と事実を整理しながら、不育や反復陰性に向き合う視点を医師が解説します。">
+
+  <!-- Canonical（実際のファイル名に合わせて変更してください） -->
+  <link rel="canonical" href="https://educatepressjp.netlify.app/note/recurrent-loss-counseling.html">
+
+  <!-- OG / SNS -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="良好胚なのに流産をくり返すのはなぜ？年齢と染色体から考える">
+  <meta property="og:description" content="良好胚なのに流産が続く。その背景にある「染色体の偶発的なエラー」と年齢との関係を、データとシミュレーションでやさしく解説します。">
+  <meta property="og:url" content="https://educatepressjp.netlify.app/note/recurrent-loss-counseling.html">
+  <!-- サムネイル画像は実際のパスに調整してください -->
+  <meta property="og:image" content="https://educatepressjp.netlify.app/assets/recurrent-loss-thumb.jpg">
+  <meta property="og:locale" content="ja_JP">
+
+  <link rel="icon" href="/logo-educatepress.png" type="image/png">
+
+  <!-- ベーススタイル（既存noteテンプレに合わせ） -->
+  <style>
+    :root{
+      --bg:#FFFBF7;
+      --text:#574540;
+      --sub:#8C7A75;
+      --acc:#B35E76;
+      --panel:#FEF6F7;
+      --shadow:0 10px 25px rgba(0,0,0,.06);
+
+      --rose:#e11d48;
+      --rose-soft:#fee2e2;
+      --emerald:#10b981;
+      --emerald-soft:#d1fae5;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      background:var(--bg); color:var(--text);
+      font-family:ui-sans-serif,system-ui,"Inter","Noto Sans JP",Roboto,Helvetica,Arial;
+      line-height:1.9; margin:0;
+    }
+    a{ color:var(--acc); text-decoration:none }
+    a:hover{ text-decoration:underline }
+
+    .wrap{ max-width:1000px; margin:34px auto; padding:20px }
+    .breadcrumbs{ font-size:.95rem; color:var(--sub); margin-bottom:10px }
+    h1{ font-size:clamp(28px,3.2vw,36px); margin:0 0 10px; line-height:1.25 }
+    .subttl{ color:var(--sub); font-size:clamp(15px,1.4vw,17px); margin:0 0 14px }
+    h2{ font-size:clamp(22px,2.6vw,28px); margin:26px 0 12px }
+    h3{ font-size:clamp(18px,2.0vw,22px); margin:16px 0 8px }
+    .card{
+      background:var(--panel); border-radius:16px; padding:20px; margin:16px 0;
+      box-shadow:var(--shadow); border:1px solid rgba(179,94,118,.10)
+    }
+    .pill{
+      display:inline-block; background:#fff; border:1px solid rgba(0,0,0,.06);
+      border-radius:9999px; padding:.2rem .7rem; color:var(--sub);
+      font-size:.9rem; margin-right:.4rem
+    }
+    .muted{ color:var(--sub) }
+    ul,ol{ padding-left:22px }
+    .foot{ font-size:.95rem; color:var(--sub) }
+    .back{ margin:20px 0 }
+
+    /* ==== このページ固有のスタイル ==== */
+
+    /* フェードイン */
+    .fade-in{ animation:fadeIn .8s ease-in }
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(10px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    /* 胚シミュレーションボックス */
+    .embryo-box{
+      background:#f8efe9;
+      border-radius:14px;
+      padding:18px;
+      border:1px solid rgba(0,0,0,.04);
+    }
+    .embryo-controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:16px;
+    }
+    .embryo-controls label{ font-size:.9rem; font-weight:600; color:var(--sub) }
+    .embryo-select{
+      min-width:170px;
+      padding:6px 10px;
+      border-radius:8px;
+      border:1px solid #d4c4bf;
+      font-size:.9rem;
+      background:#fff;
+      color:var(--text);
+    }
+    .mode-buttons{ display:flex; gap:8px; flex-wrap:wrap }
+    .mode-btn{
+      border-radius:9999px;
+      padding:6px 14px;
+      font-size:.85rem;
+      border:1px solid #d4c4bf;
+      background:#fff;
+      color:var(--sub);
+      cursor:pointer;
+    }
+    .mode-btn--primary{
+      background:#44403c;
+      color:#fff;
+      border-color:#111827;
+    }
+    .mode-btn--danger{
+      background:var(--rose);
+      color:#fff;
+      border-color:var(--rose);
+    }
+
+    .embryo-grid{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0,1fr));
+      gap:12px;
+      justify-content:center;
+      max-width:360px;
+      margin:0 auto;
+    }
+    .embryo-circle{
+      width:56px; height:56px;
+      border-radius:9999px;
+      background:var(--emerald-soft);
+      border:4px solid #6ee7b7;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow:0 4px 10px rgba(0,0,0,.06);
+      position:relative;
+      overflow:hidden;
+      transition:all .5s ease;
+    }
+    @media (min-width:640px){
+      .embryo-circle{ width:64px; height:64px }
+    }
+
+    .embryo-legend{
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      flex-wrap:wrap;
+      font-size:.82rem;
+      color:var(--sub);
+      margin-top:16px;
+    }
+    .embryo-legend span.box{
+      display:inline-block;
+      width:12px; height:12px;
+      border-radius:9999px;
+    }
+
+    /* グラフボックス */
+    .chartbox{
+      height:260px;
+      margin-top:4px;
+    }
+    .chartbox canvas{
+      background:#fff;
+      border-radius:12px;
+      padding:12px;
+      border:1px solid rgba(0,0,0,.06);
+      height:100% !important;
+      width:100% !important;
+    }
+
+    /* Copingセクション */
+    .coping-layout{
+      display:grid;
+      gap:22px;
+    }
+    @media (min-width:768px){
+      .coping-layout{
+        grid-template-columns:1.1fr .9fr;
+        align-items:flex-start;
+      }
+    }
+    .coping-options{
+      background:#fff;
+      border-radius:16px;
+      padding:18px;
+      border:1px solid rgba(0,0,0,.04);
+      box-shadow:0 10px 20px rgba(0,0,0,.04);
+    }
+    .coping-button{
+      width:100%;
+      text-align:left;
+      padding:9px 12px;
+      background:#f9f5f3;
+      border-radius:10px;
+      border:1px solid #e2d5cf;
+      font-size:.9rem;
+      color:var(--sub);
+      cursor:pointer;
+      margin-bottom:8px;
+    }
+    .coping-button:hover{
+      background:#fff7ed;
+      border-color:#fed7aa;
+    }
+    .coping-dot{
+      display:inline-block;
+      width:14px; height:14px;
+      border-radius:9999px;
+      background:#e5e7eb;
+      margin-right:6px;
+      vertical-align:middle;
+    }
+    .coping-response{
+      margin-top:10px;
+      font-size:.9rem;
+      color:var(--text);
+      background:#fff7ed;
+      border-radius:10px;
+      padding:10px 12px;
+    }
+  </style>
+
+  <!-- Chart.js ＋ 著者カード自動挿入 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="/assets/author-inject.js"></script>
+</head>
+
+<body>
+<div class="wrap">
+
+  <!-- パンくず -->
+  <nav class="breadcrumbs">
+    <a href="/">ホーム</a> / <a href="/#related-articles">関連記事</a> / 良好胚なのに流産が続くときの捉え方
+  </nav>
+
+  <!-- ヒーロー -->
+  <header class="card" id="hero">
+    <h1>良好胚なのに流産をくり返すのはなぜ？年齢と染色体から考える</h1>
+    <p class="subttl">
+      「なぜ私だけ？」と自分を責めてしまう方へ。<br>
+      データとシミュレーションを通して、感情と事実を整理するためのカウンセリング補助資料です。
+    </p>
+    <p class="muted">
+      <span class="pill">医師解説</span>
+      <span class="pill">流産</span>
+      <span class="pill">染色体異常</span>
+      <span class="pill">カウンセリング</span>
+    </p>
+  </header>
+
+  <!-- はじめに / 共感パート -->
+  <section class="card fade-in" id="intro">
+    <h2>「なぜ、私だけ？」と自分を責めてしまうあなたへ</h2>
+    <p>
+      良好胚を移植しても結果が出ない、あるいは妊娠しても流産してしまう。<br>
+      その辛さは、言葉では表現できないものです。
+    </p>
+    <p>
+      しかし、その原因の多くは、あなたの生活習慣や努力不足にあるのではありません。<br>
+      多くの場合、受精の瞬間に偶然起こる「染色体の組み合わせのエラー」が背景にあります。
+    </p>
+    <p>
+      このページでは、<strong>①顕微鏡で見える「見た目」と、②目に見えない「染色体」</strong> のギャップ、<br>
+      そして <strong>年齢と流産率のデータ</strong> をもとに、「自分のせいだったのでは？」という気持ちから少し離れて考える視点を共有します。
+    </p>
+  </section>
+
+  <!-- 見た目と染色体のギャップ -->
+  <section class="card fade-in" id="visual-paradox">
+    <h2>良好胚の「中身」を可視化するシミュレーション</h2>
+    <p class="muted">
+      顕微鏡で見えるのは「形（グレード）」だけです。<br>
+      ここでは、同じように見える良好胚の中に、「染色体のエラーを持つ胚」がどれくらい含まれているかを年齢別にイメージしてみます。
+    </p>
+
+    <div class="embryo-box">
+      <div class="embryo-controls">
+        <div>
+          <label for="ageSelector">年齢を選択してください</label><br>
+          <select id="ageSelector" class="embryo-select" onchange="updateEmbryoSimulation()">
+            <option value="30">30 - 34歳</option>
+            <option value="35">35 - 37歳</option>
+            <option value="38">38 - 40歳</option>
+            <option value="41">41 - 42歳</option>
+            <option value="43">43歳以上</option>
+          </select>
+        </div>
+        <div class="mode-buttons">
+          <button id="btnMorphology" class="mode-btn mode-btn--primary" onclick="toggleVision('morphology')">
+            顕微鏡の見た目
+          </button>
+          <button id="btnGenetics" class="mode-btn" onclick="toggleVision('genetics')">
+            染色体の真実
+          </button>
+        </div>
+      </div>
+
+      <!-- グリッド -->
+      <div class="embryo-grid" id="embryoGrid">
+        <!-- JSで10個の胚が生成されます -->
+      </div>
+
+      <!-- 凡例 -->
+      <div class="embryo-legend">
+        <div>
+          <span class="box" style="background:var(--emerald-soft);border:2px solid #6ee7b7;"></span>
+          正常胚（着床・継続の可能性が高い）
+        </div>
+        <div>
+          <span class="box" style="background:var(--rose-soft);border:2px solid #fb7185;"></span>
+          染色体異常（流産・不着床の主な原因）
+        </div>
+      </div>
+
+      <!-- 説明テキスト -->
+      <div id="simulationText" class="foot" style="margin-top:16px; padding:10px 12px; background:#fff; border-radius:10px; border-left:4px solid #fbbf24;">
+        顕微鏡での見た目（グレード）では、10個すべてが「良好胚」に見えます。<br>
+        これが、移植のときに私たちが抱く<strong>大きな期待</strong>につながります。
+      </div>
+    </div>
+  </section>
+
+  <!-- データで見る「流産」と「加齢」 -->
+  <section class="card fade-in" id="data-reality">
+    <h2>データで見る「流産」と「年齢」</h2>
+    <p>
+      ここでは、国際的な生殖医療学会（ASRM/ESHRE）や主要論文で報告されている一般的な傾向データをもとに、<br>
+      年齢ごとの<strong>自然流産率の上昇</strong>と、良好胚の中で<strong>染色体が正常な胚の割合の低下</strong>を可視化します。
+    </p>
+
+    <div style="display:grid; gap:20px; margin-top:10px">
+      <!-- グラフ1：流産率 -->
+      <div>
+        <h3>年齢別 自然流産率の推移</h3>
+        <p class="muted" style="font-size:.85rem">
+          年齢とともにグラフが急上昇している点にご注目ください。
+        </p>
+        <div class="chartbox">
+          <canvas id="miscarriageChart"></canvas>
+        </div>
+      </div>
+
+      <!-- グラフ2：良好胚の正常染色体率 -->
+      <div>
+        <h3>良好胚盤胞における正常染色体率</h3>
+        <p class="muted" style="font-size:.85rem">
+          「グレードが良い＝必ず正常」ではないことをイメージするためのグラフです。
+        </p>
+        <div class="chartbox">
+          <canvas id="euploidyChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <p class="foot" style="margin-top:14px">
+      ※上記の数値は複数の研究報告を参考にした<strong>代表的な傾向値</strong>であり、個人の予後を断定するものではありません。<br>
+      ※治療成績や背景疾患により、個々のケースはこのグラフから上下にずれます。
+    </p>
+  </section>
+
+  <!-- 心のケア・コーピング -->
+  <section class="card fade-in" id="coping">
+    <h2>「感情」と「事実」をそっと分けて考える</h2>
+    <div class="coping-layout">
+      <div>
+        <p>
+          流産や陰性判定のあと、多くの方が
+          「あのとき無理をしたからかもしれない」「あの一杯のコーヒーのせいかもしれない」とご自身を責めます。
+        </p>
+        <p>
+          心理学では、これを<strong>コントロール幻想</strong>（本当はコントロールできなかったことまで「自分が原因だった」と考えてしまう心の動き）と呼ぶことがあります。
+        </p>
+        <p>
+          しかし、ここまで見てきた通り、初期流産や着床しない原因の多くは
+          <span style="background:#fef3c7; padding:0 3px; border-radius:4px;">受精の瞬間に偶然起こる「染色体のエラー」</span>
+          です。<br>
+          これは、どれだけ安静にしていても、どれだけ良い食事をしていても、<strong>変えることのできない部分</strong>です。
+        </p>
+      </div>
+
+      <div class="coping-options">
+        <h3 style="margin-top:0; text-align:center; font-size:1rem">今の気持ちに近いものを選んでください</h3>
+        <button class="coping-button" onclick="showCopingMsg('blame')">
+          <span class="coping-dot"></span>自分のせいでダメになった気がする
+        </button>
+        <button class="coping-button" onclick="showCopingMsg('anger')">
+          <span class="coping-dot"></span>なぜ良好胚なのに結果が出ないのか納得できない
+        </button>
+        <button class="coping-button" onclick="showCopingMsg('fear')">
+          <span class="coping-dot"></span>次もまた同じことになるのが怖い
+        </button>
+        <div id="copingResponse" class="coping-response" style="display:none;"></div>
+      </div>
+    </div>
+
+    <p class="foot" style="margin-top:14px">
+      感情を「間違っている」と否定する必要はありません。<br>
+      ただ、その感情と、年齢や染色体にまつわる「確率としての事実」は、そっと分けて眺めてみてもよいのかもしれません。
+    </p>
+  </section>
+
+  <!-- フッター注記（診断ではないことの明記） -->
+  <section class="card">
+    <p class="foot">
+      本ページはカウンセリングの補助資料であり、医学的診断や治療方針の決定を行うものではありません。<br>
+      具体的な検査や治療については、必ず担当の医師と相談のうえでお決めください。
+    </p>
+  </section>
+
+</div>
+
+<!-- ===== JavaScript（シミュレーション＆グラフ） ===== -->
+<script>
+  // カラートークン（Chart.js でも使用）
+  const COLORS = {
+    ink: '#57534e',
+    rose: '#e11d48',
+    roseFill: 'rgba(248,113,113,0.16)',
+    emerald: '#10b981',
+    emeraldFill: 'rgba(16,185,129,0.14)'
+  };
+
+  // 状態管理
+  const state = {
+    currentAgeGroup: '30',
+    visualMode: 'morphology' // 'morphology' or 'genetics'
+  };
+
+  // 年齢別データ（代表的な傾向値）
+  const ageData = {
+    '30': { euploid: 70, miscarriage: 15, text: "30代前半では、良好胚の約7割が正常染色体を持っています。流産率は比較的低い水準です。" },
+    '35': { euploid: 55, miscarriage: 20, text: "35歳を過ぎると、見た目が良好でも中身のエラーが少しずつ増え始めます。" },
+    '38': { euploid: 40, miscarriage: 30, text: "30代後半では、良好胚の半数以上に染色体異常の可能性があります。これが「良好胚なのに妊娠しない」主因です。" },
+    '41': { euploid: 25, miscarriage: 50, text: "40代に入ると、流産率は急激に上昇します。4回移植して1回正常胚に出会えるかどうか、という確率になります。" },
+    '43': { euploid: 10, miscarriage: 70, text: "43歳以上では、流産率は非常に高く、良好胚の多くが染色体異常を持ちます。治療には根気強い継続が必要になります。" }
+  };
+
+  const copingMessages = {
+    'blame': "そのお気持ち、痛いほどわかります。しかし、データが示すように、原因のほとんどは受精の瞬間に決まっている「染色体の組み合わせ」です。移植後のあなたの行動が原因ではありません。ご自身を少しだけいたわってあげてください。",
+    'anger': "期待していた分、落胆も大きいですよね。形態評価はあくまで「外見」の評価であり、生命力（遺伝子）の評価ではありません。「見た目が良い本の内容が、必ずしも面白いとは限らない」のと少し似ています。この怒りは、あなたが真剣に向き合ってきた証拠でもあります。",
+    'fear': "恐怖を感じるのは、ごく自然な防衛反応です。「確率論」として捉えることは冷たく感じるかもしれませんが、同時に「次は正常な卵に出会える可能性もある」という希望の根拠にもなります。必要であれば、一度ペースを落として心を休める時間をとることも大切です。"
+  };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initEmbryoGrid();
+    initCharts();
+  });
+
+  // 胚グリッド初期化
+  function initEmbryoGrid() {
+    const grid = document.getElementById('embryoGrid');
+    grid.innerHTML = '';
+    for (let i = 0; i < 10; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'embryo-circle';
+      cell.innerHTML = '<span style="font-size:22px; color:#059669; opacity:.55;">★</span>';
+
+      const overlay = document.createElement('div');
+      overlay.className = 'embryo-overlay';
+      overlay.style.position = 'absolute';
+      overlay.style.inset = '0';
+      overlay.style.background = 'var(--rose-soft)';
+      overlay.style.display = 'flex';
+      overlay.style.alignItems = 'center';
+      overlay.style.justifyContent = 'center';
+      overlay.style.opacity = '0';
+      overlay.style.transition = 'opacity .5s ease';
+      overlay.dataset.type = 'aneuploid-overlay';
+      overlay.innerHTML = '<span style="font-size:22px; color:var(--rose);">✕</span>';
+
+      cell.appendChild(overlay);
+      grid.appendChild(cell);
+    }
+  }
+
+  function updateEmbryoSimulation() {
+    state.currentAgeGroup = document.getElementById('ageSelector').value;
+    // 年齢を変えたときはいったん「見た目」モードに戻す
+    toggleVision('morphology');
+  }
+
+  function toggleVision(mode) {
+    state.visualMode = mode;
+
+    const btnMorph = document.getElementById('btnMorphology');
+    const btnGen = document.getElementById('btnGenetics');
+    const textDisplay = document.getElementById('simulationText');
+    const overlays = document.querySelectorAll('[data-type="aneuploid-overlay"]');
+
+    // ボタン状態
+    btnMorph.classList.remove('mode-btn--primary');
+    btnGen.classList.remove('mode-btn--danger');
+
+    if (mode === 'morphology') {
+      btnMorph.classList.add('mode-btn--primary');
+
+      // すべて正常に「見える」
+      overlays.forEach(function (ov) {
+        ov.style.opacity = '0';
+        ov.parentElement.style.borderColor = '#6ee7b7';
+        ov.parentElement.style.background = 'var(--emerald-soft)';
+      });
+
+      textDisplay.innerHTML =
+        '顕微鏡で見ると、10個すべてが「良好胚（グレードが良い）」に見えます。<br>' +
+        'これらはすべて移植の候補となり、期待が高まる瞬間です。';
+      textDisplay.style.background = '#ffffff';
+      textDisplay.style.borderLeftColor = '#facc15';
+
+    } else {
+      btnGen.classList.add('mode-btn--danger');
+
+      const data = ageData[state.currentAgeGroup];
+      const countNormal = Math.round(data.euploid / 10);
+      const abnormalCount = 10 - countNormal;
+
+      overlays.forEach(function (ov, index) {
+        if (index < abnormalCount) {
+          ov.style.opacity = '1';
+          ov.parentElement.style.borderColor = '#fb7185';
+          ov.parentElement.style.background = 'var(--rose-soft)';
+        } else {
+          ov.style.opacity = '0';
+          ov.parentElement.style.borderColor = '#6ee7b7';
+          ov.parentElement.style.background = 'var(--emerald-soft)';
+        }
+      });
+
+      textDisplay.innerHTML =
+        '<strong>' + state.currentAgeGroup + '代の現実：</strong><br>' +
+        data.text +
+        '<br>良好に見えた10個のうち、正常なのはおおよそ<strong>' + countNormal +
+        '個</strong>。残り<strong>' + abnormalCount +
+        '個</strong>は、移植しても着床しないか、流産につながる可能性が高い胚です。';
+      textDisplay.style.background = '#fef2f2';
+      textDisplay.style.borderLeftColor = '#fb7185';
+    }
+  }
+
+  // グラフ初期化
+  function initCharts() {
+    Chart.defaults.font.family = "'Noto Sans JP', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+    Chart.defaults.color = COLORS.ink;
+
+    // 自然流産率
+    const ctxMis = document.getElementById('miscarriageChart').getContext('2d');
+    new Chart(ctxMis, {
+      type: 'line',
+      data: {
+        labels: ['25-29', '30-34', '35-37', '38-40', '41-42', '43+'],
+        datasets: [{
+          label: '自然流産率 (%)',
+          data: [10, 11, 20, 33, 50, 75],
+          borderColor: COLORS.rose,
+          backgroundColor: COLORS.roseFill,
+          borderWidth: 3,
+          pointBackgroundColor: '#ffffff',
+          pointBorderColor: COLORS.rose,
+          pointRadius: 5,
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return context.parsed.y + '% の確率で流産';
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            title: { display: true, text: '流産率 (%)' }
+          }
+        }
+      }
+    });
+
+    // 良好胚の正常/異常比率
+    const ctxEup = document.getElementById('euploidyChart').getContext('2d');
+    new Chart(ctxEup, {
+      type: 'bar',
+      data: {
+        labels: ['<35', '35-37', '38-40', '41-42', '>42'],
+        datasets: [
+          {
+            label: '正常染色体 (Euploid)',
+            data: [65, 55, 40, 25, 10],
+            backgroundColor: COLORS.emerald,
+            borderRadius: 4
+          },
+          {
+            label: '染色体異常 (Aneuploid)',
+            data: [35, 45, 60, 75, 90],
+            backgroundColor: COLORS.rose,
+            borderRadius: 4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { stacked: true },
+          y: {
+            stacked: true,
+            max: 100,
+            beginAtZero: true,
+            title: { display: true, text: '割合 (%)' }
+          }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              afterBody: function () {
+                return '※グレードが良好な胚盤胞における代表値';
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // Copingメッセージ
+  function showCopingMsg(type) {
+    const display = document.getElementById('copingResponse');
+    display.style.display = 'block';
+    display.classList.add('fade-in');
+    display.innerHTML = copingMessages[type];
+  }
+</script>
+
+</body>
+</html>

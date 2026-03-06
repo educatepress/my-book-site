@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>体外受精はどのくらい続く？期間を「確率」で考える｜医師解説</title>
+  <meta name="description" content="体外受精（IVF）の期間や必要回数を“確率”の視点で整理。モンテカルロ・シミュレーターとCLBR（累積生児獲得率）の考え方を医師がやさしく解説します。">
+  <link rel="canonical" href="https://educatepressjp.netlify.app/note/ivf-duration-probability.html">
+
+  <!-- OG -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="体外受精はどのくらい続く？期間を「確率」で考える">
+  <meta property="og:description" content="回数と期間を“確率”で捉え、あなたの条件で見通しを可視化。医師がシンプルに解説。">
+  <meta property="og:url" content="https://educatepressjp.netlify.app/note/ivf-duration-probability.html">
+  <meta property="og:image" content="https://educatepressjp.netlify.app/assets/ivf-duration-thumb.jpg">
+  <meta property="og:locale" content="ja_JP">
+
+  <link rel="icon" href="/logo-educatepress.png" type="image/png">
+
+  <style>
+    :root{
+      --bg:#FFFBF7; --text:#574540; --sub:#8C7A75; --acc:#B35E76; --panel:#FEF6F7;
+      --shadow:0 10px 25px rgba(0,0,0,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{ background:var(--bg); color:var(--text);
+      font-family:ui-sans-serif,system-ui,"Inter","Noto Sans JP",Roboto,Helvetica,Arial;
+      line-height:1.9; margin:0; }
+    a{ color:var(--acc); text-decoration:none } a:hover{ text-decoration:underline }
+    .wrap{ max-width:1000px; margin:34px auto; padding:20px }
+    .breadcrumbs{ font-size:.95rem; color:var(--sub); margin-bottom:10px }
+    h1{ font-size:clamp(28px,3.2vw,36px); margin:0 0 10px; line-height:1.25 }
+    h2{ font-size:clamp(22px,2.6vw,28px); margin:26px 0 12px }
+    h3{ font-size:clamp(18px,2.0vw,22px); margin:16px 0 8px }
+    .subttl{ color:var(--sub); margin:0 0 14px }
+    .pill{ display:inline-block; background:#fff; border:1px solid rgba(0,0,0,.06);
+           border-radius:9999px; padding:.2rem .7rem; color:var(--sub); font-size:.9rem; margin-right:.4rem }
+    .muted{ color:var(--sub) }
+    .card{ background:var(--panel); border-radius:16px; padding:20px; margin:16px 0;
+           box-shadow:var(--shadow); border:1px solid rgba(179,94,118,.10) }
+    details{ border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:.6rem .9rem; margin:.6rem 0; background:#fff }
+    summary{ cursor:pointer; font-weight:600 }
+    .cta-btn{ display:inline-flex; align-items:center; gap:.5rem; border-radius:9999px; padding:.7rem 1rem; border:1px solid rgba(0,0,0,.08); background:#fff; box-shadow:0 6px 16px rgba(0,0,0,.06) }
+    .cta-btn svg{ width:18px; height:18px }
+    .note{ font-size:.95rem; color:var(--sub) }
+    ul.clean{ margin:0; padding-left:1.1em }
+    .kbd{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; background:#fff; border:1px solid rgba(0,0,0,.08);
+          padding:.1rem .35rem; border-radius:6px; font-size:.92rem }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- パンくず -->
+  <nav class="breadcrumbs"><a href="/">ホーム</a> / <a href="/#related-articles">関連記事</a> / 期間を「確率」で考える</nav>
+
+  <!-- ヒーロー -->
+  <header class="card">
+    <h1>体外受精はどのくらい続く？　期間を「確率」で考える</h1>
+    <p class="subttl">“見通し”を持つことで、心の準備と計画が具体化します。</p>
+    <p class="muted"><span class="pill">医師解説</span><span class="pill">累積生児獲得率（CLBR）</span><span class="pill">シミュレーター</span></p>
+  </header>
+
+  <!-- 導入 -->
+  <section class="card">
+    <p>体外受精（IVF）を始めるとき、多くの方が「何回で授かれる？」「いつ頃ゴールに近づく？」と不安になります。個人差がある以上、唯一の正解はありませんが、あなたに近い条件のデータから<strong>“見通し”</strong>を持つことは、心の準備や計画づくりにとても役立ちます。</p>
+  </section>
+
+  <!-- なぜシミュレーターが重要か -->
+  <section class="card">
+    <h2>なぜシミュレーターが重要なのか？</h2>
+    <p>移植一回あたりの妊娠率は、年齢や胚盤胞のグレードから推定されますが、<strong>最終的に妊娠出産というゴールを達成するまでに必要な治療回数と所要期間</strong>を事前に見積もるのは容易ではありません。「どのくらい時間がかかるのか？」を先に知っておければ心構えになります。その要望に応えるのが、本シミュレーターです。</p>
+    <p><a class="cta-btn" href="https://chatgpt.com/canvas/shared/68b783ad34648191bf0ef3ba12ce8a96" target="_blank" rel="noopener noreferrer">
+      <!-- external link icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 6H18m0 0v4.5M18 6l-7.5 7.5M8.25 7.5H7.5A2.25 2.25 0 0 0 5.25 9.75v6.75A2.25 2.25 0 0 0 7.5 18.75h6.75a2.25 2.25 0 0 0 2.25-2.25v-.75"/>
+      </svg>
+      シミュレーターを開く（共有Canvas）</a></p>
+    <p class="note">※予測は将来の結果を保証するものではありません。新しいタブで開きます。</p>
+  </section>
+
+  <!-- 予測シミュレーターでできること -->
+  <section class="card">
+    <h2>予測シミュレーターでできること</h2>
+    <p>当院サイトの<strong>モンテカルロ・シミュレーター</strong>（年齢やAMHなどを入力）では、出産到達までの<strong>目安の期間</strong>や<strong>必要になりうる採卵・移植回数</strong>を確率的に見積もれます。</p>
+  </section>
+
+  <!-- 結果の読み方 -->
+  <section class="card">
+    <h2>結果の読み方（例）</h2>
+    <ul class="clean">
+      <li><strong>到達時期 50%：5か月</strong> —— 半数の人が<strong>5か月以内</strong>に出産まで到達するシナリオ。</li>
+      <li><strong>到達時期 80%：8か月</strong> —— 8割が<strong>8か月以内</strong>に到達するシナリオ。</li>
+      <li><strong>必要回数の目安：</strong>採卵 <strong>1–4回</strong>／移植 <strong>2–8回</strong><br>
+          <span class="note">※幅があるのは、卵子数・胚盤胞化・染色体正常（euploid）割合・移植あたり出生率などが人によって異なるためです。</span></li>
+    </ul>
+  </section>
+
+  <!-- グラフが示す道のり -->
+  <section class="card">
+    <h2>グラフでわかる「治療の道のり」</h2>
+    <p><strong>累積生児獲得率（CLBR）</strong>：治療の継続に伴い<strong>成功確率が積み上がる</strong>S字カーブ。初期は緩やか→中盤で上昇→やがて頭打ちへ。</p>
+    <p><strong>成功時期の分布</strong>：<em>どの時点で成功が多いか</em>を可視化。序盤での達成が多いケースもあれば、一定の積み重ねを要する場合も。</p>
+  </section>
+
+  <!-- 計算の要点 -->
+  <section class="card">
+    <h2>シミュレーターは何を計算しているか（要点）</h2>
+    <ul>
+      <li><strong>年齢</strong> → 参考AMH（個別値に置換可）</li>
+      <li><strong>AMH</strong> → 1採卵あたりの<strong>成熟卵数</strong>（安全上限10–15個目安）</li>
+      <li><strong>年齢</strong> → <strong>胚盤胞到達率</strong></li>
+      <li>②×③ → <strong>移植可能胚盤胞数</strong></li>
+      <li><strong>年齢</strong> → <strong>euploid（染色体数が正常）割合</strong></li>
+      <li><strong>euploid胚の移植あたり出生率</strong> → <strong>累積生児獲得率</strong>に集約</li>
+    </ul>
+    <p class="note"><strong>さらにスケジュール制約も反映：</strong><br>
+      ・採卵〜凍結：目安約<strong>1.5か月</strong>（PGT-Aありは約<strong>2.5か月</strong>）<br>
+      ・移植周期：約<strong>1か月</strong><br>
+      ・<strong>保険診療のルール</strong>（凍結胚が残る間は次採卵不可 など）<br>
+      実際の流れを<strong>「採卵 → 移植 → 移植 → 採卵 → …」</strong>と時系列で積み上げ、トータル期間を試算します。
+    </p>
+  </section>
+
+  <!-- カスタマイズ -->
+  <section class="card">
+    <h2>自分用にカスタマイズできる入力項目</h2>
+    <p>ART開始年齢 / AMH、成熟卵獲得数（平均） / 胚盤胞到達率、euploid割合 / PGT-Aの有無 / 移植制約 など。検査結果やこれまでの治療経過に合わせて調整すると、<strong>より自分ごと化された見通し</strong>になります（関連：<a href="/note/amh.html">AMHとは？</a>、<a href="/note/emt.html">内膜の厚さと妊娠率</a>）。</p>
+  </section>
+
+  <!-- 心の準備 -->
+  <section class="card">
+    <h2>心の準備と“作戦会議”のために</h2>
+    <p>シミュレーターは<strong>予測</strong>であって<strong>保証</strong>ではありません。大切なのは、結果を<strong>“作戦会議の共通言語”</strong>にすること。</p>
+    <ul class="clean">
+      <li>「<strong>8か月</strong>かかる可能性を見込むなら、仕事や生活の調整は？」</li>
+      <li>「<strong>採卵4回</strong>になるかもしれないなら、費用と心身のペースはどう設計する？」</li>
+    </ul>
+    <p>先が見えない不安を<strong>“見通し”</strong>に変え、パートナーと<strong>前向きな計画</strong>を立てるツールとして使ってください。</p>
+    <p><a class="cta-btn" href="https://chatgpt.com/canvas/shared/68b783ad34648191bf0ef3ba12ce8a96" target="_blank" rel="noopener noreferrer">シミュレーターを開く（共有Canvas）</a></p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="card">
+    <h2>よくある質問（簡易版）</h2>
+    <details><summary>何回で妊娠・出産できますか？</summary>
+      <p>個人差があります。累積でみると、胚数・euploid率・移植あたり成績の掛け合わせで到達確率が変わります。</p>
+    </details>
+    <details><summary>AMHが低いと厳しい？</summary>
+      <p>主に採卵で得られる卵（胚）数に影響します。年齢は<strong>胚の質（euploid率）</strong>に影響。両輪で戦略を。</p>
+    </details>
+    <details><summary>まず何をすれば？</summary>
+      <p>検査で現在地の把握 → シミュレーションで方針比較 → 治療と生活設計をすり合わせ、最短距離の計画を。</p>
+    </details>
+  </section>
+
+  <!-- CTAと戻る -->
+  <section class="card">
+    <h2>具体的な見通しを確認する</h2>
+    <p><a class="cta-btn" href="https://chatgpt.com/canvas/shared/68b783ad34648191bf0ef3ba12ce8a96" target="_blank" rel="noopener noreferrer">シミュレーターを開く（共有Canvas）</a></p>
+  </section>
+
+  <p style="margin:18px 0 0"><a href="/#related-articles">← 公式LPへ戻る</a></p>
+</div>
+
+<!-- 著者カード自動挿入（/note/配下で有効） -->
+<script src="/assets/author-inject.js" defer></script>
+
+<!-- Article 構造化データ -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"体外受精はどのくらい続く？期間を「確率」で考える",
+  "description":"体外受精（IVF）の期間や必要回数を“確率”の視点で整理。モンテカルロ・シミュレーターとCLBR（累積生児獲得率）の考え方を医師がやさしく解説します。",
+  "datePublished":"2025-11-11",
+  "dateModified":"2025-11-11",
+  "inLanguage":"ja",
+  "author":{"@type":"Person","name":"Takuma Sato, MD, PhD"},
+  "publisher":{"@type":"Organization","name":"Educate Press",
+    "logo":{"@type":"ImageObject","url":"https://educatepressjp.netlify.app/logo-educatepress.png"}},
+  "mainEntityOfPage":"https://educatepressjp.netlify.app/note/ivf-duration-probability.html",
+  "image":"https://educatepressjp.netlify.app/assets/ivf-duration-thumb.jpg",
+  "keywords":["体外受精","IVF","累積生児獲得率","AMH","PGT-A","治療期間","必要回数"]
+}
+</script>
+
+<!-- FAQ 構造化データ -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"FAQPage",
+ "mainEntity":[
+  {"@type":"Question","name":"何回で妊娠・出産できますか？",
+   "acceptedAnswer":{"@type":"Answer","text":"個人差があります。累積でみると、胚数・euploid率・移植あたり成績の掛け合わせで到達確率が変わります。"}},
+  {"@type":"Question","name":"AMHが低いと厳しい？",
+   "acceptedAnswer":{"@type":"Answer","text":"主に採卵で得られる卵（胚）数に影響します。年齢は胚の質（euploid率）に影響。両輪で戦略を。"}},
+  {"@type":"Question","name":"まず何をすれば？",
+   "acceptedAnswer":{"@type":"Answer","text":"検査で現在地の把握 → シミュレーションで方針比較 → 治療と生活設計をすり合わせ、最短距離の計画を。"}}
+ ]
+}
+</script>
+</body>
+</html>
