@@ -10,6 +10,7 @@
     "add": "liftkit add"
   },
   "dependencies": {
+    "@csstools/normalize.css": "^12.1.1",
     "@material/material-color-utilities": "^0.3.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
