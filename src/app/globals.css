@@ -27,6 +27,13 @@
     --gold: #C9922E;
     --gold-pale: #FDF5E6;
 
+    /* Category badge colors */
+    --cat-basics: #5B8C6B;
+    --cat-treat: #4A7FB5;
+    --cat-mental: #9B6FA6;
+    --cat-male: #6B8E9B;
+    --cat-test: #C9922E;
+
     /* Shadows */
     --shadow-card: 0 2px 16px rgba(62, 20, 20, 0.07), 0 8px 32px rgba(62, 20, 20, 0.04);
     --shadow-hover: 0 8px 32px rgba(62, 20, 20, 0.12), 0 20px 48px rgba(62, 20, 20, 0.06);
@@ -289,25 +296,202 @@ body {
     margin-top: 1.25em;
 }
 
-/* ── Sticky CTA ── */
+/* ── Sticky CTA (responsive) ── */
+/* Mobile: full-width bar at bottom */
 .sticky-cta {
     position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.75rem;
     background: white;
-    padding: 0.5rem 1.25rem 0.5rem 0.5rem;
-    border-radius: var(--radius-pill);
-    box-shadow: var(--shadow-float);
-    border: 1px solid rgba(247, 183, 49, 0.3);
+    padding: 0.75rem 1.25rem;
+    border-radius: 0;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+    border-top: 1px solid rgba(196, 104, 126, 0.15);
     text-decoration: none;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
 
 .sticky-cta:hover {
-    transform: scale(1.04);
+    transform: none;
+}
+
+/* Desktop: float pill at bottom-right */
+@media (min-width: 768px) {
+    .sticky-cta {
+        bottom: 1.5rem;
+        left: auto;
+        right: 1.5rem;
+        padding: 0.5rem 1.25rem 0.5rem 0.5rem;
+        border-radius: var(--radius-pill);
+        box-shadow: var(--shadow-float);
+        border: 1px solid rgba(247, 183, 49, 0.3);
+        border-top: none;
+    }
+
+    .sticky-cta:hover {
+        transform: scale(1.04);
+    }
+}
+
+/* ── Category badge ── */
+.cat-badge {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-pill);
+    color: white;
+    z-index: 2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ── FAQ accordion ── */
+.faq-item {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(196, 104, 126, 0.08);
+    overflow: hidden;
+}
+
+.faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--rose);
+    transition: background 0.2s ease;
+}
+
+.faq-item summary:hover {
+    background: var(--rose-pale);
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '+';
+    margin-left: auto;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--rose-light);
+    transition: transform 0.3s ease;
+}
+
+.faq-item[open] summary::after {
+    content: '−';
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 1.75rem 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--text-mid);
+    animation: faq-open 0.3s ease;
+}
+
+@keyframes faq-open {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── TOC accordion ── */
+.toc-item {
+    border-bottom: 1px solid var(--beige-mid);
+}
+
+.toc-item:last-child {
+    border-bottom: none;
+}
+
+.toc-item summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.toc-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.toc-item summary::after {
+    content: '▸';
+    margin-left: auto;
+    color: var(--rose-light);
+    transition: transform 0.2s ease;
+}
+
+.toc-item[open] summary::after {
+    transform: rotate(90deg);
+}
+
+.toc-desc {
+    padding: 0 0 1rem 4rem;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    animation: faq-open 0.25s ease;
+}
+
+/* ── CTA arrow animation ── */
+.cta-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.group:hover .cta-arrow,
+.lp-btn-amazon:hover .cta-arrow {
+    transform: translateX(3px);
+}
+
+/* ── Hero dot pattern ── */
+.hero-dots {
+    background-image: radial-gradient(circle, rgba(196, 104, 126, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+/* ── Thumbnail overlay gradient ── */
+.thumb-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.45) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Mobile body padding for sticky bar */
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 4.5rem;
+    }
 }
