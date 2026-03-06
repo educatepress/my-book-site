@@ -45,7 +45,7 @@ export default function Home() {
                 {/* We will copy the assets over next */}
                 <div className="relative w-full aspect-[3/4] max-w-sm rounded-[var(--lk-radius-l)] overflow-hidden shadow-elevation-3">
                   <Image
-                    src="/0mockup.jp.png"
+                    src="/mockup-jp.png"
                     alt="20代で考える 将来妊娠で困らないための選択"
                     fill
                     className="object-cover"
@@ -135,7 +135,7 @@ export default function Home() {
               <Card variant="outline" className="h-full flex flex-col hover:border-primary transition-colors">
                 <div className="relative w-full aspect-video bg-surface-variant">
                   <Image
-                    src="/assets/image%20(1).png"
+                    src="/assets/age-fertility-thumb.jpg"
                     alt="20代の妊娠の実情"
                     fill
                     className="object-cover"
@@ -153,7 +153,7 @@ export default function Home() {
               <Card variant="outline" className="h-full flex flex-col hover:border-primary transition-colors">
                 <div className="relative w-full aspect-video bg-surface-variant">
                   <Image
-                    src="/assets/age-egg.png"
+                    src="/assets/amh-thumb.jpg"
                     alt="加齢とともに卵子はどうなる？"
                     fill
                     className="object-cover"
@@ -175,7 +175,7 @@ export default function Home() {
           <Card variant="fill" className="p-l md:p-xl flex flex-col md:flex-row gap-l items-center md:items-start text-center md:text-left">
             <div className="relative w-32 h-32 rounded-full overflow-hidden shrink-0 border-4 border-surface shadow-elevation-1">
               <Image
-                src="/assets/author-profile.jpg"
+                src="/assets/author-takuma.jpg"
                 alt="佐藤 琢磨"
                 fill
                 className="object-cover"
