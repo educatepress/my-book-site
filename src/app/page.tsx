@@ -28,18 +28,26 @@ const Eyebrow = ({ label }: { label: string }) => (
 /* Article card */
 const ArtCard = ({ href, img, title, desc, external = false }: { href: string; img: string; title: string; desc: string; external?: boolean }) => (
   <a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} className="group block outline-none h-full">
-    <div className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(179,94,118,0.08)] hover:shadow-[0_12px_40px_rgba(179,94,118,0.18)] hover:-translate-y-1 transition-all duration-300 h-full flex flex-col border border-[#B35E76]/8">
-      <div className="relative w-full aspect-video overflow-hidden bg-[#FFF7F5]">
+    <div className="bg-white rounded-2xl overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1.5"
+      style={{ boxShadow: "0 2px 12px rgba(179,94,118,0.07), 0 8px 32px rgba(0,0,0,0.04)", border: "1px solid rgba(179,94,118,0.1)" }}
+    >
+      {/* Thumbnail */}
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "3/2", background: "#FFF7F5" }}>
         <Image src={img} alt={title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+        {external && (
+          <span className="absolute top-3 right-3 bg-black/60 text-white text-xs font-bold px-2 py-0.5 rounded-full backdrop-blur-sm">note</span>
+        )}
       </div>
-      <div className="p-6 flex flex-col flex-1 gap-4">
-        <h3 className="font-bold text-[#574540] text-base leading-snug line-clamp-2">{title}</h3>
-        <p className="text-[#8C7A75] text-sm leading-relaxed line-clamp-3 flex-1">{desc}</p>
-        <span className="text-[#B35E76] font-bold text-sm group-hover:underline">{external ? "noteで読む ↗" : "記事を読む →"}</span>
+      {/* Body */}
+      <div className="flex flex-col flex-1 p-5 gap-3">
+        <h3 className="font-bold text-sm leading-snug line-clamp-2" style={{ color: "#3d2a27" }}>{title}</h3>
+        <p className="text-xs leading-relaxed line-clamp-3 flex-1" style={{ color: "#8C7A75" }}>{desc}</p>
+        <span className="text-xs font-bold group-hover:underline" style={{ color: "#B35E76" }}>{external ? "noteで読む ↗" : "記事を読む →"}</span>
       </div>
     </div>
   </a>
 );
+
 
 export default function Home() {
   return (
@@ -103,15 +111,13 @@ export default function Home() {
             {/* Right col – book + author */}
             <FadeIn delay={0.25} direction="left">
               <div className="flex items-end justify-center gap-8">
-                {/* Book cover */}
-                <div className="relative flex-shrink-0" style={{ filter: "drop-shadow(0 30px 50px rgba(179,94,118,0.28))" }}>
+                {/* Book cover – fixed-height wrapper to prevent stretching */}
+                <div className="relative flex-shrink-0" style={{ width: 200, height: 286, filter: "drop-shadow(0 30px 50px rgba(179,94,118,0.28))" }}>
                   <Image
                     src="/mockup-jp.png"
                     alt="書影"
-                    width={220}
-                    height={315}
-                    className="rounded-xl object-contain"
-                    style={{ border: "1px solid rgba(179,94,118,0.12)" }}
+                    fill
+                    className="object-contain"
                     priority
                   />
                 </div>
@@ -269,14 +275,6 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: "16/9", boxShadow: "0 4px 16px rgba(0,0,0,0.1)" }}>
-                    <Image src="/APlus_2.jpg" alt="事実1〜12" fill className="object-cover" />
-                  </div>
-                  <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: "16/9", boxShadow: "0 4px 16px rgba(0,0,0,0.1)" }}>
-                    <Image src="/APlus_3.jpg" alt="事実13〜24" fill className="object-cover" />
-                  </div>
-                </div>
               </div>
             </FadeIn>
           </div>
