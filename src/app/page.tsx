@@ -8,32 +8,58 @@ function ArtCard({ href, img, title, desc, external = false }: {
   href: string; img: string; title: string; desc: string; external?: boolean;
 }) {
   return (
-    <a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}
-      className="lp-card flex flex-col h-full group" style={{ textDecoration: "none" }}>
-      {/* Thumbnail */}
-      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "3/2" }}>
-        <Image src={img} alt={title} fill className="object-cover"
-          style={{ transition: "transform 0.5s ease" }} />
-        <div className="absolute inset-0 group-hover:opacity-90 transition-opacity" style={{ background: "rgba(0,0,0,0)" }} />
+    <a
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+      className="lp-card flex flex-col h-full group"
+      style={{ textDecoration: "none" }}
+    >
+      {/* Thumbnail – aspect-video keeps all images the same height */}
+      <div className="relative w-full aspect-video overflow-hidden" style={{ flexShrink: 0 }}>
+        <Image
+          src={img}
+          alt={title}
+          fill
+          className="object-cover w-full group-hover:scale-105"
+          style={{ transition: "transform 0.5s ease" }}
+        />
         {external && (
-          <span className="absolute top-3 left-3 text-white text-xs font-bold px-2.5 py-1 rounded-full"
-            style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(6px)", letterSpacing: "0.08em" }}>
+          <span
+            className="absolute top-3 left-3 text-white text-xs font-bold px-2.5 py-0.5 rounded-full"
+            style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(6px)", letterSpacing: "0.08em" }}
+          >
             note
           </span>
         )}
       </div>
-      {/* Body */}
-      <div className="flex flex-col flex-1 p-5 gap-3">
-        <h3 className="font-bold leading-snug" style={{ fontSize: "0.9rem", color: "var(--text-dark)", lineHeight: 1.5 }}
-        >{title}</h3>
-        <p className="flex-1" style={{ fontSize: "0.8rem", color: "var(--text-muted)", lineHeight: 1.75 }}>{desc}</p>
-        <span className="font-bold" style={{ fontSize: "0.78rem", color: "var(--rose)" }}>
+
+      {/* Body – flex-col so link stays at bottom regardless of text length */}
+      <div className="flex flex-col flex-1 p-6 gap-3">
+        <h3
+          className="font-bold leading-snug text-gray-800"
+          style={{ fontSize: "0.925rem", lineHeight: 1.55 }}
+        >
+          {title}
+        </h3>
+        {/* flex-grow pushes the link to the bottom of the card */}
+        <p
+          className="flex-grow text-gray-600 leading-relaxed"
+          style={{ fontSize: "0.82rem" }}
+        >
+          {desc}
+        </p>
+        <span
+          className="font-bold mt-1"
+          style={{ fontSize: "0.78rem", color: "var(--rose)" }}
+        >
           {external ? "noteで読む ↗" : "記事を読む →"}
         </span>
       </div>
     </a>
   );
 }
+
 
 /* ─── Review card ──────────────────────────────────────── */
 function ReviewCard({ name, text }: { name: string; text: string }) {
@@ -187,7 +213,7 @@ export default function Home() {
               <div className="lp-divider mx-auto" />
             </div>
           </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {[
               { href: "/note/irregularmenscycle.html", img: "/assets/irregular-mens-cycle-thumb.jpg", title: "月経不順と妊娠しやすさ：基礎知識と受診のタイミング", desc: "月経周期の乱れの背景にあるホルモンバランス・PCOS・生活習慣と、妊娠しやすさへの影響を医師が整理します。" },
               { href: "/note/pregnancy_loss_info.html", img: "/assets/pregnancy-loss-info-thumb.jpg", title: "良好胚なのに流産をくり返すのはなぜ？", desc: "良好胚を移植しても流産や陰性が続く背景を、年齢と染色体のデータから解説。" },
@@ -219,7 +245,7 @@ export default function Home() {
               <div className="lp-divider mx-auto" />
             </div>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7">
             {[
               { href: "https://note.com/famous_cosmos408/n/n6bcf9f9897a3", img: "https://assets.st-note.com/production/uploads/images/184173771/rectangle_large_type_2_f24907bccd86a833160d1d1f1aa58627.jpeg", title: "不妊治療と仕事の両立の現実", desc: "キャリアと治療を両立させるための現場の課題と希望を伝えます。" },
               { href: "https://note.com/famous_cosmos408/n/nfebab758114f", img: "https://assets.st-note.com/production/uploads/images/178146733/rectangle_large_type_2_c5777ee592a1c24e5df3862cc8b5aee1.jpeg", title: "幸せな人生とは　生殖医療専門医の視点", desc: "生殖医療の現場から見える「幸福」と「選択」の本質を考えます。" },
