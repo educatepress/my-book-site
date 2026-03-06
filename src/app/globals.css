@@ -1,17 +1,13 @@
 @import "@/lib/css/index.css";
 
 /* ═══════════════════════════════════════════════════════
-   DESIGN SYSTEM – Educate Press Book LP
-   Target: 20–30代女性向け 医療書籍 LP
-   Palette: Warm Ivory + Deep Rose + Coral + Beige
+   DESIGN SYSTEM – Educate Press Book LP v3
+   7-Section Storytelling Structure
    ═══════════════════════════════════════════════════════ */
 
-/* ── Google Fonts ── */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap');
 
-/* ── CSS Custom Properties ── */
 :root {
-    /* Palette */
     --rose: #C4687E;
     --rose-light: #E8A0B0;
     --rose-pale: #FDF0F2;
@@ -26,49 +22,36 @@
     --white: #FFFFFF;
     --gold: #C9922E;
     --gold-pale: #FDF5E6;
-
-    /* Category badge colors */
+    --footer-bg: #2D2020;
+    --footer-text: #E8DDD6;
+    --footer-muted: #9B8585;
     --cat-basics: #5B8C6B;
     --cat-treat: #4A7FB5;
     --cat-mental: #9B6FA6;
     --cat-male: #6B8E9B;
     --cat-test: #C9922E;
-
-    /* Shadows */
     --shadow-card: 0 2px 16px rgba(62, 20, 20, 0.07), 0 8px 32px rgba(62, 20, 20, 0.04);
     --shadow-hover: 0 8px 32px rgba(62, 20, 20, 0.12), 0 20px 48px rgba(62, 20, 20, 0.06);
     --shadow-float: 0 8px 40px rgba(0, 0, 0, 0.18);
-
-    /* Radii */
     --radius-sm: 10px;
     --radius-md: 16px;
     --radius-lg: 24px;
     --radius-xl: 32px;
     --radius-pill: 999px;
-
-    /* LiftKit primary overrides */
     --light__primary_lkv: #C4687E;
     --light__onprimary_lkv: #ffffff;
     --light__primarycontainer_lkv: #FDF0F2;
-    --light__onprimarycontainer_lkv: #4a0a20;
     --light__surface_lkv: #FDFAF7;
     --light__onsurface_lkv: #2D2020;
     --light__surfacevariant_lkv: #F7F0E8;
     --light__onsurfacevariant_lkv: #5C4848;
     --light__outline_lkv: rgba(196, 104, 126, 0.2);
-    --light__outlinevariant_lkv: rgba(196, 104, 126, 0.1);
     --light__background_lkv: #FDFAF7;
     --light__onbackground_lkv: #2D2020;
     --light__secondary_lkv: #D4856A;
     --light__onsecondary_lkv: #ffffff;
-    --light__secondarycontainer_lkv: #F5CBBF;
-    --light__onsecondarycontainer_lkv: #4a2010;
-
-    --dark__primary_lkv: #e8a0b0;
-    --dark__onprimary_lkv: #6b002a;
 }
 
-/* ── Base Typography ── */
 *,
 *::before,
 *::after {
@@ -84,20 +67,10 @@ body {
     background-color: var(--ivory);
     color: var(--text-dark);
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     line-height: 1.7;
 }
 
-/* ── Type Scale ──
-   h1: 2.75rem (44px)  bold 900
-   h2: 2rem    (32px)  bold 700
-   h3: 1.25rem (20px)  bold 700
-   body: 1rem  (16px)  400
-   sm:  0.875rem (14px)
-   xs:  0.75rem  (12px)
-*/
-
-/* ── Container Utility ── */
+/* ── Containers ── */
 .lp-container {
     width: 100%;
     max-width: 1120px;
@@ -105,13 +78,13 @@ body {
     padding-inline: 1.5rem;
 }
 
-@media (min-width: 640px) {
+@media(min-width:640px) {
     .lp-container {
         padding-inline: 2.5rem;
     }
 }
 
-@media (min-width: 1024px) {
+@media(min-width:1024px) {
     .lp-container {
         padding-inline: 3.5rem;
     }
@@ -124,24 +97,47 @@ body {
     padding-inline: 1.5rem;
 }
 
-@media (min-width: 640px) {
+@media(min-width:640px) {
     .lp-container-sm {
         padding-inline: 2.5rem;
     }
 }
 
-/* ── Section spacing ── */
-.lp-section {
+/* ── Section spacing (緩急) ── */
+.sec-hero {
+    padding-block: clamp(6rem, 14vw, 10rem) clamp(3rem, 6vw, 5rem);
+}
+
+.sec-lg {
     padding-block: 5rem;
 }
 
-@media (min-width: 768px) {
-    .lp-section {
+/* standard */
+.sec-md {
+    padding-block: 4rem;
+}
+
+/* trust subsections */
+.sec-sm {
+    padding-block: 3rem;
+}
+
+/* footer-like */
+@media(min-width:768px) {
+    .sec-lg {
         padding-block: 7rem;
+    }
+
+    .sec-md {
+        padding-block: 5rem;
+    }
+
+    .sec-sm {
+        padding-block: 4rem;
     }
 }
 
-/* ── Eyebrow pill ── */
+/* ── Eyebrow ── */
 .lp-eyebrow {
     display: inline-flex;
     align-items: center;
@@ -158,25 +154,40 @@ body {
     margin-bottom: 1.25rem;
 }
 
-/* ── Section heading ── */
-.lp-heading {
+/* ── Headings (hierarchy) ── */
+.lp-h1 {
     font-family: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
-    font-size: clamp(1.6rem, 4vw, 2.25rem);
+    font-size: clamp(2rem, 5vw, 3.2rem);
     font-weight: 900;
     color: var(--text-dark);
-    line-height: 1.3;
-    letter-spacing: -0.01em;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
 }
 
-/* ── Card base ── */
+.lp-h2 {
+    font-family: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.3;
+}
+
+.lp-h3 {
+    font-family: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.4;
+}
+
+/* ── Card ── */
 .lp-card {
     background: var(--white);
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-card);
     border: 1px solid rgba(196, 104, 126, 0.08);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-        box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
 }
 
 .lp-card:hover {
@@ -184,57 +195,16 @@ body {
     box-shadow: var(--shadow-hover);
 }
 
-/* ── CTA button primary ── */
-.lp-btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.9rem 2rem;
-    border-radius: var(--radius-pill);
-    font-size: 1rem;
-    font-weight: 900;
-    color: white;
-    background: linear-gradient(135deg, var(--rose) 0%, #a8506a 100%);
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(196, 104, 126, 0.4);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    text-decoration: none;
-    letter-spacing: 0.02em;
+.lp-card-static {
+    pointer-events: none;
 }
 
-.lp-btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(196, 104, 126, 0.5);
+.lp-card-static:hover {
+    transform: none;
+    box-shadow: var(--shadow-card);
 }
 
-/* ── CTA button secondary ── */
-.lp-btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.75rem;
-    border-radius: var(--radius-pill);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--rose);
-    background: white;
-    border: 2px solid var(--rose-light);
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-    text-decoration: none;
-    letter-spacing: 0.01em;
-}
-
-.lp-btn-secondary:hover {
-    transform: translateY(-2px);
-    background: var(--rose-pale);
-    border-color: var(--rose);
-}
-
-/* ── Amazon button ── */
+/* ── Buttons ── */
 .lp-btn-amazon {
     display: inline-flex;
     align-items: center;
@@ -259,9 +229,47 @@ body {
     box-shadow: 0 8px 24px rgba(247, 183, 49, 0.55);
 }
 
-/* ── Star ── */
-.lp-star {
-    color: #F7B731;
+.lp-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--radius-pill);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--rose);
+    background: white;
+    border: 2px solid var(--rose-light);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    text-decoration: none;
+}
+
+.lp-btn-secondary:hover {
+    transform: translateY(-2px);
+    background: var(--rose-pale);
+    border-color: var(--rose);
+}
+
+/* ── Prose ── */
+.lp-prose {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--text-mid);
+}
+
+.lp-prose p+p {
+    margin-top: 1.25em;
+}
+
+/* ── Divider ── */
+.lp-divider {
+    width: 3rem;
+    height: 3px;
+    border-radius: var(--radius-pill);
+    background: linear-gradient(90deg, var(--rose), var(--coral));
+    margin-block: 1.25rem;
 }
 
 /* ── Badge ── */
@@ -276,70 +284,24 @@ body {
     border: 1px solid rgba(196, 104, 126, 0.2);
 }
 
-/* ── Divider ── */
-.lp-divider {
-    width: 3rem;
-    height: 3px;
-    border-radius: var(--radius-pill);
-    background: linear-gradient(90deg, var(--rose), var(--coral));
-    margin-block: 1.25rem;
-}
-
-/* ── Prose ── */
-.lp-prose {
-    font-size: 1.05rem;
-    line-height: 1.9;
-    color: var(--text-mid);
-}
-
-.lp-prose p+p {
-    margin-top: 1.25em;
-}
-
-/* ── Sticky CTA (responsive) ── */
-/* Mobile: full-width bar at bottom */
-.sticky-cta {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: white;
-    padding: 0.75rem 1.25rem;
-    border-radius: 0;
-    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
-    border-top: 1px solid rgba(196, 104, 126, 0.15);
-    text-decoration: none;
-    cursor: pointer;
+/* ── CTA arrow hover ── */
+.cta-arrow {
+    display: inline-block;
     transition: transform 0.2s ease;
 }
 
-.sticky-cta:hover {
-    transform: none;
+.group:hover .cta-arrow,
+.lp-btn-amazon:hover .cta-arrow {
+    transform: translateX(3px);
 }
 
-/* Desktop: float pill at bottom-right */
-@media (min-width: 768px) {
-    .sticky-cta {
-        bottom: 1.5rem;
-        left: auto;
-        right: 1.5rem;
-        padding: 0.5rem 1.25rem 0.5rem 0.5rem;
-        border-radius: var(--radius-pill);
-        box-shadow: var(--shadow-float);
-        border: 1px solid rgba(247, 183, 49, 0.3);
-        border-top: none;
-    }
-
-    .sticky-cta:hover {
-        transform: scale(1.04);
-    }
+/* ── Hero dots ── */
+.hero-dots {
+    background-image: radial-gradient(circle, rgba(196, 104, 126, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
 }
 
-/* ── Category badge ── */
+/* ── Category badge (article cards) ── */
 .cat-badge {
     position: absolute;
     bottom: 0.75rem;
@@ -354,6 +316,16 @@ body {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* Thumbnail gradient overlay */
+.thumb-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.45) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
 /* ── FAQ accordion ── */
 .faq-item {
     background: var(--white);
@@ -366,7 +338,7 @@ body {
 .faq-item summary {
     cursor: pointer;
     list-style: none;
-    padding: 1.5rem 1.75rem;
+    padding: 1.25rem 1.5rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -399,7 +371,7 @@ body {
 }
 
 .faq-answer {
-    padding: 0 1.75rem 1.5rem;
+    padding: 0 1.5rem 1.25rem;
     font-size: 0.9rem;
     line-height: 1.9;
     color: var(--text-mid);
@@ -409,12 +381,12 @@ body {
 @keyframes faq-open {
     from {
         opacity: 0;
-        transform: translateY(-8px);
+        transform: translateY(-8px)
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0)
     }
 }
 
@@ -462,35 +434,70 @@ body {
     animation: faq-open 0.25s ease;
 }
 
-/* ── CTA arrow animation ── */
-.cta-arrow {
-    display: inline-block;
-    transition: transform 0.2s ease;
+/* ── Sticky CTA (responsive) ── */
+.sticky-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    padding: 0.75rem 1.25rem;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+    border-top: 1px solid rgba(196, 104, 126, 0.15);
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.group:hover .cta-arrow,
-.lp-btn-amazon:hover .cta-arrow {
-    transform: translateX(3px);
-}
-
-/* ── Hero dot pattern ── */
-.hero-dots {
-    background-image: radial-gradient(circle, rgba(196, 104, 126, 0.12) 1px, transparent 1px);
-    background-size: 24px 24px;
-}
-
-/* ── Thumbnail overlay gradient ── */
-.thumb-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.45) 100%);
-    z-index: 1;
+.sticky-cta.hidden {
+    opacity: 0;
     pointer-events: none;
+    transform: translateY(100%);
 }
 
-/* Mobile body padding for sticky bar */
-@media (max-width: 767px) {
+@media(min-width:768px) {
+    .sticky-cta {
+        bottom: 1.5rem;
+        left: auto;
+        right: 1.5rem;
+        padding: 0.5rem 1.25rem 0.5rem 0.5rem;
+        border-radius: var(--radius-pill);
+        box-shadow: var(--shadow-float);
+        border: 1px solid rgba(247, 183, 49, 0.3);
+        border-top: none;
+    }
+
+    .sticky-cta:hover {
+        transform: scale(1.04);
+    }
+
+    .sticky-cta.hidden {
+        transform: translateY(20px);
+    }
+}
+
+/* ── Footer ── */
+.lp-footer {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+}
+
+.lp-footer a {
+    color: var(--footer-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.lp-footer a:hover {
+    color: white;
+}
+
+/* ── Mobile body padding ── */
+@media(max-width:767px) {
     body {
         padding-bottom: 4.5rem;
     }
