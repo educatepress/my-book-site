@@ -6,7 +6,6 @@ import IconButton from "@/components/icon-button";
 import React from "react";
 import Text from "@/components/text";
 import "@/components/snackbar/snackbar.css";
-import { LkBadgeProps } from "@/components/badge";
 import { LkTextProps } from "@/components/text";
 import { LkButtonProps } from "@/components/button";
 import { LkIconButtonProps } from "@/components/icon-button";
@@ -30,15 +29,15 @@ export default function Snackbar(props: LkSnackbarProps) {
   const { globalColor, message = "Notification text goes here.", cardProps, children, ...restProps } = props;
 
   // Declare allowed types, so if a child with the wrong type is passed, it'll throw an error
-  const allowedTypes = [Badge, Button, Icon, IconButton, Text] as React.ComponentType<any>[];
+  const allowedTypes = [Badge, Button, Icon, IconButton, Text] as React.ComponentType[];
 
   // Validate all children first
   const childArray = React.Children.toArray(children);
 
   // Helper function to get component name for error messages
-  const getComponentName = (type: any): string => {
+  const getComponentName = (type: unknown): string => {
     if (typeof type === "string") return type;
-    return type?.displayName || type?.name || "Unknown";
+    return (type as { displayName?: string; name?: string })?.displayName || (type as { displayName?: string; name?: string })?.name || "Unknown";
   };
 
   // Validate all children upfront
@@ -46,24 +45,24 @@ export default function Snackbar(props: LkSnackbarProps) {
     if (React.isValidElement(child) && !allowedTypes.includes(child.type as React.ComponentType)) {
       throw new Error(
         `Snackbar component received an invalid child component: ${getComponentName(child.type)}. ` +
-          `Only Badge, Button, and IconButton components are allowed.`
+        `Only Badge, Button, and IconButton components are allowed.`
       );
     }
   });
 
   // Find components and validate at the same time
-  let badge: React.ReactElement | undefined;
-  let buttons: React.ReactElement[] = [];
+  // let badge: React.ReactElement | undefined;
+  const buttons: React.ReactElement[] = [];
   let icon: React.ReactElement | undefined;
-  let iconButtons: React.ReactElement[] = [];
+  const iconButtons: React.ReactElement[] = [];
 
-  let text: React.ReactElement[] = [];
+  const text: React.ReactElement[] = [];
 
   childArray.forEach((child) => {
     if (!React.isValidElement(child)) return;
 
     if (child.type === Badge) {
-      badge = child;
+      // badge = child;
     } else if (child.type === Button) {
       buttons.push(child);
     } else if (child.type === IconButton) {
@@ -120,11 +119,11 @@ export default function Snackbar(props: LkSnackbarProps) {
               {text.map((text, index) =>
                 globalColor
                   ? React.cloneElement(text, {
-                      key: index,
-                      color: getOnToken(globalColor as LkColor) as LkColor,
-                      fontClass: "body",
-                      className: getMargin(),
-                    } as LkTextProps)
+                    key: index,
+                    color: getOnToken(globalColor as LkColor) as LkColor,
+                    fontClass: "body",
+                    className: getMargin(),
+                  } as LkTextProps)
                   : React.cloneElement(text, { key: index })
               )}
             </div>
@@ -136,22 +135,22 @@ export default function Snackbar(props: LkSnackbarProps) {
                 {buttons.map((button, index) =>
                   globalColor
                     ? React.cloneElement(button, {
-                        key: index,
-                        color: globalColor,
-                        size: "sm",
-                        modifiers: `color-on${globalColor}`,
-                        style: {
-                          backgroundColor: `rgb(from var(--lk-${getOnToken(globalColor)}) r g b / 0.1)`,
-                          border: `1px solid rgb(from var(--lk-${getOnToken(globalColor)}) r g b / 0.2)`,
-                          marginRight: !icon && "calc(-1em * pow(var(--lk-wholestep-dec), 2))",
-                        },
-                        stateLayerOverride: { bgColor: `on${globalColor}` },
-                      } as Partial<LkButtonProps>)
+                      key: index,
+                      color: globalColor,
+                      size: "sm",
+                      modifiers: `color-on${globalColor}`,
+                      style: {
+                        backgroundColor: `rgb(from var(--lk-${getOnToken(globalColor)}) r g b / 0.1)`,
+                        border: `1px solid rgb(from var(--lk-${getOnToken(globalColor)}) r g b / 0.2)`,
+                        marginRight: !icon && "calc(-1em * pow(var(--lk-wholestep-dec), 2))",
+                      },
+                      stateLayerOverride: { bgColor: `on${globalColor}` },
+                    } as Partial<LkButtonProps>)
                     : React.cloneElement(button, {
-                        key: index,
-                        size: "sm",
-                        variant: "outline",
-                      } as Partial<LkButtonProps>)
+                      key: index,
+                      size: "sm",
+                      variant: "outline",
+                    } as Partial<LkButtonProps>)
                 )}
               </div>
             )}
@@ -161,14 +160,14 @@ export default function Snackbar(props: LkSnackbarProps) {
                 {iconButtons.map((iconButton, index) =>
                   globalColor
                     ? React.cloneElement(iconButton, {
-                        key: index,
-                        color: globalColor,
-                        fontClass: "heading",
-                      } as Partial<LkIconButtonProps>)
+                      key: index,
+                      color: globalColor,
+                      fontClass: "heading",
+                    } as Partial<LkIconButtonProps>)
                     : React.cloneElement(iconButton, {
-                        key: index,
-                        fontClass: "heading",
-                      } as Partial<LkIconButtonProps>)
+                      key: index,
+                      fontClass: "heading",
+                    } as Partial<LkIconButtonProps>)
                 )}
               </div>
             )}
@@ -179,26 +178,4 @@ export default function Snackbar(props: LkSnackbarProps) {
   );
 }
 
-/** Functions for handling component scaling */
 
-const fontClassList: LkFontClass[] = [
-  "display1",
-  "display2",
-  "title1",
-  "title2",
-  "title3",
-  "heading",
-  "body",
-  "callout",
-  "subheading",
-  "label",
-  "caption",
-  "capline",
-];
-
-function getAdjustedFontClass(componentName: string, parentFontClass: LkFontClass) {
-  switch (componentName) {
-  }
-}
-
-function getBadgeColor(globalColor: LkColorWithOnToken) {}

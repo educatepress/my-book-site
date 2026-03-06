@@ -39,7 +39,7 @@ export default function IconButton<T extends "fill" | "outline" | "text" = "fill
   const onToken = getOnToken(color) as LkColor;
 
   /** Dynamically set stroke width based on font class */
-  let iconStrokeWidth: number = getIconStrokeWidth(fontClass);
+  const iconStrokeWidth: number = getIconStrokeWidth(fontClass);
 
   function getIconStrokeWidth(fontClass: LkFontClass) {
     switch (fontClass) {

@@ -65,5 +65,6 @@ export default function Image({
     [aspect, borderRadius, objectFit, width, height],
   );
 
+  /* eslint-disable-next-line @next/next/no-img-element */
   return <img data-lk-component="image" {...attrs} {...rest} alt="" />;
 }

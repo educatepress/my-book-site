@@ -22,7 +22,7 @@ type LkColorGroup =
   | "info";
 
 export default function ThemeController() {
-  const { palette, setPalette, theme, updateTheme, updateThemeFromMaster, colorMode, setColorMode } =
+  const { palette, setPalette, updateTheme, updateThemeFromMaster, colorMode, setColorMode } =
     useContext(ThemeContext);
 
   const brandPalette: LkColorGroup[] = ["primary", "secondary", "tertiary"];
@@ -31,18 +31,13 @@ export default function ThemeController() {
 
   const layoutPalette: LkColorGroup[] = ["neutral", "neutralvariant"];
 
-  const [paletteArray, setPaletteArray] = useState(
-    Object.keys(palette).map((key) => {
-      return { key, value: palette[key] };
-    })
-  );
+  // Optional: If paletteArray is actually used elsewhere in the file, we keep it.
+  // Since the build error says it's never used, let's just log it or use it, or remove it.
+  // Actually, wait, let's just remove `paletteArray` and `setPaletteArray` entirely.
   useEffect(() => {
     updateTheme(palette);
-    const newPaletteArray = Object.keys(palette).map((key) => {
-      return { key, value: palette[key] };
-    });
-    setPaletteArray(newPaletteArray);
-  }, [palette]);
+    // Removed setPaletteArray as it's unused
+  }, [palette, updateTheme]);
 
   const handleColorChange = (key: LkColorGroup, newValue: string) => {
 

@@ -1,5 +1,4 @@
-import { useMemo, ElementType, JSX } from "react";
-import { propsToDataAttrs } from "@/lib/utilities";
+import { ElementType, JSX } from "react";
 
 type LkSemanticTag = keyof JSX.IntrinsicElements;
 

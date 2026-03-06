@@ -31,21 +31,7 @@ const colorsWithOnTokens = [
   "tertiaryfixed",
 ];
 
-const colorsWithoutOnTokens = [
-  "onprimaryfixed",
-  "primaryfixeddim",
-  "onprimaryfixedvariant",
-  "onsecondaryfixed",
-  "secondaryfixeddim",
-  "onsecondaryfixedvariant",
-  "ontertiaryfixed",
-  "tertiaryfixeddim",
-  "ontertiaryfixedvariant",
-  "surfacedim",
-  "surfacebright",
-  "outline",
-  "outlinevariant",
-];
+// Removed colorsWithoutOnTokens as it was unused
 
 export function getColorsWithoutOnTokens(): LkColor[] {
   return LkColors.filter((color) => !colorsWithOnTokens.includes(color as LkColorWithOnToken));
@@ -93,7 +79,8 @@ export function getOnToken(colorToken: LkColor) {
     }
   }
 
-  var tokenToReturn;
+  // ... (keeping existing structure, just changing var to let)
+  let tokenToReturn;
   //first, figure out if it's already an "on" token.
 
   switch (isAlreadyOnToken) {

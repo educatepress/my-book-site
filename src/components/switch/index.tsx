@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // import "@/components/switch/switch.css";
 import { getOnToken } from "@/lib/colorUtils";

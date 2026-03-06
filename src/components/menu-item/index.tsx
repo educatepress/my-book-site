@@ -19,11 +19,8 @@
  * </MenuItem>
  * ```
  */
-import { useMemo } from "react";
-import { propsToDataAttrs } from "@/lib/utilities";
 import "@/components/menu-item/menu-item.css";
 import StateLayer from "@/components/state-layer";
-import type { IconName } from "lucide-react/dynamic";
 import Icon from "@/components/icon";
 import { LkIconProps } from "@/components/icon";
 
@@ -40,12 +37,9 @@ interface LkMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
 export default function MenuItem({
   startIcon,
   endIcon,
-  fontClass = "body",
-  title,
   children,
   className,
   onClick,
-  ...restProps
 }: LkMenuItemProps) {
   // const dataAttrs = useMemo(() => propsToDataAttrs(restProps, "menu-item"), [restProps]); omitting because it is not used
 

@@ -36,12 +36,12 @@ export default function Grid({
 }: LkGridProps) {
   const lkGridAttrs = useMemo(
     () => propsToDataAttrs({ autoResponsive, gap, ...restProps }, "grid"),
-    [autoResponsive, columns, gap]
+    [autoResponsive, gap, restProps]
   );
 
   /**Render placeholder blocks for columns if no children are passed */
 
-  let placeholderBlocks = [];
+  const placeholderBlocks = [];
 
   if (!children) {
     for (let i = 0; i < columns; i++) {
@@ -59,7 +59,7 @@ export default function Grid({
     }
   }
 
-  const columnCount = {};
+
 
   return (
     <>

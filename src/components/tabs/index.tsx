@@ -27,7 +27,7 @@ export default function Tabs({ tabLinks, onActiveTabChange, scrollableContent, c
     } else {
       return;
     }
-  }, [activeTab]);
+  }, [activeTab, onActiveTabChange]);
 
   const dataAttrs = useMemo(() => propsToDataAttrs({ activeTab }, "tabs"), [activeTab]);
 
@@ -44,7 +44,7 @@ export default function Tabs({ tabLinks, onActiveTabChange, scrollableContent, c
       <div data-lk-tabs-el="tab-content" data-lk-tabs-content-scrollable={scrollableContent}>
         {children.map((child, index) => (
           <div key={index} style={{ display: index === activeTab ? "block" : "none" }}>
-            {child }
+            {child}
           </div>
         ))}
       </div>

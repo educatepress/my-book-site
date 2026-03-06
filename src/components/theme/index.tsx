@@ -203,23 +203,23 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
    *
    */
 
-const [colorMode, setColorMode] = useState<"light" | "dark">("light");
-  
-  const [palette, setPalette] = useState<PaletteState>({
-  "primary": "#035eff",
-  "secondary": "#badcff",
-  "tertiary": "#00ddfe",
-  "neutral": "#000000",
-  "neutralvariant": "#3f4f5b",
-  "error": "#dd305c",
-  "warning": "#feb600",
-  "success": "#0cfecd",
-  "info": "#175bfc"
-}
+  const [colorMode, setColorMode] = useState<"light" | "dark">("light");
 
-  /**
-   * END OF REPLACE BLOCK; DO NOT ALTER ANYTHING BELOW THIS COMMENT
-   */
+  const [palette, setPalette] = useState<PaletteState>({
+    "primary": "#035eff",
+    "secondary": "#badcff",
+    "tertiary": "#00ddfe",
+    "neutral": "#000000",
+    "neutralvariant": "#3f4f5b",
+    "error": "#dd305c",
+    "warning": "#feb600",
+    "success": "#0cfecd",
+    "info": "#175bfc"
+  }
+
+    /**
+     * END OF REPLACE BLOCK; DO NOT ALTER ANYTHING BELOW THIS COMMENT
+     */
 
   );
 
@@ -244,61 +244,15 @@ const [colorMode, setColorMode] = useState<"light" | "dark">("light");
     }
   }, [theme, colorMode]);
 
-  //run the initial theme generation on first load
-  useEffect(() => {
-    updateTheme(palette);
-
-    /**TODO: Debundle scroll behavior overrides from the central theme context */
-    /**This is such a confusing place to put it. */
-
-    const disableScrollOnNumberInputs = (event: WheelEvent) => {
-      const activeElement = document.activeElement as HTMLInputElement;
-      if (activeElement?.type === "number") {
-        event.preventDefault();
-      }
-    };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const activeElement = document.activeElement as HTMLInputElement;
-      if (["ArrowUp", "ArrowDown"].includes(event.key) && activeElement?.type === "number") {
-        event.preventDefault();
-      }
-    };
-
-    document.addEventListener("wheel", disableScrollOnNumberInputs, {
-      passive: false,
-    });
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("wheel", disableScrollOnNumberInputs);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
   function toSentenceCase(str: string): string {
     if (!str) return ""; // handle empty or undefined input
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
-  const getTonesFromKeyColors = (palette: PaletteState) => {
-    class TonalSwatches {
-      [key: string]: any; // Add index signature for string keys
-
-      constructor(hue: number, chroma: number) {
-        const swatch = TonalPalette.fromHueAndChroma(hue, chroma);
-
-        for (let i = 1; i <= 99; i++) {
-          this[`_${i}`] = hexFromArgb(swatch.tone(i));
-        }
-      }
-    }
-  };
-
   // Define the updateTheme function
   const updateTheme = useCallback(async (palette: PaletteState) => {
     class TonalSwatches {
-      [key: string]: any; // Add index signature for string keys
+      [key: string]: string; // Changed from any to string
 
       constructor(hue: number, chroma: number) {
         const swatch = TonalPalette.fromHueAndChroma(hue, chroma);
@@ -310,10 +264,10 @@ const [colorMode, setColorMode] = useState<"light" | "dark">("light");
     }
 
     Object.keys(palette).forEach((key) => {
-      var argb = argbFromHex(palette[key]);
-      var hct = Hct.fromInt(argb);
+      const argb = argbFromHex(palette[key]);
+      const hct = Hct.fromInt(argb);
 
-      var tones = new TonalSwatches(hct.hue, hct.chroma);
+      const tones = new TonalSwatches(hct.hue, hct.chroma);
 
       // map the tones from each color group to a swatch name
 
@@ -456,9 +410,42 @@ const [colorMode, setColorMode] = useState<"light" | "dark">("light");
     });
   }, []);
 
+  //run the initial theme generation on first load
+  useEffect(() => {
+    updateTheme(palette);
+
+    /**TODO: Debundle scroll behavior overrides from the central theme context */
+    /**This is such a confusing place to put it. */
+
+    const disableScrollOnNumberInputs = (event: WheelEvent) => {
+      const activeElement = document.activeElement as HTMLInputElement;
+      if (activeElement?.type === "number") {
+        event.preventDefault();
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const activeElement = document.activeElement as HTMLInputElement;
+      if (["ArrowUp", "ArrowDown"].includes(event.key) && activeElement?.type === "number") {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener("wheel", disableScrollOnNumberInputs, {
+      passive: false,
+    });
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("wheel", disableScrollOnNumberInputs);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [palette, updateTheme]);
+
+
   const updateThemeFromMaster = useCallback(
     async (hexCode: string, setPalette: React.Dispatch<React.SetStateAction<PaletteState>>) => {
-      var newPalette: Record<string, string> = {};
+      const newPalette: Record<string, string> = {};
 
       // need to get the key colors to feed back to the ColorModule so it can update the palette
       try {

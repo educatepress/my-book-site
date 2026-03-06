@@ -24,7 +24,7 @@ export default function TabMenu(props: LkTabMenuProps) {
     ...restProps
   } = props;
 
-/**Don't include tabLinks or setActiveTab props in the useMemo hook, because they don't affect CSS. */
+  /**Don't include tabLinks or setActiveTab props in the useMemo hook, because they don't affect CSS. */
 
   const dataAttrs = useMemo(
     () => propsToDataAttrs({ alignItems, justifyContent, activeTab }, "tab-menu"),
@@ -35,7 +35,10 @@ export default function TabMenu(props: LkTabMenuProps) {
     <div data-lk-component="tab-menu" {...dataAttrs} {...restProps}>
       <Row alignItems={alignItems} justifyContent={justifyContent}>
         {tabLinks.map((label, index) => (
-          <TabLink key={index} selected={index === activeTab} onClick={() => setActiveTab(index)}>
+          <TabLink key={index} selected={index === activeTab} onClick={() => {
+            setActiveTab(index);
+            if (onClick) onClick(index);
+          }}>
             <div>{label ?? "Tab Link"}</div>
           </TabLink>
         ))}

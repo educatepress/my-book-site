@@ -51,7 +51,7 @@ export function DropdownTrigger({ children }: LkDropdownTriggerProps) {
     onClick: () => setOpen(!open),
     "aria-expanded": open,
     "aria-haspopup": "menu",
-  } as any);
+  } as React.HTMLAttributes<HTMLElement>);
 }
 
 export function DropdownMenu({ children, cardProps }: LkDropdownMenuProps) {
@@ -71,7 +71,7 @@ export function DropdownMenu({ children, cardProps }: LkDropdownMenuProps) {
     if (open) document.addEventListener("mousedown", handleClickOutside);
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [open]);
+  }, [open, contentRef, setOpen, triggerRef]);
 
   if (!open || !triggerRef.current) return null;
 
@@ -80,11 +80,11 @@ export function DropdownMenu({ children, cardProps }: LkDropdownMenuProps) {
   /**Calculate transform origin based on triggerRef viewport quadrant */
 
   function getQuadrant() {
-    var windowWidth = window.innerWidth;
-    var windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
 
     /** Origin as in "the corner of the trigger the menu will expand from" */
-    var triggerQuadrant: "top-left" | "top-right" | "bottom-right" | "bottom-left";
+    let triggerQuadrant: "top-left" | "top-right" | "bottom-right" | "bottom-left";
 
     const isTop: boolean = rect.top < windowHeight / 2;
     const isLeft: boolean = rect.left < windowWidth / 2;
@@ -95,7 +95,7 @@ export function DropdownMenu({ children, cardProps }: LkDropdownMenuProps) {
       triggerQuadrant = isLeft ? "top-left" : "top-right";
     }
 
-    var positionStyle: React.CSSProperties = {};
+    let positionStyle: React.CSSProperties = {};
 
     switch (triggerQuadrant) {
       case "top-left":
@@ -120,10 +120,7 @@ export function DropdownMenu({ children, cardProps }: LkDropdownMenuProps) {
 
   const quadrantData = getQuadrant();
 
-  const style = {
-    top: rect.bottom + window.scrollY,
-    left: rect.right + window.scrollX,
-  };
+
 
   return ReactDOM.createPortal(
     <div

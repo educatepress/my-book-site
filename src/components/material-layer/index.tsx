@@ -31,15 +31,10 @@ export default function MaterialLayer({
   type,
   materialProps,
 }: LkMaterialLayerProps) {
-  /**If materialProps are provided, loop through the keys and pass each one as a data attribute to the component. */
-  let lkMatProps: LkMatProps;
-
-  if (materialProps) {
-    lkMatProps = useMemo(
-      () => propsToDataAttrs(materialProps, `${type}`),
-      [materialProps],
-    );
-  }
+  useMemo(
+    () => (materialProps ? propsToDataAttrs(materialProps, `${type}`) : {}),
+    [materialProps, type]
+  );
 
   /**Commented out, was likely used for debugging */
 
@@ -118,14 +113,14 @@ export default function MaterialLayer({
             backdrop-filter: blur(
               var(
                 --blur-${(materialProps as LkMatProps_Glass)?.thickness ||
-                  "normal"}
+        "normal"}
               )
             );
           }
 
           [data-lk-material-sublayer="light"] {
             background: ${(materialProps as LkMatProps_Glass)
-              ?.lightExpression || "none"};
+          ?.lightExpression || "none"};
             mix-blend-mode: soft-light;
             opacity: 1;
           }
@@ -133,15 +128,15 @@ export default function MaterialLayer({
           [data-lk-material-sublayer="base-glass-fill"] {
             background-color: var(--lk-surface);
             opacity: ${getGlassFillOpacity(
-              (materialProps as LkMatProps_Glass)?.thickness || "normal",
-            )};
+            (materialProps as LkMatProps_Glass)?.thickness || "normal",
+          )};
           }
         }
         [data-lk-material-type="flat"] {
           [data-lk-material-sublayer="bgColor"] {
             background-color: ${getBgColor(
-              (materialProps as LkMatProps_Flat)?.bgColor,
-            )};
+            (materialProps as LkMatProps_Flat)?.bgColor,
+          )};
           }
         }
       `}</style>

@@ -92,9 +92,9 @@ export function Select({ children, options = [], value = "", onChange, name }: S
         type: "change",
         isDefaultPrevented: () => false,
         isPropagationStopped: () => false,
-        persist: () => {},
-        preventDefault: () => {},
-        stopPropagation: () => {},
+        persist: () => { },
+        preventDefault: () => { },
+        stopPropagation: () => { },
       } as React.ChangeEvent<HTMLSelectElement>;
       onChange(syntheticEvent);
     }
@@ -127,7 +127,7 @@ export function Select({ children, options = [], value = "", onChange, name }: S
         ref={hiddenSelectRef}
         name={name}
         value={selectedValue}
-        onChange={() => {}} // Controlled by our custom logic
+        onChange={() => { }} // Controlled by our custom logic
         style={{
           position: "absolute",
           left: "-9999px",
@@ -158,7 +158,7 @@ export function SelectTrigger({ children }: LkSelectTriggerProps) {
     onClick: () => setOpen(!open),
     "aria-expanded": open,
     "aria-haspopup": "menu",
-  } as any);
+  } as React.HTMLAttributes<HTMLElement>);
 }
 
 export function SelectMenu({ children, cardProps }: LkSelectMenuProps) {
@@ -178,7 +178,7 @@ export function SelectMenu({ children, cardProps }: LkSelectMenuProps) {
     if (open) document.addEventListener("mousedown", handleClickOutside);
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [open]);
+  }, [open, contentRef, setOpen, triggerRef]);
 
   // Handle keyboard navigation
   useEffect(() => {
