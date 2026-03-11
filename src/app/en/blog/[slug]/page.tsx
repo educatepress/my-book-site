@@ -19,6 +19,16 @@ export async function generateMetadata({ params }: PostProps): Promise<Metadata>
     return {
         title: `${post.frontmatter.title} | Blog`,
         description: post.frontmatter.excerpt,
+        alternates: {
+            canonical: `/en/blog/${slug}`,
+        },
+        openGraph: {
+            title: post.frontmatter.title,
+            description: post.frontmatter.excerpt,
+            url: `/en/blog/${slug}`,
+            type: 'article',
+            publishedTime: post.frontmatter.date as string,
+        }
     };
 }
 
@@ -37,8 +47,34 @@ export default async function BlogPostEn({ params }: PostProps) {
         notFound();
     }
 
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: post.frontmatter.title,
+        description: post.frontmatter.excerpt,
+        datePublished: post.frontmatter.date,
+        author: {
+            '@type': 'Person',
+            name: post.frontmatter.author || 'Takuma Sato, MD, PhD',
+            url: 'https://doctors-guide-womens-health.vercel.app/en',
+            jobTitle: 'Reproductive Medicine Specialist'
+        },
+        publisher: {
+            '@type': 'MedicalOrganization',
+            name: 'Dr. Takuma Sato',
+            logo: {
+                '@type': 'ImageObject',
+                url: 'https://doctors-guide-womens-health.vercel.app/og-image.jpg'
+            }
+        }
+    };
+
     return (
         <div className="min-h-screen bg-[var(--color-cream)] py-20 px-6 font-en">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <div className="max-w-[700px] mx-auto bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-black/5 mt-10">
 
                 <nav className="mb-10">
