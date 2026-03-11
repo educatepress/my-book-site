@@ -15,7 +15,7 @@ async function main() {
 
     // We also could read book_000.xhtml to see if there is any text, but images work well for fixed-layout too.
 
-    const parts = [{
+    const parts: any[] = [{
         text: "あなたは熟練の編集者です。提供された画像群は電子書籍（EPUB）のもので、表紙・目次・「はじめに」等が含まれています。これを読んで、以下の質問に日本語で回答してください：\n\n1. この本の具体的な「ターゲット層・対象読者」は誰ですか？\n2. 著者の「語り口調・トーン・文体」はどのような特徴がありますか？\n3. ブログ記事の締めくくりとして、この本の販売につながるような「読了後の自然な誘導文（CTAフレーズ）」案を、著者のトーンに合わせて3つほど提案してください。\n\n詳細に分析してください。"
     }];
 

@@ -8,17 +8,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const jpPosts = getAllPosts('jp');
     const enPosts = getAllPosts('en');
 
+    // Helper to safely parse date
+    const safeDate = (dateStr: any) => {
+        const d = new Date(dateStr);
+        return isNaN(d.getTime()) ? new Date() : d;
+    };
+
     // Create blog post URLs
     const jpBlogUrls = jpPosts.map((post) => ({
         url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: new Date(post.frontmatter.date as string),
+        lastModified: safeDate(post.frontmatter.date),
         changeFrequency: 'weekly' as const,
         priority: 0.8,
     }));
 
     const enBlogUrls = enPosts.map((post) => ({
         url: `${baseUrl}/en/blog/${post.slug}`,
-        lastModified: new Date(post.frontmatter.date as string),
+        lastModified: safeDate(post.frontmatter.date),
         changeFrequency: 'weekly' as const,
         priority: 0.8,
     }));
