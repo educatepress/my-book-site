@@ -83,42 +83,60 @@ export default function BookDetailEn() {
                     </div>
 
                     {/* Right Column: Sneak Peek Preview */}
-                    <div className="w-full lg:w-[42%] flex flex-col items-center md:items-start justify-center">
+                    <div className="w-full lg:w-[42%] flex flex-col items-center justify-start sticky top-24">
                         <FadeIn delay={0.3} className="w-full">
-                            <div className="bg-white rounded-[24px] px-8 py-10 shadow-md flex flex-col items-center justify-center text-center min-h-[320px] border border-[var(--color-surface-mid)] mb-6">
-                                <div className="w-[140px] md:w-[180px] drop-shadow-lg mb-6">
+                            <div className="bg-white rounded-[24px] p-6 shadow-xl flex flex-col items-center text-center border border-[var(--color-surface-mid)] mb-6 overflow-hidden relative">
+                                {/* 🚨 モックアップを大きく配置 */}
+                                <div className="w-[180px] md:w-[220px] drop-shadow-[0_20px_30px_rgba(0,0,0,0.15)] mb-6 mt-4 relative z-10">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img src="/mock-en.png" alt="Book Cover" className="w-full h-auto" />
                                 </div>
-                                <h3 className="text-[1.1rem] font-bold text-[var(--color-text-dark)] mb-2">
-                                    Take a sneak peek inside
+
+                                <h3 className="text-[1.1rem] font-bold text-[var(--color-text-dark)] mb-4 flex items-center justify-center gap-1.5">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-[var(--color-sage)]"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    Take a Sneak Peek
                                 </h3>
-                                <p className="text-[0.9rem] text-[var(--color-text-mid)] mb-6">
-                                    Preview actual pages using<br />Amazon's "Look inside" feature.
-                                </p>
+
+                                {/* 🚨 LP内スワイプ完結の立ち読みエリア（英語版） */}
+                                <div className="w-full bg-[var(--color-surface)] rounded-[16px] p-4 mb-5 border border-black/5 relative">
+                                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-2 px-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                                        <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
+                                        
+                                        {/* ※実際の英語版図解画像をpublicフォルダに入れ、srcのコメントアウトを外してください */}
+                                        {[1, 2, 3].map((num) => (
+                                            <div key={num} className="snap-center shrink-0 w-[140px] aspect-[3/4] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-sm flex flex-col items-center justify-center relative group">
+                                                {/* <img src={`/preview-en-${num}.jpg`} alt={`Preview ${num}`} className="w-full h-full object-cover" /> */}
+                                                
+                                                <div className="text-[var(--color-sage)] opacity-30 mb-2">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                                                </div>
+                                                <span className="text-gray-400 text-xs font-bold uppercase">Page {num}</span>
+                                                
+                                                <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <span className="bg-white/90 text-gray-800 text-[0.65rem] px-2 py-1 rounded-full font-bold shadow-sm backdrop-blur-sm uppercase">Swipe →</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-2 font-bold uppercase tracking-wider">← Swipe to read</p>
+                                </div>
+
                                 <a
-                                    href="https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0"
+                                    href="https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-[0.9rem] font-bold text-[var(--color-sage)] border border-[var(--color-sage)] rounded-full px-6 py-2 hover:bg-[var(--color-sage-pale)] transition-colors inline-block"
+                                    className="cta-button btn-amazon w-full text-[0.95rem] font-bold text-white rounded-full px-6 py-4 shadow-lg hover:scale-105 transition-transform flex items-center justify-center"
                                 >
-                                    Read Sample on Amazon →
+                                    Continue reading on Amazon →
                                 </a>
                             </div>
 
-                            {/* Bibliographic Information Table */}
-                            <div className="text-[0.8rem] text-[var(--color-text-muted)] bg-[var(--color-surface-mid)] rounded-[16px] p-5">
-                                <dl className="grid grid-cols-[90px_1fr] gap-y-2">
-                                    <dt className="font-bold">Title</dt>
-                                    <dd>Thinking in your 20s: Choices for a Future Pregnancy Without Trouble (Japanese Edition)</dd>
-                                    <dt className="font-bold">Author</dt>
-                                    <dd>Takuma Sato, MD, PhD</dd>
-                                    <dt className="font-bold">Published</dt>
-                                    <dd>April 2025</dd>
-                                    <dt className="font-bold">Publisher</dt>
-                                    <dd>Kindle Direct Publishing</dd>
-                                    <dt className="font-bold">Format</dt>
-                                    <dd>Paperback & Kindle Edition</dd>
+                            {/* 🚨 書誌情報は目立たなくする */}
+                            <div className="text-[0.7rem] text-[var(--color-text-muted)] bg-transparent border border-black/5 rounded-[16px] p-5 opacity-60 hover:opacity-100 transition-opacity w-full">
+                                <dl className="grid grid-cols-[90px_1fr] gap-y-1">
+                                    <dt className="font-bold">Title</dt><dd>Thinking in your 20s: Choices for a Future Pregnancy...</dd>
+                                    <dt className="font-bold">Author</dt><dd>Takuma Sato, MD, PhD</dd>
+                                    <dt className="font-bold">Format</dt><dd>Paperback & Kindle Edition</dd>
                                 </dl>
                             </div>
                         </FadeIn>

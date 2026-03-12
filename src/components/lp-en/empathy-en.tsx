@@ -26,10 +26,10 @@ const AnimatedNumber = () => {
 
 export default function EmpathyEn() {
     const cards = [
-        { icon: "💭", text: 'I think "pregnancy will just happen when the time is right."' },
-        { icon: "📱", text: "There's too much information online; I don't know what to believe." },
-        { icon: "⏳", text: "I have a vague sense of anxiety when I think about my future." },
-        { icon: "🤝", text: "I don't know how to discuss fertility with my partner." },
+        { icon: "01", text: "I feel anxious seeing pregnancy announcements, but I don't know where to start." },
+        { icon: "02", text: "My career matters. But when is my body's actual 'biological deadline'?" },
+        { icon: "03", text: "Online fertility info is terrifying. What's actually medically accurate?" },
+        { icon: "04", text: "I want kids in the future, but I don't know how to bring it up with my partner." },
     ];
 
     return (

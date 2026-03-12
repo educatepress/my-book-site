@@ -49,6 +49,15 @@ export default function AuthorProfileEn() {
                                 ))}
                             </div>
 
+                            {/* 🚨 追加：著者の「想い」をストーリーとして配置 */}
+                            <div className="relative bg-white p-5 md:p-6 rounded-2xl border-l-4 border-[var(--color-sage)] shadow-sm w-full mb-6 text-left">
+                                <div className="absolute -top-3 left-4 text-[3.5rem] text-[var(--color-sage)] opacity-20 font-serif leading-none">“</div>
+                                <p className="text-[0.9rem] md:text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] relative z-10 font-medium pt-2 italic">
+                                    Every day in my clinic, I see countless women shedding tears, saying, <strong className="text-[var(--color-blush)] font-bold">"If only I had known this sooner..."</strong><br className="hidden md:block" />
+                                    Before it's too late, I want you to protect your future and your choices with the right medical knowledge. That is exactly why I distilled these 24 essential facts into this single book.
+                                </p>
+                            </div>
+
                             {/* Bio Text */}
                             <p className="text-[0.95rem] text-[var(--color-text-dark)] leading-relaxed">
                                 Board-certified Reproductive Medicine Specialist by the Japan Society for Reproductive Medicine. Graduate of Jikei University School of Medicine.<br />

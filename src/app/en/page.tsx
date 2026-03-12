@@ -6,6 +6,7 @@ import AuthorProfileEn from '@/components/lp-en/author-profile-en';
 import ReviewsEn from '@/components/lp-en/reviews-en';
 import FaqSectionEn from '@/components/lp-en/faq-section-en';
 import FinalCtaEn from '@/components/lp-en/final-cta-en';
+import StickyCtaEn from '@/components/common/sticky-cta-en';
 
 export const metadata = {
     title: "Thinking in your 20s: Choices for a Future Pregnancy Without Trouble",
@@ -24,6 +25,7 @@ export default function HomeEn() {
             <ReviewsEn />
             <FaqSectionEn />
             <FinalCtaEn />
+            <StickyCtaEn />
         </main>
     );
 }
