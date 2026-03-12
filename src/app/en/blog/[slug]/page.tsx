@@ -4,6 +4,39 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import { Metadata } from "next";
 
+// 🚨 追加：MDX内で呼び出される「中間CTA」のカスタムコンポーネント（英語版）
+const mdxComponents = {
+    MiddleCtaEn: () => (
+        <div className="not-prose my-12 bg-gradient-to-br from-[var(--color-sage-pale)] to-[var(--color-surface)] rounded-[24px] border border-[var(--color-sage)]/20 shadow-sm relative overflow-hidden group font-en">
+            <div className="p-6 md:p-8 relative z-10 flex flex-col sm:flex-row items-center sm:items-start gap-6 md:gap-8">
+                <div className="shrink-0 w-[120px] md:w-[140px]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/mock-en.png" alt="A Doctor's Guide to Women's Health & Preconception" className="w-full h-auto drop-shadow-lg group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div className="flex-1 text-center sm:text-left flex flex-col justify-center h-full pt-1">
+                    <p className="text-[0.75rem] font-bold text-[var(--color-sage)] tracking-widest mb-2 uppercase">
+                        📖 Written by a Specialist
+                    </p>
+                    <h4 className="text-[1.15rem] md:text-[1.3rem] font-bold text-[var(--color-text-dark)] mb-3 leading-snug">
+                        24 Essential Facts You Need<br className="hidden sm:block" /> to Know About Your Future Fertility
+                    </h4>
+                    <p className="text-[0.85rem] md:text-[0.9rem] text-[var(--color-text-mid)] mb-5 leading-[1.7]">
+                        To help you make evidence-based choices for your future pregnancy, I compiled systematic medical knowledge into a concise book. Available now on Kindle.
+                    </p>
+                    <a 
+                        href="https://www.amazon.com/dp/B0F7XTWJ3X/?tag=takuma0a-20" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center bg-[var(--color-sage)] hover:bg-[#5a7a5f] text-white text-[0.85rem] font-bold px-6 py-3.5 rounded-full transition-colors shadow-sm w-full sm:w-auto"
+                    >
+                        Learn More on Amazon →
+                    </a>
+                </div>
+            </div>
+        </div>
+    )
+};
+
 interface PostProps {
     params: Promise<{
         slug: string;
@@ -39,6 +72,13 @@ export async function generateStaticParams() {
     }));
 }
 
+// 🚨 追加：記事の単語数から読了目安時間を自動計算（英語の場合1分間に約200語読めると仮定）
+function calculateReadingTime(text: string): number {
+    const plainText = text.replace(/<\/?[^>]+(>|$)/g, "").replace(/[#*`_>\[\]()]/g, "");
+    const words = plainText.split(/\s+/).length;
+    return Math.max(1, Math.ceil(words / 200));
+}
+
 export default async function BlogPostEn({ params }: PostProps) {
     const { slug } = await params;
     const post = getPostBySlug(slug, 'en');
@@ -46,6 +86,8 @@ export default async function BlogPostEn({ params }: PostProps) {
     if (!post) {
         notFound();
     }
+
+    const readingTime = calculateReadingTime(post.content);
 
     const jsonLd = {
         '@context': 'https://schema.org',
@@ -70,54 +112,74 @@ export default async function BlogPostEn({ params }: PostProps) {
     };
 
     return (
-        <div className="min-h-screen bg-[var(--color-cream)] py-16 md:py-24 px-6 font-en">
+        <div className="min-h-screen bg-[var(--color-cream)] py-16 md:py-24 px-6 font-en relative overflow-x-clip">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            <article className="max-w-[760px] mx-auto bg-white rounded-[32px] p-8 md:p-14 shadow-sm border border-black/5">
+            <article className="max-w-[760px] mx-auto bg-white rounded-[32px] p-6 md:p-14 shadow-sm border border-black/5 relative z-10">
 
-                <nav className="mb-10">
-                    <Link href="/en/blog" className="text-[var(--color-sage)] text-sm font-bold hover:underline inline-flex items-center tracking-wider">
+                <nav className="mb-8 md:mb-10">
+                    <Link href="/en/blog" className="text-[var(--color-sage)] text-sm font-bold hover:underline inline-flex items-center tracking-wider bg-[var(--color-sage-pale)] px-4 py-2 rounded-full transition-colors">
                         <span className="mr-2">←</span> Back to Articles
                     </Link>
                 </nav>
 
-                <header className="mb-12 pb-10 border-b border-black/5">
+                <header className="mb-10 md:mb-12 pb-8 md:pb-10 border-b border-black/5">
+                    {/* AEO対策：冒頭で権威性を示すバッジ */}
+                    <div className="inline-flex items-center gap-2 mb-4">
+                        <span className="bg-[var(--color-sage)] text-white text-[0.7rem] font-bold px-3 py-1.5 rounded-full tracking-widest shadow-sm uppercase">
+                            Written by Fertility Specialist
+                        </span>
+                    </div>
+
                     <h1
-                        className="font-['Zen_Kaku_Gothic_New'] text-[1.6rem] md:text-[2.2rem] font-black text-[var(--color-text-dark)] leading-tight mb-6"
+                        className="font-['Zen_Kaku_Gothic_New'] text-[1.5rem] md:text-[2.2rem] font-black text-[var(--color-text-dark)] leading-[1.3] mb-6"
                     >
                         {post.frontmatter.title}
                     </h1>
-                    <div className="flex items-center gap-4 text-[0.85rem] text-[var(--color-text-muted)] font-en tracking-wider">
-                        <time dateTime={post.frontmatter.date as string}>{post.frontmatter.date}</time>
-                        {post.frontmatter.author && (
-                            <>
-                                <span className="w-1 h-1 rounded-full bg-[var(--color-text-muted)] opacity-50" />
-                                <span className="uppercase">{post.frontmatter.author}</span>
-                            </>
-                        )}
+                    
+                    <div className="flex flex-wrap items-center gap-3 text-[0.85rem] text-[var(--color-text-muted)] tracking-wider">
+                        {/* 🚨 追加：読了目安時間の表示（タイパの保証） */}
+                        <div className="flex items-center gap-1.5 bg-[var(--color-surface)] text-[var(--color-text-dark)] px-3 py-1.5 rounded-full font-bold border border-black/5 shadow-sm">
+                            <span>⏱️</span>
+                            <span>{readingTime} min read</span>
+                        </div>
+
+                        <div className="flex items-center gap-3 ml-1">
+                            <time dateTime={post.frontmatter.date as string}>{post.frontmatter.date}</time>
+                            {post.frontmatter.author && (
+                                <>
+                                    <span className="w-1 h-1 rounded-full bg-[var(--color-text-muted)] opacity-50 hidden sm:block" />
+                                    <span className="uppercase hidden sm:block font-medium">{post.frontmatter.author}</span>
+                                </>
+                            )}
+                        </div>
                     </div>
                 </header>
 
-                <div className="prose prose-sage max-w-none 
+                <div className="prose prose-sage max-w-none text-left md:text-justify
                         prose-headings:font-['Zen_Kaku_Gothic_New'] prose-headings:font-bold prose-headings:text-[var(--color-text-dark)]
-                        prose-h2:text-[1.5rem] prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-black/5 prose-h2:pb-4
-                        prose-h3:text-[1.25rem] prose-h3:mt-8 prose-h3:mb-4
-                        prose-p:text-[var(--color-text-mid)] prose-p:leading-relaxed prose-p:mb-8
-                        prose-a:text-[var(--color-sage)] prose-a:no-underline hover:prose-a:underline
-                        prose-strong:text-[var(--color-text-dark)] prose-strong:font-bold
-                        prose-ul:my-6 prose-li:text-[var(--color-text-mid)] prose-li:leading-relaxed 
-                        prose-blockquote:not-italic prose-blockquote:border-l-4 prose-blockquote:border-[var(--color-sage)] prose-blockquote:bg-[var(--color-surface)] prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:text-[0.95rem] prose-blockquote:text-[var(--color-text-mid)]
+                        prose-h2:text-[1.4rem] md:prose-h2:text-[1.6rem] prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b-2 prose-h2:border-[var(--color-sage-pale)] prose-h2:pb-3
+                        prose-h3:text-[1.15rem] md:prose-h3:text-[1.25rem] prose-h3:mt-8 prose-h3:mb-4 prose-h3:pl-4 prose-h3:border-l-4 prose-h3:border-[var(--color-sage)]
+                        prose-p:text-[0.95rem] md:prose-p:text-[1rem] prose-p:text-[var(--color-text-mid)] prose-p:leading-[1.9] prose-p:mb-8
+                        prose-a:text-[var(--color-sage)] prose-a:font-bold prose-a:underline hover:prose-a:opacity-80
+                        prose-strong:text-[var(--color-text-dark)] prose-strong:font-bold prose-strong:bg-[linear-gradient(transparent_60%,var(--color-gold-pale)_60%)]
+                        
+                        /* 💡 修正：Smart Brevityの箇条書き（Why it matters）を見やすく装飾 */
+                        prose-ul:my-8 prose-ul:bg-white prose-ul:p-6 md:prose-ul:p-8 prose-ul:rounded-2xl prose-ul:border prose-ul:border-black/5 prose-ul:shadow-sm
+                        prose-li:text-[0.95rem] md:prose-li:text-[1rem] prose-li:text-[var(--color-text-dark)] prose-li:leading-[1.8] prose-li:font-medium prose-li:marker:text-[var(--color-sage)]
+                        
+                        prose-blockquote:not-italic prose-blockquote:border-l-4 prose-blockquote:border-[var(--color-sage)] prose-blockquote:bg-[var(--color-surface)] prose-blockquote:py-3 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:text-[0.95rem] prose-blockquote:text-[var(--color-text-mid)]
                         prose-img:rounded-2xl prose-img:shadow-sm
                 ">
-                    <MDXRemote source={post.content} />
+                    <MDXRemote source={post.content} components={mdxComponents} />
                 </div>
 
                 <footer className="mt-16 pt-12 border-t border-black/5">
                     {/* 🚨 修正：スマホでもPCでも絶対に崩れない堅牢で美しいプロフィールカード（英語版ブログ用） */}
-                    <div className="bg-[#F4EFEA] rounded-[24px] p-6 md:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-5 md:gap-6 w-full mt-12 border border-black/5 shadow-sm font-en">
+                    <div className="bg-[#F4EFEA] rounded-[24px] p-6 md:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-5 md:gap-6 w-full mt-8 border border-black/5 shadow-sm font-en">
                         
                         {/* Left: Author Photo */}
                         <div className="shrink-0">

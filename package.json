@@ -9,12 +9,14 @@
     "lint": "eslint",
     "generate-content": "tsx scripts/content-gen/generate.ts",
     "generate-auto": "tsx scripts/content-gen/auto-generate.ts",
+    "generate-quote": "tsx scripts/content-gen/generate-quote-x.ts",
     "post-twitter": "ts-node scripts/content-gen/post-to-twitter.ts"
   },
   "dependencies": {
     "@google/genai": "^1.44.0",
     "@tailwindcss/typography": "^0.5.19",
     "dotenv": "^17.3.1",
+    "enquirer": "^2.4.1",
     "framer-motion": "^12.35.0",
     "gray-matter": "^4.0.3",
     "next": "16.1.6",
