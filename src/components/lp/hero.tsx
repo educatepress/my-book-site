@@ -80,13 +80,13 @@ export default function Hero() {
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ ...transition, delay: 0.08 }}
-                        className="text-[clamp(1.85rem,5vw,3.2rem)] font-black leading-[1.3] text-[var(--color-text-dark)] mb-[var(--spacing-md)]"
+                        className="text-[clamp(1.85rem,5vw,3.2rem)] font-black leading-[1.4] md:leading-[1.3] text-[var(--color-text-dark)] mb-[var(--spacing-md)]"
                         style={{ fontFeatureSettings: '"palt"' }}
                     >
                         『20代で考える
-                        <br />
+                        <br className="hidden md:block" />
                         <span className="text-[var(--color-sage)]">将来、妊娠で困らないための</span>
-                        <br />
+                        <br className="hidden md:block" />
                         選択』
                     </motion.h1>
 
@@ -97,7 +97,7 @@ export default function Hero() {
                         className="text-[1.05rem] text-[var(--color-text-mid)] leading-[1.9] mb-[var(--spacing-lg)] max-w-[500px]"
                     >
                         今の自分を大切にすることが、<br className="hidden md:block" />
-                        未来の「選択肢」を増やす。<br />
+                        未来の「選択肢」を増やす。<br className="hidden md:block" />
                         20代・30代の女性とパートナーに、<br className="hidden md:block" />
                         今から知っておくべき24の医学的事実を一冊に。
                     </motion.p>

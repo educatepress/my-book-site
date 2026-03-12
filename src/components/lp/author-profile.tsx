@@ -52,8 +52,8 @@ export default function AuthorProfile() {
 
                             {/* Bio Text */}
                             <p className="text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8]">
-                                日本生殖医学会認定・生殖医療専門医。東京慈恵会医科大学卒。<br />
-                                不妊治療の臨床と研究に従事し、2025年4月より表参道ARTクリニック勤務。<br />
+                                日本生殖医学会認定・生殖医療専門医。東京慈恵会医科大学卒。<br className="hidden md:block" />
+                                不妊治療の臨床と研究に従事し、2025年4月より表参道ARTクリニック勤務。<br className="hidden md:block" />
                                 「note」「Instagram」で正確な医療知識をやさしく発信している。
                             </p>
                         </div>

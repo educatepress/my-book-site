@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { TwitterApi } from 'twitter-api-v2';
 import fs from 'fs/promises';
 import path from 'path';
+import matter from 'gray-matter';
 
 // --- Configuration ---
 // These environment variables will be passed by GitHub Actions from Repository Secrets
@@ -42,12 +43,10 @@ async function main() {
         const latestFile = mdxFiles[0];
         const content = await fs.readFile(path.join(jpBlogDir, latestFile), 'utf8');
 
-        // Extract title
-        let title = "最新のブログ記事が公開されました！"; // fallback
-        const titleMatch = content.match(/^title:\s*['"]?([^'"]+)['"]?/m);
-        if (titleMatch) {
-            title = titleMatch[1];
-        }
+        // Parse frontmatter using gray-matter
+        const parsed = matter(content);
+        let title = parsed.data.title || "最新のブログ記事が公開されました！";
+        let xPostTip = parsed.data.x_post || "女性の健康とライフプランに関する新しい記事を更新しました。";
 
         // Extract slug from filename (e.g. "my-post.mdx" -> "my-post")
         const slug = latestFile.replace(/\.mdx$/, '');
@@ -55,7 +54,15 @@ async function main() {
         // 2. Construct the Tweet Content
         const blogUrl = `https://doctors-guide-womens-health.vercel.app/blog/${slug}`;
 
-        const tweetText = `【新着記事】\n\n${title}\n\n詳細はこちら👇\n${blogUrl}\n\n#プレコンセプションケア #女性の健康 #生殖医療 #佐藤琢磨`;
+        let tweetText = `【💡今週のプレコン・Tips】\n\n${xPostTip}\n\n👇 詳しくはこちらの最新記事で解説しています！\n${blogUrl}\n\n#プレコンセプションケア #女性の健康 #生殖医療 #佐藤琢磨`;
+        
+        // Ensure tweet fits within X 280 char limit (rough estimate, Japanese is 2 chars per visual char but Twitter counts it differently, URL is ~23 chars)
+        if (tweetText.length > 270) {
+             console.log("⚠️ Tweet text too long, truncating tip...");
+             const truncateLength = 270 - (tweetText.length - xPostTip.length);
+             const truncatedTip = xPostTip.substring(0, truncateLength - 3) + "...";
+             tweetText = `【💡今週のプレコン・Tips】\n\n${truncatedTip}\n\n👇 詳しくはこちらの最新記事で解説しています！\n${blogUrl}\n\n#プレコンセプションケア #女性の健康 #生殖医療 #佐藤琢磨`;
+        }
 
         console.log(`📝 Tweet content prepared:\n---\n${tweetText}\n---`);
 

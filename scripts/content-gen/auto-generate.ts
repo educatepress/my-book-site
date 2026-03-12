@@ -11,8 +11,73 @@ if (!process.env.GEMINI_API_KEY) {
 }
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+async function getNextReelsTheme(): Promise<string> {
+    const calendarPath = '/Users/satoutakuma/Library/CloudStorage/GoogleDrive-gana.pati1201@gmail.com/マイドライブ/Instagram_Auto_Post/Reels_Content_Calendar.md';
+    try {
+        if (!existsSync(calendarPath)) {
+             console.warn(`⚠️ Warning: Reels calendar not found at ${calendarPath}. Using default themes.`);
+             return "プレコンセプションケア、不妊予防、ライフプランニングについて";
+        }
+        const content = await fs.readFile(calendarPath, 'utf8');
+        const lines = content.split('\n');
+        
+        let foundUnchecked = false;
+        let themeText = "";
+        
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+            // Look for the first unchecked item like "- [ ] **2. 2026/03/14..."
+            if (line.match(/^- \[\s\]/)) {
+                foundUnchecked = true;
+                // Grab the next few lines for context
+                for (let j = i + 1; j < i + 4; j++) {
+                    if (lines[j] && (lines[j].includes('**テーマ**:') || lines[j].includes('**狙い**:'))) {
+                        themeText += lines[j].trim() + "\n";
+                    } else if (lines[j] && lines[j].match(/^- \[/)) {
+                        break; // hit next item
+                    }
+                }
+                break;
+            }
+        }
+        
+        if (foundUnchecked && themeText) {
+             console.log("✅ Synced with Reels Calendar Theme:\n" + themeText);
+             return themeText;
+        } else {
+             console.log("⚠️ No unchecked themes found in Reels calendar. Using default theme.");
+             return "プレコンセプションケア、不妊予防、ライフプランニングについて";
+        }
+        
+    } catch (e) {
+        console.error("❌ Error reading Reels calendar:", e);
+        return "プレコンセプションケア、不妊予防、ライフプランニングについて";
+    }
+}
+
+// Helper to inject x_post into MDX frontmatter safely
+function injectXPostFrontmatter(mdxText: string, xPostText: string): string {
+    // Escape quotes in x_post
+    const safeXPost = xPostText.replace(/"/g, '\\"');
+    
+    if (mdxText.startsWith('---')) {
+        // Find the matching end of the frontmatter wrapper
+        const firstMdxBoundary = mdxText.indexOf('---', 3);
+        if (firstMdxBoundary !== -1) {
+            const frontmatter = mdxText.slice(0, firstMdxBoundary);
+            const body = mdxText.slice(firstMdxBoundary);
+            return `${frontmatter}x_post: "${safeXPost}"\n${body}`;
+        }
+    }
+    // Fallback if no clean frontmatter is found, just prepend one
+    return `---\nx_post: "${safeXPost}"\n---\n${mdxText}`;
+}
+
 async function main() {
     console.log("🚀 Starting Automatic Blog Generation with Gemini AI...");
+
+    // 0. Sync Theme with Reels Calendar
+    const synchronizedTheme = await getNextReelsTheme();
 
     // 1. Calculate the next publishing date
     const jpBlogDir = path.join(process.cwd(), 'src/content/blog/jp');
@@ -44,12 +109,11 @@ async function main() {
 
     const prompt = `
 あなたは、生殖医療専門医（産婦人科医）である佐藤琢磨医師の専属AIコンテンツクリエイター兼、Webマーケティング/SEOの達人です。
-あなたのタスクは、以下のテーマのいずれかに関する「トレンド感のあるブログ記事」を自動で考案し、作成することです。
+あなたのタスクは、以下のテーマに関する「トレンド感のあるブログ記事と、X用のTips」を自動で考案し、作成することです。
 
-【テーマ候補】
-- Google Analytics 4 (GA4) / Webマーケティング
-- AEO (アンサーエンジン最適化) / 最新のSEOトレンド
-- プレコンセプションケア / 生殖医療
+【指定テーマ（Instagramリールと同期）】
+${synchronizedTheme}
+※このテーマと狙いに完全に沿った形で、ブログ記事を構成してください。
 
 【ターゲット読者層】
 将来の妊娠・出産、キャリアプラン、晩婚化などに漠然とした不安を抱える、20代〜30代の女性（およびそのパートナー）。
@@ -66,7 +130,7 @@ async function main() {
 
 記事の投稿日（フロントマター用）: ${postDateStr}
 
-以下の2つのアセットをJSON形式で出力してください。
+以下の3つのアセットをJSON形式で出力してください。
 
 1. "jpBlog": 完全な日本語版のMDXブログ記事（2000文字程度）。
    - Markdownのフロントマター（title, date, excerpt, author）から始めること。YAMLエラーを防ぐためタイトルはダブルクォーテーションで囲む。
@@ -83,11 +147,15 @@ async function main() {
 2. "enBlog": 日本語版と同内容の、英語に翻訳・ローカライズされたMDXブログ記事。
    - 英語圏の読者にとって自然で響く表現（EmpowermentとEvidence-basedな選択を強調するトーン）にすること。
    - 英語のフロントマターを含めること。"date" の値には必ず「${postDateStr}」を指定すること。
-   - 【SEO・内部リンクの必須ルール】: LPのトップページ（ \`/en\` ）へのテキストリンク（例: \`[Learn more about our clinic](/en)\` ）を文脈に合わせて自然に組み込むこと。
+   - 【SEO・内部リンクの必須ルール】: LPのトップページ（ \`/en\` ）へのテキストリンク（例: \`[Learnって more about our clinic](/en)\` ）を文脈に合わせて自然に組み込むこと。
    - 【AEO対策ルール】: 記事の最後に「FAQ」セクションを設け、英語で1〜2つのQ&Aを含めること。
    - 記事の最後には必ず以下のURLで英語版書籍へのCTAを含めること: https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0
 
-
+3. "xPost": X（旧Twitter）用の投稿文テキスト（100〜120文字程度）。
+   - ブログ記事の内容から、読者が「なるほど！」と思えるような有益なTipsや学びを1つ抽出して文章化したもの。
+   - 単なる「ブログ更新しました」という宣伝ではなく、これ自体が独立して価値のある発信になるようにしてください。
+   - ハッシュタグ（#プレコンセプションケア など）は含めないでください（後でスクリプト側で付与します）。
+   - 「詳しくはこちら👇」などのリンク誘導文は含めないでください（後でスクリプト側で付与します）。
 
 ---
 CRITICAL: ONLY OUTPUT RAW VALID JSON. DO NOT INCLUDE MARKDOWN CODE BLOCKS. DO NOT INCLUDE ANY OTHER TEXT.
@@ -95,7 +163,8 @@ Expected JSON Schema:
 {
   "slug": "url-friendly-english-slug",
   "jpBlog": "markdown formatted string...",
-  "enBlog": "markdown formatted string..."
+  "enBlog": "markdown formatted string...",
+  "xPost": "tip text for x post here..."
 }
   `;
 
@@ -103,29 +172,34 @@ Expected JSON Schema:
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: prompt,
+            config: {
+                responseMimeType: "application/json",
+            }
         });
 
-        let resultText = response.text || '';
-        if (resultText.startsWith('\`\`\`json')) {
-            resultText = resultText.replace(/^\`\`\`json\n/, '').replace(/\n\`\`\`$/, '');
-        }
-
+        const resultText = response.text || '{}';
         const result = JSON.parse(resultText);
+
+        const safeXPost = result.xPost ? result.xPost : "";
 
         // 1. Save JP Blog MDX
         const jpBlogDir = path.join(process.cwd(), 'src/content/blog/jp');
         await fs.mkdir(jpBlogDir, { recursive: true });
         const jpBlogPath = path.join(jpBlogDir, `${result.slug}.mdx`);
-        await fs.writeFile(jpBlogPath, result.jpBlog);
+        // Inject xPost into frontmatter
+        const finalJpBlog = injectXPostFrontmatter(result.jpBlog, safeXPost);
+        await fs.writeFile(jpBlogPath, finalJpBlog);
         console.log(`✅ Saved JP Blog -> ${jpBlogPath}`);
 
         // 2. Save EN Blog MDX
         const enBlogDir = path.join(process.cwd(), 'src/content/blog/en');
         await fs.mkdir(enBlogDir, { recursive: true });
         const enBlogPath = path.join(enBlogDir, `${result.slug}-en.mdx`);
-        await fs.writeFile(enBlogPath, result.enBlog);
+        const finalEnBlog = injectXPostFrontmatter(result.enBlog, safeXPost);
+        await fs.writeFile(enBlogPath, finalEnBlog);
         console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
 
+        console.log(`📝 Generated xPost Tip: ${safeXPost}`);
         console.log("🎉 Automated content generated successfully!");
 
     } catch (err: any) {

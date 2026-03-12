@@ -70,7 +70,7 @@ export default function Empathy() {
                         <br className="hidden md:block" />
                         <span className="font-bold text-[1.2rem] text-[var(--color-sage)]">
                             <AnimatedNumber />の医学的事実
-                        </span>を、<br />
+                        </span>を、<br className="hidden md:block" />
                         やさしく、読みやすく整理した一冊です。
                     </p>
                 </FadeIn>

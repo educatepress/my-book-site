@@ -62,13 +62,12 @@ Expected JSON Schema:
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: prompt,
+            config: {
+                responseMimeType: "application/json",
+            }
         });
 
-        let resultText = response.text || '';
-        if (resultText.startsWith('```json')) {
-            resultText = resultText.replace(/^```json\n/, '').replace(/\n```$/, '');
-        }
-
+        const resultText = response.text || '{}';
         const result = JSON.parse(resultText);
 
         // 1. Save Instagram Reel to Downloads/Ig_reel

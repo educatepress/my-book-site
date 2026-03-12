@@ -48,6 +48,9 @@
     font-family: var(--font-noto-sans), sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Typography improvements for mobile Japanese text */
+    word-break: keep-all;
+    overflow-wrap: anywhere;
   }
 
   h1,
