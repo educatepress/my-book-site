@@ -57,7 +57,7 @@ export default function FinalCta() {
 
                 <FadeIn className="flex flex-col items-center w-full">
                     {/* Header Image */}
-                    <motion.div style={{ y: bookY }} className="w-[180px] md:w-[220px] mb-8 drop-shadow-2xl">
+                    <motion.div style={{ y: bookY }} className="w-[180px] md:w-[260px] mb-8 drop-shadow-2xl">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src="/mockup-jp.png"
@@ -67,7 +67,7 @@ export default function FinalCta() {
                     </motion.div>
 
                     {/* Label */}
-                    <p className="text-[0.8rem] text-white/70 tracking-[0.15em] font-bold mb-4">
+                    <p className="text-[0.8rem] text-white/70 tracking-[0.15em] font-bold mb-12">
                         Kindle版・ペーパーバック版 好評発売中
                     </p>
 

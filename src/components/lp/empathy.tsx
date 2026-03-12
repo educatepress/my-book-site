@@ -34,7 +34,7 @@ export default function Empathy() {
     ];
 
     return (
-        <section className="bg-[var(--color-white)] py-[6rem] md:py-[8rem] px-6">
+        <section className="bg-[var(--color-white)] py-[10rem] px-6">
             <div className="max-w-[1120px] mx-auto flex flex-col items-center">
 
                 <FadeIn className="text-center mb-[var(--spacing-lg)]">
@@ -69,9 +69,9 @@ export default function Empathy() {
                         本書は、産婦人科医が「先に知っていると差がつく」
                         <br className="hidden md:block" />
                         <span className="font-bold text-[1.2rem] text-[var(--color-sage)]">
-                            <AnimatedNumber />
-                        </span>
-                        の医学的事実を、やさしく、読みやすく整理した一冊です。
+                            <AnimatedNumber />の医学的事実
+                        </span>を、<br />
+                        やさしく、読みやすく整理した一冊です。
                     </p>
                 </FadeIn>
 

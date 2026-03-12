@@ -84,9 +84,9 @@ export default function Hero() {
                     >
                         『20代で考える
                         <br />
-                        <span className="text-[var(--color-sage)]">将来妊娠で困らない</span>
+                        <span className="text-[var(--color-sage)]">将来、妊娠で困らないための</span>
                         <br />
-                        ための選択』
+                        選択』
                     </motion.h1>
 
                     <motion.p
@@ -141,7 +141,7 @@ export default function Hero() {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ ...transition, delay: 0.2 }}
                     style={{ y: bookY }}
-                    className="flex-shrink-0 w-[180px] md:w-[240px] drop-shadow-2xl z-10"
+                    className="flex-shrink-0 w-[200px] md:w-[320px] lg:w-[380px] drop-shadow-2xl z-10"
                 >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img

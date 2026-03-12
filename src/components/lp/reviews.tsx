@@ -59,7 +59,7 @@ export default function Reviews() {
                             <div className="bg-white rounded-[16px] p-6 md:p-8 shadow-sm relative">
 
                                 {/* Amazon purchase badge */}
-                                <div className="absolute top-6 right-6 bg-[var(--color-gold-pale)] text-[var(--color-gold)] text-[0.7rem] font-bold px-3 py-1 rounded-full hidden sm:block">
+                                <div className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-[var(--color-gold-pale)] text-[var(--color-gold)] text-[0.7rem] font-bold px-3 py-1 rounded-full">
                                     ✓ Amazonで購入
                                 </div>
 
