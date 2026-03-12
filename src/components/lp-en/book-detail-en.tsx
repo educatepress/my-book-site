@@ -72,7 +72,7 @@ export default function BookDetailEn() {
                 <div className="flex flex-col md:flex-row gap-[var(--spacing-xl)] md:gap-[var(--spacing-3xl)]">
 
                     {/* Left Column: Chapter Accordion */}
-                    <div className="flex-1 w-full flex flex-col gap-1">
+                    <div className="w-full lg:w-[58%] flex flex-col gap-1 shrink-0">
                         {chapters.map((chapter, idx) => (
                             <FadeIn key={idx} delay={idx * 0.1}>
                                 <Accordion title={chapter.title} isOpenDefault={idx === 0}>
@@ -83,10 +83,10 @@ export default function BookDetailEn() {
                     </div>
 
                     {/* Right Column: Sneak Peek Preview */}
-                    <div className="flex-1 w-full flex flex-col items-center md:items-start justify-center">
+                    <div className="w-full lg:w-[42%] flex flex-col items-center md:items-start justify-center">
                         <FadeIn delay={0.3} className="w-full">
-                            <div className="bg-white rounded-[24px] p-8 shadow-md flex flex-col items-center justify-center text-center h-[280px] border border-[var(--color-surface-mid)] mb-6">
-                                <div className="w-[100px] md:w-[120px] drop-shadow-lg mb-4">
+                            <div className="bg-white rounded-[24px] px-8 py-10 shadow-md flex flex-col items-center justify-center text-center min-h-[320px] border border-[var(--color-surface-mid)] mb-6">
+                                <div className="w-[140px] md:w-[180px] drop-shadow-lg mb-6">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img src="/mock-en.png" alt="Book Cover" className="w-full h-auto" />
                                 </div>

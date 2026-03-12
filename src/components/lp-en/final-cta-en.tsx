@@ -56,7 +56,7 @@ export default function FinalCtaEn() {
 
                 <FadeIn className="flex flex-col items-center w-full">
                     {/* Header Image */}
-                    <motion.div style={{ y: bookY }} className="w-[180px] md:w-[220px] mb-8 drop-shadow-2xl">
+                    <motion.div style={{ y: bookY }} className="w-[200px] md:w-[280px] mb-12 drop-shadow-2xl">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src="/mock-en.png"
@@ -66,7 +66,7 @@ export default function FinalCtaEn() {
                     </motion.div>
 
                     {/* Label */}
-                    <p className="text-[0.8rem] text-white/70 tracking-[0.15em] font-bold mb-4 uppercase">
+                    <p className="text-[0.75rem] text-white/80 tracking-[0.2em] font-bold mb-5 uppercase">
                         Available Now in Kindle & Paperback
                     </p>
 

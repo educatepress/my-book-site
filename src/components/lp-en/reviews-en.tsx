@@ -69,7 +69,7 @@ export default function ReviewsEn() {
                                     <div className="text-[var(--color-gold)] text-[0.85rem]">★★★★★ 5.0</div>
                                 </div>
 
-                                <p className="text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] mb-6 font-en">
+                                <p className="text-[0.95rem] text-[var(--color-text-dark)] leading-relaxed mb-6 font-en">
                                     "{review.text}"
                                 </p>
 

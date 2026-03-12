@@ -53,7 +53,7 @@ export default function HeroEn() {
                     className="flex-1 w-full order-2 md:order-1 mt-10 md:mt-0 flex flex-col items-center md:items-start text-center md:text-left"
                 >
                     <FadeIn delay={0.2}>
-                        <div className="inline-block border border-[var(--color-sage)] text-[var(--color-sage)] rounded-full px-4 py-1 mb-6 text-[0.85rem] font-bold tracking-wider">
+                        <div className="inline-block border border-[var(--color-sage)] text-[var(--color-sage)] rounded-full px-4 py-1 mb-6 text-[0.75rem] font-bold tracking-widest uppercase">
                             Explained Simply by a Fertility Specialist
                         </div>
                     </FadeIn>
@@ -66,9 +66,11 @@ export default function HeroEn() {
                     </FadeIn>
 
                     <FadeIn delay={0.6}>
-                        <p className="text-[0.95rem] md:text-[1.1rem] text-[var(--color-text-mid)] leading-[1.8] mb-8 max-w-[500px]">
-                            What you need to know in your 20s and 30s so you don't struggle with pregnancy later.
-                            24 medical facts every woman and partner should know, compiled into one accessible book.
+                        <p className="text-[0.95rem] md:text-[1.1rem] text-[var(--color-text-mid)] leading-relaxed mb-8 max-w-[500px]">
+                            What you need to know in your 20s and 30s<br className="hidden md:block" />
+                            so you don't struggle with pregnancy later.<br />
+                            24 medical facts every woman and partner should know,<br className="hidden md:block" />
+                            compiled into one accessible book.
                         </p>
                     </FadeIn>
 
@@ -109,7 +111,7 @@ export default function HeroEn() {
                         initial={{ opacity: 0, scale: 0.9, y: 50 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         transition={{ duration: 1, delay: 0.3, ease: [0.21, 1.11, 0.81, 0.99] }}
-                        className="relative w-[220px] md:w-[320px] drop-shadow-2xl hero-mockup-float"
+                        className="relative w-[260px] md:w-[380px] lg:w-[460px] drop-shadow-2xl hero-mockup-float"
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img

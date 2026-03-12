@@ -61,9 +61,10 @@ export default function EmpathyEn() {
                 </div>
 
                 <FadeIn delay={0.4} className="text-center max-w-[600px] mx-auto">
-                    <p className="text-[1.05rem] leading-[2] text-[var(--color-text-dark)] font-en">
-                        There is <span className="font-bold text-[var(--color-sage)]">"a year's worth of difference"</span> between knowing and not knowing.<br className="hidden md:block" />
-                        This book clearly organizes <span className="font-bold text-[1.2rem] text-[var(--color-sage)]"><AnimatedNumber /></span> medical facts <br className="hidden md:block" />
+                    <p className="text-[1.05rem] leading-relaxed text-[var(--color-text-dark)] font-en">
+                        There is <span className="font-bold text-[var(--color-sage)]">"a year's worth of difference"</span><br className="hidden md:block" />
+                        between knowing and not knowing.<br />
+                        This book clearly organizes <span className="font-bold text-[1.2rem] text-[var(--color-sage)]"><AnimatedNumber /> medical facts</span><br className="hidden md:block" />
                         that a fertility specialist wishes you knew sooner.
                     </p>
                 </FadeIn>

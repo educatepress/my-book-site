@@ -53,7 +53,7 @@ const FaqItem = ({ q, a, isOpenDefault = false }: FaqItemProps) => {
                             <span className="shrink-0 w-6 h-6 rounded-full bg-[var(--color-surface-mid)] text-[var(--color-text-mid)] flex items-center justify-center text-[0.8rem] font-bold font-en mt-0.5">
                                 A
                             </span>
-                            <p className="flex-1 text-[0.9rem] text-[var(--color-text-mid)] leading-[1.8] font-en">
+                            <p className="flex-1 text-[0.9rem] text-[var(--color-text-mid)] leading-relaxed font-en">
                                 {a}
                             </p>
                         </div>
