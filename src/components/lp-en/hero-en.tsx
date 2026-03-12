@@ -54,9 +54,9 @@ export default function HeroEn() {
                 >
                     <FadeIn delay={0.2} className="flex flex-col items-center md:items-start gap-3 mb-[var(--spacing-md)] mx-auto md:mx-0">
                         {/* 🚨 追加：切迫感を煽るプレヘッドライン */}
-                        <div className="inline-block bg-[#FFF5F5] border border-[#FFE0E0] rounded-full px-4 py-1.5 shadow-sm">
-                            <span className="text-[0.75rem] font-bold tracking-wider text-[#D9534F] whitespace-nowrap uppercase">
-                                ⚠️ Before you regret saying "I wish I had known sooner..."
+                        <div className="inline-block bg-[#FFF5F5] border border-[#FFE0E0] rounded-2xl md:rounded-full px-4 py-2 md:py-1.5 shadow-sm max-w-full text-center md:text-left">
+                            <span className="text-[0.65rem] md:text-[0.75rem] font-bold tracking-wider text-[#D9534F] uppercase leading-snug block">
+                                ⚠️ Before you regret saying<br className="sm:hidden" /> "I wish I had known sooner..."
                             </span>
                         </div>
                         {/* 🚨 追加：権威性と評価のバッジ */}
@@ -90,7 +90,7 @@ export default function HeroEn() {
                     <FadeIn delay={0.8} className="w-full flex flex-col items-center md:items-start gap-3">
                         {/* CTA Button */}
                         <a
-                            href="https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/"
+                            href="https://www.amazon.com/dp/B0F7XTWJ3X/?tag=takuma0a-20"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="cta-button btn-amazon inline-flex items-center justify-center rounded-full px-8 py-4 w-full sm:w-auto shadow-lg hover:scale-105 transition-transform"

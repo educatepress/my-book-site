@@ -83,7 +83,7 @@ export default function BookDetailEn() {
                     </div>
 
                     {/* Right Column: Sneak Peek Preview */}
-                    <div className="w-full lg:w-[42%] flex flex-col items-center justify-start sticky top-24">
+                    <div className="w-full lg:w-[42%] flex flex-col items-center justify-start lg:sticky lg:top-24">
                         <FadeIn delay={0.3} className="w-full">
                             <div className="bg-white rounded-[24px] p-6 shadow-xl flex flex-col items-center text-center border border-[var(--color-surface-mid)] mb-6 overflow-hidden relative">
                                 {/* 🚨 モックアップを大きく配置 */}
@@ -99,7 +99,7 @@ export default function BookDetailEn() {
 
                                 {/* 🚨 LP内スワイプ完結の立ち読みエリア（英語版） */}
                                 <div className="w-full bg-[var(--color-surface)] rounded-[16px] p-4 mb-5 border border-black/5 relative">
-                                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-2 px-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 pt-2 -mx-2 px-2 pr-16 sm:pr-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                                         <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
                                         
                                         {/* ※実際の英語版図解画像をpublicフォルダに入れ、srcのコメントアウトを外してください */}
@@ -122,7 +122,7 @@ export default function BookDetailEn() {
                                 </div>
 
                                 <a
-                                    href="https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/"
+                                    href="https://www.amazon.com/dp/B0F7XTWJ3X/?tag=takuma0a-20"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="cta-button btn-amazon w-full text-[0.95rem] font-bold text-white rounded-full px-6 py-4 shadow-lg hover:scale-105 transition-transform flex items-center justify-center"

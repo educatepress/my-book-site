@@ -83,7 +83,7 @@ export default function BookDetail() {
                     </div>
 
                     {/* Right Column: Sneak Peek Preview */}
-                    <div className="md:col-span-5 w-full flex flex-col items-center justify-start sticky top-24">
+                    <div className="md:col-span-5 w-full flex flex-col items-center justify-start md:sticky md:top-24">
                         <FadeIn delay={0.3} className="w-full">
                             <div className="bg-white rounded-[24px] p-6 shadow-xl flex flex-col items-center text-center border border-[var(--color-surface-mid)] mb-6 overflow-hidden relative">
                                 {/* 🚨 モックアップを大きく配置 */}
@@ -99,7 +99,7 @@ export default function BookDetail() {
 
                                 {/* 🚨 LP内スワイプ完結の立ち読みエリア */}
                                 <div className="w-full bg-[var(--color-surface)] rounded-[16px] p-4 mb-5 border border-black/5 relative">
-                                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-2 px-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 pt-2 -mx-2 px-2 pr-16 sm:pr-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                                         <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
                                         
                                         {/* ※実際の図解画像をpublicフォルダに入れ、srcのコメントアウトを外してください */}

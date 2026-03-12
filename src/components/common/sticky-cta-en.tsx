@@ -32,7 +32,7 @@ export default function StickyCtaEn() {
                             </p>
                         </div>
                         <a
-                            href="https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/"
+                            href="https://www.amazon.com/dp/B0F7XTWJ3X/?tag=takuma0a-20"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="cta-button btn-amazon flex-1 sm:flex-none inline-flex items-center justify-center rounded-full px-8 py-3.5 w-full sm:w-auto m-0 shadow-md hover:scale-105 transition-transform"

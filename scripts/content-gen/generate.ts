@@ -33,10 +33,15 @@ Today's Date is: ${today}.
 Assets to generate:
 1. "reelScript": A Google Vids scene format script for an Instagram Reel. 
    - Each scene should have: Scene Title, Visual Description, Voiceover text, and Text on screen. 
+   - [Hook]: The very first scene must have a strong hook within the first 1-2 seconds to grab attention.
+   - [Thumbnail/Text]: Include highly engaging, clickable text for the thumbnail or large on-screen text.
+   - Structure should flow: Hook -> Empathy/Problem -> Medical Solution/Explanation -> CTA.
    - The tone must be educational, empathetic, and lead to an "Aha!" moment.
 2. "jpBlog": A complete Japanese MDX blog post.
    - Must start with Markdown frontmatter. Wrap title string in double quotes to avoid YAML colon errors (title: "...", date as YYYY-MM-DD, excerpt, author: "佐藤 琢磨").
-   - Formal but approachable medical tone. Use markdown headings and lists. Includes a CTA to the book at the end.
+   - Formal but approachable medical tone. Use markdown headings and lists.
+   - [SEO/AEO Rules]: Naturally incorporate high-search-volume keywords and trending search terms into the headings (H2/H3) and body. Include an FAQ section at the end with direct, bite-sized answers suitable for AI Overviews / Featured Snippets.
+   - Includes a CTA to the book at the end.
    - The book CTA MUST use this exact URL: https://amzn.to/3NcOWBl
    - Use slug in english format (e.g. why-egg-freezing) under "slug" key in JSON.
 3. "enBlog": An English translated and localized MDX blog post.
