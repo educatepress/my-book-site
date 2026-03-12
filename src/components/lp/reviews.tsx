@@ -42,7 +42,7 @@ export default function Reviews() {
         <section className="bg-[var(--color-gold-pale)] py-[6rem] px-6">
             <div className="max-w-[800px] mx-auto">
                 <FadeIn className="text-center mb-[var(--spacing-lg)]">
-                    <h3 className="text-[1.5rem] font-bold text-[var(--color-text-dark)] mb-4">読者の声</h3>
+                    <h3 className="text-[1.5rem] font-bold text-[var(--color-text-dark)] mb-4" style={{ fontFeatureSettings: '"palt"' }}>読者の声</h3>
                     <div className="inline-flex flex-col items-center gap-2">
                         <div className="flex items-center gap-2 text-[0.9rem] font-medium text-[var(--color-text-dark)]">
                             <AnimatedStars /> 5.0（XX件のレビュー）
@@ -67,7 +67,7 @@ export default function Reviews() {
                                     <div className="text-[var(--color-gold)] text-[0.85rem]">★★★★★ 5.0</div>
                                 </div>
 
-                                <p className="text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] mb-6">
+                                <p className="text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] mb-6 max-w-[640px] mx-auto md:mx-0 text-left">
                                     {review.text}
                                 </p>
 

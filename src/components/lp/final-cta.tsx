@@ -72,7 +72,7 @@ export default function FinalCta() {
                     </p>
 
                     {/* Main Title */}
-                    <h2 className="font-['Zen_Kaku_Gothic_New'] text-[clamp(1.6rem,4vw,2.4rem)] font-black text-white leading-tight mb-6">
+                    <h2 className="font-['Zen_Kaku_Gothic_New'] text-[clamp(1.6rem,4vw,2.4rem)] font-black text-white leading-tight mb-6" style={{ fontFeatureSettings: '"palt"' }}>
                         &quot;将来の自分&quot;のために、<br />今日の数ページから。
                     </h2>
 
@@ -88,8 +88,8 @@ export default function FinalCta() {
                         rel="noopener noreferrer"
                         className="cta-button btn-amazon inline-flex items-center justify-center rounded-full px-10 py-5 w-full sm:w-auto mb-6"
                     >
-                        <span className="text-[16px] tracking-wide">
-                            📖 Amazonで購入する <span className="arrow ml-1">→</span>
+                        <span className="text-[16px] tracking-wide font-bold">
+                            Amazonで購入する <span className="arrow ml-1">→</span>
                         </span>
                     </a>
 
@@ -108,7 +108,7 @@ export default function FinalCta() {
                         className="group flex flex-col items-center mb-10"
                     >
                         <p className="text-[0.95rem] text-white/80 mb-1 group-hover:text-white transition-colors">
-                            🔬 体外受精の期間を「確率」で考えるシミュレーター
+                            体外受精の期間を「確率」で考えるシミュレーター
                         </p>
                         <p className="text-[0.85rem] text-white/60 underline group-hover:text-white/80 transition-colors mb-2">
                             IVFシミュレーターを開く →
@@ -142,7 +142,7 @@ export default function FinalCta() {
                     </div>
 
                     <Link href="/blog" className="text-white hover:underline mb-10 text-[0.95rem] font-bold">
-                        📝 さとうドクターのBlog & News はこちら →
+                        さとうドクターのBlog & News はこちら →
                     </Link>
 
                     <p className="text-[0.75rem] text-white/40">

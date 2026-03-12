@@ -19,34 +19,35 @@ export default function AuthorProfile() {
                                 style={{ boxShadow: "0 12px 40px rgba(107,143,113,0.15)" }}
                             />
                             <div className="flex gap-4">
-                                <a href="https://note.com/takuma_sato" target="_blank" rel="noreferrer" className="text-[var(--color-text-mid)] hover:text-[var(--color-sage)] transition-colors">
-                                    📝 note
+                                <a href="https://note.com/takuma_sato" target="_blank" rel="noreferrer" className="text-[0.8rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5">
+                                    note
                                 </a>
-                                <a href="https://instagram.com/takuma.dr" target="_blank" rel="noreferrer" className="text-[var(--color-text-mid)] hover:text-[var(--color-sage)] transition-colors">
-                                    📸 Instagram
+                                <a href="https://instagram.com/takuma.dr" target="_blank" rel="noreferrer" className="text-[0.8rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5">
+                                    Instagram
                                 </a>
                             </div>
                         </div>
 
                         {/* Right: Author Bio */}
                         <div className="flex-1 text-center md:text-left flex flex-col items-center md:items-start">
-                            <h3 className="font-['Zen_Kaku_Gothic_New'] text-[1.25rem] font-black text-[var(--color-text-dark)] mb-1">
+                            <h3 className="font-['Zen_Kaku_Gothic_New'] text-[1.4rem] font-black text-[var(--color-text-dark)] mb-1" style={{ fontFeatureSettings: '"palt"' }}>
                                 佐藤 琢磨
                             </h3>
-                            <p className="text-[0.85rem] text-[var(--color-text-muted)] font-en mb-4">
+                            <p className="text-[0.8rem] text-[var(--color-text-muted)] font-en mb-3 tracking-widest uppercase">
                                 Takuma Sato, MD, PhD
                             </p>
 
                             {/* Badges */}
                             <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-6">
-                                {["生殖医療専門医", "産婦人科専門医", "医学博士"].map((badge, idx) => (
-                                    <span
-                                        key={idx}
-                                        className="bg-[var(--color-sage-pale)] text-[var(--color-sage)] text-[0.7rem] font-bold px-3 py-1 rounded-full whitespace-nowrap"
-                                    >
-                                        {badge}
-                                    </span>
-                                ))}
+                                <span className="bg-[var(--color-sage)] text-white text-[0.7rem] font-bold px-3 py-1.5 rounded-sm tracking-wider">
+                                    生殖医療専門医
+                                </span>
+                                <span className="bg-[var(--color-surface-mid)] text-[var(--color-text-mid)] text-[0.7rem] font-bold px-3 py-1.5 rounded-sm tracking-wider">
+                                    産婦人科専門医
+                                </span>
+                                <span className="bg-[var(--color-surface-mid)] text-[var(--color-text-mid)] text-[0.7rem] font-bold px-3 py-1.5 rounded-sm tracking-wider">
+                                    医学博士
+                                </span>
                             </div>
 
                             {/* Bio Text */}

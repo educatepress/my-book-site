@@ -27,10 +27,10 @@ const AnimatedNumber = () => {
 
 export default function Empathy() {
     const cards = [
-        { icon: "💭", text: "「妊娠は、いつかなんとかなる」と思っている" },
-        { icon: "📱", text: "ネットの情報が多すぎて、何を信じていいかわからない" },
-        { icon: "⏳", text: "将来のことを考えると、漠然とした不安がある" },
-        { icon: "🤝", text: "パートナーとどう話していいかわからない" },
+        { icon: "01", text: "「妊娠は、いつかなんとかなる」と思っている" },
+        { icon: "02", text: "ネットの情報が多すぎて、何を信じていいかわからない" },
+        { icon: "03", text: "将来のことを考えると、漠然とした不安がある" },
+        { icon: "04", text: "パートナーとどう話していいかわからない" },
     ];
 
     return (
@@ -41,7 +41,7 @@ export default function Empathy() {
                     <div className="inline-block border border-[var(--color-sage)] text-[var(--color-sage)] rounded-full px-4 py-1 mb-[var(--spacing-sm)]">
                         <span className="text-[0.7rem] font-bold tracking-widest font-en">WHY</span>
                     </div>
-                    <h2 className="text-[clamp(1.5rem,3.5vw,2rem)] font-bold text-[var(--color-text-dark)] leading-snug">
+                    <h2 className="text-[clamp(1.5rem,3.5vw,2rem)] font-bold text-[var(--color-text-dark)] leading-snug" style={{ fontFeatureSettings: '"palt"' }}>
                         こんなこと、感じていませんか？
                     </h2>
                 </FadeIn>
@@ -52,7 +52,7 @@ export default function Empathy() {
                             <div
                                 className="bg-[var(--color-sage-pale)] rounded-[16px] p-6 flex items-start gap-4 h-full pointer-events-none"
                             >
-                                <div className="text-[32px] shrink-0 leading-none">{card.icon}</div>
+                                <div className="text-[32px] shrink-0 leading-none font-en text-[var(--color-sage)] font-bold opacity-40">{card.icon}</div>
                                 <p className="text-[0.95rem] text-[var(--color-text-mid)] font-medium leading-[1.6] pt-1">
                                     {card.text}
                                 </p>

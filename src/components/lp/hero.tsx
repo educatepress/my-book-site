@@ -81,6 +81,7 @@ export default function Hero() {
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ ...transition, delay: 0.08 }}
                         className="text-[clamp(1.85rem,5vw,3.2rem)] font-black leading-[1.3] text-[var(--color-text-dark)] mb-[var(--spacing-md)]"
+                        style={{ fontFeatureSettings: '"palt"' }}
                     >
                         『20代で考える
                         <br />
@@ -95,9 +96,10 @@ export default function Hero() {
                         transition={{ ...transition, delay: 0.16 }}
                         className="text-[1.05rem] text-[var(--color-text-mid)] leading-[1.9] mb-[var(--spacing-lg)] max-w-[500px]"
                     >
-                        今の自分を大切にすることが、未来の「選択肢」を増やす。
-                        <br className="hidden md:block" />
-                        20代・30代の女性とパートナーに、今から知っておくべき24の医学的事実を一冊に。
+                        今の自分を大切にすることが、<br className="hidden md:block" />
+                        未来の「選択肢」を増やす。<br />
+                        20代・30代の女性とパートナーに、<br className="hidden md:block" />
+                        今から知っておくべき24の医学的事実を一冊に。
                     </motion.p>
 
                     <motion.div
@@ -112,8 +114,8 @@ export default function Hero() {
                             rel="noopener noreferrer"
                             className="cta-button btn-amazon inline-flex items-center justify-center rounded-full px-8 py-4 w-full sm:w-auto"
                         >
-                            <span className="text-[15px] tracking-wide">
-                                📖 Amazonで購入する <span className="arrow ml-1">→</span>
+                            <span className="text-[15px] tracking-wide font-bold">
+                                Amazonで購入する <span className="arrow ml-1">→</span>
                             </span>
                         </a>
                     </motion.div>
@@ -171,12 +173,12 @@ export default function Hero() {
                         <p className="text-[0.7rem] text-[var(--color-text-mid)]">生殖医療専門医</p>
                     </div>
                     <div className="flex gap-2 ml-4">
-                        {/* Using placeholder links since precise URLs aren't defined yet */}
+                        {/* Using precise text icons for sophistication */}
                         <a href="https://note.com/takuma_sato" target="_blank" rel="noreferrer" aria-label="note">
-                            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm hover:scale-105 transition-transform">📝</div>
+                            <div className="text-[0.75rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5">note</div>
                         </a>
                         <a href="https://instagram.com/takuma.dr" target="_blank" rel="noreferrer" aria-label="Instagram">
-                            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm hover:scale-105 transition-transform">📷</div>
+                            <div className="text-[0.75rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5">Instagram</div>
                         </a>
                     </div>
                 </div>

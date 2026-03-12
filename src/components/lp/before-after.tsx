@@ -38,7 +38,7 @@ export default function BeforeAfter() {
                                     <span className="shrink-0 text-[0.7rem] font-bold text-[var(--color-text-muted)] tracking-widest bg-black/5 px-3 py-1 rounded-full w-fit font-en">
                                         BEFORE
                                     </span>
-                                    <p className="text-[0.9rem] text-[var(--color-text-muted)] line-through">
+                                    <p className="text-[0.85rem] text-[var(--color-text-muted)] opacity-80 decoration-black/20 line-through">
                                         {card.before}
                                     </p>
                                 </div>
@@ -57,7 +57,7 @@ export default function BeforeAfter() {
                                             <polyline points="20 6 9 17 4 12" />
                                         </svg>
                                     </div>
-                                    <p className="text-[0.95rem] font-bold text-[var(--color-text-dark)] leading-[1.6]">
+                                    <p className="text-[1rem] font-bold text-[var(--color-text-dark)] leading-[1.5]">
                                         {card.after}
                                     </p>
                                 </motion.div>
@@ -80,8 +80,8 @@ export default function BeforeAfter() {
                         rel="noopener noreferrer"
                         className="cta-button btn-amazon inline-flex items-center justify-center rounded-full px-8 py-4 w-full sm:w-auto mb-4"
                     >
-                        <span className="text-[15px] tracking-wide">
-                            📖 Amazonで購入する <span className="arrow ml-1">→</span>
+                        <span className="text-[15px] tracking-wide font-bold">
+                            Amazonで購入する <span className="arrow ml-1">→</span>
                         </span>
                     </a>
 
