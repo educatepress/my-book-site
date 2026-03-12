@@ -6,6 +6,7 @@ import AuthorProfile from '@/components/lp/author-profile';
 import Reviews from '@/components/lp/reviews';
 import FaqSection from '@/components/lp/faq-section';
 import FinalCta from '@/components/lp/final-cta';
+import StickyCta from '@/components/common/sticky-cta';
 
 export default function Home() {
     return (
@@ -19,6 +20,7 @@ export default function Home() {
             <Reviews />
             <FaqSection />
             <FinalCta />
+            <StickyCta />
         </main>
     );
 }

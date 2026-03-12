@@ -69,11 +69,24 @@ export default function Hero() {
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ ...transition, delay: 0 }}
-                        className="inline-block bg-[var(--color-sage-pale)] text-[var(--color-sage)] border border-[var(--color-sage-light)] rounded-full px-4 py-1 mb-[var(--spacing-md)] mx-auto md:mx-0"
+                        className="flex flex-col items-center md:items-start gap-3 mb-[var(--spacing-md)] mx-auto md:mx-0"
                     >
-                        <span className="text-[0.75rem] font-bold tracking-[0.15em] whitespace-nowrap">
-                            生殖医療専門医がやさしく解説
-                        </span>
+                        {/* 🚨 追加：切迫感を煽るプレヘッドライン */}
+                        <div className="inline-block bg-[#FFF5F5] border border-[#FFE0E0] rounded-full px-4 py-1.5 shadow-sm">
+                            <span className="text-[0.8rem] font-bold tracking-wider text-[#D9534F] whitespace-nowrap">
+                                ⚠️「あと1年早く知っていれば…」と後悔する前に。
+                            </span>
+                        </div>
+                        {/* 🚨 追加：権威性と評価のバッジ */}
+                        <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                            <span className="bg-[var(--color-sage)] text-white text-[0.7rem] font-bold px-3 py-1.5 rounded-sm tracking-wider shadow-sm">
+                                生殖医療専門医 著
+                            </span>
+                            <div className="inline-flex items-center gap-1 bg-gradient-to-r from-[var(--color-gold-pale)] to-white border border-[#C9922E40] rounded-sm px-3 py-1.5 shadow-sm">
+                                <span className="text-[var(--color-gold)] text-[0.8rem] leading-none">★★★★★</span>
+                                <span className="text-[0.75rem] text-[var(--color-text-dark)] font-bold leading-none mt-[1px]">5.0 <span className="font-normal text-[var(--color-text-muted)] text-[0.65rem]">(Amazon)</span></span>
+                            </div>
+                        </div>
                     </motion.div>
 
                     <motion.h1
@@ -130,10 +143,6 @@ export default function Hero() {
                             <a href="/en" className="text-link-hover font-en font-medium mr-2">English Edition →</a>
                             ｜ Kindle版 ¥1,250
                         </div>
-                        <div className="inline-flex items-center gap-1 bg-[var(--color-gold-pale)] border border-[#C9922E40] rounded-full px-4 py-1.5 mt-2">
-                            <span className="text-[var(--color-gold)] text-sm">★★★★★</span>
-                            <span className="text-[0.85rem] text-[var(--color-text-mid)] font-medium">5.0 (Amazon)</span>
-                        </div>
                     </motion.div>
                 </div>
 
@@ -143,46 +152,17 @@ export default function Hero() {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ ...transition, delay: 0.2 }}
                     style={{ y: bookY }}
-                    className="flex-shrink-0 w-[200px] md:w-[320px] lg:w-[380px] drop-shadow-2xl z-10"
+                    // 🚨 モックアップを拡大し、影を深くしてシズル感を出す
+                    className="flex-shrink-0 w-[240px] md:w-[380px] lg:w-[440px] drop-shadow-[0_25px_45px_rgba(0,0,0,0.25)] z-10"
                 >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src="/mockup-jp.png"
                         alt="20代で考える 将来妊娠で困らないための選択"
-                        className="w-full h-auto object-contain"
+                        className="w-full h-auto object-contain scale-105"
                     />
                 </motion.div>
             </div>
-
-            {/* Bottom Floating Bar */}
-            <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ ...transition, delay: 0.4 }}
-                className="absolute bottom-6 md:bottom-12 left-0 right-0 z-20 flex justify-center w-full px-4"
-            >
-                <div className="glass-panel flex items-center gap-4 px-6 py-3 rounded-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src="/author-white.jpg"
-                        alt="Author"
-                        className="w-12 h-12 rounded-full border-2 border-white object-cover"
-                    />
-                    <div>
-                        <p className="text-[0.85rem] font-bold text-[var(--color-text-dark)] mb-0.5">佐藤 琢磨</p>
-                        <p className="text-[0.7rem] text-[var(--color-text-mid)]">生殖医療専門医</p>
-                    </div>
-                    <div className="flex gap-2 ml-4">
-                        {/* Using precise text icons for sophistication */}
-                        <a href="https://note.com/takuma_sato" target="_blank" rel="noreferrer" aria-label="note">
-                            <div className="text-[0.75rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5">note</div>
-                        </a>
-                        <a href="https://instagram.com/takuma.dr" target="_blank" rel="noreferrer" aria-label="Instagram">
-                            <div className="text-[0.75rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5">Instagram</div>
-                        </a>
-                    </div>
-                </div>
-            </motion.div>
         </section>
     );
 }

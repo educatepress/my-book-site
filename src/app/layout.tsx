@@ -45,7 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className={`${zenKaku.variable} ${notoSansJP.variable} ${dmSans.variable}`}>
-      <body>
+      <body className="overflow-x-hidden w-full relative">
         {children}
       </body>
     </html>

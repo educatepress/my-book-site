@@ -29,7 +29,7 @@ export default function AuthorProfile() {
                         </div>
 
                         {/* Right: Author Bio */}
-                        <div className="flex-1 text-center md:text-left flex flex-col items-center md:items-start">
+                        <div className="flex-1 text-center md:text-left flex flex-col items-center md:items-start w-full">
                             <h3 className="font-['Zen_Kaku_Gothic_New'] text-[1.4rem] font-black text-[var(--color-text-dark)] mb-1" style={{ fontFeatureSettings: '"palt"' }}>
                                 佐藤 琢磨
                             </h3>
@@ -39,15 +39,18 @@ export default function AuthorProfile() {
 
                             {/* Badges */}
                             <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-6">
-                                <span className="bg-[var(--color-sage)] text-white text-[0.7rem] font-bold px-3 py-1.5 rounded-sm tracking-wider">
-                                    生殖医療専門医
-                                </span>
-                                <span className="bg-[var(--color-surface-mid)] text-[var(--color-text-mid)] text-[0.7rem] font-bold px-3 py-1.5 rounded-sm tracking-wider">
-                                    産婦人科専門医
-                                </span>
-                                <span className="bg-[var(--color-surface-mid)] text-[var(--color-text-mid)] text-[0.7rem] font-bold px-3 py-1.5 rounded-sm tracking-wider">
-                                    医学博士
-                                </span>
+                                <span className="bg-[var(--color-sage)] text-white text-[0.7rem] font-bold px-3 py-1.5 rounded-sm tracking-wider">生殖医療専門医</span>
+                                <span className="bg-[var(--color-surface-mid)] text-[var(--color-text-mid)] text-[0.7rem] font-bold px-3 py-1.5 rounded-sm tracking-wider">産婦人科専門医</span>
+                                <span className="bg-[var(--color-surface-mid)] text-[var(--color-text-mid)] text-[0.7rem] font-bold px-3 py-1.5 rounded-sm tracking-wider">医学博士</span>
+                            </div>
+
+                            {/* 🚨 追加：著者の「想い」をストーリーとして配置 */}
+                            <div className="relative bg-white p-5 md:p-6 rounded-2xl border-l-4 border-[var(--color-sage)] shadow-sm w-full mb-6 text-left">
+                                <div className="absolute -top-3 left-4 text-[3.5rem] text-[var(--color-sage)] opacity-20 font-serif leading-none">“</div>
+                                <p className="text-[0.9rem] md:text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] relative z-10 font-medium pt-2">
+                                    日々診察室で、<strong className="text-[var(--color-blush)]">「もっと早く知っていれば…」</strong>と涙を流す女性を数え切れないほど見てきました。<br className="hidden md:block" />
+                                    手遅れになって後悔する前に、正しい知識で自分の未来と選択肢を守ってほしい。その一心で、専門医として本当に必要な24の事実をこの一冊に込めました。
+                                </p>
                             </div>
 
                             {/* Bio Text */}

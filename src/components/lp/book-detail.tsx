@@ -83,42 +83,61 @@ export default function BookDetail() {
                     </div>
 
                     {/* Right Column: Sneak Peek Preview */}
-                    <div className="md:col-span-5 w-full flex flex-col items-center md:items-start justify-center">
+                    <div className="md:col-span-5 w-full flex flex-col items-center justify-start sticky top-24">
                         <FadeIn delay={0.3} className="w-full">
-                            <div className="bg-white rounded-[24px] p-8 py-10 shadow-md flex flex-col items-center justify-center text-center min-h-[320px] border border-[var(--color-surface-mid)] mb-6">
-                                <div className="w-[140px] md:w-[160px] drop-shadow-lg mb-6">
+                            <div className="bg-white rounded-[24px] p-6 shadow-xl flex flex-col items-center text-center border border-[var(--color-surface-mid)] mb-6 overflow-hidden relative">
+                                {/* 🚨 モックアップを大きく配置 */}
+                                <div className="w-[180px] md:w-[220px] drop-shadow-[0_20px_30px_rgba(0,0,0,0.15)] mb-6 mt-4 relative z-10">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img src="/mockup-jp.png" alt="Book Cover" className="w-full h-auto" />
                                 </div>
-                                <h3 className="text-[1.1rem] font-bold text-[var(--color-text-dark)] mb-2">
-                                    中身を少しだけ見てみる
+
+                                <h3 className="text-[1.1rem] font-bold text-[var(--color-text-dark)] mb-4 flex items-center justify-center gap-1.5">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-[var(--color-sage)]"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    図解でわかる！中身を少しだけ公開
                                 </h3>
-                                <p className="text-[0.9rem] text-[var(--color-text-mid)] mb-6">
-                                    Amazonの試し読み機能で<br />実際のページをご覧いただけます
-                                </p>
+
+                                {/* 🚨 LP内スワイプ完結の立ち読みエリア */}
+                                <div className="w-full bg-[var(--color-surface)] rounded-[16px] p-4 mb-5 border border-black/5 relative">
+                                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-2 px-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                                        <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
+                                        
+                                        {/* ※実際の図解画像をpublicフォルダに入れ、srcのコメントアウトを外してください */}
+                                        {[1, 2, 3].map((num) => (
+                                            <div key={num} className="snap-center shrink-0 w-[140px] aspect-[3/4] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-sm flex flex-col items-center justify-center relative group">
+                                                {/* <img src={`/preview-${num}.jpg`} alt={`プレビュー ${num}`} className="w-full h-full object-cover" /> */}
+                                                
+                                                {/* 画像がない場合のプレースホルダー（本番では削除） */}
+                                                <div className="text-[var(--color-sage)] opacity-30 mb-2">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                                                </div>
+                                                <span className="text-gray-400 text-xs font-bold">図解ページ {num}</span>
+                                                
+                                                <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <span className="bg-white/90 text-gray-800 text-[0.65rem] px-2 py-1 rounded-full font-bold shadow-sm backdrop-blur-sm">スワイプ →</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-2 font-bold">← 横にスワイプして立ち読み</p>
+                                </div>
+
                                 <a
                                     href="https://amzn.to/3NcOWBl"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-[0.9rem] font-bold text-[var(--color-sage)] border border-[var(--color-sage)] rounded-full px-6 py-2 hover:bg-[var(--color-sage-pale)] transition-colors inline-block"
+                                    className="cta-button btn-amazon w-full text-[0.95rem] font-bold text-white rounded-full px-6 py-4 shadow-lg hover:scale-105 transition-transform flex items-center justify-center"
                                 >
-                                    Amazonで立ち読みする →
+                                    続きをAmazonで読む（¥1,250） →
                                 </a>
                             </div>
 
-                            {/* Bibliographic Information Table */}
-                            <div className="text-[0.8rem] text-[var(--color-text-muted)] bg-[var(--color-surface-mid)] rounded-[16px] p-5">
-                                <dl className="grid grid-cols-[80px_1fr] gap-y-2">
-                                    <dt className="font-bold">タイトル</dt>
-                                    <dd>『20代で考える 将来妊娠で困らないための選択』</dd>
-                                    <dt className="font-bold">著者</dt>
-                                    <dd>佐藤 琢磨（生殖医療専門医）</dd>
-                                    <dt className="font-bold">出版</dt>
-                                    <dd>2025年4月</dd>
-                                    <dt className="font-bold">出版社</dt>
-                                    <dd>Kindle Direct Publishing</dd>
-                                    <dt className="font-bold">形式</dt>
-                                    <dd>ペーパーバック・Kindle版</dd>
+                            {/* 🚨 書誌情報は目立たなくする（opacity-50） */}
+                            <div className="text-[0.7rem] text-[var(--color-text-muted)] bg-transparent border border-black/5 rounded-[16px] p-5 opacity-60 hover:opacity-100 transition-opacity">
+                                <dl className="grid grid-cols-[80px_1fr] gap-y-1">
+                                    <dt className="font-bold">タイトル</dt><dd>『20代で考える 将来妊娠で困らないための選択』</dd>
+                                    <dt className="font-bold">著者</dt><dd>佐藤 琢磨（生殖医療専門医）</dd>
+                                    <dt className="font-bold">形式</dt><dd>ペーパーバック・Kindle版</dd>
                                 </dl>
                             </div>
                         </FadeIn>

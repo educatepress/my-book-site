@@ -119,24 +119,41 @@ export default async function BlogPost({ params }: PostProps) {
                 </div>
 
                 <footer className="mt-16 pt-12 border-t border-black/5">
-                    <div className="bg-[var(--color-surface-mid)] rounded-2xl p-8 flex flex-col md:flex-row items-center md:items-start gap-6">
+                    <div className="bg-[#F4EFEA] rounded-[24px] p-6 md:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-5 md:gap-6 w-full mt-12 border border-black/5 shadow-sm">
+                        {/* 左：顔写真（絶対配置を廃止し、Flex内に素直に置く） */}
                         <div className="shrink-0">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                                src="/author-blue.JPG"
-                                alt="佐藤 琢磨"
-                                className="w-[80px] h-[80px] rounded-full object-cover border-2 border-white shadow-sm"
+                            <img 
+                                src="/author-blue.JPG" 
+                                alt="佐藤 琢磨" 
+                                className="w-[80px] h-[80px] md:w-[96px] md:h-[96px] rounded-full object-cover object-[center_top] border-[3px] border-white shadow-sm"
                             />
                         </div>
-                        <div className="flex-1 text-center md:text-left">
-                            <p className="text-[0.75rem] font-bold text-[var(--color-sage)] tracking-widest mb-1">この記事を書いた人</p>
-                            <h3 className="font-['Zen_Kaku_Gothic_New'] text-[1.2rem] font-black text-[var(--color-text-dark)] mb-2" style={{ fontFeatureSettings: '"palt"' }}>佐藤 琢磨 <span className="text-[0.8rem] font-normal text-[var(--color-text-muted)] ml-2">生殖医療専門医</span></h3>
-                            <p className="text-[0.85rem] text-[var(--color-text-mid)] leading-relaxed mb-4">
+
+                        {/* 右：テキストとボタン */}
+                        <div className="flex-1 flex flex-col items-center sm:items-start text-center sm:text-left w-full">
+                            <p className="text-[0.7rem] font-bold text-[var(--color-sage)] tracking-widest mb-1">
+                                この記事を書いた人
+                            </p>
+                            <div className="flex items-center gap-2 mb-3">
+                                <h4 className="text-[1.15rem] font-bold text-[var(--color-text-dark)] leading-none">
+                                    佐藤 琢磨
+                                </h4>
+                                <span className="text-[0.75rem] text-[var(--color-text-muted)] mt-0.5">
+                                    生殖医療専門医
+                                </span>
+                            </div>
+                            
+                            <p className="text-[0.85rem] text-[var(--color-text-mid)] leading-[1.7] mb-5">
                                 将来の妊娠・ライフプランに向けた正しい医学知識をわかりやすく発信しています。
                             </p>
-                            <Link href="/" className="inline-block text-[0.85rem] font-bold text-white bg-[var(--color-sage)] hover:bg-[var(--color-sage-dark)] transition-colors px-6 py-2.5 rounded-full">
+
+                            <a 
+                                href="https://doctors-guide-womens-health.vercel.app/" 
+                                className="inline-flex items-center justify-center bg-[var(--color-sage)] hover:bg-[#5a7a5f] text-white text-[0.85rem] font-bold px-6 py-3 rounded-full transition-colors shadow-sm w-full sm:w-auto"
+                            >
                                 著書を詳しく見る →
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </footer>

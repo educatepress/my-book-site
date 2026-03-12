@@ -100,23 +100,40 @@ export default function FinalCta() {
                     {/* Divider */}
                     <div className="w-[60px] h-[1px] bg-white/30 my-[2.5rem]" />
 
-                    {/* Simulator link */}
-                    <a
-                        href="https://chatgpt.com/canvas/shared/68b783ad34648191bf0ef3ba12ce8a96"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group flex flex-col items-center mb-10"
-                    >
-                        <p className="text-[0.95rem] text-white/80 mb-1 group-hover:text-white transition-colors">
-                            体外受精の期間を「確率」で考えるシミュレーター
+                    {/* 🚨 修正：ChatGPTへの外部リンクを「公式の無料公開ツール」として美しくパッケージング */}
+                    <div className="relative overflow-hidden bg-white/10 border border-white/20 hover:bg-white/15 transition-colors duration-300 rounded-[24px] p-6 md:p-8 w-full max-w-[500px] mb-12 text-left backdrop-blur-sm shadow-xl group">
+                        
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4 mt-1">
+                            <span className="bg-[var(--color-sage)] text-white text-[0.7rem] font-bold px-3 py-1 rounded-full tracking-wider shadow-sm w-fit">
+                                無料公開ツール
+                            </span>
+                            <h4 className="text-[1.1rem] md:text-[1.15rem] font-bold text-white leading-tight">
+                                📊 IVF（体外受精）確率シミュレーター
+                            </h4>
+                        </div>
+                        
+                        <p className="text-[0.9rem] text-white/90 leading-relaxed mb-6">
+                            「自分の年齢だと、妊娠までにどのくらいの期間がかかる？」<br />
+                            統計モデルに基づき、あなたの状況に合わせた確率の目安を算出できるツールを特別に公開しています。現状把握の参考にお使いください。
                         </p>
-                        <p className="text-[0.85rem] text-white/60 underline group-hover:text-white/80 transition-colors mb-2">
-                            IVFシミュレーターを開く →
-                        </p>
-                        <p className="text-[0.7rem] text-white/40">
-                            ※統計モデルからの理論値です。個々の妊娠を保証するものではありません。
-                        </p>
-                    </a>
+                        
+                        {/* 外部リンクボタン */}
+                        <a
+                            href="https://chatgpt.com/canvas/shared/68b783ad34648191bf0ef3ba12ce8a96"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full inline-flex items-center justify-center gap-2 bg-white text-[var(--color-text-dark)] hover:text-[var(--color-sage)] text-[0.95rem] px-6 py-3.5 rounded-xl font-bold shadow-md hover:scale-[1.02] transition-transform"
+                        >
+                            無料でシミュレーターを開く
+                            {/* 外部リンクを示すアイコン */}
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                        </a>
+                        
+                        <div className="mt-4 pt-4 border-t border-white/10 text-[0.7rem] text-white/60 leading-relaxed text-center">
+                            <p>※外部サイト（ChatGPT）を利用して開きます。</p>
+                            <p>※統計モデルからの理論値であり、個々の妊娠を保証するものではありません。</p>
+                        </div>
+                    </div>
 
                     {/* Partner Share */}
                     <div className="flex flex-col items-center bg-black/10 rounded-[24px] p-6 w-full max-w-[400px] mb-[4rem]">
