@@ -18,12 +18,18 @@ export default function AuthorProfileEn() {
                                 className="w-[160px] h-[160px] md:w-[180px] md:h-[180px] rounded-full border-4 border-white object-cover object-[center_top] drop-shadow-md mb-5"
                                 style={{ boxShadow: "0 12px 40px rgba(107,143,113,0.15)" }}
                             />
-                            <div className="flex gap-4 text-[0.9rem]">
-                                <a href="https://note.com/takuma_sato" target="_blank" rel="noreferrer" className="text-[var(--color-text-mid)] hover:text-[var(--color-sage)] transition-colors">
-                                    📝 note
+                            <div className="flex gap-4">
+                                <a href="https://note.com/famous_cosmos408" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-[0.8rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5" title="note">
+                                    <img src="/icon-note.svg" alt="note" className="w-3.5 h-3.5" />
+                                    <span>note</span>
                                 </a>
-                                <a href="https://instagram.com/takuma.dr" target="_blank" rel="noreferrer" className="text-[var(--color-text-mid)] hover:text-[var(--color-sage)] transition-colors">
-                                    📸 Instagram
+                                <a href="https://instagram.com/dr.sato.fertility.specialist" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-[0.8rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5" title="Instagram">
+                                    <img src="/icon-instagram.svg" alt="Instagram" className="w-3.5 h-3.5" />
+                                    <span>Instagram</span>
+                                </a>
+                                <a href="https://x.com/SatoT1201" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-[0.8rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5" title="X (Twitter)">
+                                    <img src="/icon-x.svg" alt="X" className="w-3.5 h-3.5" />
+                                    <span>X</span>
                                 </a>
                             </div>
                         </div>
