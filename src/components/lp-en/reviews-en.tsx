@@ -47,7 +47,7 @@ export default function ReviewsEn() {
                     </h3>
                     <div className="inline-flex flex-col items-center gap-2">
                         <div className="flex items-center gap-2 text-[0.9rem] font-medium text-[var(--color-text-dark)]">
-                            <AnimatedStars /> 5.0 (XX Reviews)
+                            <AnimatedStars /> 5.0 (48 Reviews)
                         </div>
                         <a href="https://www.amazon.com/dp/B0F7XTWJ3X" target="_blank" rel="noreferrer" className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
                             → View all reviews on Amazon
@@ -55,41 +55,31 @@ export default function ReviewsEn() {
                     </div>
                 </FadeIn>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-12">
-            <div className="flex items-center">
-              <span className="text-4xl font-bold text-gray-900 mr-4">5.0</span>
-              <div className="flex flex-col">
-                <div className="flex text-yellow-400 mb-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-current" />
-                  ))}
+                <div className="flex flex-col gap-[var(--spacing-md)]">
+                    {reviews.map((review, idx) => (
+                        <FadeIn key={idx} delay={idx * 0.1}>
+                            <div className="bg-white rounded-[16px] p-6 md:p-8 shadow-sm relative">
+
+                                {/* Amazon purchase badge */}
+                                <div className="absolute top-6 right-6 bg-[var(--color-gold-pale)] text-[var(--color-gold)] text-[0.7rem] font-bold px-3 py-1 rounded-full hidden sm:block">
+                                    ✓ Verified Purchase
+                                </div>
+
+                                <div className="mb-4 flex items-center gap-2">
+                                    <div className="text-[var(--color-gold)] text-[0.85rem]">★★★★★ 5.0</div>
+                                </div>
+
+                                <p className="text-[0.95rem] text-[var(--color-text-dark)] leading-relaxed mb-6 font-en">
+                                    "{review.text}"
+                                </p>
+
+                                <p className="text-[0.8rem] text-[var(--color-text-muted)] font-en">
+                                    — {review.name} (Amazon)
+                                </p>
+                            </div>
+                        </FadeIn>
+                    ))}
                 </div>
-                <span className="text-sm text-gray-600 font-medium">48 Reviews</span>
-              </div>
-            </div>
-            <div className="h-12 w-px bg-gray-200 hidden sm:block"></div>
-            <p className="text-gray-600 font-medium flex items-center">
-              <CheckCircle2 className="w-5 h-5 text-green-500 mr-2" />
-              Verified Amazon Readers
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {reviews.map((review, index) => (
-              <FadeIn key={index} delay={index * 0.1}>
-                <ReviewCard {...review} />
-              </FadeIn>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full bg-[#1c2e4a] hover:bg-[#2a4570] text-white transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 asChild">
-              <a href="https://www.amazon.com/dp/B0F7XTWJ3X" target="_blank" rel="noopener noreferrer">
-                Read More Reviews on Amazon
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
-            </Button>
-          </div>
             </div>
         </section>
     );
