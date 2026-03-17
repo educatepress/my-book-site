@@ -28,20 +28,30 @@ async function main() {
     console.log("🚀 Starting Automatic X (Twitter) Post...");
 
     try {
-        // 1. Find the latest generated JP Blog post
+        // 1. Find the target JP Blog post
         const jpBlogDir = path.join(process.cwd(), 'src/content/blog/jp');
-        const files = await fs.readdir(jpBlogDir);
-
-        // Filter out non-mdx files and sort descending to get the latest easily
-        const mdxFiles = files.filter(f => f.endsWith('.mdx')).sort().reverse();
-
-        if (mdxFiles.length === 0) {
-            console.log("⚠️ No blog files found. Exiting without posting.");
-            process.exit(0);
+        
+        let targetFile: string;
+        
+        // If TARGET_FILE is set (from GitHub Actions), use that specific file
+        const targetFileEnv = process.env.TARGET_FILE;
+        if (targetFileEnv) {
+            targetFile = path.basename(targetFileEnv);
+            console.log(`📌 Using TARGET_FILE from environment: ${targetFile}`);
+        } else {
+            // Fallback: find the latest .mdx file
+            const files = await fs.readdir(jpBlogDir);
+            const mdxFiles = files.filter(f => f.endsWith('.mdx')).sort().reverse();
+            
+            if (mdxFiles.length === 0) {
+                console.log("⚠️ No blog files found. Exiting without posting.");
+                process.exit(0);
+            }
+            targetFile = mdxFiles[0];
+            console.log(`📌 Using latest file: ${targetFile}`);
         }
 
-        const latestFile = mdxFiles[0];
-        const content = await fs.readFile(path.join(jpBlogDir, latestFile), 'utf8');
+        const content = await fs.readFile(path.join(jpBlogDir, targetFile), 'utf8');
 
         // Parse frontmatter using gray-matter
         const parsed = matter(content);
@@ -49,7 +59,7 @@ async function main() {
         let xPostTip = parsed.data.x_post || "女性の健康とライフプランに関する新しい記事を更新しました。";
 
         // Extract slug from filename (e.g. "my-post.mdx" -> "my-post")
-        const slug = latestFile.replace(/\.mdx$/, '');
+        const slug = targetFile.replace(/\.mdx$/, '');
 
         // 2. Construct the Tweet Content
         const blogUrl = `https://doctors-guide-womens-health.vercel.app/blog/${slug}`;

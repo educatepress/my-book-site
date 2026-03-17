@@ -13,25 +13,47 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Fetch last 2 commits to detect newly added files
+
+      - name: Detect New Blog Files
+        id: detect
+        run: |
+          # Compare with parent commit to find NEWLY ADDED .mdx files only
+          NEW_FILES=$(git diff --name-only --diff-filter=A HEAD~1 HEAD -- 'src/content/blog/jp/*.mdx' || echo "")
+          if [ -z "$NEW_FILES" ]; then
+            echo "No new blog files detected. Skipping tweet."
+            echo "has_new=false" >> $GITHUB_OUTPUT
+          else
+            echo "New blog files detected:"
+            echo "$NEW_FILES"
+            # Get the first new file
+            FIRST_NEW=$(echo "$NEW_FILES" | head -1)
+            echo "target_file=$FIRST_NEW" >> $GITHUB_OUTPUT
+            echo "has_new=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Setup Node.js
+        if: steps.detect.outputs.has_new == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
       - name: Install Dependencies
+        if: steps.detect.outputs.has_new == 'true'
         run: npm ci
 
       - name: Wait for Vercel Deployment
-        # Wait 2 minutes for Vercel to build and deploy the new post
-        # so that the URL is live when the tweet is posted.
+        if: steps.detect.outputs.has_new == 'true'
         run: sleep 120
 
       - name: Post to X (Twitter)
-        run: npm run post-twitter
+        if: steps.detect.outputs.has_new == 'true'
+        run: npx tsx scripts/content-gen/post-to-twitter.ts
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          TARGET_FILE: ${{ steps.detect.outputs.target_file }}
