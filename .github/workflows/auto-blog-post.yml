@@ -2,7 +2,7 @@ name: Auto Generate Blog Post
 
 on:
   schedule:
-    # Run twice a week: e.g., Tuesday and Friday at 00:00 UTC (09:00 JST)
+    # Run twice a week: Tuesday and Friday at 00:00 UTC (09:00 JST)
     - cron: '0 0 * * 2,5'
   workflow_dispatch: # Allows manual trigger from GitHub UI / App
 
@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
 
     steps:
       - name: Checkout Repository
@@ -31,21 +30,28 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "feat(blog): auto-generated blog post"
-          title: "🚀 [Auto] New Blog Post Generated"
-          body: |
-            ## 自動生成されたブログ記事が届きました！
-            AI（Gemini）によって新しいブログ記事が作成されました。
-            日・英の両言語で共通テーマの記事が生成されています。
+      - name: Check for New Content
+        id: check
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No new content generated. Skipping deploy."
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "New content detected!"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
 
-            **【確認と承認の手順】**
-            1. VercelのプレビューURL（下のコメントにあるリンク）から実際の公開イメージを確認してください。
-            2. 問題なければ、このPull Requestの「**Merge pull request**（マージ）」ボタンを押してください。
-            3. マージされると、本番サイトへ自動で公開（デプロイ）されます！
-          branch-suffix: "timestamp"
-          delete-branch: true
-          labels: "automated-blog"
+      - name: Commit and Push to Main
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat(blog): auto-generated blog post [skip ci]"
+          git push origin main
+
+      - name: Trigger Vercel Deploy
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          echo "✅ Pushed to main. Vercel will auto-deploy within ~30 seconds."
+          echo "📝 New blog post has been published!"

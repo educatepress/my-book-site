@@ -177,8 +177,28 @@ Expected JSON Schema:
             }
         });
 
-        const resultText = response.text || '{}';
-        const result = JSON.parse(resultText);
+        const rawText = response.text || '{}';
+        
+        // Robust JSON parsing: Gemini sometimes returns invalid JSON
+        let result: any;
+        try {
+            result = JSON.parse(rawText);
+        } catch (e1) {
+            console.warn("⚠️ Initial JSON parse failed, attempting cleanup...");
+            // Remove markdown code block markers if present
+            let cleaned = rawText.replace(/^```json?\s*\n?/i, '').replace(/\n?```\s*$/i, '').trim();
+            // Fix unescaped newlines inside string values
+            cleaned = cleaned.replace(/(?<=": ")([\s\S]*?)(?="[,}])/g, (match) => {
+                return match.replace(/\n/g, '\\n').replace(/\r/g, '\\r');
+            });
+            try {
+                result = JSON.parse(cleaned);
+            } catch (e2) {
+                console.error("❌ JSON cleanup also failed. Raw response (first 500 chars):");
+                console.error(rawText.substring(0, 500));
+                throw e2;
+            }
+        }
 
         const safeXPost = result.xPost ? result.xPost : "";
 
