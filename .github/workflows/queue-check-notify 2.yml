@@ -1,0 +1,79 @@
+name: Check Queue and Notify
+
+on:
+  schedule:
+    # Run once a week, Monday at 01:00 UTC (10:00 JST)
+    - cron: '0 1 * * 1'
+  workflow_dispatch:
+
+jobs:
+  check-queue:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Check Queue Status
+        id: queue-check
+        run: |
+          PENDING_X=$(node -e "
+            const q = require('./scripts/content-gen/content-queue.json');
+            const pending = q.queue.filter(i => i.type === 'x' && i.status === 'pending');
+            console.log(pending.length);
+          ")
+          PENDING_BLOG=$(node -e "
+            const q = require('./scripts/content-gen/content-queue.json');
+            const pending = q.queue.filter(i => i.type === 'blog' && i.status === 'pending');
+            console.log(pending.length);
+          ")
+          echo "pending_x=$PENDING_X" >> $GITHUB_OUTPUT
+          echo "pending_blog=$PENDING_BLOG" >> $GITHUB_OUTPUT
+          echo "📊 Pending X: $PENDING_X, Pending Blog: $PENDING_BLOG"
+
+          if [ "$PENDING_X" -le 3 ] || [ "$PENDING_BLOG" -le 1 ]; then
+            echo "should_notify=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_notify=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Email Notification
+        if: steps.queue-check.outputs.should_notify == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "⚠️ ブログ・Xの自動投稿リストが残りわずかです"
+          to: gana.pati1201@gmail.com
+          from: ${{ secrets.GMAIL_USER }}
+          body: |
+            佐藤琢磨さん
+
+            自動投稿のキューが残りわずかです。新しいDeep Researchを実行してリストを補充してください。
+
+            📊 現在の残数:
+            - X投稿: 残り ${{ steps.queue-check.outputs.pending_x }} 件
+            - ブログ記事: 残り ${{ steps.queue-check.outputs.pending_blog }} 件
+
+            💡 手順:
+            1. Gemini Deep Research でプロンプトを実行
+               → npm run content:prompt でクリップボードに前回のプロンプトがコピーされます
+            2. 出力されたMDファイルを scripts/content-gen/research-data/ に保存
+            3. npm run content:parse を実行
+
+            このメールは GitHub Actions から週1回（月曜10時 JST）自動送信されています。
+            残数が X:3件以下 または Blog:1件以下 の場合のみ送信されます。

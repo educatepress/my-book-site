@@ -1,0 +1,56 @@
+name: Auto Generate Blog Post from Queue
+
+on:
+  schedule:
+    # Run twice a week: Tuesday and Friday at 00:00 UTC (09:00 JST)
+    - cron: '0 0 * * 2,5'
+  workflow_dispatch: # Allows manual trigger from GitHub UI / App
+
+jobs:
+  generate-blog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Blog Content from Queue
+        run: npx tsx scripts/content-gen/write-blog-from-queue.ts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "feat(blog): auto-generated blog post from queue"
+          title: "🚀 [Auto] New Blog Post Generated"
+          body: |
+            ## 自動生成されたブログ記事が届きました！
+            AI（Gemini）によって、キューに基づく新しいブログ記事が作成されました。
+            日・英の両言語で共通テーマの記事が生成されています。
+
+            **【確認と承認の手順】**
+            1. VercelのプレビューURL（下のコメントにあるリンク）から実際の公開イメージを確認してください。
+            2. 問題なければ、このPull Requestの「**Merge pull request**（マージ）」ボタンを押してください。
+            3. マージされると、本番サイトへ自動で公開（デプロイ）されます！
+
+            ※キューのステータスは自動更新されます。
+          add-paths: |
+            src/content/blog/**
+            scripts/content-gen/content-queue.json
+          branch-suffix: "timestamp"
+          delete-branch: true
+          labels: "automated-blog"
