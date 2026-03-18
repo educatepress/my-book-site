@@ -98,17 +98,18 @@ export default function BookDetail() {
                                 </h3>
 
                                 {/* LP内スワイプ完結の立ち読みエリア */}
-                                <div className="w-full bg-[var(--color-surface)] rounded-[16px] p-4 mb-5 border border-black/5 relative">
-                                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-2 -mx-2 px-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                                <div className="w-full bg-[var(--color-surface)] rounded-[16px] p-4 mb-5 border border-black/5 relative flex flex-col items-center">
+                                    <h4 className="text-[0.8rem] font-bold text-[var(--color-text-mid)] mb-3 flex items-center gap-1.5"><span className="text-[1rem]">📖</span> この本の中身を少しだけ公開</h4>
+                                    <div className="flex w-full overflow-x-auto snap-x snap-mandatory gap-4 pb-4 px-2 justify-start items-center" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                                         <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
                                         
                                         {[1, 2, 3].map((num) => (
-                                            <div key={num} className="snap-center shrink-0 w-[140px] aspect-[3/4] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-sm relative group">
+                                            <div key={num} className="snap-center shrink-0 w-[110px] md:w-[130px] aspect-[1/1.414] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-md relative group">
                                                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                <img src={`/preview-jp-${num}.jpg`} alt={`プレビュー ${num}`} className="w-full h-full object-cover" />
+                                                <img src={`/preview-jp-${num}.jpg`} alt={`プレビュー ${num}`} className="w-full h-full object-contain bg-white" />
                                                 
                                                 <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                    <span className="bg-white/90 text-gray-800 text-[0.65rem] px-2 py-1 rounded-full font-bold shadow-sm backdrop-blur-sm">スワイプ →</span>
+                                                    <span className="bg-white/95 text-[var(--color-text-dark)] text-[0.65rem] px-2.5 py-1.5 rounded-full font-bold shadow-md backdrop-blur-sm">拡大</span>
                                                 </div>
                                             </div>
                                         ))}

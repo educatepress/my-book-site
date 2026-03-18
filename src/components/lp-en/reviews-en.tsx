@@ -47,7 +47,7 @@ export default function ReviewsEn() {
                     </h3>
                     <div className="inline-flex flex-col items-center gap-2">
                         <div className="flex items-center gap-2 text-[0.9rem] font-medium text-[var(--color-text-dark)]">
-                            <AnimatedStars /> 5.0 (2 Reviews)
+                            <AnimatedStars /> 5.0 (12 Reviews)
                         </div>
                         <a href="https://www.amazon.com/dp/B0F7XTWJ3X" target="_blank" rel="noreferrer" className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
                             → View all reviews on Amazon

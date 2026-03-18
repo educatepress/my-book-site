@@ -19,17 +19,14 @@ export default function AuthorProfile() {
                                 style={{ boxShadow: "0 12px 40px rgba(107,143,113,0.15)" }}
                             />
                             <div className="flex gap-4">
-                                <a href="https://note.com/famous_cosmos408" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-[0.8rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5" title="note">
-                                    <img src="/icon-note.svg" alt="note" className="w-3.5 h-3.5" />
-                                    <span>note</span>
+                                <a href="https://note.com/famous_cosmos408" target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm hover:scale-110 transition-transform border border-black/5" title="note">
+                                    <img src="/icon-note.svg" alt="note" className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
                                 </a>
-                                <a href="https://instagram.com/dr.sato.fertility" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-[0.8rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5" title="Instagram">
-                                    <img src="/icon-instagram.svg" alt="Instagram" className="w-3.5 h-3.5" />
-                                    <span>Instagram</span>
+                                <a href="https://instagram.com/dr.sato.fertility" target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm hover:scale-110 transition-transform border border-black/5" title="Instagram">
+                                    <img src="/icon-instagram.svg" alt="Instagram" className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
                                 </a>
-                                <a href="https://x.com/entu1201" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-[0.8rem] font-bold text-[var(--color-text-mid)] bg-white px-3 py-1.5 rounded-full shadow-sm hover:scale-105 transition-transform border border-black/5" title="X (Twitter)">
-                                    <img src="/icon-x.svg" alt="X" className="w-3.5 h-3.5" />
-                                    <span>X</span>
+                                <a href="https://x.com/entu1201" target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm hover:scale-110 transition-transform border border-black/5" title="X (Twitter)">
+                                    <img src="/icon-x.svg" alt="X" className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
                                 </a>
                             </div>
                         </div>
@@ -52,8 +49,7 @@ export default function AuthorProfile() {
 
                             {/* 🚨 追加：著者の「想い」をストーリーとして配置 */}
                             <div className="relative bg-white p-5 md:p-6 rounded-2xl border-l-4 border-[var(--color-sage)] shadow-sm w-full mb-6 text-left">
-                                <div className="absolute -top-3 left-4 text-[3.5rem] text-[var(--color-sage)] opacity-20 font-serif leading-none">“</div>
-                                <p className="text-[0.9rem] md:text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] relative z-10 font-medium pt-2">
+                                <p className="text-[0.9rem] md:text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] relative z-10 font-medium">
                                     日々診察室で、<strong className="text-[var(--color-blush)]">「もっと早く知っていれば…」</strong>と涙を流す女性を数え切れないほど見てきました。<br className="hidden md:block" />
                                     手遅れになって後悔する前に、正しい知識で自分の未来と選択肢を守ってほしい。その一心で、専門医として本当に必要な24の事実をこの一冊に込めました。
                                 </p>

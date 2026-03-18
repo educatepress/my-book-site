@@ -122,7 +122,7 @@ export default function HeroEn() {
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                            src="/mock-en.png"
+                            src="/mockup-jp.png"
                             alt="Book Mockup"
                             className="w-full h-auto scale-105 object-contain"
                         />
