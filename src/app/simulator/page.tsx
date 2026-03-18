@@ -1,4 +1,4 @@
-import ArtSimulator from "@/components/common/art-simulator";
+import SimulatorClient from "@/components/common/simulator-client";
 
 export const metadata = {
     title: "IVF 成功率シミュレーター | 佐藤琢磨 生殖医療専門医",
@@ -9,7 +9,7 @@ export default function SimulatorPageJp() {
     return (
         <main className="min-h-screen bg-[var(--color-cream)]">
             <div className="py-16 md:py-24 px-6">
-                <ArtSimulator lang="ja" />
+                <SimulatorClient lang="ja" />
             </div>
 
             {/* LPへ戻る */}
