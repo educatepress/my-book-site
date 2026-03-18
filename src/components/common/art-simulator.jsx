@@ -1,3 +1,4 @@
+"use client";
 // @ts-nocheck
 import { useState, useCallback, useMemo, useEffect } from "react";
 import {
@@ -226,7 +227,7 @@ function Stat({icon,label,value,unit,sub,accent}){
   );
 }
 
-export default function ART({ lang = "ja" }: { lang?: "ja" | "en" }){
+export default function ART({ lang = "ja" }){
   const[age,setAge]=useState(36);
   const[amh,setAmh]=useState(2.4);
   const[pgt,setPgt]=useState(false);

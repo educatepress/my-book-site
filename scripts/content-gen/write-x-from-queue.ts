@@ -1,19 +1,22 @@
 import 'dotenv/config';
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI, Type } from '@google/genai';
 import { TwitterApi } from 'twitter-api-v2';
 import fs from 'fs/promises';
 import path from 'path';
 import { getNextPendingItem, markItemStatus } from './queue-manager';
 import { verifyUrl, extractAndVerifySourceUrl } from './url-verifier';
 
-// Configure Gemini API
+// ============================================================================
+// ⚙️ Configuration
+// ============================================================================
+
 if (!process.env.GEMINI_API_KEY) {
     console.error("❌ Error: GEMINI_API_KEY is missing in .env");
     process.exit(1);
 }
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-// Configure Twitter APIs
+// --- Twitter API Clients ---
 const jpApiKey = process.env.TWITTER_API_KEY;
 const jpApiSecret = process.env.TWITTER_API_SECRET;
 const jpAccessToken = process.env.TWITTER_ACCESS_TOKEN;
@@ -48,8 +51,174 @@ if (enApiKey && enApiSecret && enAccessToken && enAccessSecret) {
     console.warn("⚠️ Warning: EN Twitter API credentials missing.");
 }
 
+// --- LP URLs ---
+const LP_URL_JP = "https://doctors-guide-womens-health.vercel.app/";
+const LP_URL_EN = "https://doctors-guide-womens-health.vercel.app/en";
+
+// ============================================================================
+// 🔄 無人稼働のための自己修復（Auto-Retry）型 AI生成関数
+// ============================================================================
+async function generateWithRetry(item: any, maxRetries = 2) {
+    // 💡 毎日ランダムな切り口を注入し、AIの「マンネリ化」を防ぐ
+    const hookAnglesJp = [
+        "【外来での気づき】日々の診察室で、患者さんからよく受ける質問へのフラットな回答",
+        "【最新エビデンス】最新の医学論文やニュースから得られた、専門医としての客観的な視点",
+        "【誤解の訂正】ネット上の「よくある思い込み」に対する、医学的な現在地",
+        "【専門医の独り言】生殖医療の限界と可能性について、冷静に語るトーン"
+    ];
+    const hookAnglesEn = [
+        "Clinical Observation: Answering a common question I hear from patients.",
+        "Latest Evidence: An objective perspective based on recent medical papers.",
+        "Correcting Misconceptions: The medical reality versus common online myths.",
+        "Specialist's Thoughts: A candid look at reproductive medicine."
+    ];
+    const angleIndex = Math.floor(Math.random() * hookAnglesJp.length);
+
+    let prompt = `
+あなたは、生殖医療専門医である佐藤琢磨医師の専属ゴーストライターです。
+「完全自動・無人」で毎日投稿されるため、AIだと一切見抜かれない自然さと、LP（書籍）への効果的な送客が至上命題です。
+
+【発信テーマ】
+- JP: ${item.theme} / EN: ${item.themeEn}
+- 目的 (JP/EN): ${item.direction} / ${item.directionEn}
+- エビデンス元: ${item.sourceUrls.join('\n')}
+
+【超重要: AI臭さの完全排除（ネガティブプロンプト）】
+❌ 以下の「AI特有の薄っぺらい共感・定型文」は絶対に使用禁止：
+「不安になりますよね」「寄り添います」「一緒に歩んでいきましょう」「結論から言うと」「重要なポイントは」「〜をご存知ですか？」
+✅ 代わりに、本日の投稿は以下の「リアルな切り口」から書き出してください：
+JP: 「${hookAnglesJp[angleIndex]}」
+EN: 「${hookAnglesEn[angleIndex]}」
+感情的にならず、淡々と最新の知見や事実を伝える「フラットで真摯な臨床医」として振る舞ってください。
+
+【医療コンプライアンスの自己検閲（絶対厳守）】
+いきなり文章を作るのではなく、必ず「thoughtProcess」の項目で、以下に違反がないか自己検閲してください。
+
+■ 絶対禁止（レッドライン）:
+  - 虚偽・誇大広告: 「必ず妊娠できる」「100%効果がある」「奇跡の」「画期的な」
+  - 比較優良広告: 「他院より優れた」「最高の」「日本一の」
+  - 体験談の捏造: 実在しない患者の声やストーリー
+  - 恐怖を煽る表現: 「手遅れになる前に」「取り返しがつかない」「もう間に合わない」「危険です」
+  - 特定の治療法の効果を断定: 「これをすれば治る」「唯一の方法」
+  - 未承認治療・エビデンス不十分な民間療法の推奨
+  - 患者の不安につけ込む煽動的表現
+
+■ 注意が必要（イエローライン）:
+  - 統計データの提示時: 必ず出典を明記し、「研究では〜という報告があります」と留保をつける
+  - 年齢に関する言及: 数字は正確に、かつ「個人差があります」の一言を添える
+  - 「知らないと損」系の表現: 煽りに見えやすいため、「知っておくと選択肢が広がります」に言い換える
+
+【スレッド構成とLPへの送客（シャドウバン対策）】
+Xのアルゴリズム上、1ツイート目にリンクがあると表示回数が激減します。
+各言語3〜4ツイートで構成し、以下の配置を厳守してください。
+
+■ ツイート1〜2（Hook & Fact / 🚨リンク絶対禁止）
+  読者のスクロールを止める事実やデータの解説。挨拶不要。1ツイート目の末尾は「🧵👇」
+  ❌ 絶対禁止のフック（恐怖煽り・断定・誇大）:
+    NG:「【卵子凍結は無駄】知らないと後悔する衝撃の真実」
+    NG:「【あなたの精子は危険】今すぐ検査を」
+  ✅ 推奨するフック（意外性のある事実 + ポジティブな気づき）:
+    OK:「【排卵日＝ベストタイミング？】実は最新研究では少し違います🧵👇」
+    OK:「よく患者さんから聞かれる【◯◯】について、最新データをまとめました🧵👇」
+
+■ 最終ツイート（CTA & Source / ✅ここにリンクを配置）
+  熱量の高まった読者をLPへ誘導します。「体系的な知識のお守りとして」「より詳しい選択肢はこちらに」といった教育的な文脈でLPのURLを提示してください。
+  ・JP誘導先: ${LP_URL_JP}
+  ・EN誘導先: ${LP_URL_EN}
+  最後に必ずソースURL（${item.sourceUrls[0]}）も併記し、ハッシュタグを1つ添えること。
+
+【文化に合わせたトーンの制御】
+■ 日本語: 「当院」「当クリニック」は使わないこと。トーンは「信頼できるかかりつけ医が淡々と語る」。
+■ 英語: Empowermentベースの表現（"Knowledge is power", "You deserve informed decisions"）。
+
+※文字数エラーによるシステム停止を防ぐため、JPは各ツイート【130文字以内】、ENは【270文字以内】を厳守してください。
+`;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        console.log(`🤖 AI Generation Attempt ${attempt}/${maxRetries}...`);
+
+        // 構造化出力でJSONパースエラーを100%排除
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: {
+                tools: [{ googleSearch: {} }],
+                responseMimeType: "application/json",
+                responseSchema: {
+                    type: Type.OBJECT,
+                    properties: {
+                        thoughtProcess: {
+                            type: Type.STRING,
+                            description: "検索した事実の整理と、医療広告ガイドライン違反・ハルシネーションがないかの自己チェックプロセス。"
+                        },
+                        jpXPostThread: { type: Type.ARRAY, items: { type: Type.STRING } },
+                        enXPostThread: { type: Type.ARRAY, items: { type: Type.STRING } }
+                    },
+                    required: ["thoughtProcess", "jpXPostThread", "enXPostThread"]
+                }
+            }
+        });
+
+        const result = JSON.parse(response.text || '{}');
+        console.log(`\n🧠 [AI自己検閲ログ]: ${result.thoughtProcess}\n`);
+
+        // 簡易文字数バリデーション（URLを除外して計算）
+        let isValid = true;
+        let errorMessage = "";
+        const checkLen = (thread: string[], limit: number) => {
+            for (const text of thread) {
+                const textWithoutUrl = text.replace(/https?:\/\/[^\s]+/g, '');
+                if (textWithoutUrl.length > limit) return false;
+            }
+            return true;
+        };
+
+        if (!checkLen(result.jpXPostThread || [], 138)) { isValid = false; errorMessage += "JP文字数超過。"; }
+        if (!checkLen(result.enXPostThread || [], 275)) { isValid = false; errorMessage += "EN文字数超過。"; }
+
+        if (isValid) return result;
+
+        console.warn(`⚠️ Attempt ${attempt} failed: ${errorMessage}`);
+        if (attempt === maxRetries) return result; // 最終リトライ時はそのまま返す
+
+        // エラー時はAIに「短くしろ」と指示を追加して再生成（自己修復）
+        prompt += `\n\n【警告】前回の出力はXの文字数制限を超過しました。リンクは削らず、テキスト部分をもっと短く簡潔に修正して再出力してください。`;
+    }
+}
+
+// ============================================================================
+// 🔍 URL検証ヘルパー（スレッド配列用）
+// ============================================================================
+async function verifyThreadUrls(thread: string[], label: string): Promise<string[]> {
+    if (thread.length === 0) return thread;
+
+    console.log(`\n  [Checking ${label} Thread]`);
+    const fullText = thread.join(' ');
+    try {
+        await extractAndVerifySourceUrl(fullText);
+        for (let i = 0; i < thread.length; i++) {
+            const urls = thread[i].match(/https?:\/\/[^\s)\]"']+/g) || [];
+            for (const url of urls) {
+                // LP URLsは常に有効なのでスキップ
+                if (url.startsWith(LP_URL_JP) || url.startsWith(LP_URL_EN)) continue;
+                if (!(await verifyUrl(url))) {
+                    thread[i] = thread[i].replace(url, '').replace(/\n\n+/g, '\n\n').trim();
+                }
+            }
+        }
+        return thread;
+    } catch (e: any) {
+        console.error(e.message);
+        console.error(`  👉 Aborting ${label} thread formatting.`);
+        return [];
+    }
+}
+
+// ============================================================================
+// 🚀 メイン処理
+// ============================================================================
 async function main() {
-    console.log("🚀 Starting X Content Generation from Queue...");
+    console.log("🚀 Starting Fully Automated X Content Generation...");
 
     const item = await getNextPendingItem("x");
     if (!item) {
@@ -60,125 +229,23 @@ async function main() {
     console.log(`\n📋 Processing Item [${item.id}]: ${item.theme}`);
     console.log(`🔗 Primary Source URL: ${item.sourceUrls[0]}`);
 
-    const prompt = `
-あなたは、生殖医療専門医（産婦人科医）である佐藤琢磨医師の専属AIコンテンツクリエイターです。
-
-あなたのタスクは、提供された【指定テーマ】と【エビデンス（ソースURL）】をもとに、「X（旧Twitter）へのデイリー投稿」を2言語（日本語・英語）で作成することです。
-
-【発信テーマ情報（MUST）】
-- 日本語テーマ: ${item.theme}
-- 英語テーマ: ${item.themeEn}
-- 記事の方向性/目的 (JP): ${item.direction}
-- 記事の方向性/目的 (EN): ${item.directionEn}
-- エビデンスとなるソースURL: ${item.sourceUrls.join('\n')}
-
-【超重要: 検索と情報源抽出プロセス（必須）】
-あなたは手持ちの知識で記事をでっち上げるのではなく、必ず以下のステップを踏んでください:
-1. 提供されたソースURL（${item.sourceUrls[0]}）の内容を読み込み（Google Search等を利用して内容を把握する）、要約・ファクトを抽出してください。
-2. 投稿の最後に必ず、提供された【ソースURL】を添付してください。
-
-【人間味のある「共感的なコメント（感想）」の付与（必須）】
-ニュース記事の単なる要約にするのではなく、必ず「医師としての人間味のある短い感想・コメント」を添えてください。
-- ❌ 強い断定、批判は絶対に避けること。
-- ✅ 「共感的（Empathetic）」「傾聴的（Listening）」なスタンスを維持する。
-- ✅ 「不安になりますよね」「こんな視点もあるのですね」「焦らずに一緒に歩んでいきましょう」といったニュアンス。
-
-【文化に合わせたトーンの制御】
-■ 日本語の投稿ルール:
-日本の読者は否定的・棘のある表現を嫌います。
-  ❌ 禁止: 「意味のない努力」「逆効果」「間違った情報」「限界を感じていませんか？」
-  ✅ 推奨: 「〜という選択肢もあります」「〜を知っておくと安心です」「専門医の視点から〜」
-トーンは「信頼できるかかりつけ医が優しく語りかけるように」。
-
-■ 英語の投稿ルール:
-  ❌ 禁止: 恐怖ベースの煽り（"You're ruining your chances"など）
-  ✅ 推奨: Empowermentベースの表現（"Knowledge is power", "You deserve informed decisions"）
-
-【CTAリンクについて（超重要）】
-- 投稿テキストの中に書籍ガイドのURL（doctors-guide-womens-health.vercel.app等）は含めないでください。
-- 「当院」「当クリニック」という表現は使わないでください。
-
----
-生成するアセット（JSON形式）:
-
-1. "jpXPost": 日本語のX投稿テキスト（140〜200文字程度）。
-   - ポジティブなHookから始める。否定語・恐怖喚起は絶対禁止。
-   - ${item.direction} の指示に必ず従うこと。
-   - 情報の信頼性を高めるため、指定されたソースURLを必ず最後に記載する。
-   - ハッシュタグ（#プレコンセプションケア #妊活 など）を含める。
-
-2. "enXPostThread": 英語のX投稿（スレッド形式、2〜4ツイート）。配列で出力。
-   - Empowermentベースのトーン。
-   - ${item.directionEn} の指示に必ず従うこと。
-   - 指定されたソースURLを含める。
-   - #TTC #Infertility などのハッシュタグを入れる。
-
----
-CRITICAL: ONLY OUTPUT RAW VALID JSON. DO NOT INCLUDE MARKDOWN CODE BLOCKS.
-{
-  "jpXPost": "Japanese tweet text...",
-  "enXPostThread": ["1st tweet...", "2nd tweet...", "3rd tweet..."]
-}
-`;
-
     try {
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: prompt,
-            config: {
-                tools: [{ googleSearch: {} }],
-            }
-        });
-
-        let resultText = response.text || '{}';
-        resultText = resultText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
-
-        let result;
-        try {
-            result = JSON.parse(resultText);
-        } catch (e) {
-             console.log("Raw Response:", resultText);
-             throw new Error("Failed to parse JSON response");
+        const result = await generateWithRetry(item);
+        if (!result) {
+            console.error("❌ AI generation returned no result.");
+            process.exit(1);
         }
 
-        let jpText: string = result.jpXPost || "";
+        let jpThread: string[] = result.jpXPostThread || [];
         let enThread: string[] = result.enXPostThread || [];
 
         // --- URL Verification Phase ---
         console.log("\n🔍 Verifying URLs in generated output...");
-        
-        try {
-            console.log("\n  [Checking JP Post]");
-            jpText = await extractAndVerifySourceUrl(jpText);
-        } catch (e: any) {
-            console.error(e.message);
-            console.error("  👉 Aborting JP post formatting.");
-            jpText = "";
-        }
+        jpThread = await verifyThreadUrls(jpThread, "JP");
+        enThread = await verifyThreadUrls(enThread, "EN");
 
-        if (enThread.length > 0) {
-            console.log("\n  [Checking EN Thread]");
-            const fullEnText = enThread.join(' ');
-            try {
-                await extractAndVerifySourceUrl(fullEnText);
-                // Clean individual parts
-                for (let i = 0; i < enThread.length; i++) {
-                     const urls = enThread[i].match(/https?:\/\/[^\s)\]"']+/g) || [];
-                     for (const url of urls) {
-                         if (!(await verifyUrl(url))) {
-                             enThread[i] = enThread[i].replace(url, '').replace(/\n\n+/g, '\n\n').trim();
-                         }
-                     }
-                }
-            } catch (e: any) {
-                console.error(e.message);
-                console.error("  👉 Aborting EN thread formatting.");
-                enThread = [];
-            }
-        }
-
-        if (!jpText && enThread.length === 0) {
-             console.error("❌ Both JP and EN outputs failed validation or hallucinated URLs. Exiting.");
+        if (jpThread.length === 0 && enThread.length === 0) {
+             console.error("❌ Both JP and EN outputs failed validation. Exiting.");
              process.exit(1);
         }
 
@@ -186,23 +253,23 @@ CRITICAL: ONLY OUTPUT RAW VALID JSON. DO NOT INCLUDE MARKDOWN CODE BLOCKS.
         const outDir = path.join(process.cwd(), 'scripts', 'content-gen', 'out-daily-x');
         await fs.mkdir(outDir, { recursive: true });
         const todayStr = new Date().toISOString().split('T')[0];
-        if (jpText) await fs.writeFile(path.join(outDir, `${todayStr}-jp.txt`), jpText);
+        if (jpThread.length > 0) await fs.writeFile(path.join(outDir, `${todayStr}-jp-thread.json`), JSON.stringify(jpThread, null, 2));
         if (enThread.length > 0) await fs.writeFile(path.join(outDir, `${todayStr}-en-thread.json`), JSON.stringify(enThread, null, 2));
 
-        console.log("--- ✨ JP Preview ✨ ---\n" + jpText);
+        console.log("--- ✨ JP Thread Preview ✨ ---\n" + jpThread.join('\n\n---\n\n'));
         console.log("\n--- ✨ EN Thread Preview ✨ ---\n" + enThread.join('\n\n---\n\n'));
 
-        // Action posting
+        // --- 自動投稿ロジック ---
         let postSuccess = false;
 
-        if (jpClient && jpText) {
-            console.log("\n🚀 Posting to JP Twitter...");
+        if (jpClient && jpThread.length > 0) {
+            console.log("\n🚀 Posting to JP Twitter Thread...");
             try {
-                const jpRes = await jpClient.readWrite.v2.tweet(jpText);
-                console.log(`✅ Success JP Tweet ID: ${jpRes.data.id}`);
+                const jpRes = await jpClient.readWrite.v2.tweetThread(jpThread);
+                console.log(`✅ Success JP Thread. First Tweet ID: ${jpRes[0].data.id}`);
                 postSuccess = true;
             } catch (jpErr) {
-                console.error("❌ Failed to post JP tweet:", jpErr);
+                console.error("❌ Failed to post JP thread:", jpErr);
             }
         }
 
@@ -220,16 +287,14 @@ CRITICAL: ONLY OUTPUT RAW VALID JSON. DO NOT INCLUDE MARKDOWN CODE BLOCKS.
         if (postSuccess) {
             await markItemStatus(item.id, "posted");
         } else {
-             // If local generation worked but Twitter API failed (e.g no credentials locally), mark as generated.
             await markItemStatus(item.id, "generated");
             console.log("✅ Marked as 'generated' locally due to Twitter API failure (or running locally).");
         }
 
-        console.log("\n🎉 Queue X Generation & Posting complete!");
+        console.log("\n🎉 Fully Automated Posting complete!");
 
     } catch (err: any) {
-        console.error("❌ Error processing X queue:");
-        console.error(err);
+        console.error("❌ Fatal Error processing X queue:", err);
         process.exit(1);
     }
 }
