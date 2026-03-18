@@ -21,8 +21,8 @@ export default function SimulatorCta() {
                             </h3>
 
                             <p className="text-[0.95rem] text-[var(--color-text-muted)] leading-relaxed mb-8 max-w-[560px] mx-auto">
-                                年齢・AMH・BMI等のパラメータから、体外受精の累積出生率を推定します。
-                                CDC/SARTの全米データに基づいたシミュレーションで、治療計画のイメージを掴みましょう。
+                                年齢とAMHを入力するだけで、モンテカルロ法による3,000人の仮想コホートシミュレーションを実行。
+                                あなたの条件での治療期間と妊娠確率のイメージを掴みましょう。
                             </p>
 
                             <a

@@ -2,7 +2,7 @@ import SimulatorClient from "@/components/common/simulator-client";
 
 export const metadata = {
     title: "IVF 成功率シミュレーター | 佐藤琢磨 生殖医療専門医",
-    description: "年齢・AMH・BMI等のパラメータから、体外受精の累積出生率を推定するシミュレーターです。CDC/SARTデータに基づく教育目的のツールです。",
+    description: "年齢とAMHを入力するだけで、モンテカルロ法による3,000人の仮想コホートシミュレーションを実行。体外受精の累積妊娠確率と治療期間を推定します。",
 };
 
 export default function SimulatorPageJp() {

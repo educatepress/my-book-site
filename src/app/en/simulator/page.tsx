@@ -2,7 +2,7 @@ import SimulatorClient from "@/components/common/simulator-client";
 
 export const metadata = {
     title: "IVF Success Rate Simulator | Dr. Takuma Sato",
-    description: "Estimate your cumulative IVF live birth rate based on age, AMH, BMI, and other clinical parameters. Built on CDC/SART data for educational purposes.",
+    description: "Enter your age and AMH to run a Monte Carlo simulation with a 3,000-patient virtual cohort. Estimate cumulative pregnancy probability and treatment timelines for IVF.",
 };
 
 export default function SimulatorPage() {

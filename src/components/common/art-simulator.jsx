@@ -46,7 +46,8 @@ const t = {
     freshTx: "新鮮胚移植を行う",
     stratL: "移植戦略", stratSeq: "保険診療", stratBat: "複数採卵で確保",
     batchL: "確保数",
-    disc: "※ 統計モデルによる推定です。個別の医学的助言ではありません。結果の解釈は担当医にご相談ください。",
+    disc: null,
+    discJsx: <>※ 統計モデルによる推定であり、個別の医学的助言ではありません。<a href="https://docs.google.com/document/d/155aJ6seHdNveVleyPGuUdJCyqEtlOTvx/edit?usp=sharing&ouid=105207338738607983256&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" style={{color:'var(--t)',textDecoration:'underline'}}>モデル仕様書はこちら</a></>,
     ch1T: "治療期間と妊娠の可能性", ch1S: "治療を続けた場合の累積妊娠確率",
     xaxis: "治療期間（ヶ月）", yaxis: "妊娠確率（%）",
     ttProb: "妊娠確率", ttLo: "下限", ttHi: "上限", ttMo: "ヶ月目",
@@ -79,7 +80,8 @@ const t = {
     freshTx: "Include Fresh Transfer",
     stratL: "Strategy", stratSeq: "Sequential", stratBat: "Batching (Banking)",
     batchL: "Target Embryos",
-    disc: "* Estimated via statistical model. Not individualized medical advice. Consult your doctor for interpretation.",
+    disc: null,
+    discJsx: <>* Estimated via statistical model. Not individualized medical advice. <a href="https://docs.google.com/document/d/155aJ6seHdNveVleyPGuUdJCyqEtlOTvx/edit?usp=sharing&ouid=105207338738607983256&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" style={{color:'var(--t)',textDecoration:'underline'}}>View model specification</a></>,
     ch1T: "Treatment Duration & Probability", ch1S: "Cumulative live birth probability over time",
     xaxis: "Treatment Duration (Months)", yaxis: "Probability (%)",
     ttProb: "Probability", ttLo: "Lower", ttHi: "Upper", ttMo: "mo",
@@ -418,7 +420,7 @@ export default function ART({ lang = "ja" }){
             </div>
           )}
 
-          <p className="disc">{tObj.disc}</p>
+          <p className="disc">{tObj.discJsx || tObj.disc}</p>
         </div>
 
         {/* ══ RIGHT — CHARTS ══ */}
