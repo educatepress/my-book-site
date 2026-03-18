@@ -97,37 +97,7 @@ export default function FinalCta() {
                         English Edition →
                     </a>
 
-                    {/* Divider */}
-                    <div className="w-[60px] h-[1px] bg-white/30 my-[2.5rem]" />
 
-                    {/* 内製シミュレーターへのCTA */}
-                    <div className="relative overflow-hidden bg-white/10 border border-white/20 hover:bg-white/15 transition-colors duration-300 rounded-[24px] p-6 md:p-8 w-full max-w-[500px] mb-12 text-left backdrop-blur-sm shadow-xl group">
-                        
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4 mt-1">
-                            <span className="bg-[var(--color-sage)] text-white text-[0.7rem] font-bold px-3 py-1 rounded-full tracking-wider shadow-sm w-fit">
-                                無料公開ツール
-                            </span>
-                            <h4 className="text-[1.1rem] md:text-[1.15rem] font-bold text-white leading-tight">
-                                📊 IVF（体外受精）確率シミュレーター
-                            </h4>
-                        </div>
-                        
-                        <p className="text-[0.9rem] text-white/90 leading-relaxed mb-6">
-                            「自分の年齢だと、妊娠までにどのくらいの期間がかかる？」<br />
-                            CDC/SARTデータに基づくモンテカルロ・シミュレーションで、あなたの状況に合わせた確率の目安を瞬時に算出します。
-                        </p>
-                        
-                        <a
-                            href="/simulator"
-                            className="w-full inline-flex items-center justify-center gap-2 bg-white text-[var(--color-text-dark)] hover:text-[var(--color-sage)] text-[0.95rem] px-6 py-3.5 rounded-xl font-bold shadow-md hover:scale-[1.02] transition-transform"
-                        >
-                            無料でシミュレーターを開く →
-                        </a>
-                        
-                        <div className="mt-4 pt-4 border-t border-white/10 text-[0.7rem] text-white/60 leading-relaxed text-center">
-                            <p>※統計モデルからの理論値であり、個々の妊娠を保証するものではありません。</p>
-                        </div>
-                    </div>
 
                     {/* Partner Share */}
                     <div className="flex flex-col items-center bg-black/10 rounded-[24px] p-6 w-full max-w-[400px] mb-[4rem]">
