@@ -12,6 +12,11 @@ import StickyCtaEn from '@/components/common/sticky-cta-en';
 export const metadata = {
     title: "Thinking in your 20s: Choices for a Future Pregnancy Without Trouble",
     description: "24 medical facts for women in their 20s and 30s and their partners.",
+    openGraph: {
+        title: "Thinking in your 20s: Choices for a Future Pregnancy Without Trouble",
+        description: "24 medical facts for women in their 20s and 30s and their partners.",
+        images: [{ url: '/mock-en.png', width: 800, height: 1100 }],
+    },
 };
 
 export default function HomeEn() {
