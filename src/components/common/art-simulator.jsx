@@ -274,6 +274,8 @@ export default function ART({ lang = "ja" }){
 
   useEffect(()=>{run()},[]);
 
+  const tObj = t[lang] || t.ja;
+
   const st=useMemo(()=>{
     if(!res)return{};
     const tl=res.tl;
@@ -298,7 +300,7 @@ export default function ART({ lang = "ja" }){
       note=tObj.note3y;
     }
     return{t50,t80,r12,r24,nR,nT,mR,mT,note};
-  },[res, lang]);
+  },[res, lang, tObj]);
 
   const fm=v=>isFinite(v)?`${Math.round(v)}`:'—';
 
@@ -308,8 +310,6 @@ export default function ART({ lang = "ja" }){
     return smoothCurve(raw, 5);
   },[res]);
   const histData=useMemo(()=>res?.hd||[],[res]);
-
-  const tObj = t[lang] || t.ja;
 
   return(
     <div className="root">
