@@ -19,6 +19,78 @@ function piecewiseLinear(x,pts){if(x<=pts[0][0])return pts[0][1];for(let i=1;i<p
 function percentile(a,p){if(!a.length)return NaN;const i=(p/100)*(a.length-1),lo=Math.floor(i),hi=Math.ceil(i);return lo===hi?a[lo]:a[lo]*(1-(i-lo))+a[hi]*(i-lo)}
 function wilsonCI(k,n,z=1.96){if(!n)return[NaN,NaN];const p=k/n,z2=z*z,d=1+z2/n,c=(p+z2/(2*n))/d,h=(z*Math.sqrt((p*(1-p)+z2/(4*n))/n))/d;return[Math.max(0,c-h),Math.min(1,c+h)]}
 
+/* ═══════════════════════════════════════════════════════════════
+   §0.5  LOCALIZATION (ja/en)
+   ═══════════════════════════════════════════════════════════════ */
+const t = {
+  ja: {
+    title: "ART妊活シミュレーター",
+    subtitle: "体外受精の治療予測モデル",
+    pgtOn: "PGT-A ON",
+    yourInfo: "あなたの情報",
+    age: "治療開始年齢",
+    ageHint1: "比較的良好な条件です", ageHint2: "標準的な条件です", ageHint3: "成功率がやや低下する年齢域です", ageHint4: "個別の治療戦略が重要です",
+    amh: "AMH（卵巣予備能）",
+    amhHint: (a, m) => `${a}歳の平均: ${m.toFixed(1)} ng/mL`,
+    pgtTitle: "PGT-A（着床前検査）", pgtDesc: "正常胚のみを移植する前提で計算",
+    btnCalc: "計算しています...", btnRun: "結果を見る",
+    stat50: "半数が妊娠", stat80: "8割が妊娠", statRet: "採卵回数", statTra: "移植回数",
+    months: "ヶ月", times: "回",
+    median: v => `中央値 ${v}回`,
+    note3y: "※3年以内の実施回数",
+    rate12: "12ヶ月", rate24: "24ヶ月",
+    advBtn: "詳細設定",
+    advMii: "成熟卵（平均）", advPb: "胚盤胞到達率", advPf: "受精率", advPe: "Euploid率",
+    advMpr: "採卵間隔", advMpt: "移植間隔", advCancel: "キャンセル率", advIter: "患者数",
+    freshTx: "新鮮胚移植を行う",
+    stratL: "移植戦略", stratSeq: "保険診療", stratBat: "複数採卵で確保",
+    batchL: "確保数",
+    disc: "※ 統計モデルによる推定です。個別の医学的助言ではありません。結果の解釈は担当医にご相談ください。",
+    ch1T: "治療期間と妊娠の可能性", ch1S: "治療を続けた場合の累積妊娠確率",
+    xaxis: "治療期間（ヶ月）", yaxis: "妊娠確率（%）",
+    ttProb: "妊娠確率", ttLo: "下限", ttHi: "上限", ttMo: "ヶ月目",
+    ch2T: "妊娠までの期間分布", ch2S: "何ヶ月目に妊娠する方が多いか",
+    ttPreg: "妊娠数",
+    miPrefix: "人の仮想患者コホートを生成し、モンテカルロ法で推定。\n",
+    miTags: <><em>負の二項分布</em>・<em>Frailtyモデル</em>・<em>イベント駆動型ドロップアウト</em>を実装。</>,
+    miPgt: " PGT-A正常胚のLBRは年齢非依存の55%固定。",
+    miSuffix: "OHSS予防のため成熟卵数は15個を上限としています。"
+  },
+  en: {
+    title: "ART Success Simulator",
+    subtitle: "IVF Treatment Prediction Model",
+    pgtOn: "PGT-A ON",
+    yourInfo: "Your Profile",
+    age: "Starting Age",
+    ageHint1: "Favorable conditions", ageHint2: "Standard conditions", ageHint3: "Age where success rates begin to decline", ageHint4: "Personalized strategy is crucial",
+    amh: "AMH (Ovarian Reserve)",
+    amhHint: (a, m) => `Average at age ${a}: ${m.toFixed(1)} ng/mL`,
+    pgtTitle: "PGT-A (Preimplantation Testing)", pgtDesc: "Assumes transfer of euploid embryos only",
+    btnCalc: "Calculating...", btnRun: "View Results",
+    stat50: "50% Pregnancy", stat80: "80% Pregnancy", statRet: "Retrievals", statTra: "Transfers",
+    months: "mo", times: "x",
+    median: v => `Median: ${v}x`,
+    note3y: "*Number of cycles within 3 years",
+    rate12: "12 Months", rate24: "24 Months",
+    advBtn: "Advanced Settings",
+    advMii: "MII Oocytes", advPb: "Blastocyst Rate", advPf: "Fertilization", advPe: "Euploid Rate",
+    advMpr: "Retrieval Intvl", advMpt: "Transfer Intvl", advCancel: "Cancel Rate", advIter: "Patients",
+    freshTx: "Include Fresh Transfer",
+    stratL: "Strategy", stratSeq: "Sequential", stratBat: "Batching (Banking)",
+    batchL: "Target Embryos",
+    disc: "* Estimated via statistical model. Not individualized medical advice. Consult your doctor for interpretation.",
+    ch1T: "Treatment Duration & Probability", ch1S: "Cumulative live birth probability over time",
+    xaxis: "Treatment Duration (Months)", yaxis: "Probability (%)",
+    ttProb: "Probability", ttLo: "Lower", ttHi: "Upper", ttMo: "mo",
+    ch2T: "Distribution of Conceptions", ch2S: "When do most pregnancies occur?",
+    ttPreg: "Pregnancies",
+    miPrefix: "virtual patient cohort generated. Estimated via Monte Carlo simulation.\n",
+    miTags: <>Implemented <em>Negative Binomial</em>, <em>Frailty Model</em>, and <em>Event-driven dropout</em>.</>,
+    miPgt: " PGT-A euploid LBR is fixed at 55% (age-independent).",
+    miSuffix: " MII cap at 15 to account for OHSS prevention."
+  }
+};
+
 // ── Curve smoothing (weighted moving average) ──
 function smoothCurve(data, windowSize = 5) {
   if (data.length < windowSize) return data;
@@ -216,16 +288,16 @@ export default function ART({ lang = "ja" }: { lang?: "ja" | "en" }){
         const t=idx.map(i=>res.tS[i]).sort((a,b)=>a-b);
         nR=`${Math.round(percentile(r,50))}〜${Math.round(percentile(r,97.5))}`;
         nT=`${Math.round(percentile(t,50))}〜${Math.round(percentile(t,97.5))}`;
-        mR=`中央値 ${Math.round(percentile(r,50))}回`;mT=`中央値 ${Math.round(percentile(t,50))}回`;
+        mR=tObj.median(Math.round(percentile(r,50)));mT=tObj.median(Math.round(percentile(t,50)));
       }
     }else if(res.r3&&res.t3){
       const r=[...res.r3].sort((a,b)=>a-b),t=[...res.t3].sort((a,b)=>a-b);
-      if(r.length){nR=`${Math.round(percentile(r,50))}〜${Math.round(percentile(r,97.5))}`;mR=`中央値 ${Math.round(percentile(r,50))}回`}
-      if(t.length){nT=`${Math.round(percentile(t,50))}〜${Math.round(percentile(t,97.5))}`;mT=`中央値 ${Math.round(percentile(t,50))}回`}
-      note='※3年以内の実施回数';
+      if(r.length){nR=`${Math.round(percentile(r,50))}〜${Math.round(percentile(r,97.5))}`;mR=tObj.median(Math.round(percentile(r,50)))}
+      if(t.length){nT=`${Math.round(percentile(t,50))}〜${Math.round(percentile(t,97.5))}`;mT=tObj.median(Math.round(percentile(t,50)))}
+      note=tObj.note3y;
     }
     return{t50,t80,r12,r24,nR,nT,mR,mT,note};
-  },[res]);
+  },[res, lang]);
 
   const fm=v=>isFinite(v)?`${Math.round(v)}`:'—';
 
@@ -235,6 +307,8 @@ export default function ART({ lang = "ja" }: { lang?: "ja" | "en" }){
     return smoothCurve(raw, 5);
   },[res]);
   const histData=useMemo(()=>res?.hd||[],[res]);
+
+  const tObj = t[lang] || t.ja;
 
   return(
     <div className="root">
@@ -255,12 +329,12 @@ export default function ART({ lang = "ja" }: { lang?: "ja" | "en" }){
                   <circle cx="8" cy="15" r="1.2" fill="currentColor" opacity=".4"/>
                 </svg>
               </span>
-              ART妊活シミュレーター
+              {tObj.title}
             </h1>
-            <p className="hd-sub">体外受精の治療予測モデル</p>
+            <p className="hd-sub">{tObj.subtitle}</p>
           </div>
           <div className="hd-right">
-            {pgt&&<span className="pgt-b">PGT-A ON</span>}
+            {pgt&&<span className="pgt-b">{tObj.pgtOn}</span>}
           </div>
         </div>
       </header>
@@ -269,29 +343,29 @@ export default function ART({ lang = "ja" }: { lang?: "ja" | "en" }){
         {/* ══ LEFT PANEL ══ */}
         <div className="lp">
           <div className="lp-box">
-            <h2 className="lp-title">あなたの情報</h2>
+            <h2 className="lp-title">{tObj.yourInfo}</h2>
 
-            <Range label="治療開始年齢" value={age} onChange={onAge} min={28} max={45} fmt={v=>`${v}歳`}
-              hint={age<=34?"比較的良好な条件です":age<=37?"標準的な条件です":age<=40?"成功率がやや低下する年齢域です":"個別の治療戦略が重要です"} />
+            <Range label={tObj.age} value={age} onChange={onAge} min={28} max={45} fmt={v=>lang==='en'?`${v}`:`${v}歳`}
+              hint={age<=34?tObj.ageHint1:age<=37?tObj.ageHint2:age<=40?tObj.ageHint3:tObj.ageHint4} />
 
-            <Range label="AMH（卵巣予備能）" value={amh} onChange={onAmh} min={0.1} max={8} step={0.1}
+            <Range label={tObj.amh} value={amh} onChange={onAmh} min={0.1} max={8} step={0.1}
               fmt={v=>`${v.toFixed(1)} ng/mL`}
-              hint={`${age}歳の平均: ${amhMedian(age).toFixed(1)} ng/mL`} />
+              hint={tObj.amhHint(age, amhMedian(age))} />
 
             <div className="pgt-w">
               <label className="pgt-l">
-                <div><span className="pgt-t">PGT-A（着床前検査）</span><span className="pgt-s">正常胚のみを移植する前提で計算</span></div>
+                <div><span className="pgt-t">{tObj.pgtTitle}</span><span className="pgt-s">{tObj.pgtDesc}</span></div>
                 <div className={`sw${pgt?' sw-on':''}`} onClick={()=>setPgt(!pgt)}><div className="sw-k"/></div>
               </label>
             </div>
 
             <button className={`run${busy?' run-b':''}`} onClick={run} disabled={busy}>
-              {busy?<><svg className="spin" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" fill="none" strokeDasharray="50" strokeLinecap="round"/></svg>計算しています...</>:(
+              {busy?<><svg className="spin" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" fill="none" strokeDasharray="50" strokeLinecap="round"/></svg>{tObj.btnCalc}</>:(
                 <>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{marginRight:4}}>
                     <polygon points="5 3 19 12 5 21 5 3"/>
                   </svg>
-                  結果を見る
+                  {tObj.btnRun}
                 </>
               )}
             </button>
@@ -300,67 +374,67 @@ export default function ART({ lang = "ja" }: { lang?: "ja" | "en" }){
           {/* ── STAT CARDS ── */}
           <div className="sg">
             <Stat accent icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--t)" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>}
-              label="半数が妊娠" value={fm(st.t50)} unit="ヶ月" />
+              label={tObj.stat50} value={fm(st.t50)} unit={tObj.months} />
             <Stat icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--n)" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>}
-              label="8割が妊娠" value={fm(st.t80)} unit="ヶ月" />
+              label={tObj.stat80} value={fm(st.t80)} unit={tObj.months} />
             <Stat icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--t)" strokeWidth="2"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z"/><circle cx="12" cy="9" r="2.5"/></svg>}
-              label="採卵回数" value={st.nR||'—'} unit="回" sub={st.mR} />
+              label={tObj.statRet} value={st.nR||'—'} unit={tObj.times} sub={st.mR} />
             <Stat icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--n)" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>}
-              label="移植回数" value={st.nT||'—'} unit="回" sub={st.mT} />
+              label={tObj.statTra} value={st.nT||'—'} unit={tObj.times} sub={st.mT} />
           </div>
           {st.note&&<p className="sn">{st.note}</p>}
 
           {/* Period rates */}
           <div className="pr">
-            <div className="pr-i"><span className="pr-l">12ヶ月</span><span className="pr-v">{isFinite(st.r12)?`${st.r12.toFixed(0)}%`:'—'}</span></div>
+            <div className="pr-i"><span className="pr-l">{tObj.rate12}</span><span className="pr-v">{isFinite(st.r12)?`${st.r12.toFixed(0)}%`:'—'}</span></div>
             <div className="pr-d"/>
-            <div className="pr-i"><span className="pr-l">24ヶ月</span><span className="pr-v">{isFinite(st.r24)?`${st.r24.toFixed(0)}%`:'—'}</span></div>
+            <div className="pr-i"><span className="pr-l">{tObj.rate24}</span><span className="pr-v">{isFinite(st.r24)?`${st.r24.toFixed(0)}%`:'—'}</span></div>
             <label className="ci-l"><input type="checkbox" checked={ci} onChange={e=>setCi(e.target.checked)}/>95%CI</label>
           </div>
 
           {/* Advanced */}
           <button className="at" onClick={()=>setAdv(!adv)}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-            詳細設定
+            {tObj.advBtn}
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{marginLeft:'auto',transform:adv?'rotate(180deg)':'',transition:'transform .2s'}}><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           {adv&&(
             <div className="ap">
-              <div className="ag"><Range label="成熟卵（平均）" value={mii} onChange={setMii} min={0} max={20} step={.1} fmt={v=>`${v.toFixed(1)}個`}/><Range label="胚盤胞到達率" value={pb} onChange={setPb} min={10} max={80} fmt={v=>`${v}%`}/></div>
-              <div className="ag"><Range label="受精率" value={pf} onChange={setPf} min={30} max={100} fmt={v=>`${v}%`}/><Range label="Euploid率" value={pe} onChange={setPe} min={5} max={80} fmt={v=>`${v}%`}/></div>
-              <div className="ag"><Range label="採卵間隔" value={mpr} onChange={setMpr} min={pgt?2.5:1} max={3} step={.25} fmt={v=>`${v.toFixed(1)}月`}/><Range label="移植間隔" value={mpt} onChange={setMpt} min={.5} max={3} step={.25} fmt={v=>`${v.toFixed(1)}月`}/></div>
-              <div className="ag"><Range label="キャンセル率" value={cancel} onChange={setCancel} min={0} max={40} step={.5} fmt={v=>`${v.toFixed(0)}%`}/><Range label="患者数" value={iter} onChange={setIter} min={500} max={8000} step={100} fmt={v=>`${v}`}/></div>
+              <div className="ag"><Range label={tObj.advMii} value={mii} onChange={setMii} min={0} max={20} step={.1} fmt={v=>`${v.toFixed(1)}`}/><Range label={tObj.advPb} value={pb} onChange={setPb} min={10} max={80} fmt={v=>`${v}%`}/></div>
+              <div className="ag"><Range label={tObj.advPf} value={pf} onChange={setPf} min={30} max={100} fmt={v=>`${v}%`}/><Range label={tObj.advPe} value={pe} onChange={setPe} min={5} max={80} fmt={v=>`${v}%`}/></div>
+              <div className="ag"><Range label={tObj.advMpr} value={mpr} onChange={setMpr} min={pgt?2.5:1} max={3} step={.25} fmt={v=>`${v.toFixed(1)}${tObj.months}`}/><Range label={tObj.advMpt} value={mpt} onChange={setMpt} min={.5} max={3} step={.25} fmt={v=>`${v.toFixed(1)}${tObj.months}`}/></div>
+              <div className="ag"><Range label={tObj.advCancel} value={cancel} onChange={setCancel} min={0} max={40} step={.5} fmt={v=>`${v.toFixed(0)}%`}/><Range label={tObj.advIter} value={iter} onChange={setIter} min={500} max={8000} step={100} fmt={v=>`${v}`}/></div>
               <div className="ag">
-                <label className="ck"><input type="checkbox" checked={fresh} onChange={e=>setFresh(e.target.checked)}/><span>新鮮胚移植を行う</span></label>
+                <label className="ck"><input type="checkbox" checked={fresh} onChange={e=>setFresh(e.target.checked)}/><span>{tObj.freshTx}</span></label>
                 <div>
-                  <label className="al">移植戦略</label>
+                  <label className="al">{tObj.stratL}</label>
                   <select value={strat} onChange={e=>setStrat(e.target.value)} className="as">
-                    <option value="sequential">保険診療</option><option value="batch">複数採卵で確保</option>
+                    <option value="sequential">{tObj.stratSeq}</option><option value="batch">{tObj.stratBat}</option>
                   </select>
                 </div>
               </div>
-              {strat==='batch'&&<Range label="確保数" value={batch} onChange={setBatch} min={1} max={6} fmt={v=>`${v}個`}/>}
+              {strat==='batch'&&<Range label={tObj.batchL} value={batch} onChange={setBatch} min={1} max={6} fmt={v=>`${v}`}/>}
             </div>
           )}
 
-          <p className="disc">※ 統計モデルによる推定です。個別の医学的助言ではありません。結果の解釈は担当医にご相談ください。</p>
+          <p className="disc">{tObj.disc}</p>
         </div>
 
         {/* ══ RIGHT — CHARTS ══ */}
         <div className="rp">
           <div className="cc">
-            <div className="ch"><h3 className="ct">治療期間と妊娠の可能性</h3><span className="cs">治療を続けた場合の累積妊娠確率</span></div>
+            <div className="ch"><h3 className="ct">{tObj.ch1T}</h3><span className="cs">{tObj.ch1S}</span></div>
             <ResponsiveContainer width="100%" height="100%" minHeight={180}>
               <ComposedChart data={chartData} margin={{top:6,right:12,left:-4,bottom:2}}>
                 <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="var(--t)" stopOpacity={.2}/><stop offset="100%" stopColor="var(--t)" stopOpacity={.01}/></linearGradient></defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#eee"/>
-                <XAxis dataKey="x" type="number" domain={[0,36]} tick={{fontSize:10,fill:'var(--m)'}} label={{value:'治療期間（ヶ月）',position:'insideBottomRight',offset:-2,fontSize:10,fill:'var(--m)'}}/>
-                <YAxis domain={[0,100]} tick={{fontSize:10,fill:'var(--m)'}} label={{value:'妊娠確率（%）',angle:-90,position:'insideLeft',offset:16,fontSize:10,fill:'var(--m)'}}/>
+                <XAxis dataKey="x" type="number" domain={[0,36]} tick={{fontSize:10,fill:'var(--m)'}} label={{value:tObj.xaxis,position:'insideBottomRight',offset:-2,fontSize:10,fill:'var(--m)'}}/>
+                <YAxis domain={[0,100]} tick={{fontSize:10,fill:'var(--m)'}} label={{value:tObj.yaxis,angle:-90,position:'insideLeft',offset:16,fontSize:10,fill:'var(--m)'}}/>
                 <ReTooltip contentStyle={{background:'var(--n)',border:'none',borderRadius:8,color:'#fff',fontSize:11,padding:'6px 10px'}} itemStyle={{color:'#fff'}}
-                  formatter={(v,name)=>[`${Number(v).toFixed(1)}%`,name==='y'?'妊娠確率':name==='lo'?'下限':'上限']} labelFormatter={v=>`${v}ヶ月目`}/>
-                {ci&&<Area dataKey="hi" stroke="#b0bec5" fill="none" strokeDasharray="4 3" dot={false} strokeWidth={1} name="上限"/>}
-                {ci&&<Area dataKey="lo" stroke="#b0bec5" fill="none" strokeDasharray="4 3" dot={false} strokeWidth={1} name="下限"/>}
-                <Area dataKey="y" stroke="var(--t)" fill="url(#ag)" strokeWidth={2.5} dot={false} name="妊娠確率" animationDuration={600}/>
+                  formatter={(v,name)=>[`${Number(v).toFixed(1)}%`,name==='y'?tObj.ttProb:name==='lo'?tObj.ttLo:tObj.ttHi]} labelFormatter={v=>`${v}${tObj.ttMo}`}/>
+                {ci&&<Area dataKey="hi" stroke="#b0bec5" fill="none" strokeDasharray="4 3" dot={false} strokeWidth={1} name={tObj.ttHi}/>}
+                {ci&&<Area dataKey="lo" stroke="#b0bec5" fill="none" strokeDasharray="4 3" dot={false} strokeWidth={1} name={tObj.ttLo}/>}
+                <Area dataKey="y" stroke="var(--t)" fill="url(#ag)" strokeWidth={2.5} dot={false} name={tObj.ttProb} animationDuration={600}/>
                 <ReferenceLine y={50} stroke="#f59e0b" strokeDasharray="6 3" strokeWidth={1}/>
                 <ReferenceLine y={80} stroke="#ef4444" strokeDasharray="6 3" strokeWidth={1}/>
               </ComposedChart>
@@ -368,24 +442,24 @@ export default function ART({ lang = "ja" }: { lang?: "ja" | "en" }){
           </div>
 
           <div className="cc cc2">
-            <div className="ch"><h3 className="ct">妊娠までの期間分布</h3><span className="cs">何ヶ月目に妊娠する方が多いか</span></div>
+            <div className="ch"><h3 className="ct">{tObj.ch2T}</h3><span className="cs">{tObj.ch2S}</span></div>
             <ResponsiveContainer width="100%" height="100%" minHeight={140}>
               <BarChart data={histData} margin={{top:6,right:12,left:-4,bottom:2}}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#eee"/>
-                <XAxis dataKey="month" tick={{fontSize:10,fill:'var(--m)'}} label={{value:'治療期間（ヶ月）',position:'insideBottomRight',offset:-2,fontSize:10,fill:'var(--m)'}}/>
+                <XAxis dataKey="month" tick={{fontSize:10,fill:'var(--m)'}} label={{value:tObj.xaxis,position:'insideBottomRight',offset:-2,fontSize:10,fill:'var(--m)'}}/>
                 <YAxis tick={{fontSize:10,fill:'var(--m)'}}/>
                 <ReTooltip contentStyle={{background:'var(--n)',border:'none',borderRadius:8,color:'#fff',fontSize:11,padding:'6px 10px'}}
-                  formatter={v=>[`${v}人`,'妊娠数']} labelFormatter={v=>`${v}ヶ月目`}/>
+                  formatter={v=>[`${v}`,tObj.ttPreg]} labelFormatter={v=>`${v}${tObj.ttMo}`}/>
                 <Bar dataKey="count" fill="var(--t)" radius={[3,3,0,0]} animationDuration={500}/>
               </BarChart>
             </ResponsiveContainer>
           </div>
 
           <div className="mi">
-            <p>{iter.toLocaleString()}人の仮想患者コホートを生成し、モンテカルロ法で推定。
-            <em>負の二項分布</em>・<em>Frailtyモデル</em>・<em>イベント駆動型ドロップアウト</em>を実装。
-            {pgt&&' PGT-A正常胚のLBRは年齢非依存の55%固定。'}
-            OHSS予防のため成熟卵数は15個を上限としています。</p>
+            <p>{lang!=='en'&&iter.toLocaleString()}{tObj.miPrefix}{lang==='en'&&iter.toLocaleString()}{lang==='en'&&' '}
+            {tObj.miTags}
+            {pgt&&tObj.miPgt}
+            {tObj.miSuffix}</p>
           </div>
         </div>
       </main>
