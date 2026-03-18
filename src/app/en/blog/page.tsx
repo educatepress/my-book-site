@@ -61,8 +61,8 @@ export default function BlogIndexEn() {
                                             {post.frontmatter.title}
                                         </h2>
 
-                                        {/* 抜粋：左揃え（justifyなし）＋ line-clamp ＋ leading-relaxed */}
-                                        <p className="text-[0.95rem] text-[var(--color-text-mid)] leading-relaxed line-clamp-2 mb-6">
+                                        {/* 3. Excerpt */}
+                                        <p className="text-[0.95rem] text-[var(--color-text-mid)] leading-[1.8] tracking-[0.02em] line-clamp-2 text-left mb-6">
                                             {post.frontmatter.excerpt}
                                         </p>
 

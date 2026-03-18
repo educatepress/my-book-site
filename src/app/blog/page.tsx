@@ -65,8 +65,8 @@ export default function BlogIndex() {
                                             {post.frontmatter.title}
                                         </h2>
 
-                                        {/* 3. 抜粋の箱組み（text-justify）と字送り */}
-                                        <p className="text-[0.95rem] text-[var(--color-text-mid)] leading-[1.8] tracking-[0.02em] line-clamp-2 text-justify mb-6">
+                                        {/* 3. 抜粋の箱組み（text-justify削除）と字送り */}
+                                        <p className="text-[0.95rem] text-[var(--color-text-mid)] leading-[1.8] tracking-[0.02em] line-clamp-2 mb-6 text-left">
                                             {post.frontmatter.excerpt}
                                         </p>
 

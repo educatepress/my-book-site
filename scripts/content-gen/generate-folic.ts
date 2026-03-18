@@ -77,58 +77,40 @@ async function main() {
     console.log("🚀 Starting Automatic Blog Generation with Gemini AI...");
 
     // 0. Sync Theme with Reels Calendar
-    const synchronizedTheme = await getNextReelsTheme();
+    const synchronizedTheme = "葉酸の大切さと摂取タイミング〜プレコンセプションケアにおける最重要栄養素〜";
 
     // 1. Calculate the next publishing date
-    const jpBlogDir = path.join(process.cwd(), 'src/content/blog/jp');
-    let maxDateStr = new Date().toISOString().split('T')[0];
-
-    if (existsSync(jpBlogDir)) {
-        const files = await fs.readdir(jpBlogDir);
-        for (const file of files) {
-            if (file.endsWith('.mdx')) {
-                const content = await fs.readFile(path.join(jpBlogDir, file), 'utf8');
-                const dateMatch = content.match(/^date:\s*['"]?(\d{4}-\d{2}-\d{2})/m);
-                if (dateMatch) {
-                    const fileDate = dateMatch[1];
-                    if (fileDate > maxDateStr) {
-                        maxDateStr = fileDate;
-                    }
-                }
-            }
-        }
-    }
-
-    const maxDateObj = new Date(maxDateStr);
-    // Add 3 days to the latest date found (or today)
-    maxDateObj.setDate(maxDateObj.getDate() + 3);
-    const postDateStr = maxDateObj.toISOString().split('T')[0];
+    const postDateStr = "2026-03-20"; // Same as before or update to today's date if needed. Let's use 2026-03-20.
 
     console.log(`📅 Target Post Date calculated as: ${postDateStr}`);
-    const today = new Date().toISOString().split('T')[0];
 
     const prompt = `
 あなたは、生殖医療専門医（産婦人科医）である佐藤琢磨医師の専属AIコンテンツクリエイター兼、Webマーケティング/SEOの達人です。
-あなたのタスクは、以下のテーマに関する「トレンド感のあるブログ記事と、X用のTips」を自動で考案し、作成することです。
+あなたのタスクは、以下のテーマに関する「トレンド感のあるブログ記事と、X用のTips」を最初から作成し直すことです。
 
-【指定テーマ（Instagramリールと同期）】
+【指定テーマ】
 ${synchronizedTheme}
 ※このテーマと狙いに完全に沿った形で、ブログ記事を構成してください。
 
 【ターゲット読者層】
-将来の妊娠・出産、キャリアプラン、晩婚化などに漠然とした不安を抱える、20代〜30代の女性（およびそのパートナー）。
+将来の妊娠・出産に不安を抱える20代〜30代の女性（およびそのパートナー）。
 
 【執筆のトーン＆マナー】
 - 信頼できる専門家として、冷静かつ論理的に、しかし読者の未来を心から応援する愛情深いトーン。
 - 専門用語を避け、一般読者にも理解しやすい平易な言葉遣い。
-- 読者の悩みに寄り添い、「確かな知識によって人生の選択肢を広げる」ことを後押しするEmpowermentな文体。
 
-【医療的正確性・エビデンスに関する厳格なルール（CRITICAL）】
-1. 必ず、エビデンスレベルの高い英語文献や、WHO・CDC・厚労省・日本産科婦人科学会などの公的機関の情報・ガイドラインを情報源（根拠）として使用すること。
-2. クリニックのホームページや、医師個人の見解など、エビデンスレベルの低い情報源からの引用や参考は一切行わないこと。
-3. 日英両方の記事の最後（FAQブロックの直前）に、必ず「参考（References）」という見出しを作成し、参考にした英語文献や公的ガイドラインの名称（可能ならURLも箇条書きで）を出力すること。
+【医療的正確性・エビデンス（CRITICAL）】
+1. 必ず、エビデンスレベルの高い英語文献や、WHO・CDC・厚労省・日本産科婦人科学会などの公的情報を情報源として使用すること。
+2. 記事の最後に必ず「参考（References）」という見出しを作成し、参考にした英語文献や公的ガイドラインの名称を出力すること。
 
-記事の投稿日（フロントマター用）: ${postDateStr}
+【⚠️超重要事項：書籍タイトルの正確な記述】
+記事の最後で必ず以下の書籍を紹介してください。以前の生成でタイトルを間違える事故がありました。絶対に以下のタイトルとURLを一字一句間違えずに使用してください。
+- 日本語版書籍名：『20代で考える 将来妊娠で困らないための選択』
+- 日本語版URL：https://amzn.to/3NcOWBl
+- 英語版書籍名（EN版で使用）：『A Doctor's Guide to Women's Health & Preconception』
+- 英語版URL：https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0
+
+記事の投稿日（フロントマター用）: 2026-03-20
 
 以下の3つのアセットをJSON形式で出力してください。
 

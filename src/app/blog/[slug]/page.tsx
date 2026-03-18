@@ -104,7 +104,7 @@ export default async function BlogPost({ params }: PostProps) {
                     </div>
                 </header>
 
-                <div className="prose prose-sage max-w-none text-justify
+                <div className="prose prose-sage max-w-none text-left
                         prose-headings:font-['Zen_Kaku_Gothic_New'] prose-headings:font-bold prose-headings:text-[var(--color-text-dark)]
                         prose-h2:text-[1.5rem] prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-black/5 prose-h2:pb-4
                         prose-h3:text-[1.25rem] prose-h3:mt-8 prose-h3:mb-4
