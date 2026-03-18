@@ -81,7 +81,7 @@ const t = {
     stratL: "Strategy", stratSeq: "Sequential", stratBat: "Batching (Banking)",
     batchL: "Target Embryos",
     disc: null,
-    discJsx: <>* Estimated via statistical model. Not individualized medical advice. <a href="https://docs.google.com/document/d/155aJ6seHdNveVleyPGuUdJCyqEtlOTvx/edit?usp=sharing&ouid=105207338738607983256&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" style={{color:'var(--t)',textDecoration:'underline'}}>View model specification</a></>,
+    discJsx: <>* Estimated via statistical model. Not individualized medical advice. <a href="https://docs.google.com/document/d/11HO3WyanF6R8LgTKP7Pl-ZvEQt-HKufL/edit?usp=sharing&ouid=105207338738607983256&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" style={{color:'var(--t)',textDecoration:'underline'}}>View model specification</a></>,
     ch1T: "Treatment Duration & Probability", ch1S: "Cumulative live birth probability over time",
     xaxis: "Treatment Duration (Months)", yaxis: "Probability (%)",
     ttProb: "Probability", ttLo: "Lower", ttHi: "Upper", ttMo: "mo",

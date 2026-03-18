@@ -100,21 +100,25 @@ export default function BookDetailEn() {
                                 {/* LP内スワイプ完結の立ち読みエリア（英語版） */}
                                 <div className="w-full bg-[var(--color-surface)] rounded-[16px] p-4 mb-5 border border-black/5 relative flex flex-col items-center">
                                     <h4 className="text-[0.8rem] font-bold text-[var(--color-text-mid)] mb-3 flex items-center gap-1.5"><span className="text-[1rem]">📖</span> Take a Sneak Peek Inside</h4>
-                                    <div className="flex w-full overflow-x-auto snap-x snap-mandatory gap-4 pb-4 px-2 justify-start items-center" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                                        <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
-                                        
-                                        {[1, 2, 3].map((num) => (
-                                            <div key={num} className="snap-center shrink-0 w-[110px] md:w-[130px] aspect-[1/1.414] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-md relative group">
-                                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                <img src={`/preview-en-${num}.jpg`} alt={`Preview ${num}`} className="w-full h-full object-contain bg-white" />
-                                                
-                                                <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                    <span className="bg-white/95 text-[var(--color-text-dark)] text-[0.65rem] px-2.5 py-1.5 rounded-full font-bold shadow-md backdrop-blur-sm uppercase">Expand</span>
+                                    <div className="relative w-full max-w-[380px] md:max-w-[420px]">
+                                        <div className="flex w-full overflow-x-auto snap-x snap-mandatory gap-3 pb-4 px-1 items-center" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                                            <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
+                                            
+                                            {[1, 2, 3, 4, 5].map((num) => (
+                                                <div key={num} className="snap-center shrink-0 w-[140px] md:w-[160px] aspect-[1/1.414] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-md relative group">
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    <img src={`/preview-en-${num}.jpg`} alt={`Preview ${num}`} className="w-full h-full object-contain bg-white" />
+                                                    
+                                                    <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                        <span className="bg-white/95 text-[var(--color-text-dark)] text-[0.65rem] px-2.5 py-1.5 rounded-full font-bold shadow-md backdrop-blur-sm uppercase">Expand</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
+                                        {/* Right fade to hint more content */}
+                                        <div className="absolute top-0 right-0 w-12 h-full bg-gradient-to-l from-[var(--color-surface)] to-transparent pointer-events-none rounded-r-[16px]" />
                                     </div>
-                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-1 font-bold uppercase tracking-wider">← Swipe to read</p>
+                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-1 font-bold uppercase tracking-wider">← Swipe to read →</p>
                                 </div>
 
                                 <a
