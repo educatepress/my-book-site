@@ -19,30 +19,46 @@ export default function HeroEn() {
     return (
         <section ref={heroRef} className="relative w-full min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-[var(--color-surface)]">
 
-            {/* Background Graphic/Video */}
-            <motion.div
-                style={{ y: yBackground }}
-                className="absolute inset-0 w-full h-full z-0"
-            >
-                <div className="absolute inset-0 bg-white/40 z-10 mix-blend-overlay" />
+            {/* Background Video / Image */}
+            <div className="absolute inset-0 z-0">
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    poster="/hero-poster.jpg"
+                    className="hidden md:block absolute inset-0 w-full h-full object-cover"
+                    style={{ opacity: 0.18 }}
+                >
+                    <source src="/assets/hero-bg.webm" type="video/webm" />
+                    <source src="/assets/hero-bg.mp4" type="video/mp4" />
+                </video>
                 <div
-                    className="w-full h-full bg-cover bg-center bg-no-repeat opacity-80"
-                    style={{ backgroundImage: "url('/hero-woman.jpg')" }}
+                    className="md:hidden absolute inset-0"
+                    style={{
+                        backgroundImage: "url(/hero-poster.jpg)",
+                        backgroundSize: "cover",
+                        opacity: 0.12,
+                    }}
                 />
-                {/*
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          className="w-full h-full object-cover opacity-70"
-          poster="/hero-poster.jpg"
-        >
-          <source src="/hero-bg.webm" type="video/webm" />
-          <source src="/hero-bg.mp4" type="video/mp4" />
-        </video>
-        */}
-            </motion.div>
+                {/* Gradient Overlay */}
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background:
+                            "linear-gradient(160deg, rgba(250,250,247,0.85) 0%, rgba(239,245,240,0.7) 50%, rgba(251,242,245,0.75) 100%)",
+                    }}
+                />
+                {/* Dot Pattern */}
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage:
+                            "radial-gradient(circle, rgba(107,143,113,0.04) 1px, transparent 1px)",
+                        backgroundSize: "24px 24px",
+                    }}
+                />
+            </div>
 
             {/* Main Content Container */}
             <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-24 pb-16 md:py-0">
@@ -122,7 +138,7 @@ export default function HeroEn() {
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                            src="/mockup-jp.png"
+                            src="/mock-en.png"
                             alt="Book Mockup"
                             className="w-full h-auto scale-105 object-contain"
                         />
