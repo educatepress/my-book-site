@@ -3,9 +3,14 @@
 import { useState, useMemo, useCallback } from "react";
 
 // =====================================================================
-// ART (Assisted Reproductive Technology) Simulator
+// ART (Assisted Reproductive Technology) Simulator - PRO Monte Carlo Edition
 // Evidence: CDC/SART National Summary, Human Reproduction, Fertility & Sterility
-// This is for EDUCATIONAL purposes only. NOT clinical advice.
+// 
+// Professional Adjustments Applied:
+// 1. PGT-A age independence (Fixed LBR for euploid)
+// 2. Negative Binomial distribution for oocyte retrieval (Overdispersion)
+// 3. Frailty Model for repeated implantation failure
+// 4. Event-driven dropout based on clinical milestones
 // =====================================================================
 
 type Language = "ja" | "en";
@@ -38,14 +43,14 @@ const t = {
         pgtYes: "行う",
         resultTitle: "シミュレーション結果",
         cumulativeRate: "累積出生率（推定）",
-        perCycleRate: "1回あたりの出生率",
-        expectedEggs: "予想採卵数（中央値）",
-        expectedBlasts: "予想胚盤胞数",
+        perCycleRate: "平均1移植あたりの出生率",
+        expectedEggs: "予想採卵数（1回目中央値）",
+        expectedBlasts: "予想胚盤胞数（1回目中央値）",
         eggsUnit: "個",
-        explanation: "この推定は、CDC/SART全米データおよびHuman Reproduction誌の年齢別ART成績に基づいています。",
+        explanation: "この推定は、単純な数式ではなく、CDC/SART全米データに基づく「3,000人の仮想患者コホート」を用いたモンテカルロ・シミュレーションによって算出されています。",
         calculate: "計算する",
         reset: "リセット",
-        chartLabel: "回数別 累積出生率",
+        chartLabel: "採卵回数別 累積出生率",
         references: "参考文献",
         ref1: "CDC/SART National Summary Report (2022)",
         ref2: "Human Reproduction, Age-specific ART outcomes",
@@ -55,11 +60,11 @@ const t = {
         bookCtaButton: "書籍を見る →",
         bookUrl: "https://amzn.to/3NcOWBl",
         logicTitle: "シミュレーションの計算ロジックと前提条件",
-        logicIntro: "本ツールは、米国CDC（疾病予防管理センター）やSARTの全米データ、および信頼性の高い生殖医学の統計モデルをベースに算出されています。",
+        logicIntro: "本ツールは、米国CDC等の全米データをベースに、3,000人の仮想患者コホートを生成して時間を進める「モンテカルロ法」で算出されています。",
         logicCycleTitle: "「1回の治療（サイクル）」の定義",
-        logicCycleText: "本ツールにおける「予定する採卵回数（サイクル）」とは、単なる移植の回数ではありません。「1回の採卵を行い、そこで得られた受精卵（凍結胚）をすべて移植し終えるまで」を1サイクルとしています。もし手持ちの凍結胚をすべて使い切っても妊娠に至らなかった場合にのみ「次の採卵」に進むという、実際の臨床現場に即した前提で累積確率を計算しています。",
-        logicFactorsTitle: "各項目の影響と確率の推移",
-        logicFactorsText: "年齢は成功率のベースを決定する最大の要因です。AMHは「採卵できる卵子の数」の目安となり、数が多いほど1回の採卵から複数回の移植チャンスが生まれるため成功率を底上げします。また、複数回治療しても結果が出ない場合は隠れた難治要因（着床障害など）がある可能性が高まるため、単純な足し算ではなく、回数を重ねるごとに1回あたりの成功率が徐々に下がる、現実に近い計算モデルを採用しています。",
+        logicCycleText: "「1回の採卵を行い、そこで得られた受精卵（凍結胚）をすべて移植し終えるまで」を1サイクルとしています。手持ちの凍結胚をすべて使い切っても妊娠に至らなかった場合にのみ「次の採卵」に進みます。また、採卵結果が0個だったり、移植失敗が続いた場合には、現実のデータに基づいて一定確率で「治療からの離脱（ドロップアウト）」が発生するモデルを採用しています。",
+        logicFactorsTitle: "各項目の影響と高度な確率モデル",
+        logicFactorsText: "実際の臨床的リアリティを再現するため、①PGT-A正常胚移植時は年齢による低下をキャンセルした固定確率（約55%）を採用、②採卵数のばらつきをPCOSやPORを考慮した「負の二項分布」で再現、③移植が不成功に終わるたびに着床障害の可能性を考慮して次回の確率を割引（Frailtyモデル）、④失敗イベント直後に治療を諦めるイベント駆動型ドロップアウト、を組み込んでいます。",
         disclaimerTitle: "免責事項（必ずお読みください）",
         disclaimer1: "本ツールの結果は、大規模な統計データに基づく「確率的な推論（平均値）」であり、あなた個人の妊娠や出産を保証するものでは決してありません。",
         disclaimer2: "実際の不妊治療の成績は、精子の状態（男性因子）、子宮内の環境、過去の治療歴など、本ツールでは入力しきれない無数の個別要因によって大きく変動します。",
@@ -87,11 +92,11 @@ const t = {
         pgtYes: "Yes",
         resultTitle: "Simulation Results",
         cumulativeRate: "Cumulative Live Birth Rate (est.)",
-        perCycleRate: "Per-Cycle Live Birth Rate",
-        expectedEggs: "Expected Eggs Retrieved (median)",
-        expectedBlasts: "Expected Blastocysts",
+        perCycleRate: "Avg. LBR per Transfer",
+        expectedEggs: "Expected Eggs (1st Cycle Median)",
+        expectedBlasts: "Expected Blasts (1st Cycle Median)",
         eggsUnit: "eggs",
-        explanation: "Estimates are based on CDC/SART national data and age-specific ART outcomes from Human Reproduction.",
+        explanation: "Estimates are powered by a Monte Carlo simulation tracking 3,000 virtual patients, based on CDC/SART national data and age-specific outcomes.",
         calculate: "Calculate",
         reset: "Reset",
         chartLabel: "Cumulative Live Birth Rate by Cycle",
@@ -104,11 +109,11 @@ const t = {
         bookCtaButton: "View the Book →",
         bookUrl: "https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/",
         logicTitle: "Calculation Logic & Assumptions",
-        logicIntro: "This simulator uses statistical models based on national data from the US CDC/SART and peer-reviewed reproductive medicine journals.",
+        logicIntro: "This simulator uses advanced Monte Carlo methods, dynamically simulating 3,000 virtual patients based on national data from the US CDC/SART.",
         logicCycleTitle: "Clinical Definition of 'One Cycle'",
-        logicCycleText: "In this tool, 'one cycle' (or planned retrieval) does not mean a single embryo transfer. It represents the entire process of one egg retrieval and sequentially transferring all resulting frozen embryos. You only move on to a 'second retrieval' if all embryos from the first are depleted without a live birth, reflecting real-world clinical pathways.",
-        logicFactorsTitle: "Impact of Factors & Probability Decay",
-        logicFactorsText: "Age is the primary factor determining the baseline success rate. AMH indicates the expected number of eggs; more eggs mean more transfer opportunities from a single retrieval, boosting the success rate. Furthermore, the model assumes that if multiple cycles fail, the likelihood of hidden factors (e.g., implantation issues) rises, so the success rate per subsequent cycle slightly decreases to mirror clinical reality.",
+        logicCycleText: "In this tool, 'one cycle' means one egg retrieval and sequentially transferring all resulting frozen embryos. You only move on to a 'second retrieval' if all embryos from the first are depleted without a live birth. The model also simulates real-world treatment dropouts driven by negative events.",
+        logicFactorsTitle: "Impact of Factors & Advanced Models",
+        logicFactorsText: "The simulator accounts for biological overdispersion in egg yields (Negative Binomial) and the age-independent success rate (approx. 55%) of PGT-A euploid embryos. Furthermore, it incorporates a Frailty Model: if multiple high-quality embryos fail to implant, the likelihood of hidden implantation issues rises, progressively reducing the success rate. It also triggers event-driven dropouts upon cycle failures.",
         disclaimerTitle: "Important Disclaimer",
         disclaimer1: "The results provided are statistical estimates based on population data and do NOT guarantee your individual pregnancy or live birth.",
         disclaimer2: "Actual clinical outcomes depend on countless individual factors not captured here, such as sperm quality (male factor), uterine environment, and past medical history.",
@@ -116,9 +121,219 @@ const t = {
     },
 };
 
-// ---- Evidence-based calculation functions ----
+// =====================================================================
+// Evidence-based Statistical & Monte Carlo Functions
+// =====================================================================
 
-/** Estimate AMH by age (median, if unknown) */
+// Pseudo-random number generator (Mulberry32) for deterministic simulations
+function mulberry32(seed: number) {
+    let a = seed >>> 0;
+    return function () {
+        a |= 0; a = (a + 0x6d2b79f5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+}
+
+// Standard normal distribution
+function randn(rng: () => number): number {
+    let u = 0, v = 0;
+    while (u === 0) u = rng();
+    while (v === 0) v = rng();
+    return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+}
+
+// Gamma distribution sampling (Marsaglia and Tsang)
+function rgamma(alpha: number, rng: () => number): number {
+    if (alpha < 1) {
+        let u = 0; while(u === 0) u = rng();
+        return rgamma(alpha + 1, rng) * Math.pow(u, 1 / alpha);
+    }
+    const d = alpha - 1 / 3;
+    const c = 1 / Math.sqrt(9 * d);
+    while (true) {
+        let x = randn(rng);
+        let v = 1 + c * x;
+        while (v <= 0) { x = randn(rng); v = 1 + c * x; }
+        v = v * v * v;
+        let u = 0; while(u === 0) u = rng();
+        if (u < 1 - 0.0331 * x * x * x * x) return d * v;
+        if (Math.log(u) < 0.5 * x * x + d * (1 - v + Math.log(v))) return d * v;
+    }
+}
+
+// Poisson distribution
+function rpoisson(lambda: number, rng: () => number): number {
+    if (lambda <= 0) return 0;
+    const L = Math.exp(-lambda);
+    let k = 0, p = 1.0;
+    do { k++; p *= rng(); } while (p > L);
+    return k - 1;
+}
+
+// Negative Binomial distribution (Overdispersion in oocyte retrieval)
+function rnbinom(mu: number, dispersion: number, rng: () => number): number {
+    if (mu <= 0) return 0;
+    if (dispersion <= 0) return rpoisson(mu, rng);
+    const shape = 1 / dispersion;
+    const scale = mu * dispersion;
+    const lambda = rgamma(shape, rng) * scale;
+    return rpoisson(lambda, rng);
+}
+
+// Binomial distribution
+function rbinom(n: number, p: number, rng: () => number): number {
+    let x = 0;
+    for (let i = 0; i < n; i++) if (rng() < p) x++;
+    return x;
+}
+
+// Interpolation & Utilities
+function clamp(x: number, lo: number, hi: number) { return Math.min(hi, Math.max(lo, x)); }
+function piecewiseLinear(x: number, pts: number[][]) {
+    if (x <= pts[0][0]) return pts[0][1];
+    for (let i = 1; i < pts.length; i++) {
+        if (x <= pts[i][0]) {
+            const [x0, y0] = pts[i - 1], [x1, y1] = pts[i];
+            return y0 + ((x - x0) / (x1 - x0)) * (y1 - y0);
+        }
+    }
+    return pts[pts.length - 1][1];
+}
+
+// --- Age-specific Parameters ---
+const ageParams = {
+    pMII: (age: number) => clamp(0.78 - Math.max(0, age - 38) * 0.012, 0.55, 0.88),
+    pFertilization: (age: number) => clamp(0.72 - Math.max(0, age - 40) * 0.015, 0.50, 0.86),
+    pBlast: (age: number) => piecewiseLinear(age, [[30, 0.46], [35, 0.43], [38, 0.38], [41, 0.32], [43, 0.26], [45, 0.20]]),
+    pUsableFromBlast: (age: number) => piecewiseLinear(age, [[30, 0.76], [35, 0.72], [38, 0.66], [41, 0.60], [43, 0.52], [45, 0.44]]),
+    pLBR_nonPGT: (age: number) => piecewiseLinear(age, [[30, 0.43], [35, 0.40], [38, 0.34], [41, 0.26], [43, 0.16], [45, 0.08]]),
+    pEuploid: (age: number) => piecewiseLinear(age, [[30, 0.60], [35, 0.50], [38, 0.35], [40, 0.25], [42, 0.15], [44, 0.07], [45, 0.04]])
+};
+
+function expectedTotalOocytes(age: number, amh: number) {
+    const penalty = Math.max(0, age - 35) * 0.75;
+    return clamp((amh * 8) - penalty, 1, 40);
+}
+
+// =====================================================================
+// Monte Carlo Engine (3,000 Virtual Patients)
+// =====================================================================
+function runMonteCarlo(
+    startAge: number, amh: number, maxCycles: number,
+    bmi: string, smoking: boolean, pgt: boolean
+) {
+    const N = 3000;
+    const rng = mulberry32(12345); 
+
+    let lifestyleMultiplier = 1.0;
+    if (bmi === "over") lifestyleMultiplier *= 0.92;
+    if (bmi === "obese") lifestyleMultiplier *= 0.82;
+    if (smoking) lifestyleMultiplier *= 0.85;
+
+    const OOCYTE_DISPERSION = 0.40;
+    const PGT_BASE_LBR = 0.55;
+    const FRAILTY_DECAY = 0.88;
+    const DROPOUT_NO_EMBRYO = 0.15;
+    const DROPOUT_FAILED_TRANSFER = 0.10;
+
+    const successesByCycle = new Array(maxCycles).fill(0);
+    const firstCycleEggsArr: number[] = [];
+    const firstCycleBlastsArr: number[] = [];
+    
+    let totalTransfers = 0;
+    let totalPregnancies = 0;
+
+    for (let i = 0; i < N; i++) {
+        let currentAge = startAge;
+        let failedTransfers = 0;
+        let successCycle = -1;
+
+        for (let cycle = 1; cycle <= maxCycles; cycle++) {
+            currentAge += (pgt ? 2.5 : 1.5) / 12;
+            if (currentAge >= 46) break;
+
+            const lambda = expectedTotalOocytes(currentAge, amh);
+            const oocytes = rnbinom(lambda, OOCYTE_DISPERSION, rng);
+            
+            const mii = rbinom(oocytes, ageParams.pMII(currentAge), rng);
+            const fert = rbinom(mii, ageParams.pFertilization(currentAge), rng);
+            const blast = rbinom(fert, ageParams.pBlast(currentAge), rng);
+
+            if (cycle === 1) {
+                firstCycleEggsArr.push(oocytes);
+                firstCycleBlastsArr.push(blast);
+            }
+
+            let usableEmbryos = 0;
+            if (pgt) {
+                usableEmbryos = rbinom(blast, ageParams.pEuploid(currentAge), rng);
+            } else {
+                usableEmbryos = rbinom(blast, ageParams.pUsableFromBlast(currentAge), rng);
+            }
+
+            if (usableEmbryos === 0) {
+                if (rng() < DROPOUT_NO_EMBRYO) break;
+                continue;
+            }
+
+            let achievedPregnancy = false;
+
+            while (usableEmbryos > 0 && currentAge < 46) {
+                usableEmbryos--;
+                totalTransfers++;
+                currentAge += (pgt ? 2.0 : 1.0) / 12;
+
+                const baseProb = pgt ? PGT_BASE_LBR : ageParams.pLBR_nonPGT(currentAge);
+                const frailtyMultiplier = Math.pow(FRAILTY_DECAY, failedTransfers);
+                const actualProb = clamp(baseProb * lifestyleMultiplier * frailtyMultiplier, 0.01, 0.65);
+
+                if (rng() < actualProb) {
+                    achievedPregnancy = true;
+                    successCycle = cycle;
+                    totalPregnancies++;
+                    break;
+                } else {
+                    failedTransfers++;
+                    if (rng() < DROPOUT_FAILED_TRANSFER) {
+                        usableEmbryos = 0;
+                        break;
+                    }
+                }
+            }
+
+            if (achievedPregnancy) break;
+            if (usableEmbryos === 0 && rng() < 0.10) break;
+        }
+
+        if (successCycle !== -1) {
+            for (let c = successCycle - 1; c < maxCycles; c++) {
+                successesByCycle[c]++;
+            }
+        }
+    }
+
+    const byCycle: number[] = [];
+    for (let c = 0; c < maxCycles; c++) {
+        byCycle.push(Math.round((successesByCycle[c] / N) * 1000) / 10);
+    }
+
+    firstCycleEggsArr.sort((a, b) => a - b);
+    firstCycleBlastsArr.sort((a, b) => a - b);
+    const medianEggs = firstCycleEggsArr.length > 0 ? firstCycleEggsArr[Math.floor(firstCycleEggsArr.length / 2)] : 0;
+    const medianBlasts = firstCycleBlastsArr.length > 0 ? firstCycleBlastsArr[Math.floor(firstCycleBlastsArr.length / 2)] : 0;
+    const perCycleRate = totalTransfers > 0 ? Math.round((totalPregnancies / totalTransfers) * 1000) / 10 : 0;
+
+    return {
+        cumulative: byCycle[maxCycles - 1] || 0,
+        perCycle: perCycleRate,
+        byCycle,
+        expectedEggs: medianEggs,
+        expectedBlasts: medianBlasts
+    };
+}
+
 function estimateAmh(age: number): number {
     if (age <= 25) return 4.5;
     if (age <= 30) return 3.5;
@@ -131,92 +346,10 @@ function estimateAmh(age: number): number {
     return 0.3;
 }
 
-/** Expected eggs per retrieval based on AMH (approximate median) */
-function expectedEggs(amh: number): number {
-    if (amh >= 5.0) return 18;
-    if (amh >= 3.5) return 14;
-    if (amh >= 2.5) return 11;
-    if (amh >= 1.5) return 8;
-    if (amh >= 1.0) return 6;
-    if (amh >= 0.5) return 4;
-    if (amh >= 0.2) return 2;
-    return 1;
-}
+// =====================================================================
+// UI Components
+// =====================================================================
 
-/** Per-cycle live birth rate by age (CDC/SART 2022 approximation) */
-function perCycleLbr(age: number): number {
-    if (age <= 30) return 0.46;
-    if (age <= 32) return 0.42;
-    if (age <= 34) return 0.38;
-    if (age <= 35) return 0.34;
-    if (age <= 36) return 0.30;
-    if (age <= 37) return 0.26;
-    if (age <= 38) return 0.22;
-    if (age <= 39) return 0.18;
-    if (age <= 40) return 0.14;
-    if (age <= 41) return 0.10;
-    if (age <= 42) return 0.07;
-    if (age <= 43) return 0.04;
-    return 0.02;
-}
-
-/** Estimate blastocysts from eggs, age-adjusted */
-function expectedBlastocysts(eggs: number, age: number): number {
-    // Fertilization rate ~70%, blastocyst formation ~50% at young ages, drops with age
-    const fertRate = 0.70;
-    let blastRate = 0.50;
-    if (age > 35) blastRate = 0.42;
-    if (age > 38) blastRate = 0.35;
-    if (age > 40) blastRate = 0.28;
-    if (age > 42) blastRate = 0.20;
-    return Math.max(0, Math.round(eggs * fertRate * blastRate * 10) / 10);
-}
-
-/** Cumulative LBR = 1 - (1 - per_cycle)^n, with modifiers */
-function cumulativeLbr(
-    age: number,
-    amh: number,
-    cycles: number,
-    bmi: string,
-    smoking: boolean,
-    pgt: boolean
-): { cumulative: number; perCycle: number; byCycle: number[] } {
-    let base = perCycleLbr(age);
-
-    // AMH modifier: Low AMH mainly reduces egg count, modest effect on per-cycle rate
-    if (amh < 1.0) base *= 0.90;
-    else if (amh > 4.0 && age < 35) base *= 1.05; // Slight boost for high AMH + young
-
-    // BMI modifier
-    if (bmi === "over") base *= 0.92;
-    if (bmi === "obese") base *= 0.82;
-
-    // Smoking modifier
-    if (smoking) base *= 0.85;
-
-    // PGT-A: Reduces per-transfer pregnancy rate but improves per-embryo rate slightly for older patients
-    if (pgt && age >= 38) base *= 1.08;
-    else if (pgt && age < 35) base *= 0.95; // slight reduction in younger patients (fewer transfers)
-
-    base = Math.min(base, 0.55); // cap
-    base = Math.max(base, 0.01); // floor
-
-    const byCycle: number[] = [];
-    for (let i = 1; i <= cycles; i++) {
-        const cum = 1 - Math.pow(1 - base, i);
-        byCycle.push(Math.round(cum * 1000) / 10);
-    }
-
-    const cumulative = 1 - Math.pow(1 - base, cycles);
-
-    return {
-        cumulative: Math.round(cumulative * 1000) / 10,
-        perCycle: Math.round(base * 1000) / 10,
-        byCycle,
-    };
-}
-
-// ---- Visual Bar Chart ----
 function BarChart({ data, label }: { data: number[]; label: string }) {
     const maxVal = Math.max(...data, 100);
     return (
@@ -242,8 +375,7 @@ function BarChart({ data, label }: { data: number[]; label: string }) {
     );
 }
 
-// ---- Main Component ----
-export default function ArtSimulator({ lang = "en" }: SimulatorProps) {
+export default function ArtSimulator({ lang = "ja" }: SimulatorProps) {
     const l = t[lang];
 
     const [age, setAge] = useState(32);
@@ -256,12 +388,10 @@ export default function ArtSimulator({ lang = "en" }: SimulatorProps) {
     const [showResult, setShowResult] = useState(false);
 
     const effectiveAmh = amhKnown ? amhValue : estimateAmh(age);
-    const eggs = expectedEggs(effectiveAmh);
-    const blasts = expectedBlastocysts(eggs, age);
 
     const result = useMemo(() => {
         if (!showResult) return null;
-        return cumulativeLbr(age, effectiveAmh, cycles, bmi, smoking, pgt);
+        return runMonteCarlo(age, effectiveAmh, cycles, bmi, smoking, pgt);
     }, [showResult, age, effectiveAmh, cycles, bmi, smoking, pgt]);
 
     const handleCalc = useCallback(() => setShowResult(true), []);
@@ -281,7 +411,7 @@ export default function ArtSimulator({ lang = "en" }: SimulatorProps) {
             {/* Header */}
             <div className="text-center mb-8">
                 <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">
-                    🔬 {lang === "ja" ? "インタラクティブツール" : "Interactive Tool"}
+                    🔬 {lang === "ja" ? "モンテカルロ・エンジン" : "Monte Carlo Engine"}
                 </div>
                 <h1 className="text-[clamp(1.4rem,3.5vw,2rem)] font-bold text-[var(--color-text-dark)] leading-snug mb-3">
                     {l.title}
@@ -440,11 +570,11 @@ export default function ArtSimulator({ lang = "en" }: SimulatorProps) {
                         </div>
                         <div className="bg-slate-50 rounded-xl p-4 text-center border border-slate-100">
                             <p className="text-[0.65rem] font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-1">{l.expectedEggs}</p>
-                            <p className="text-2xl font-black text-[var(--color-text-dark)]">{eggs} <span className="text-sm font-bold">{l.eggsUnit}</span></p>
+                            <p className="text-2xl font-black text-[var(--color-text-dark)]">{result.expectedEggs} <span className="text-sm font-bold">{l.eggsUnit}</span></p>
                         </div>
                         <div className="bg-slate-50 rounded-xl p-4 text-center border border-slate-100">
                             <p className="text-[0.65rem] font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-1">{l.expectedBlasts}</p>
-                            <p className="text-2xl font-black text-[var(--color-text-dark)]">{blasts}</p>
+                            <p className="text-2xl font-black text-[var(--color-text-dark)]">{result.expectedBlasts}</p>
                         </div>
                     </div>
 
