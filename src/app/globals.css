@@ -49,8 +49,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* Typography improvements for mobile Japanese text */
-    word-break: keep-all;
-    overflow-wrap: anywhere;
+    word-break: normal;
+    overflow-wrap: break-word;
     /* Prevent horizontal scrollbar from content overflow */
     overflow-x: hidden;
   }
@@ -212,4 +212,12 @@
   .text-link-hover:hover {
     background-size: 100% 2px;
   }
+}
+
+/* Typography Enhancements for English Text */
+.font-en p, .font-en li, .font-en span, .font-en div {
+  text-wrap: pretty;
+}
+.font-en h1, .font-en h2, .font-en h3, .font-en h4, .font-en h5, .font-en h6 {
+  text-wrap: balance;
 }
