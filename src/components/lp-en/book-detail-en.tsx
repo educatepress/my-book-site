@@ -69,10 +69,10 @@ export default function BookDetailEn() {
                     </h2>
                 </FadeIn>
 
-                <div className="flex flex-col md:flex-row gap-[var(--spacing-xl)] md:gap-[var(--spacing-3xl)]">
+                <div className="flex flex-col gap-[var(--spacing-xl)] max-w-[860px] mx-auto mt-4">
 
-                    {/* Left Column: Chapter Accordion */}
-                    <div className="w-full lg:w-[58%] flex flex-col gap-1 shrink-0">
+                    {/* Section: Chapter Accordion */}
+                    <div className="w-full flex flex-col gap-1 shrink-0">
                         {chapters.map((chapter, idx) => (
                             <FadeIn key={idx} delay={idx * 0.1}>
                                 <Accordion title={chapter.title} isOpenDefault={idx === 0}>
@@ -82,8 +82,8 @@ export default function BookDetailEn() {
                         ))}
                     </div>
 
-                    {/* Right Column: Sneak Peek Preview */}
-                    <div className="w-full lg:w-[42%] flex flex-col items-center justify-start sticky top-24">
+                    {/* Section: Sneak Peek Preview */}
+                    <div className="w-full flex flex-col items-center justify-start pt-6 md:pt-10">
                         <FadeIn delay={0.3} className="w-full">
                             <div className="bg-white rounded-[24px] p-6 shadow-xl flex flex-col items-center text-center border border-[var(--color-surface-mid)] mb-6 overflow-hidden relative">
                                 {/* 🚨 モックアップを大きく配置 */}
