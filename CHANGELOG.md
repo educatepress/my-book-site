@@ -1,6 +1,6 @@
 # webpage.new — プロジェクトドキュメント & 変更履歴
 
-> **最終更新:** 2026-03-18  
+> **最終更新:** 2026-03-19  
 > **監修:** 佐藤琢磨（生殖医療専門医）  
 > **リポジトリ:** [educatepress/my-book-site](https://github.com/educatepress/my-book-site)  
 > **本番URL:** https://doctors-guide-womens-health.vercel.app
@@ -61,6 +61,41 @@
 ---
 
 ## 📋 変更履歴
+
+### 2026-03-19
+
+#### 🐛 IVFシミュレーター — ランタイムクラッシュ修正
+- **原因:** `tObj`（翻訳オブジェクト）が `useMemo` コールバック内で参照されていたが、`const tObj = t[lang] || t.ja;` の定義がそれよりも後ろの行にあったためTemporal Dead Zone (TDZ) の `ReferenceError` が発生
+- **症状:** 初回レンダーは成功するが、30ms後にシミュレーション結果がセットされた瞬間にクラッシュ（「一瞬表示→エラー」）
+- **修正:** `const tObj` の定義を `useMemo` よりも前に移動
+- **コミット:** `43c94fc`
+
+#### 📝 シミュレーター説明文の正確化
+- LP（JP/EN）のシミュレーターCTA説明文から**BMI・CDC/SARTの言及を削除**し、v4の実際の仕様に合わせた内容に更新
+  - 旧: 「年齢・AMH・BMI等のパラメータから…CDC/SARTの全米データに基づいた…」
+  - 新: 「年齢とAMHを入力するだけで、モンテカルロ法による3,000人の仮想コホートシミュレーションを実行」
+- JP/ENページの `meta description`（SEO）も同様に更新
+- シミュレーター内の disclaimer「結果の解釈は担当医にご相談ください」を削除し、**モデル仕様書へのリンク**に差し替え
+  - JP: [仕様書](https://docs.google.com/document/d/155aJ6seHdNveVleyPGuUdJCyqEtlOTvx/)
+  - EN: [仕様書](https://docs.google.com/document/d/11HO3WyanF6R8LgTKP7Pl-ZvEQt-HKufL/)
+- **コミット:** `089753e`
+
+#### 📖 立ち読みセクションのスワイプUI改善
+- 立ち読み画像を **3枚 → 5枚** に増加（JP/EN各2枚追加）
+- デスクトップ表示を **2.5枚分の幅に制限**し、スワイプを促すUXに変更
+- **右端フェードグラデーション**を追加（「続きがある」ことを視覚的に示唆）
+- 追加画像4枚は1750px原寸から400px幅にリサイズ・圧縮（63-75KB）
+- **コミット:** `7c5276f`
+
+#### 🐦 X自動投稿スクリプト — Google Search復元 + JSONパーサー堅牢化
+- **問題:** Gemini APIの `googleSearch` ツールと `responseMimeType: "application/json"` の併用が非サポート → 毎回400エラーで投稿失敗
+- **修正方針:** Google Searchによるファクトチェック機能を維持しつつ、構造化出力をプロンプトベースJSON + try/catchパーサーに変更
+- **3段階のJSON抽出:** (1) 全体JSON (2) コードブロック内抽出 (3) ブレース直接抽出
+- 必須フィールドチェック（`jpXPostThread`, `enXPostThread`）とリトライロジックを統合
+- 未使用の `Type` import を削除
+- **コミット:** `d1ea601`
+
+---
 
 ### 2026-03-18
 
