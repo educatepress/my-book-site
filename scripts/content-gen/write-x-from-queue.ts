@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { GoogleGenAI, Type } from '@google/genai';
+import { GoogleGenAI } from '@google/genai';
 import { TwitterApi } from 'twitter-api-v2';
 import fs from 'fs/promises';
 import path from 'path';
@@ -132,35 +132,80 @@ Xのアルゴリズム上、1ツイート目にリンクがあると表示回数
 ■ 英語: Empowermentベースの表現（"Knowledge is power", "You deserve informed decisions"）。
 
 ※文字数エラーによるシステム停止を防ぐため、JPは各ツイート【130文字以内】、ENは【270文字以内】を厳守してください。
+
+【出力形式（厳守）】
+必ず以下のJSON形式のみで回答してください。JSON以外の文字（説明文やmarkdown装飾）は一切出力しないでください。
+\`\`\`
+{
+  "thoughtProcess": "検索した事実の整理と、医療広告ガイドライン違反チェックの結果をここに記載",
+  "jpXPostThread": ["ツイート1", "ツイート2", "ツイート3"],
+  "enXPostThread": ["Tweet 1", "Tweet 2", "Tweet 3"]
+}
+\`\`\`
 `;
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
         console.log(`🤖 AI Generation Attempt ${attempt}/${maxRetries}...`);
 
-        // 構造化出力でJSONパースエラーを100%排除
-        // 注意: googleSearch ツールと responseMimeType: "application/json" は併用不可（Gemini API制約）
+        // Google Searchで最新医学論文をファクトチェック + プロンプトベースJSON出力
+        // (googleSearch と responseMimeType:"application/json" は併用不可のため、プロンプトでJSON指示)
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: prompt,
             config: {
-                responseMimeType: "application/json",
-                responseSchema: {
-                    type: Type.OBJECT,
-                    properties: {
-                        thoughtProcess: {
-                            type: Type.STRING,
-                            description: "検索した事実の整理と、医療広告ガイドライン違反・ハルシネーションがないかの自己チェックプロセス。"
-                        },
-                        jpXPostThread: { type: Type.ARRAY, items: { type: Type.STRING } },
-                        enXPostThread: { type: Type.ARRAY, items: { type: Type.STRING } }
-                    },
-                    required: ["thoughtProcess", "jpXPostThread", "enXPostThread"]
-                }
+                tools: [{ googleSearch: {} }],
             }
         });
 
-        const result = JSON.parse(response.text || '{}');
-        console.log(`\n🧠 [AI自己検閲ログ]: ${result.thoughtProcess}\n`);
+        const rawText = response.text || '';
+
+        // JSON抽出: コードブロック内のJSONまたは生のJSONオブジェクトを検出
+        let result: any;
+        try {
+            // まず全体がJSONかどうか試す
+            result = JSON.parse(rawText);
+        } catch {
+            // コードブロック (```json ... ```) 内のJSONを抽出
+            const jsonMatch = rawText.match(/```(?:json)?\s*\n?([\s\S]*?)\n?\s*```/);
+            if (jsonMatch) {
+                try {
+                    result = JSON.parse(jsonMatch[1].trim());
+                } catch (e2) {
+                    console.warn(`⚠️ Attempt ${attempt}: JSON parse error in code block`);
+                    if (attempt === maxRetries) throw new Error(`JSON parse failed after ${maxRetries} attempts: ${e2}`);
+                    prompt += `\n\n【警告】前回の出力はJSONとしてパースできませんでした。必ず有効なJSONのみを出力してください。markdown装飾や説明文は不要です。`;
+                    continue;
+                }
+            } else {
+                // { ... } を直接抽出
+                const braceMatch = rawText.match(/\{[\s\S]*\}/);
+                if (braceMatch) {
+                    try {
+                        result = JSON.parse(braceMatch[0]);
+                    } catch (e3) {
+                        console.warn(`⚠️ Attempt ${attempt}: JSON parse error in brace extraction`);
+                        if (attempt === maxRetries) throw new Error(`JSON parse failed after ${maxRetries} attempts: ${e3}`);
+                        prompt += `\n\n【警告】前回の出力はJSONとしてパースできませんでした。必ず有効なJSONのみを出力してください。`;
+                        continue;
+                    }
+                } else {
+                    console.warn(`⚠️ Attempt ${attempt}: No JSON found in response`);
+                    if (attempt === maxRetries) throw new Error(`No JSON found in AI response after ${maxRetries} attempts`);
+                    prompt += `\n\n【警告】前回の出力にJSONが含まれていませんでした。必ず指定のJSON形式で出力してください。`;
+                    continue;
+                }
+            }
+        }
+
+        // 必須フィールドチェック
+        if (!result.jpXPostThread || !result.enXPostThread) {
+            console.warn(`⚠️ Attempt ${attempt}: Missing required fields`);
+            if (attempt === maxRetries) throw new Error(`Missing jpXPostThread or enXPostThread after ${maxRetries} attempts`);
+            prompt += `\n\n【警告】出力に jpXPostThread または enXPostThread が含まれていません。JSON形式を厳守してください。`;
+            continue;
+        }
+
+        console.log(`\n🧠 [AI自己検閲ログ]: ${result.thoughtProcess || '(なし)'}\n`);
 
         // 簡易文字数バリデーション（URLを除外して計算）
         let isValid = true;
