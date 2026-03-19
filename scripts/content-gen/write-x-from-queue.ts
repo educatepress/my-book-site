@@ -138,11 +138,11 @@ Xのアルゴリズム上、1ツイート目にリンクがあると表示回数
         console.log(`🤖 AI Generation Attempt ${attempt}/${maxRetries}...`);
 
         // 構造化出力でJSONパースエラーを100%排除
+        // 注意: googleSearch ツールと responseMimeType: "application/json" は併用不可（Gemini API制約）
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: prompt,
             config: {
-                tools: [{ googleSearch: {} }],
                 responseMimeType: "application/json",
                 responseSchema: {
                     type: Type.OBJECT,
