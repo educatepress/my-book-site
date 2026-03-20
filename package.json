@@ -11,7 +11,10 @@
     "content:prompt": "npx tsx scripts/content-gen/extract-prompt.ts",
     "generate-content": "tsx scripts/content-gen/generate.ts",
     "generate-auto": "tsx scripts/content-gen/auto-generate.ts",
-    "post-twitter": "ts-node scripts/content-gen/post-to-twitter.ts"
+    "post-twitter": "ts-node scripts/content-gen/post-to-twitter.ts",
+    "reel:inject": "npx tsx scripts/content-gen/inject-reel-to-blog.ts",
+    "blog:gen": "npx tsx scripts/content-gen/write-blog-from-queue.ts",
+    "x:gen": "npx tsx scripts/content-gen/write-x-from-queue.ts"
   },
   "dependencies": {
     "@google/genai": "^1.44.0",

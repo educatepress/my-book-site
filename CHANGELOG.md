@@ -1,4 +1,42 @@
 # webpage.new — プロジェクトドキュメント & 変更履歴
+<!-- AUTO-GENERATED: 2026-03-20 -->
+## 📋 自動記録 — 2026-03-20
+
+### 2026-03-19
+- docs: update CHANGELOG with 2026-03-19 changes (simulator fix, preview UI, X post fix)
+- fix(x-post): restore googleSearch with prompt-based JSON + robust try/catch parser for reliable fact-checked posts
+- fix(x-post): remove googleSearch tool from Gemini API call to fix 400 error with structured JSON output
+
+### 2026-03-18
+- feat(preview): add 2 more preview images per lang, swipe UI with 2.5-card view and fade edge; update EN model spec link
+- fix(simulator): update descriptions to match v4 spec, replace disclaimer with model spec link
+- fix(simulator): move tObj definition before useMemo to prevent TDZ ReferenceError crash
+- fix(simulator): use dynamic import with ssr:false to prevent client-side hydration error
+- fix(build): resolve deploy errors - add use client, install recharts, rename tsx to jsx
+- feat(simulator): implement dynamic i18n (ja/en) for v4 simulator
+- feat(simulator): replace with v4 simulator component
+- docs: update CHANGELOG with latest LP and UI improvements
+- fix(lp): remove duplicated simulator cta cards from final sections
+- fix(lp): set jp ogp to mockup, solve horizontal overflow on mobile, enhance en typography
+- feat(simulator): apply user provided latest monte carlo simulator logic
+- style(lp): change book-detail layout from two-column to single-column to fix horizontal overflow
+- fix(lp): prevent horizontal scroll and differentiate ogp images for EN/JP
+- fix(lp): revert EN hero book to mock-en.png and use JP video background
+- style(lp): adjust preview image layout, convert SNS links to icons, fix hero image for EN, set EN review count to 12
+- fix(blog): remove clinic references and redirect to book LP, update prompt
+- fix(blog): change date of folic acid post to today to avoid auto-publish filter
+- fix(blog): resolve mdx parsing error, replace folic acid blog, clean markdown syntax, fix text-justify layout
+- docs: add CHANGELOG.md with project vision, channel strategy, and change history
+- chore: update X queue status [skip ci]
+- feat: replace simulator with Monte Carlo engine (3000 patient cohort), remove ChatGPT links
+
+### 2026-03-17
+- feat: auto-deploy blog workflow, robust JSON parse, new blog post, X queue update
+- fix: improve tweet-on-publish workflow (duplicate guard, npx tsx), add deploy workflow
+- feat: activate preview images, add ART simulator with clinical logic & disclaimer (JP/EN)
+
+---
+
 
 > **最終更新:** 2026-03-19  
 > **監修:** 佐藤琢磨（生殖医療専門医）  

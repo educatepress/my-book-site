@@ -32,13 +32,13 @@ export default function BeforeAfter() {
                             <div className="flex flex-col w-full rounded-[24px] overflow-hidden drop-shadow-sm border border-black/5 bg-white">
                                 {/* Before Row */}
                                 <div
-                                    className="bg-[var(--color-surface)] p-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 w-full"
+                                    className="bg-[var(--color-surface)] p-5 flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-5 w-full"
                                     aria-label={`改善前: ${card.before}`}
                                 >
-                                    <span className="shrink-0 text-[0.7rem] font-bold text-[var(--color-text-muted)] tracking-widest bg-black/5 px-3 py-1 rounded-full w-fit font-en">
+                                    <span className="shrink-0 text-[0.65rem] font-bold text-[var(--color-text-muted)] tracking-widest bg-black/5 px-2.5 py-1 rounded-full w-fit font-en">
                                         BEFORE
                                     </span>
-                                    <p className="text-[0.85rem] text-[var(--color-text-muted)] opacity-80 decoration-black/20 line-through">
+                                    <p className="text-[0.85rem] text-[var(--color-text-muted)] opacity-70 decoration-black/15 line-through">
                                         {card.before}
                                     </p>
                                 </div>

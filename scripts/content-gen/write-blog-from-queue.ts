@@ -84,6 +84,15 @@ ${item.sourceUrls.join('\n')}
 - 信頼できる専門家として、冷静かつ論理的に、しかし読者の未来を心から応援する愛情深いトーン。
 - 読者の悩みに寄り添い、「確かな知識によって人生の選択肢を広げる」ことを後押しするEmpowermentな文体。
 
+【Smart Brevity 方式（厳守）】
+全記事は以下の Smart Brevity 原則に従って構成すること：
+1. **結論ファーストのリード文**: 最初の2-3行で「この記事の結論（最も重要なファクト）」を明示する。読者が最初の段落だけ読んでも価値がわかること。
+2. **各セクション構成**: 「①これが重要（Big Thing）→ ②なぜ重要か（Why it matters）→ ③次にすべきこと（What's next）」の3要素で構成。
+3. **段落の短さ**: 2〜3文ごとに必ず改行（空白行）。スマホユーザーを最優先に考える。壁のようなテキストは絶対禁止。
+4. **太字の活用**: 各段落で最も重要な1文を必ず太字にし、スキャン読みでも要点が伝わるようにする。
+5. **箇条書きの活用**: 並列情報は必ず箇条書きリストにする。
+6. **文字数**: 日本語版は1800〜2200文字程度。冗長な表現は削ぎ落とす。
+
 【医療的正確性・エビデンス確認ルール（CRITICAL）】
 1. 必ず、提供された【エビデンスとなるソースURL】の内容を読み込み（Google Search等を利用）、そのファクトに基づいて執筆してください。
 2. クリニックのホームページや、医師個人の見解などからの借用は一切行わないこと。
@@ -128,13 +137,74 @@ Expected JSON Schema:
             model: 'gemini-2.5-flash',
             contents: prompt,
             config: {
-                responseMimeType: "application/json",
+                // Note: responseMimeType cannot be used with Google Search tools
                 tools: [{ googleSearch: {} }],
             }
         });
 
-        const resultText = response.text || '{}';
-        const result = JSON.parse(resultText);
+        let resultText = response.text || '{}';
+        // Strip markdown code block if present (handles various Gemini output formats)
+        const codeBlockMatch = resultText.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+        if (codeBlockMatch) {
+            resultText = codeBlockMatch[1].trim();
+        }
+
+        // Save raw response for debugging
+        const debugPath = path.join(process.cwd(), 'scripts', 'content-gen', 'out-daily-x', `debug-blog-${Date.now()}.txt`);
+        await fs.writeFile(debugPath, resultText);
+        
+        // Robust JSON parsing with multi-level repair
+        let result: any;
+        try {
+            result = JSON.parse(resultText);
+        } catch {
+            console.log("⚠️ JSON直接パース失敗 — 修復を試行中...");
+            try {
+                // Strategy: find each field's value boundaries using key markers
+                const slugMatch = resultText.match(/"slug"\s*:\s*"([^"]+)"/);
+                const slug = slugMatch?.[1] || 'untitled-blog';
+                
+                // Extract multi-line fields by finding boundaries between keys
+                const jpStart = resultText.indexOf('"jpBlog"');
+                const enStart = resultText.indexOf('"enBlog"');
+                const xStart = resultText.indexOf('"xPost"');
+                
+                function extractField(text: string, fieldStart: number, nextFieldStart: number): string {
+                    if (fieldStart < 0) return '';
+                    const colonPos = text.indexOf(':', fieldStart);
+                    // Find the opening quote after the colon
+                    const openQuote = text.indexOf('"', colonPos + 1);
+                    // For the closing boundary, look backwards from the next field
+                    let endPos: number;
+                    if (nextFieldStart > 0) {
+                        // Find last quote before the comma/newline preceding next field
+                        endPos = text.lastIndexOf('"', nextFieldStart - 1);
+                    } else {
+                        // Last field - find last quote before closing brace
+                        endPos = text.lastIndexOf('"', text.lastIndexOf('}'));
+                    }
+                    if (openQuote < 0 || endPos <= openQuote) return '';
+                    return text.substring(openQuote + 1, endPos);
+                }
+                
+                const jpBlog = extractField(resultText, jpStart, enStart);
+                const enBlog = extractField(resultText, enStart, xStart);
+                const xPost = extractField(resultText, xStart, -1);
+                
+                result = {
+                    slug,
+                    jpBlog: jpBlog.replace(/\\n/g, '\n').replace(/\\"/g, '"'),
+                    enBlog: enBlog.replace(/\\n/g, '\n').replace(/\\"/g, '"'),
+                    xPost: xPost.replace(/\\n/g, '\n').replace(/\\"/g, '"'),
+                };
+                
+                if (!result.jpBlog) throw new Error('jpBlog field extraction failed');
+                console.log("✅ フィールド境界抽出成功!");
+            } catch (finalErr) {
+                console.error("❌ JSON修復失敗。Raw response saved to:", debugPath);
+                throw finalErr;
+            }
+        }
 
         const safeXPost = result.xPost ? result.xPost : "";
 
