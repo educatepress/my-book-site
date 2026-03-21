@@ -214,10 +214,13 @@
   }
 }
 
-/* Typography Enhancements for English Text */
-.font-en p, .font-en li, .font-en span, .font-en div {
+/* Typography Enhancements — Orphan/Widow Prevention (JP & EN) */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+p, li {
   text-wrap: pretty;
 }
-.font-en h1, .font-en h2, .font-en h3, .font-en h4, .font-en h5, .font-en h6 {
-  text-wrap: balance;
+.font-en p, .font-en li, .font-en span, .font-en div {
+  text-wrap: pretty;
 }

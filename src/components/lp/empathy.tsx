@@ -41,7 +41,7 @@ export default function Empathy() {
                     <div className="inline-block border border-[var(--color-sage)] text-[var(--color-sage)] rounded-full px-4 py-1 mb-[var(--spacing-sm)]">
                         <span className="text-[0.7rem] font-bold tracking-widest font-en">WHY</span>
                     </div>
-                    <h2 className="text-[clamp(1.5rem,3.5vw,2rem)] font-bold text-[var(--color-text-dark)] leading-snug" style={{ fontFeatureSettings: '"palt"' }}>
+                    <h2 className="text-[clamp(1.5rem,3.5vw,2rem)] font-bold text-[var(--color-text-dark)] leading-snug" style={{ fontFeatureSettings: '"palt"', textWrap: 'balance' as any }}>
                         こんなこと、感じていませんか？
                     </h2>
                 </FadeIn>
@@ -53,7 +53,7 @@ export default function Empathy() {
                                 className="bg-[var(--color-sage-pale)] rounded-[16px] p-6 flex items-start gap-4 h-full pointer-events-none"
                             >
                                 <div className="text-[32px] shrink-0 leading-none font-en text-[var(--color-sage)] font-bold opacity-40">{card.icon}</div>
-                                <p className="text-[0.95rem] text-[var(--color-text-mid)] font-medium leading-[1.6] pt-1">
+                                <p className="text-[0.95rem] text-[var(--color-text-mid)] font-medium leading-[1.6] pt-1" style={{ textWrap: 'pretty' as any }}>
                                     {card.text}
                                 </p>
                             </div>
@@ -61,8 +61,8 @@ export default function Empathy() {
                     ))}
                 </div>
 
-                <FadeIn delay={0.4} className="text-center max-w-[600px] mx-auto">
-                    <p className="text-[1.05rem] leading-[2] text-[var(--color-text-dark)]">
+                <FadeIn delay={0.4} className="text-left md:text-center max-w-[600px] mx-auto">
+                    <p className="text-[1.05rem] leading-[2] text-[var(--color-text-dark)]" style={{ textWrap: 'pretty' as any }}>
                         知っているか、知らないかで変わる
                         <span className="font-bold text-[var(--color-sage)]">「一年分の時間」</span>がある。
                         <br className="hidden md:block" />
@@ -70,8 +70,8 @@ export default function Empathy() {
                         <br className="hidden md:block" />
                         <span className="font-bold text-[1.2rem] text-[var(--color-sage)]">
                             <AnimatedNumber />の医学的事実
-                        </span>を、<br className="hidden md:block" />
-                        やさしく、読みやすく整理した一冊です。
+                        </span>を、やさしく、<br className="hidden md:block" />
+                        読みやすく整理した一冊です。
                     </p>
                 </FadeIn>
 

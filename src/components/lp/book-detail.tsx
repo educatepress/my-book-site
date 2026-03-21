@@ -92,7 +92,7 @@ export default function BookDetail() {
                                     <img src="/mockup-jp.png" alt="Book Cover" className="w-full h-auto" />
                                 </div>
 
-                                <h3 className="text-[1.1rem] font-bold text-[var(--color-text-dark)] mb-4 flex items-center justify-center gap-1.5">
+                                <h3 className="text-[1.1rem] font-bold text-[var(--color-text-dark)] mb-4 flex items-center justify-center gap-1.5" style={{ textWrap: 'balance' as any }}>
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-[var(--color-sage)]"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                                     図解でわかる！中身を少しだけ公開
                                 </h3>

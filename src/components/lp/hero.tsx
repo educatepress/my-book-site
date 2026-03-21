@@ -98,16 +98,14 @@ export default function Hero() {
                     >
                         『20代で考える
                         <br className="hidden md:block" />
-                        <span className="text-[var(--color-sage)]">将来、妊娠で困らないための</span>
-                        <br className="hidden md:block" />
-                        選択』
+                        <span className="text-[var(--color-sage)]">将来、妊娠で困らないための選択</span>』
                     </motion.h1>
 
                     <motion.p
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ ...transition, delay: 0.16 }}
-                        className="text-[1.05rem] text-[var(--color-text-mid)] leading-[1.9] mb-[var(--spacing-lg)] max-w-[500px]"
+                        className="text-[1.05rem] text-[var(--color-text-mid)] leading-[1.9] mb-[var(--spacing-lg)] max-w-[500px] text-left md:text-left"
                     >
                         今の自分を大切にすることが、<br className="hidden md:block" />
                         未来の「選択肢」を増やす。<br className="hidden md:block" />

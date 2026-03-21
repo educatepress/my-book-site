@@ -60,7 +60,7 @@ export default function EmpathyEn() {
                     ))}
                 </div>
 
-                <FadeIn delay={0.4} className="text-center max-w-[600px] mx-auto">
+                <FadeIn delay={0.4} className="text-left md:text-center max-w-[600px] mx-auto">
                     <p className="text-[1.05rem] leading-relaxed text-[var(--color-text-dark)] font-en">
                         There is <span className="font-bold text-[var(--color-sage)]">"a year's worth of difference"</span><br className="hidden md:block" />
                         between knowing and not knowing.<br />
