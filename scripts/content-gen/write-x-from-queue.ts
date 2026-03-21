@@ -58,7 +58,7 @@ const LP_URL_EN = "https://doctors-guide-womens-health.vercel.app/en";
 // ============================================================================
 // 🔄 無人稼働のための自己修復（Auto-Retry）型 AI生成関数
 // ============================================================================
-async function generateWithRetry(item: any, maxRetries = 2) {
+async function generateWithRetry(item: any, maxRetries = 3) {
     // 💡 毎日ランダムな切り口を注入し、AIの「マンネリ化」を防ぐ
     const hookAnglesJp = [
         "【外来での気づき】日々の診察室で、患者さんからよく受ける質問へのフラットな回答",
@@ -173,7 +173,7 @@ Xのアルゴリズム上、1ツイート目にリンクがあると表示回数
                 } catch (e2) {
                     console.warn(`⚠️ Attempt ${attempt}: JSON parse error in code block`);
                     if (attempt === maxRetries) throw new Error(`JSON parse failed after ${maxRetries} attempts: ${e2}`);
-                    prompt += `\n\n【警告】前回の出力はJSONとしてパースできませんでした。必ず有効なJSONのみを出力してください。markdown装飾や説明文は不要です。`;
+                    prompt += `\n\n【警告】前回の出力はJSONとしてパースできませんでした。必ず有効なJSONのみを出力してください。markdown装飾や説明文は不要です。必ず jpXPostThread と enXPostThread の両方とも含めてください。`;
                     continue;
                 }
             } else {
@@ -185,13 +185,13 @@ Xのアルゴリズム上、1ツイート目にリンクがあると表示回数
                     } catch (e3) {
                         console.warn(`⚠️ Attempt ${attempt}: JSON parse error in brace extraction`);
                         if (attempt === maxRetries) throw new Error(`JSON parse failed after ${maxRetries} attempts: ${e3}`);
-                        prompt += `\n\n【警告】前回の出力はJSONとしてパースできませんでした。必ず有効なJSONのみを出力してください。`;
+                        prompt += `\n\n【警告】前回の出力はJSONとしてパースできませんでした。必ず有効なJSONのみを出力してください。必ず jpXPostThread と enXPostThread の両方とも含めてください。`;
                         continue;
                     }
                 } else {
                     console.warn(`⚠️ Attempt ${attempt}: No JSON found in response`);
                     if (attempt === maxRetries) throw new Error(`No JSON found in AI response after ${maxRetries} attempts`);
-                    prompt += `\n\n【警告】前回の出力にJSONが含まれていませんでした。必ず指定のJSON形式で出力してください。`;
+                    prompt += `\n\n【警告】前回の出力にJSONが含まれていませんでした。必ず指定のJSON形式(jpXPostThreadとenXPostThread)で出力してください。`;
                     continue;
                 }
             }
@@ -201,7 +201,7 @@ Xのアルゴリズム上、1ツイート目にリンクがあると表示回数
         if (!result.jpXPostThread || !result.enXPostThread) {
             console.warn(`⚠️ Attempt ${attempt}: Missing required fields`);
             if (attempt === maxRetries) throw new Error(`Missing jpXPostThread or enXPostThread after ${maxRetries} attempts`);
-            prompt += `\n\n【警告】出力に jpXPostThread または enXPostThread が含まれていません。JSON形式を厳守してください。`;
+            prompt += `\n\n【警告】出力に jpXPostThread または enXPostThread が含まれていません。JSON形式を厳守し、必ず両方の配列を再出力してください。`;
             continue;
         }
 
@@ -227,7 +227,7 @@ Xのアルゴリズム上、1ツイート目にリンクがあると表示回数
         if (attempt === maxRetries) return result; // 最終リトライ時はそのまま返す
 
         // エラー時はAIに「短くしろ」と指示を追加して再生成（自己修復）
-        prompt += `\n\n【警告】前回の出力はXの文字数制限を超過しました。リンクは削らず、テキスト部分をもっと短く簡潔に修正して再出力してください。`;
+        prompt += `\n\n【警告】前回の出力はXの文字数制限を超過しました(原因: ${errorMessage})。リンクは削らず、テキスト部分をもっと短く簡潔に修正し、必ず jpXPostThread と enXPostThread の両方を含む完全なJSON形式で再出力してください。`;
     }
 }
 
