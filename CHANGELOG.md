@@ -1,6 +1,10 @@
 # webpage.new — プロジェクトドキュメント & 変更履歴
 <!-- AUTO-GENERATED: 2026-03-20 -->
 ## 📋 自動記録 — 2026-03-20
+### 2026-03-21
+- fix(x-post): strictly enforce JSON structure during Gemini retries and increase max retries to 3
+- chore(x-post): sync `.env` with GitHub Action Repository Secrets for complete automation stability
+- docs: update CHANGELOG with 2026-03-21 automated posting stabilization
 
 ### 2026-03-19
 - docs: update CHANGELOG with 2026-03-19 changes (simulator fix, preview UI, X post fix)
@@ -99,6 +103,14 @@
 ---
 
 ## 📋 変更履歴
+
+### 2026-03-21
+
+#### 🐦 X / ブログ自動投稿の完全安定化（エラー対策・認証同期）
+- **問題（AI出力起因）:** X自動投稿スクリプト実行時、Geminiが文字数制限を超過してリトライ処理に入る際、不完全なJSON（`jpXPostThread` または `enXPostThread` の欠落）を返し、プログラムがクラッシュする事象が多発。
+- **対策（AI出力起因）:** `write-x-from-queue.ts` の自己修復（Auto-Retry）プロンプトを強化。リトライ時にも「必ずJP・EN両方の完全なJSON構造を維持して返すこと」を文字列として強く再指示し、最大リトライ回数を3回に増加。テスト実行にて3回目で自己修復し投稿が完全に成功することを確認。（コミット: `2db1e9e`）
+- **問題（認証起因）:** ローカルの `.env` で認証キーを直しても、自動化サーバー（GitHub Actions）の環境変数が同期されておらず、認証エラーが継続していた。
+- **対策（認証起因）:** GitHubのリポジトリ設定（Settings > Secrets and variables > Actions）の `TWITTER_API_KEY`, `EN_TWITTER_~` 等を、最新のローカル `.env` と同値に同期・更新し、サーバー上でも完全自動で稼働する環境を確立。
 
 ### 2026-03-19
 
