@@ -34,7 +34,7 @@ export default function FinalCtaEn() {
     };
 
     return (
-        <section ref={ctaRef} className="relative overflow-hidden py-[8rem] px-6 font-en">
+        <section ref={ctaRef} className="relative overflow-hidden pt-[8rem] pb-[10rem] px-6 font-en">
             {/* Background Gradient & Pattern */}
             <div
                 className="absolute inset-0 z-0"

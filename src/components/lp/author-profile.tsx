@@ -48,8 +48,8 @@ export default function AuthorProfile() {
                             </div>
 
                             {/* 🚨 追加：著者の「想い」をストーリーとして配置 */}
-                            <div className="relative bg-white p-5 md:p-6 rounded-2xl border-l-4 border-[var(--color-sage)] shadow-sm w-full mb-6 text-left">
-                                <p className="text-[0.9rem] md:text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] relative z-10 font-medium">
+                            <div className="relative bg-white p-5 md:p-6 rounded-2xl border-l-4 border-[var(--color-sage)] shadow-sm w-full md:max-w-[560px] mb-6 text-left">
+                                <p className="text-[0.9rem] md:text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] relative z-10 font-medium" style={{ textWrap: 'pretty' as any }}>
                                     日々診察室で、<strong className="text-[var(--color-blush)]">「もっと早く知っていれば…」</strong>と涙を流す女性を数え切れないほど見てきました。<br className="hidden md:block" />
                                     手遅れになって後悔する前に、正しい知識で自分の未来と選択肢を守ってほしい。その一心で、専門医として本当に必要な24の事実をこの一冊に込めました。
                                 </p>

@@ -100,12 +100,12 @@ export default function BookDetailEn() {
                                 {/* LP内スワイプ完結の立ち読みエリア（英語版） */}
                                 <div className="w-full bg-[var(--color-surface)] rounded-[16px] p-4 mb-5 border border-black/5 relative flex flex-col items-center">
                                     <h4 className="text-[0.8rem] font-bold text-[var(--color-text-mid)] mb-3 flex items-center gap-1.5"><span className="text-[1rem]">📖</span> Take a Sneak Peek Inside</h4>
-                                    <div className="relative w-full max-w-[380px] md:max-w-[420px]">
+                                    <div className="relative w-full max-w-[380px] md:max-w-[720px]">
                                         <div className="flex w-full overflow-x-auto snap-x snap-mandatory gap-3 pb-4 px-1 items-center" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                                             <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
                                             
                                             {[1, 2, 3, 4, 5].map((num) => (
-                                                <div key={num} className="snap-center shrink-0 w-[140px] md:w-[160px] aspect-[1/1.414] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-md relative group">
+                                                <div key={num} className="snap-center shrink-0 w-[180px] md:w-[240px] aspect-[1/1.414] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-md relative group">
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                                     <img src={`/preview-en-${num}.jpg`} alt={`Preview ${num}`} className="w-full h-full object-contain bg-white" />
                                                     
@@ -118,7 +118,7 @@ export default function BookDetailEn() {
                                         {/* Right fade to hint more content */}
                                         <div className="absolute top-0 right-0 w-12 h-full bg-gradient-to-l from-[var(--color-surface)] to-transparent pointer-events-none rounded-r-[16px]" />
                                     </div>
-                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-1 font-bold uppercase tracking-wider">← Swipe to read →</p>
+                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-1 font-bold uppercase tracking-wider"><span className="md:hidden">← Swipe to read →</span><span className="hidden md:inline">← Scroll to read →</span></p>
                                 </div>
 
                                 <a

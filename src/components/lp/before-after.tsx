@@ -38,7 +38,7 @@ export default function BeforeAfter() {
                                     <span className="shrink-0 text-[0.65rem] font-bold text-[var(--color-text-muted)] tracking-widest bg-black/5 px-2.5 py-1 rounded-full w-fit font-en">
                                         BEFORE
                                     </span>
-                                    <p className="text-[0.85rem] text-[var(--color-text-muted)] opacity-70 decoration-black/15 line-through">
+                                    <p className="text-[0.85rem] text-[var(--color-text-mid)] opacity-85 decoration-black/20 line-through">
                                         {card.before}
                                     </p>
                                 </div>
@@ -57,7 +57,7 @@ export default function BeforeAfter() {
                                             <polyline points="20 6 9 17 4 12" />
                                         </svg>
                                     </div>
-                                    <p className="text-[1rem] font-bold text-[var(--color-text-dark)] leading-[1.5]">
+                                    <p className="text-[1rem] font-bold text-[var(--color-text-dark)] leading-[1.5]" style={{ textWrap: 'balance' as any }}>
                                         {card.after}
                                     </p>
                                 </motion.div>

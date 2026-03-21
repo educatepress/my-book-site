@@ -73,7 +73,7 @@ export default function ReviewsEn() {
                                     "{review.text}"
                                 </p>
 
-                                <p className="text-[0.8rem] text-[var(--color-text-muted)] font-en">
+                                <p className="text-[0.85rem] text-[var(--color-text-mid)] font-medium font-en">
                                     — {review.name} (Amazon)
                                 </p>
                             </div>

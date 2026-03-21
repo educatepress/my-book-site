@@ -35,7 +35,7 @@ export default function FinalCta() {
     };
 
     return (
-        <section ref={ctaRef} className="relative overflow-hidden py-[8rem] px-6">
+        <section ref={ctaRef} className="relative overflow-hidden pt-[8rem] pb-[10rem] px-6">
             {/* Background Gradient & Pattern */}
             <div
                 className="absolute inset-0 z-0"

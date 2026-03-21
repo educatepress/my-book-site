@@ -38,7 +38,7 @@ export default function BeforeAfterEn() {
                                     <span className="shrink-0 text-[0.7rem] font-bold text-[var(--color-text-muted)] tracking-widest bg-black/5 px-3 py-1 rounded-full w-fit uppercase">
                                         BEFORE
                                     </span>
-                                    <p className="text-[0.95rem] text-[var(--color-text-muted)] line-through">
+                                    <p className="text-[0.95rem] text-[var(--color-text-mid)] line-through">
                                         {card.before}
                                     </p>
                                 </div>
@@ -57,7 +57,7 @@ export default function BeforeAfterEn() {
                                             <polyline points="20 6 9 17 4 12" />
                                         </svg>
                                     </div>
-                                    <p className="text-[1rem] font-bold text-[var(--color-text-dark)] leading-[1.6]">
+                                    <p className="text-[1rem] font-bold text-[var(--color-text-dark)] leading-[1.6]" style={{ textWrap: 'pretty' as any }}>
                                         {card.after}
                                     </p>
                                 </motion.div>
