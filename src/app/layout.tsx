@@ -25,7 +25,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://doctors-guide-womens-health.vercel.app'),
+  metadataBase: new URL('https://ttcguide.co'),
   title: '『20代で考える 将来妊娠で困らないための選択』 - 生殖医療専門医 佐藤琢磨',
   description: '今の自分を大切にすることが、未来の「選択肢」を増やす。20代・30代の女性とパートナーに、今から知っておくべき24の医学的事実を一冊に。',
   verification: {

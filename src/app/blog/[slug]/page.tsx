@@ -58,7 +58,7 @@ export default async function BlogPost({ params }: PostProps) {
         author: {
             '@type': 'Person',
             name: post.frontmatter.author || 'Takuma Sato, MD',
-            url: 'https://doctors-guide-womens-health.vercel.app',
+            url: 'https://ttcguide.co',
             jobTitle: 'Reproductive Medicine Specialist'
         },
         publisher: {
@@ -66,7 +66,7 @@ export default async function BlogPost({ params }: PostProps) {
             name: 'Dr. Takuma Sato',
             logo: {
                 '@type': 'ImageObject',
-                url: 'https://doctors-guide-womens-health.vercel.app/og-image.jpg'
+                url: 'https://ttcguide.co/og-image.jpg'
             }
         }
     };
@@ -149,7 +149,7 @@ export default async function BlogPost({ params }: PostProps) {
                             </p>
 
                             <a 
-                                href="https://doctors-guide-womens-health.vercel.app/" 
+                                href="https://ttcguide.co/" 
                                 className="inline-flex items-center justify-center bg-[var(--color-sage)] hover:bg-[#5a7a5f] text-white text-[0.85rem] font-bold px-6 py-3 rounded-full transition-colors shadow-sm w-full sm:w-auto"
                             >
                                 著書を詳しく見る →

@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/mdx'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://doctors-guide-womens-health.vercel.app';
+    const baseUrl = 'https://ttcguide.co';
 
     // Get all posts for both languages
     const jpPosts = getAllPosts('jp');

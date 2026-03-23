@@ -52,8 +52,8 @@ if (enApiKey && enApiSecret && enAccessToken && enAccessSecret) {
 }
 
 // --- LP URLs ---
-const LP_URL_JP = "https://doctors-guide-womens-health.vercel.app/";
-const LP_URL_EN = "https://doctors-guide-womens-health.vercel.app/en";
+const LP_URL_JP = "https://ttcguide.co/";
+const LP_URL_EN = "https://ttcguide.co/en";
 
 // ============================================================================
 // 🔄 無人稼働のための自己修復（Auto-Retry）型 AI生成関数

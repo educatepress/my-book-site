@@ -30,13 +30,13 @@ The output must perfectly align with our Remotion React component schema.
     *   *Rule:* Extremely dense, highly valuable summary of slides 4-6 designed to be screenshotted/saved.
 *   **Slide 8: Evidence (Authority)**
     *   *Purpose:* Establish absolute medical supremacy over influencers.
-    *   *Rule:* Cite the actual medical paper, ACOG/ASRM guideline, or key statistic.
+    *   *Rule:* Cite the actual medical paper or guideline. Do NOT include PMIDs or raw numbers. Provide only a plain-English summary of the finding, the Journal Name/Year, and the Paper Title.
 *   **Slide 9: Message (Empathy)**
     *   *Purpose:* Fan creation & emotional connection.
     *   *Rule:* A warm, reassuring message from the doctor ("You are not alone in this journey").
 *   **Slide 10: CTA (Action & Traffic Funnel)**
-    *   *Purpose:* Drive traffic to `webpage.new` English LP or increase engagement.
-    *   *Rule:* Use ONE strong funnel action. Either **DM Automation** ("Comment 'GUIDE' and I'll DM you the link to the full article on my blog") or **Bio Link** ("Hit the link in my bio to read the full deep dive"). Always combine this visually with a "Save" reminder.
+    *   *Purpose:* Drive traffic to the blog via DM Automation.
+    *   *Rule:* ALWAYS use DM Automation. The comment trigger MUST be exactly "GUIDE" for every single carousel. Always combine this visually with a "Save" reminder.
 
 ## JSON Output Schema
 
@@ -49,69 +49,68 @@ Output ONLY valid JSON inside a standard ```json ... ``` markdown block.
     {
       "slideNumber": 1,
       "type": "Cover",
-      "headline": "[Max 6 words, highly provocative hook]",
-      "subheadline": "[Target audience callout, max 8 words]"
+      "headline": "[Max 60 chars, highly provocative hook]",
+      "subheadline": "[Target audience callout, max 40 chars]"
     },
     {
       "slideNumber": 2,
       "type": "Agitation",
-      "headline": "[Second hook for IG algorithm re-exposure]",
-      "body": "[Short paragraph explaining the consequence of ignoring the issue]"
+      "headline": "[Second hook for IG algorithm re-exposure, Max 60 chars]",
+      "body": "[Short paragraph explaining consequence. Max 250 chars.]"
     },
     {
       "slideNumber": 3,
       "type": "Intro",
-      "headline": "[Transition headline]",
-      "points": ["[Point 1]", "[Point 2]", "[Point 3]"]
+      "headline": "[Transition headline, Max 60 chars]",
+      "points": ["[Point 1, Max 50 chars]", "[Point 2, Max 50 chars]", "[Point 3, Max 50 chars]"]
     },
     {
       "slideNumber": 4,
       "type": "Content",
-      "headline": "[Core insight 1]",
-      "body": "[1-2 very short sentences]",
+      "headline": "[Core insight 1, Max 60 chars]",
+      "body": "[1-2 very short sentences. Max 300 chars.]",
       "highlightKeyword": "[1-2 words to highlight in design]"
     },
     {
       "slideNumber": 5,
       "type": "Content",
-      "headline": "[Core insight 2]",
-      "body": "[1-2 very short sentences]",
+      "headline": "[Core insight 2, Max 60 chars]",
+      "body": "[1-2 very short sentences. Max 300 chars.]",
       "highlightKeyword": "[1-2 words to highlight in design]"
     },
     {
       "slideNumber": 6,
       "type": "Content",
-      "headline": "[Core insight 3]",
-      "body": "[1-2 very short sentences]",
+      "headline": "[Core insight 3, Max 60 chars]",
+      "body": "[1-2 very short sentences. Max 300 chars.]",
       "highlightKeyword": "[1-2 words to highlight in design]"
     },
     {
       "slideNumber": 7,
       "type": "Summary",
       "headline": "Save This Cheat Sheet",
-      "summaryItems": ["[Summary of 4]", "[Summary of 5]", "[Summary of 6]", "[Pro Tip]"]
+      "summaryItems": ["[Summary 1, Max 60 chars]", "[Summary 2, Max 60 chars]", "[Summary 3, Max 60 chars]", "Pro Tip: [Max 80 chars]"]
     },
     {
       "slideNumber": 8,
       "type": "Evidence",
       "headline": "The Medical Evidence",
-      "sourceName": "[e.g., ASRM Guidelines 2024]",
-      "sourceDetails": "[Journal name / Title]",
-      "keyStat": "[Most compelling statistic]"
+      "keyStat": "[Plain-English summary of the finding. NO PMIDs or raw numbers. Max 100 chars.]",
+      "sourceName": "[Journal Name / Year, e.g., Reproductive Medicine and Biology (2024)]",
+      "sourceDetails": "[Full Paper Title. NO PMIDs. Max 100 chars.]"
     },
     {
       "slideNumber": 9,
       "type": "Message",
       "headline": "A Note From Your Doctor",
-      "body": "[Empathetic, reassuring paragraph]"
+      "body": "[Empathetic, reassuring paragraph. Max 250 chars.]"
     },
     {
       "slideNumber": 10,
       "type": "CTA",
       "headline": "[Hook for CTA, e.g., 'Want the full clinical breakdown?']",
-      "actionText": "[Clear instruction: e.g., 'Comment the word GUIDE and I will DM you the exact link to read the article.']",
-      "commentTrigger": "[Optional: Only if using DM automation, the specific word to comment, e.g., 'GUIDE']",
-      "buttonLabel": "[Optional: Only if using Bio Link, e.g., 'Link in Bio']"
+      "actionText": "Comment the word GUIDE below and I'll DM you the direct link to read the full deep dive.",
+      "commentTrigger": "GUIDE"
     }
   ],
   "instagramCaption": "[High-converting caption text including line breaks]",

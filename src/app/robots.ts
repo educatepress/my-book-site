@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/private/',
         },
-        sitemap: 'https://doctors-guide-womens-health.vercel.app/sitemap.xml',
+        sitemap: 'https://ttcguide.co/sitemap.xml',
     }
 }
