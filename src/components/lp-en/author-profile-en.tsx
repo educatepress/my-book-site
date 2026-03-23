@@ -55,7 +55,7 @@ export default function AuthorProfileEn() {
                             {/* 🚨 追加：著者の「想い」をストーリーとして配置 */}
                             <div className="relative bg-white p-5 md:p-6 rounded-2xl border-l-4 border-[var(--color-sage)] shadow-sm w-full mb-6 text-left">
                                 <p className="text-[0.9rem] md:text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] relative z-10 font-medium italic">
-                                    In my daily practice, I often hear women say, <strong className="text-[var(--color-blush)] font-bold">"I wish I had discovered this knowledge sooner."</strong><br className="hidden md:block" />
+                                    In my daily practice, I have often experienced situations where I thought, <strong className="text-[var(--color-blush)] font-bold">"If only they had discovered this knowledge sooner."</strong><br className="hidden md:block" />
                                     To help everyone envision the life they truly want, I want to share insights from a medical perspective that can expand your future choices. With this sincere hope, I have distilled 24 essential medical facts into this single book.
                                 </p>
                             </div>

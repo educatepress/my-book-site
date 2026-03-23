@@ -50,7 +50,7 @@ export default function AuthorProfile() {
                             {/* 🚨 追加：著者の「想い」をストーリーとして配置 */}
                             <div className="relative bg-white p-5 md:p-6 rounded-2xl border-l-4 border-[var(--color-sage)] shadow-sm w-full md:max-w-[560px] mb-6 text-left">
                                 <p className="text-[0.9rem] md:text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] relative z-10 font-medium" style={{ textWrap: 'pretty' as any }}>
-                                    日々診察室で多くの女性と向き合う中で、<strong className="text-[var(--color-blush)]">「この知識にもっと早く出会いたかった」</strong>というお声に何度も触れてきました。<br className="hidden md:block" />
+                                    日々診察室で多くの女性と向き合う中で、<strong className="text-[var(--color-blush)]">「この知識にもっと早く出会ってもらえていたら」</strong>と思う経験を何度もしてきました。<br className="hidden md:block" />
                                     誰もが自分らしい人生を描けるように、医学的な視点から未来の選択肢を広げるヒントをお届けしたい。その願いを込めて、専門医として本当に必要な24の事実をこの一冊にまとめました。
                                 </p>
                             </div>
