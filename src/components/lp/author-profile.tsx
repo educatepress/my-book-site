@@ -50,8 +50,8 @@ export default function AuthorProfile() {
                             {/* 🚨 追加：著者の「想い」をストーリーとして配置 */}
                             <div className="relative bg-white p-5 md:p-6 rounded-2xl border-l-4 border-[var(--color-sage)] shadow-sm w-full md:max-w-[560px] mb-6 text-left">
                                 <p className="text-[0.9rem] md:text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8] relative z-10 font-medium" style={{ textWrap: 'pretty' as any }}>
-                                    日々診察室で、<strong className="text-[var(--color-blush)]">「もっと早く知っていれば…」</strong>と涙を流す女性を数え切れないほど見てきました。<br className="hidden md:block" />
-                                    手遅れになって後悔する前に、正しい知識で自分の未来と選択肢を守ってほしい。その一心で、専門医として本当に必要な24の事実をこの一冊に込めました。
+                                    日々診察室で多くの女性と向き合う中で、<strong className="text-[var(--color-blush)]">「この知識にもっと早く出会いたかった」</strong>というお声に何度も触れてきました。<br className="hidden md:block" />
+                                    誰もが自分らしい人生を描けるように、医学的な視点から未来の選択肢を広げるヒントをお届けしたい。その願いを込めて、専門医として本当に必要な24の事実をこの一冊にまとめました。
                                 </p>
                             </div>
 
@@ -59,7 +59,7 @@ export default function AuthorProfile() {
                             <p className="text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8]">
                                 日本生殖医学会認定・生殖医療専門医。東京慈恵会医科大学卒。<br className="hidden md:block" />
                                 不妊治療の臨床と研究に従事し、2025年4月より表参道ARTクリニック勤務。<br className="hidden md:block" />
-                                「note」「Instagram」で正確な医療知識をやさしく発信している。
+                                「note」「Instagram」「X」で正確な医療知識をやさしく発信している。
                             </p>
                         </div>
 
