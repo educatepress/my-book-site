@@ -114,9 +114,31 @@ Output ONLY valid JSON inside a standard ```json ... ``` markdown block.
     }
   ],
   "instagramCaption": "[High-converting caption text including line breaks]",
-  "hashtags": ["#TTCCommunity", "#FertilityJourney", "#EggFreezing", "[+2 niche tags]"]
+  "hashtags": ["#TTCCommunity", "#FertilityJourney", "#EggFreezing", "[+2 niche tags]"],
+  "infographic": {
+    "title": "[Chart title in English, e.g., 'CoQ10 Impact on Fertilization Rate']",
+    "titleEn": "[Same as title]",
+    "group1Label": "[Intervention group label, e.g., 'CoQ10 Group']",
+    "group1LabelEn": "[Same as group1Label]",
+    "group1Value": 68,
+    "group2Label": "[Control group label, e.g., 'Control Group']",
+    "group2LabelEn": "[Same as group2Label]",
+    "group2Value": 48,
+    "unit": "%",
+    "metric": "[Metric label in English, e.g., 'Fertilization Rate']",
+    "metricEn": "[Same as metric]",
+    "source": "[First Author et al., Journal Name, Year]",
+    "captionJp": "[One-line Japanese description of the chart finding]",
+    "captionEn": "[One-line English description, e.g., 'Fertilization rate improved by 20 points in the CoQ10 group']"
+  }
 }
 ```
+
+## Infographic Rules
+- The `infographic` field is REQUIRED whenever Slide 8 (Evidence) contains specific numerical outcome data (e.g., percentages, group comparisons).
+- `group1Value` and `group2Value` must be actual numbers from the cited paper — do NOT invent values.
+- If the evidence does NOT contain comparable numerical data (e.g., only qualitative findings), set `"infographic": null`.
+- This data will be used to auto-generate a chart slide inserted between Slide 7 (Summary) and Slide 8 (Evidence), making the carousel 11 slides when present.
 
 ---
 [INPUT DATA]
