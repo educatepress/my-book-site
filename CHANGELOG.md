@@ -1,5 +1,64 @@
 # webpage.new — プロジェクトドキュメント & 変更履歴
 <!-- AUTO-GENERATED: 2026-03-20 -->
+
+---
+
+## 📋 変更ログ — 2026-03-24
+
+### feat: インフォグラフィック自動生成システム（ブログ・カルーセル・リール）
+
+**新規ファイル**
+- `scripts/generate-infographic.ts` — canvasでブログJP/EN・カルーセル用PNG自動生成
+- `tsconfig.scripts.json` — scripts専用TypeScript設定（Next.jsのtsconfig競合回避）
+
+**変更ファイル (webpage.new)**
+- `scripts/content-gen/write-blog-from-queue.ts`
+  - JSONスキーマに `infographic` フィールドを追加（文献から数値アウトカムを抽出）
+  - PNG生成後、`## 参考` セクション直前にグラフ画像をMDXへ自動挿入
+- `scripts/content-gen/carousel-prompt-en.md`
+  - `infographic` フィールドをJSONスキーマに追加、Infographic Rulesセクション追記
+- `package.json` — `infographic:gen` コマンドを追加
+
+**動作確認**
+- `npm run infographic:gen` → PNG3枚生成成功（CoQ10デモデータ）
+
+---
+
+### 📋 変更ログ — 2026-03-24（reels-factory側）
+
+**新規ファイル**
+- `src/components/InfographicChart.tsx` — Remotion製アニメーショングラフコンポーネント（バーアニメ＋カウントアップ＋ElevenLabs音声対応）
+
+**変更ファイル (reels-factory)**
+- `src/schema.ts` — `InfographicDataSchema` + `infographic` / `infographicVoiceoverUrl` フィールドを追加（nullable対応済み）
+- `scripts/generate-voice.ts` — `generateVoiceTo(text, filename)` をエクスポート追加
+- `scripts/generate-script.ts`
+  - `ScriptOutput` インターフェースに `infographic` フィールドを追加
+  - プロンプト出力スキーマ・TTS表記ルールを追加（mg→milligrams、%→percent）
+  - topics.jsonにinfographicデータを含め、原稿IDと紐付け
+- `scripts/batch-generate.ts`
+  - dotenv読み込みを追加
+  - ステップ1.5追加: ElevenLabsでinfographic専用音声を生成（`infographic-<topicId>.mp3`）
+  - voice:sync後にsynced-data.jsonへinfographicデータを追記してRemotionに引き渡す
+- `src/ReelComposition.tsx`
+  - `infographic` / `infographicVoiceoverUrl` propsを追加
+  - Heartbeat Dip後の3秒に `InfographicChart` Sequenceを挿入
+  - **voiceoverをdropEndFrameのSequenceで囲み音声重複を防止**（バグ修正）
+- `src/carousel/SlideRenderer.tsx` — `"Infographic"` スライドタイプを追加
+
+**バグ修正（2026-03-24夕方）**
+| # | 問題 | 修正 |
+|---|---|---|
+| ① | グラフシーン中メイン音声が重複再生 | voiceoverを `<Sequence durationInFrames={dropEndFrame}>` で囲み停止 |
+| ② | CoQ10 600mgが「milliliters」と誤変換 | SYSTEM_PROMPTにTTS表記ルール追加（略記禁止） |
+| ③ | %テロップが消える | SYSTEM_PROMPTで「percent」と表記するよう強制 |
+
+**テスト結果**
+- `npm run script:gen` → "600 milligrams"・"68 percent" で正しく出力を確認 ✅
+- `npm run batch` → フル動画生成成功（12MB、963フレーム）✅
+
+---
+
 ## 📋 自動記録 — 2026-03-20
 ### 2026-03-21
 - fix(x-post): strictly enforce JSON structure during Gemini retries and increase max retries to 3
