@@ -14,13 +14,15 @@
     "post-twitter": "ts-node scripts/content-gen/post-to-twitter.ts",
     "reel:inject": "npx tsx scripts/content-gen/inject-reel-to-blog.ts",
     "blog:gen": "npx tsx scripts/content-gen/write-blog-from-queue.ts",
-    "x:gen": "npx tsx scripts/content-gen/write-x-from-queue.ts"
+    "x:gen": "npx tsx scripts/content-gen/write-x-from-queue.ts",
+    "infographic:gen": "npx ts-node --project tsconfig.scripts.json scripts/generate-infographic.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
     "@google/genai": "^1.44.0",
     "@next/third-parties": "^16.2.1",
     "@tailwindcss/typography": "^0.5.19",
+    "canvas": "^3.2.2",
     "dotenv": "^17.3.1",
     "framer-motion": "^12.35.0",
     "gray-matter": "^4.0.3",
