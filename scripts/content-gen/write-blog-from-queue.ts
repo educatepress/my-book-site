@@ -6,6 +6,7 @@ import path from 'path';
 import { getNextPendingItem, markItemStatus } from './queue-manager';
 import { extractAndVerifySourceUrl } from './url-verifier';
 import { enqueueBlog } from '../patrol/draft-to-queue';
+import { generateInfographic, type InfographicData } from '../generate-infographic';
 
 // Configure Gemini API
 if (!process.env.GEMINI_API_KEY) {
@@ -162,6 +163,26 @@ ${item.sourceUrls.join('\n')}
    - 「知っておくと選択肢が増える事実」というポジティブな文脈で書くこと。
    - 確定した事実は「〜です」、議論がある内容は「〜という報告もあります」と使い分けること。
 
+4. "infographic": 記事の参考文献から最も重要なアウトカムを1つ選び、グラフ化するためのデータ。
+   必ず以下のJSON構造で出力すること（このフィールドは記事生成と同時に必ず出力してください）:
+   {
+     "title": "（日本語）グラフのタイトル（例：CoQ10の受精率への影響）",
+     "titleEn": "（英語）グラフのタイトル（例：CoQ10 Impact on Fertilization Rate）",
+     "group1Label": "（日本語）介入群ラベル（例：CoQ10群）",
+     "group1LabelEn": "（英語）介入群ラベル（例：CoQ10 Group）",
+     "group1Value": 68,
+     "group2Label": "（日本語）対照群ラベル（例：コントロール群）",
+     "group2LabelEn": "（英語）対照群ラベル（例：Control Group）",
+     "group2Value": 48,
+     "unit": "%",
+     "metric": "（日本語）評価指標名（例：受精率）",
+     "metricEn": "（英語）評価指標名（例：Fertilization Rate）",
+     "source": "First Author et al., Journal Name, Year. PMID: XXXXXXXX",
+     "captionJp": "（日本語）グラフの1行説明（例：CoQ10服用群で受精率が20ポイント向上）",
+     "captionEn": "（英語）グラフの1行説明（例：Fertilization rate improved by 20 points in the CoQ10 group）"
+   }
+   ※ 数値が論文に明記されていない場合は infographic フィールドを null にすること。
+
 ---
 CRITICAL: ONLY OUTPUT RAW VALID JSON. DO NOT INCLUDE MARKDOWN CODE BLOCKS.
 Expected JSON Schema:
@@ -169,7 +190,8 @@ Expected JSON Schema:
   "slug": "url-friendly-english-slug",
   "jpBlog": "markdown formatted string...",
   "enBlog": "markdown formatted string...",
-  "xPost": "tip text for x post here..."
+  "xPost": "tip text for x post here...",
+  "infographic": { ... } or null
 }
 `;
 
@@ -231,12 +253,20 @@ Expected JSON Schema:
                 const jpBlog = extractField(resultText, jpStart, enStart);
                 const enBlog = extractField(resultText, enStart, xStart);
                 const xPost = extractField(resultText, xStart, -1);
+
+                // infographic フィールドの抽出（ベストエフォート）
+                let infographic = null;
+                try {
+                    const infMatch = resultText.match(/"infographic"\s*:\s*(\{[\s\S]*?\}|null)/);
+                    if (infMatch && infMatch[1] !== 'null') infographic = JSON.parse(infMatch[1]);
+                } catch { /* silent */ }
                 
                 result = {
                     slug,
                     jpBlog: jpBlog.replace(/\\n/g, '\n').replace(/\\"/g, '"'),
                     enBlog: enBlog.replace(/\\n/g, '\n').replace(/\\"/g, '"'),
                     xPost: xPost.replace(/\\n/g, '\n').replace(/\\"/g, '"'),
+                    infographic,
                 };
                 
                 if (!result.jpBlog) throw new Error('jpBlog field extraction failed');
@@ -248,6 +278,50 @@ Expected JSON Schema:
         }
 
         const safeXPost = result.xPost ? result.xPost : "";
+
+        // ── インフォグラフィック生成 ─────────────────────────────────
+        let infographicInsertJp = '';
+        let infographicInsertEn = '';
+
+        if (result.infographic && result.infographic.group1Value && result.infographic.group2Value) {
+            console.log('\n📊 インフォグラフィックを生成中...');
+            try {
+                const infData: InfographicData = {
+                    ...result.infographic,
+                    slug: result.slug,
+                };
+                const infPaths = await generateInfographic(infData);
+
+                // MDXに挿入するMarkdown文字列を組み立て
+                const capJp = result.infographic.captionJp || '主要アウトカムデータ';
+                const capEn = result.infographic.captionEn || 'Key outcome data';
+                const imgWebPathJp = `/infographics/${result.slug}-jp.png`;
+                const imgWebPathEn = `/infographics/${result.slug}-en.png`;
+
+                infographicInsertJp = `\n\n![${capJp}](${imgWebPathJp})\n*図: ${capJp}（出典: ${result.infographic.source}）*\n`;
+                infographicInsertEn = `\n\n![${capEn}](${imgWebPathEn})\n*Figure: ${capEn} (Source: ${result.infographic.source})*\n`;
+
+                console.log(`  ✅ PNG 生成完了 → ${infPaths.blogJp}`);
+            } catch (infErr: any) {
+                console.warn(`  ⚠️ インフォグラフィック生成スキップ: ${infErr.message}`);
+            }
+        }
+
+        // ── インフォグラフィックをMDX本文に挿入（Referencesセクション直前）──
+        function injectInfographic(mdx: string, insert: string): string {
+            if (!insert) return mdx;
+            // 「## 参考」または「## References」の直前に挿入
+            const jpRef = mdx.indexOf('\n## 参考');
+            const enRef = mdx.indexOf('\n## References');
+            const insertPos = jpRef !== -1 ? jpRef : enRef !== -1 ? enRef : -1;
+            if (insertPos === -1) {
+                // フォールバック: FAQの直前に挿入
+                const faqPos = mdx.indexOf('\n## よくある質問');
+                if (faqPos !== -1) return mdx.slice(0, faqPos) + insert + mdx.slice(faqPos);
+                return mdx + insert; // 末尾に追加
+            }
+            return mdx.slice(0, insertPos) + insert + mdx.slice(insertPos);
+        }
 
         // --- URL Verification Phase ---
         console.log("\n🔍 Verifying URLs in generated blog content...");
@@ -274,7 +348,8 @@ Expected JSON Schema:
         const jpBlogDir2 = path.join(process.cwd(), 'src/content/blog/jp');
         await fs.mkdir(jpBlogDir2, { recursive: true });
         const jpBlogPath = path.join(jpBlogDir2, `${result.slug}.mdx`);
-        const finalJpBlog = injectXPostFrontmatter(jpBlogContent, safeXPost);
+        const jpWithInfographic = injectInfographic(jpBlogContent, infographicInsertJp);
+        const finalJpBlog = injectXPostFrontmatter(jpWithInfographic, safeXPost);
         await fs.writeFile(jpBlogPath, finalJpBlog);
         console.log(`✅ Saved JP Blog -> ${jpBlogPath}`);
 
@@ -282,7 +357,8 @@ Expected JSON Schema:
         const enBlogDir = path.join(process.cwd(), 'src/content/blog/en');
         await fs.mkdir(enBlogDir, { recursive: true });
         const enBlogPath = path.join(enBlogDir, `${result.slug}-en.mdx`);
-        const finalEnBlog = injectXPostFrontmatter(enBlogContent, safeXPost);
+        const enWithInfographic = injectInfographic(enBlogContent, infographicInsertEn);
+        const finalEnBlog = injectXPostFrontmatter(enWithInfographic, safeXPost);
         await fs.writeFile(enBlogPath, finalEnBlog);
         console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
 
