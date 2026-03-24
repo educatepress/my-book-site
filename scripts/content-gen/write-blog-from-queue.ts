@@ -5,6 +5,7 @@ import { existsSync } from 'fs';
 import path from 'path';
 import { getNextPendingItem, markItemStatus } from './queue-manager';
 import { extractAndVerifySourceUrl } from './url-verifier';
+import { enqueueBlog } from '../patrol/draft-to-queue';
 
 // Configure Gemini API
 if (!process.env.GEMINI_API_KEY) {
@@ -246,7 +247,24 @@ Expected JSON Schema:
         console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
 
         console.log(`📝 Generated xPost Tip: ${safeXPost}`);
-        
+
+        // ── Slack承認キューに追加（承認が出るまで自動投稿しない） ──
+        // 英語タイトルの日本語訳はAI生成物を流用（フロントマターから取得）
+        const jpTitleMatch = finalJpBlog.match(/^title:\s*["']?(.+?)["']?$/m);
+        const enTitleMatch = finalEnBlog.match(/^title:\s*["']?(.+?)["']?$/m);
+        const jpTitle = jpTitleMatch?.[1] || item.theme;
+        const enTitle = enTitleMatch?.[1] || item.themeEn;
+        await enqueueBlog({
+            theme: item.theme,
+            slug: result.slug,
+            jpTitle,
+            jpExcerpt: (result.jpBlog || '').slice(0, 200),
+            enTitle,
+            enTitleJa: `（英語版）${enTitle}`, // 今後Claude APIで翻訳化可能
+            postDate: postDateStr,
+        });
+        console.log('📬 Slack承認通知を送りました！');
+
         // Mark the queue item as generated
         await markItemStatus(item.id, "generated");
         console.log("🎉 Queue Blog Generation complete!");
