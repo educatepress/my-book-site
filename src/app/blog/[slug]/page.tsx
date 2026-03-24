@@ -78,7 +78,7 @@ export default async function BlogPost({ params }: PostProps) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            <article className="max-w-[760px] mx-auto bg-white rounded-[32px] p-8 md:p-14 shadow-sm border border-black/5">
+            <article className="max-w-[760px] mx-auto bg-white rounded-[32px] p-5 sm:p-8 md:p-14 shadow-sm border border-black/5">
 
                 <nav className="mb-10">
                     <Link href="/blog" className="text-[var(--color-sage)] text-sm font-bold hover:underline inline-flex items-center tracking-wider">
