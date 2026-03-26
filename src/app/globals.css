@@ -188,16 +188,39 @@
     padding: 0 0.1em;
   }
 
-  .prose ul,
-  .prose ol {
+  .prose > ul,
+  .prose > ol {
     background-color: var(--color-surface);
-    padding: 1.5em 1.5em 1.5em 2.5em;
+    padding: 1.2em 1.2em 1.2em 2em;
     border-radius: 12px;
     margin-bottom: 2em;
   }
 
+  @media (min-width: 768px) {
+    .prose > ul,
+    .prose > ol {
+      padding: 1.5em 1.5em 1.5em 2.5em;
+    }
+  }
+
+  /* Nested list reset (prevents box-in-box and huge padding) */
+  .prose ul ul,
+  .prose ol ol,
+  .prose ul ol,
+  .prose ol ul {
+    background-color: transparent;
+    padding: 0.5em 0 0 1.5em;
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+
   .prose li {
     margin-bottom: 0.5em;
+  }
+
+  .prose a {
+    word-break: break-all;
+    overflow-wrap: anywhere;
   }
 
   /* Text Link Hover */
