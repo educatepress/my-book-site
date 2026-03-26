@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI, Type } from '@google/genai';
 import fs from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
@@ -142,7 +142,7 @@ ${item.sourceUrls.join('\n')}
      ③ 参考（References）: Author/Journal/Year/URL形式で3件以上
      ④ よくある質問（FAQ）: 各回答は20文字以内の結論1文から始め、その後詳細を解説（AEO対策）
      ⑤ 書籍CTA（以下の定型文のみ使用、独自のセールス文は追加禁止）:
-        📖 **この記事の内容をより深く知りたい方は書籍もご覧ください**
+        📖 **効率的な妊活・不妊症予防・ライフプランについてより深く知りたい方は書籍もご覧ください**
         [『20代で考える 将来妊娠で困らないための選択』の詳細・購入はこちら（Amazon）](https://amzn.to/3NcOWBl)
    - "slug" キーには短い英語のスラッグを指定すること。
 
@@ -184,7 +184,11 @@ ${item.sourceUrls.join('\n')}
    ※ 数値が論文に明記されていない場合は infographic フィールドを null にすること。
 
 ---
-CRITICAL: ONLY OUTPUT RAW VALID JSON. DO NOT INCLUDE MARKDOWN CODE BLOCKS.
+CRITICAL INSTRUCTION: You are a JSON-only API. You MUST output ONLY a raw JSON object. 
+DO NOT output markdown code blocks like \`\`\`json or \`\`\`mdx.
+Your entire response must start with '{' and end with '}' and be perfectly parseable by JSON.parse().
+To successfully put MDX into the "jpBlog" and "enBlog" strings, you MUST properly escape all newlines as \\n and double quotes as \\".
+
 Expected JSON Schema:
 {
   "slug": "url-friendly-english-slug",
@@ -200,8 +204,38 @@ Expected JSON Schema:
             model: 'gemini-2.5-flash',
             contents: prompt,
             config: {
-                // Note: responseMimeType cannot be used with Google Search tools
-                tools: [{ googleSearch: {} }],
+                responseMimeType: "application/json",
+                maxOutputTokens: 8192,
+                responseSchema: {
+                    type: Type.OBJECT,
+                    properties: {
+                        slug: { type: Type.STRING },
+                        jpBlog: { type: Type.STRING },
+                        enBlog: { type: Type.STRING },
+                        xPost: { type: Type.STRING },
+                        infographic: {
+                            type: Type.OBJECT,
+                            nullable: true,
+                            properties: {
+                                title: { type: Type.STRING },
+                                titleEn: { type: Type.STRING },
+                                group1Label: { type: Type.STRING },
+                                group1LabelEn: { type: Type.STRING },
+                                group1Value: { type: Type.NUMBER },
+                                group2Label: { type: Type.STRING },
+                                group2LabelEn: { type: Type.STRING },
+                                group2Value: { type: Type.NUMBER },
+                                unit: { type: Type.STRING },
+                                metric: { type: Type.STRING },
+                                metricEn: { type: Type.STRING },
+                                source: { type: Type.STRING },
+                                captionJp: { type: Type.STRING },
+                                captionEn: { type: Type.STRING }
+                            }
+                        }
+                    },
+                    required: ["slug", "jpBlog", "enBlog", "xPost"]
+                }
             }
         });
 

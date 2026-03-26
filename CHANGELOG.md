@@ -3,6 +3,65 @@
 
 ---
 
+## 📋 変更ログ — 2026-03-25
+
+### feat: リール動画システムの根本設計修正（コンサル結果に基づく全面改修）
+
+**背景・問題の特定**
+- AIプロンプト（1本の流れる台本）とRemotionコード（別シーンを割り込み）の設計矛盾が判明
+- グラフ専用音声がメイン音声と二重再生、テロップ遅延、CTAの音声カットという3つの問題の根本原因だった
+
+**変更ファイル (reels-factory)**
+
+- `src/ReelComposition.tsx`
+  - メイン音声のVolume関数ミュート（インフォグラフィック区間）を**完全廃止** → `volume={1.0}` でフル再生
+  - グラフ表示タイミングを`dropEndFrame`固定から**`offsetWords`内の数値発話フレームを自動検出**して動的同期に変更
+  - `infographicStartFrame`を数値発話フレーム-15fで自動計算、グラフ終了を`dropFrame`に設定
+  - グラフの`zIndex`を`25`→`15`に変更し、テロップの**背面**に美しく配置
+  - グラフ専用ナレーション音声ブロック（`infographicVoiceoverUrl`）を**完全削除**
+  - サムネイルカード（2秒）の間、VoiceoverとBGMの開始を`Sequence from={THUMBNAIL_DURATION}`で遅延させ完全無音化
+
+- `src/components/ThumbnailCard.tsx` (**新規作成**)
+  - SNSマーケティング心理学を統合したプレミアムサムネイルカードコンポーネント
+  - フレーム0から**完全静止画ポスター表示**（入場アニメなし） → 45-60fで上方スイープ+フェードアウト
+  - Instagramのカバー画像選択用に1.5秒間ホールド（無音）
+  - デザイン要素: Gold Accent Line・EVIDENCE-BASEDバッジ・82px大見出し・Dr. Takuma Sato帰属・Chevronインジケーター
+
+- `src/components/WordByWordText.tsx`
+  - Whisperが分割した数字と単位を結合する**前処理**を追加（`mergedWords`変数）
+  - `「48」+「percent」` → `「48%」`、`「600」+「milligrams」` → `「600mg」` としてピタッとくっつく
+  - 旧来の`replace(/\bpercent\b/gi, '%')` 処理を削除（前処理で解決済み）
+  - `words.forEach`→`mergedWords.forEach`に変更し結合済みデータでグループ化
+
+- `src/Root.tsx`
+  - カルーセルスライドの定義を`<Still>`（1フレーム限定）→`<Composition durationInFrames={200} fps={30}>`に変更
+  - `--frame=150`指定での静止画キャプチャが可能になり、グラフアニメーション完了後の状態を確実に取得
+
+- `scripts/render-carousel.ts`
+  - `remotion still` コマンドに `--frame=150` を追加し、アニメーション完了後をキャプチャ
+
+- `scripts/generate-script.ts`
+  - `metricLabel`の指示を「**CRITICAL: MUST perfectly match the exact wording used in Act 3**」に変更
+  - `narration`フィールドをプロンプトのJSONスキーマから**完全削除**
+
+- `src/schema.ts`
+  - `InfographicDataSchema`から`narration: z.string()`フィールドを**完全削除**
+
+**動作確認**
+- `npm run batch` → `coq10-may-improve-egg-quality-what-the-data-shows.mp4`（11.7 MB）正常生成
+- `npm run carousel:render` → 全11枚キャプチャ成功（slide08にグラフ含む）
+
+---
+
+```
+⚠️  TODO (次セッション)
+- カルーセル: Instagram最大10枚制限に対応（現状11枚）
+  → generate-carousel.ts のプロンプト修正でグラフ込み9スライド+CTA=合計10枚に抑える
+- AIパトロールシステム: route.ts + vercel.json の組み込み
+```
+
+---
+
 ## 📋 変更ログ — 2026-03-24
 
 ### feat: インフォグラフィック自動生成システム（ブログ・カルーセル・リール）

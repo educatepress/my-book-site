@@ -113,8 +113,9 @@ Output ONLY valid JSON inside a standard ```json ... ``` markdown block.
       "commentTrigger": "GUIDE"
     }
   ],
-  "instagramCaption": "[High-converting caption text including line breaks]",
-  "hashtags": ["#TTCCommunity", "#FertilityJourney", "#EggFreezing", "[+2 niche tags]"],
+  "instagramCaption": "[High-converting caption text in English, including line breaks]",
+  "instagramCaptionJp": "[Japanese translation of the caption, preserving nuance and emojis]",
+  "hashtags": ["[Exact 5 hashtags: 1 niche, 2 topic-specific, 2 community. e.g. #TTCCommunity #FertilityJourney #EggFreezing + 2 more]"],
   "infographic": {
     "title": "[Chart title in English, e.g., 'CoQ10 Impact on Fertilization Rate']",
     "titleEn": "[Same as title]",

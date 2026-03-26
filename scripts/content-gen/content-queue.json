@@ -3,6 +3,18 @@
   "sourceReport": "20260315_monthly_content_research.md",
   "queue": [
     {
+      "id": "topic-test-infographic-blog-01",
+      "theme": "卵子の質を向上？CoQ10のデータが示す事実",
+      "themeEn": "CoQ10 May Improve Egg Quality: What the Data Shows",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/30416089/"
+      ],
+      "direction": "CoQ10のサプリメントが卵子の質、特に受精率に与える影響についてデータを用いて解説する。",
+      "directionEn": "Explain the impact of CoQ10 on egg quality and fertilization rates using actual research data.",
+      "type": "blog",
+      "status": "generated"
+    },
+    {
       "id": "2026-03-01",
       "theme": "排卵日タイミングの誤解",
       "themeEn": "Ovulation Timing Myths",
