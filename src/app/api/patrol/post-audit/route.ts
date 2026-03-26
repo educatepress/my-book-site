@@ -139,6 +139,7 @@ export async function GET(req: Request) {
   // 3. Audit Instagram via Make.com Webhook
   // ---------------------------------------------------------
   const makeWebhookUrl = process.env.MAKE_PATROL_WEBHOOK_URL || reelsEnv.MAKE_PATROL_WEBHOOK_URL;
+  const makeApiKey = process.env.MAKE_PATROL_API_KEY || reelsEnv.MAKE_PATROL_API_KEY;
   
   if (makeWebhookUrl) {
     try {
@@ -147,11 +148,17 @@ export async function GET(req: Request) {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒タイムアウト
 
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      };
+      
+      if (makeApiKey) {
+        headers['x-make-apikey'] = makeApiKey;
+      }
+
       const makeRes = await fetch(makeWebhookUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: headers,
         body: JSON.stringify({ action: 'check_latest_post' }),
         signal: controller.signal
       });
