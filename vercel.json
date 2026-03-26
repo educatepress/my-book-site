@@ -1,8 +1,16 @@
 {
   "crons": [
     {
-      "path": "/api/patrol/post-audit",
+      "path": "/api/cron/daily-publisher",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/post-patrol",
       "schedule": "30 1 * * *"
+    },
+    {
+      "path": "/api/cron/auto-generator",
+      "schedule": "0 19 * * *"
     }
   ]
 }
