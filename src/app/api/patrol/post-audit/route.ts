@@ -136,9 +136,55 @@ export async function GET(req: Request) {
   }
 
   // ---------------------------------------------------------
-  // 3. (Future) Build Instagram Graph API Check Here
+  // 3. Audit Instagram via Make.com Webhook
   // ---------------------------------------------------------
-  reports.push(`⏳ Instagram: GraphAPI未連携のためスキップ（後日実装予定）`);
+  const makeWebhookUrl = process.env.MAKE_PATROL_WEBHOOK_URL || reelsEnv.MAKE_PATROL_WEBHOOK_URL;
+  
+  if (makeWebhookUrl) {
+    try {
+      console.log('Calling Make.com Webhook for Instagram patrol...');
+      // タイムアウト設定付きでMakeを叩く（Make側で最新リールを取得して返す仕組み）
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒タイムアウト
+
+      const makeRes = await fetch(makeWebhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ action: 'check_latest_post' }),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
+      if (!makeRes.ok) {
+        throw new Error(`Make.com HTTP Error: ${makeRes.status}`);
+      }
+      
+      const makeData = await makeRes.json();
+      // 期待するレスポンス: { "status": "success", "latestPostDate": "2026-03-25T10:00:00Z" }
+      
+      if (makeData.status === 'success' && makeData.latestPostDate) {
+        const postDate = new Date(makeData.latestPostDate);
+        const diffHours = (new Date().getTime() - postDate.getTime()) / (1000 * 60 * 60);
+        
+        if (diffHours > 28) {
+          isHealthy = false;
+          reports.push(`❌ Instagram: 最終投稿から ${Math.round(diffHours)} 時間経過しています（投稿失敗の可能性）`);
+        } else {
+          reports.push(`✅ Instagram: 稼働中（最新投稿: ${Math.round(diffHours)} 時間前）`);
+        }
+      } else {
+        isHealthy = false;
+        reports.push(`❌ Instagram: Makeからの応答が不正です - ${JSON.stringify(makeData)}`);
+      }
+    } catch (error: any) {
+      isHealthy = false;
+      reports.push(`❌ Instagram: Makeとの通信エラー - ${error.message}`);
+    }
+  } else {
+    reports.push(`⏳ Instagram: MAKE_PATROL_WEBHOOK_URL が未設定のためスキップ`);
+  }
 
   // --- Final Evaluation & Alerting ---
   const summaryText = reports.join('\n');
