@@ -136,9 +136,10 @@ Output ONLY valid JSON inside a standard ```json ... ``` markdown block.
 ```
 
 ## Infographic Rules
-- The `infographic` field is REQUIRED whenever Slide 8 (Evidence) contains specific numerical outcome data (e.g., percentages, group comparisons).
-- `group1Value` and `group2Value` must be actual numbers from the cited paper — do NOT invent values.
-- If the evidence does NOT contain comparable numerical data (e.g., only qualitative findings), set `"infographic": null`.
+- The `infographic` field is STRONGLY RECOMMENDED whenever Slide 8 (Evidence) contains any outcome data. 
+- Visual charts (infographics) highly convert. Always TRY to find, extrapolate, or structure comparable numerical data (e.g., percentages, group comparisons) into the `infographic` object.
+- `group1Value` and `group2Value` must be based on the cited paper. If the paper only has one number, you can compare it against a baseline or "Control".
+- Only set `"infographic": null` as an absolute last resort if the topic makes it completely impossible to represent visually.
 - This data will be used to auto-generate a chart slide inserted between Slide 7 (Summary) and Slide 8 (Evidence), making the carousel 11 slides when present.
 
 ---
