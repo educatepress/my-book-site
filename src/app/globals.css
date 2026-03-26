@@ -191,15 +191,24 @@
   .prose > ul,
   .prose > ol {
     background-color: var(--color-surface);
-    padding: 1.2em 1.2em 1.2em 2em;
+    padding: 1.25rem 0.75rem 1.25rem 1.25rem;
     border-radius: 12px;
     margin-bottom: 2em;
+  }
+
+  .prose > ul > li,
+  .prose > ol > li {
+    padding-left: 0.2rem;
   }
 
   @media (min-width: 768px) {
     .prose > ul,
     .prose > ol {
       padding: 1.5em 1.5em 1.5em 2.5em;
+    }
+    .prose > ul > li,
+    .prose > ol > li {
+      padding-left: 0.5em;
     }
   }
 

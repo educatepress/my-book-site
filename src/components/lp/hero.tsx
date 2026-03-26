@@ -72,8 +72,8 @@ export default function Hero() {
                         className="flex flex-col items-center md:items-start gap-3 mb-[var(--spacing-md)] mx-auto md:mx-0"
                     >
                         {/* 🚨 追加：切迫感を煽るプレヘッドライン */}
-                        <div className="inline-block bg-[#FFF5F5] border border-[#FFE0E0] rounded-full px-4 py-1.5 shadow-sm">
-                            <span className="text-[0.8rem] font-bold tracking-wider text-[#D9534F] whitespace-nowrap">
+                        <div className="inline-block bg-[#FFF5F5] border border-[#FFE0E0] rounded-2xl md:rounded-full px-4 py-2 md:py-1.5 shadow-sm text-center mt-2 max-w-[95%]">
+                            <span className="inline-block text-[0.8rem] font-bold tracking-wider text-[#D9534F] leading-tight" style={{ textWrap: 'balance' as any }}>
                                 ⚠️「あと1年早く知っていれば…」と後悔する前に。
                             </span>
                         </div>
