@@ -1,28 +1,8 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
+import { getEnvVar } from '@/lib/env-helper';
+import { updateSheetRow } from '@/lib/sheets-rest';
 
-// Helper to extract env vars directly from reels-factory to avoid 
-// requiring the user to duplicate their .env setup during this transition phase.
-function getReelsFactoryEnv() {
-  const envPath = '/Users/satoutakuma/Desktop/reels-factory/.env';
-  if (!fs.existsSync(envPath)) return {};
-  const content = fs.readFileSync(envPath, 'utf8');
-  const env: Record<string, string> = {};
-  content.split('\n').forEach(line => {
-    const match = line.match(/^([^=]+)=(.*)$/);
-    if (match) {
-      env[match[1].trim()] = match[2].trim().replace(/^["']|["']$/g, '');
-    }
-  });
-  return env;
-}
-
-const reelsEnv = getReelsFactoryEnv();
-const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN || reelsEnv.SLACK_BOT_TOKEN || '';
-const MAKE_WEBHOOK_URL = process.env.MAKE_WEBHOOK_URL || reelsEnv.MAKE_WEBHOOK_URL || '';
-
-// Shared database path (local transition phase)
-const QUEUE_PATH = '/Users/satoutakuma/Desktop/reels-factory/scripts/data/queue.json';
+const SLACK_BOT_TOKEN = getEnvVar('SLACK_BOT_TOKEN');
 
 async function updateSlackMessage(channel: string, ts: string, text: string, blocks: any[]) {
   if (!SLACK_BOT_TOKEN) {
@@ -61,45 +41,44 @@ export async function POST(req: Request) {
       const action = payload.actions?.[0];
       if (!action) return NextResponse.json({ ok: true });
 
-      // ✅ [Approve] -> Forward to Make
+      // ✅ [Approve] -> Mark as approved in Google Sheets (for Daily Publisher)
+      // ⚡ Slackは3秒以内の応答を要求するため、重い処理はバックグラウンドで実行
       if (action.action_id === 'approve_content') {
-        if (MAKE_WEBHOOK_URL) {
-          console.log(`[Slack API] Proxying Approve action to Make: ${MAKE_WEBHOOK_URL}`);
-          const urlEncoded = new URLSearchParams();
-          urlEncoded.append('payload', payloadStr);
-          
-          fetch(MAKE_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: urlEncoded.toString()
-          }).catch(err => console.error('[Slack API] Make proxy failed:', err));
-        } else {
-          console.warn('[Slack API] MAKE_WEBHOOK_URL is not set. Cannot proxy to Make.');
-        }
-
-        // We can update the Slack message to show "Approved" immediately for better UX
-        // (Assuming Make does not do this synchronously)
         const parsedValue = JSON.parse(action.value || '{}');
         const contentId = parsedValue.id;
-        
         const channel = payload.container?.channel_id;
         const ts = payload.container?.message_ts;
         const blocks = payload.message?.blocks;
 
-        if (channel && ts && blocks) {
-          const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
-          if (actionBlockIndex !== -1) {
-            blocks[actionBlockIndex] = {
-              type: 'section',
-              text: {
-                type: 'mrkdwn',
-                text: `✅ *承認済み* (Makeで処理が開始されました)`
-              }
-            };
-            await updateSlackMessage(channel, ts, '承認されました', blocks);
+        // バックグラウンドで非同期実行（Slackへの応答を待たせない）
+        (async () => {
+          try {
+            const today = new Date().toISOString().split('T')[0];
+            await updateSheetRow(contentId, {
+              status: 'approved',
+              scheduled_date: today
+            });
+            console.log(`[Slack API] ✅ Successfully approved ${contentId} in Google Sheets.`);
+          } catch (err) {
+            console.error('[Slack API] Failed to update Google Sheets on approve:', err);
           }
-        }
-        
+
+          if (channel && ts && blocks) {
+            const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
+            if (actionBlockIndex !== -1) {
+              blocks[actionBlockIndex] = {
+                type: 'section',
+                text: {
+                  type: 'mrkdwn',
+                  text: `✅ *承認済み* (明朝9時の自動投稿キューに登録されました)`
+                }
+              };
+              await updateSlackMessage(channel, ts, '承認されました', blocks);
+            }
+          }
+        })();
+
+        // Slackに即座に200を返す（バックグラウンド処理は裏で継続）
         return NextResponse.json({ ok: true });
       }
 
@@ -167,20 +146,14 @@ export async function POST(req: Request) {
 
       let success = false;
       try {
-        if (fs.existsSync(QUEUE_PATH)) {
-          const queue = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8'));
-          const item = queue.find((q: any) => q.id === contentId);
-          if (item) {
-            item.status = 'rejected';
-            item.rejectionReason = reason;
-            item.rejectedAt = new Date().toISOString();
-            fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2));
-            console.log(`[Slack API] Successfully recorded rejection for ${contentId}. Reason: ${reason}`);
-            success = true;
-          }
-        }
+        await updateSheetRow(contentId, {
+          status: 'rejected',
+          rej_reason: reason
+        });
+        console.log(`[Slack API] Successfully recorded rejection for ${contentId} in Google Sheets. Reason: ${reason}`);
+        success = true;
       } catch (err) {
-        console.error('[Slack API] Failed to update queue.json:', err);
+        console.error('[Slack API] Failed to update Google Sheets:', err);
       }
 
       // Update the original Slack message to show the rejection
