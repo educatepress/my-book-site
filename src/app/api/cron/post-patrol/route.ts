@@ -228,7 +228,7 @@ export async function GET(req: Request) {
              const publicId = extractPublicId(url);
              if (publicId) {
                 const resourceType = item.type === 'reel' ? 'video' : 'image';
-                await cloudinary.uploader.destroy(publicId, { resourceType, invalidate: true });
+                await cloudinary.uploader.destroy(publicId, { resource_type: resourceType, invalidate: true });
                 console.log(`🧹 Deleted Cloudinary resource: ${publicId}`);
                 anyDeleted = true;
              }
