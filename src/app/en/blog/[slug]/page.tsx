@@ -12,7 +12,7 @@ interface PostProps {
 
 export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
     const { slug } = await params;
-    const post = getPostBySlug(slug, 'en');
+    const post = await getPostBySlug(slug, 'en');
     if (!post) {
         return {};
     }
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: PostProps): Promise<Metadata>
 }
 
 export async function generateStaticParams() {
-    const slugs = getPostSlugs('en');
+    const slugs = await getPostSlugs('en');
     return slugs.map((slug) => ({
         slug: slug.replace(/\.mdx$/, ''),
     }));
@@ -41,7 +41,7 @@ export async function generateStaticParams() {
 
 export default async function BlogPostEn({ params }: PostProps) {
     const { slug } = await params;
-    const post = getPostBySlug(slug, 'en');
+    const post = await getPostBySlug(slug, 'en');
 
     if (!post) {
         notFound();

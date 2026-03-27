@@ -6,8 +6,8 @@ export const metadata = {
     description: "Latest medical insights and news from Dr. Takuma Sato, Reproductive Medicine Specialist.",
 };
 
-export default function BlogIndexEn() {
-    const posts = getAllPosts('en');
+export default async function BlogIndexEn() {
+    const posts = await getAllPosts('en');
 
     return (
         <div className="min-h-screen bg-[var(--color-surface)] py-20 md:py-32 px-6 font-en">

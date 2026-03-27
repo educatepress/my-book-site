@@ -6,8 +6,8 @@ export const metadata = {
     description: "生殖医療専門医 佐藤琢磨によるブログ・最新情報",
 };
 
-export default function BlogIndex() {
-    const posts = getAllPosts('jp');
+export default async function BlogIndex() {
+    const posts = await getAllPosts('jp');
 
     return (
         <div className="min-h-screen bg-[var(--color-surface)] py-20 md:py-32 px-6">

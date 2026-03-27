@@ -2,20 +2,7 @@ import { NextResponse } from 'next/server';
 import { runPrePostAudit } from '@/lib/patrol/pre-audit';
 import fs from 'fs';
 
-// --- Helpers ---
-function getReelsFactoryEnv() {
-  const envPath = '/Users/satoutakuma/Desktop/reels-factory/.env';
-  if (!fs.existsSync(envPath)) return {};
-  const content = fs.readFileSync(envPath, 'utf8');
-  const env: Record<string, string> = {};
-  content.split('\n').forEach(line => {
-    const match = line.match(/^([^=]+)=(.*)$/);
-    if (match) {
-      env[match[1].trim()] = match[2].trim().replace(/^["']|["']$/g, '');
-    }
-  });
-  return env;
-}
+import { getReelsFactoryEnv } from '@/lib/sheets';
 
 async function sendSlackAlert(message: string, SLACK_BOT_TOKEN: string, ALERT_CHANNEL: string) {
   if (!SLACK_BOT_TOKEN) {

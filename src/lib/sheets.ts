@@ -1,16 +1,34 @@
 import { google } from 'googleapis';
 import fs from 'fs';
 
+// Helper to seamlessly load .env from reels-factory in local dev, or fallback to process.env in Vercel.
+export function getReelsFactoryEnv(): Record<string, string> {
+  const envPath = '/Users/satoutakuma/Desktop/reels-factory/.env';
+  if (!fs.existsSync(envPath)) return {};
+  const content = fs.readFileSync(envPath, 'utf8');
+  const env: Record<string, string> = {};
+  content.split('\n').forEach(line => {
+    const match = line.match(/^([^=]+)=(.*)$/);
+    if (match) {
+      env[match[1].trim()] = match[2].trim().replace(/^["']|["']$/g, '');
+    }
+  });
+  return env;
+}
+
 // Helper to get Google Auth Client
 export async function getGoogleAuthClient() {
   let credentials;
 
   // Vercel等クラウド環境では環境変数から読み込む
-  if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
-    credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+  const reelsEnv = getReelsFactoryEnv();
+  const serviceAccountJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON || reelsEnv.GOOGLE_SERVICE_ACCOUNT_JSON;
+
+  if (serviceAccountJson && serviceAccountJson.length > 10) {
+    credentials = JSON.parse(serviceAccountJson);
   } else {
     // ローカル開発環境ではreels-factoryの鍵ファイルを直接参照
-    const keyPath = '/Users/satoutakuma/Desktop/reels-factory/credentials/drive-service-account.json';
+    const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS || '/Users/satoutakuma/Desktop/reels-factory/credentials/drive-service-account.json';
     if (!fs.existsSync(keyPath)) {
       throw new Error('Google Service Account key not found.');
     }
@@ -153,5 +171,71 @@ export async function updateQueueItem(rowNumber: number, updates: Partial<QueueI
       }
     });
   }
+}
+
+// ============================================================================
+// Topics (ネタ帳) Management Functions
+// ============================================================================
+
+export type TopicItem = {
+  theme_id: string;
+  theme_text: string;
+  status: string;    // 'pending' | 'used'
+  used_date: string;
+};
+
+const TOPICS_HEADERS = ['theme_id', 'theme_text', 'status', 'used_date'];
+const TOPICS_SHEET_NAME = 'Topics';
+
+/**
+ * Topics（ネタ帳）から未処理の全てのテーマを取得する
+ */
+export async function getTopics(): Promise<(TopicItem & { rowNumber: number })[]> {
+  const auth = await getGoogleAuthClient();
+  const sheets = google.sheets({ version: 'v4', auth: auth as any });
+
+  try {
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: QUEUE_SPREADSHEET_ID,
+      range: `${TOPICS_SHEET_NAME}!A:D`,
+    });
+
+    const rows = response.data.values;
+    if (!rows || rows.length <= 1) return [];
+
+    const items: (TopicItem & { rowNumber: number })[] = [];
+    
+    // 1行目はヘッダーなのでi=1から開始
+    for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        const item: any = { rowNumber: i + 1 };
+        TOPICS_HEADERS.forEach((header, index) => {
+        item[header] = row[index] || '';
+        });
+        items.push(item as (TopicItem & { rowNumber: number }));
+    }
+
+    return items;
+  } catch (error) {
+    console.error(`Failed to fetch topics (Make sure a tab named "${TOPICS_SHEET_NAME}" exists):`, error);
+    return [];
+  }
+}
+
+/**
+ * Topics（ネタ帳）の特定の行のステータスを更新する
+ */
+export async function updateTopicStatus(rowNumber: number, status: string, usedDate: string) {
+  const auth = await getGoogleAuthClient();
+  const sheets = google.sheets({ version: 'v4', auth: auth as any });
+
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: QUEUE_SPREADSHEET_ID,
+    range: `${TOPICS_SHEET_NAME}!C${rowNumber}:D${rowNumber}`, // C:status, D:used_date
+    valueInputOption: 'USER_ENTERED',
+    requestBody: {
+      values: [[status, usedDate]]
+    }
+  });
 }
 

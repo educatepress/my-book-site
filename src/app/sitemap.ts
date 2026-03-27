@@ -1,12 +1,12 @@
 import { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/mdx'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://ttcguide.co';
 
     // Get all posts for both languages
-    const jpPosts = getAllPosts('jp');
-    const enPosts = getAllPosts('en');
+    const jpPosts = await getAllPosts('jp');
+    const enPosts = await getAllPosts('en');
 
     // Helper to safely parse date
     const safeDate = (dateStr: any) => {

@@ -13,7 +13,7 @@ interface PostProps {
 // SEO Tags generating
 export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
     const { slug } = await params;
-    const post = getPostBySlug(slug, 'jp');
+    const post = await getPostBySlug(slug, 'jp');
     if (!post) {
         return {};
     }
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: PostProps): Promise<Metadata>
 
 // Generate static params for SSG
 export async function generateStaticParams() {
-    const slugs = getPostSlugs('jp');
+    const slugs = await getPostSlugs('jp');
     return slugs.map((slug) => ({
         slug: slug.replace(/\.mdx$/, ''),
     }));
@@ -43,7 +43,7 @@ export async function generateStaticParams() {
 
 export default async function BlogPost({ params }: PostProps) {
     const { slug } = await params;
-    const post = getPostBySlug(slug, 'jp');
+    const post = await getPostBySlug(slug, 'jp');
 
     if (!post) {
         notFound();
