@@ -24,7 +24,7 @@ export async function GET(req: Request) {
     // 今日より前の予定日、あるいはスケジュール空欄のものを取得
     const today = new Date().toISOString().split('T')[0];
     
-    const candidates = rows.filter(row => {
+    const candidates = rows.filter((row: any) => {
       const isApproved = row.status === 'approved';
       const isScheduledOrPast = !row.scheduled_date || row.scheduled_date <= today;
       return isApproved && isScheduledOrPast;

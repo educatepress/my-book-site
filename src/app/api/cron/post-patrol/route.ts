@@ -55,7 +55,7 @@ export async function GET(req: Request) {
     const rows = await getSheetsRows();
 
     // "posted" 状態で、まだパトロールが完了していない（=まだ削除していない）ものを取得
-    const targets = rows.filter(row => 
+    const targets = rows.filter((row: any) => 
       row.status === 'posted' &&
       (row.patrol_post_result === 'pending' || row.patrol_post_result === '') &&
       row.cloudinary_deleted !== 'true'
