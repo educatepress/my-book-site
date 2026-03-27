@@ -75,6 +75,7 @@ export async function fetchSpreadsheetHeaders() {
 
 export type QueueItem = {
   content_id: string;
+  brand: string;
   type: string;
   title: string;
   cloudinary_url: string;
@@ -93,7 +94,7 @@ export type QueueItem = {
 };
 
 const HEADERS = [
-  'content_id', 'type', 'title', 'cloudinary_url', 'cloudinary_public_id', 'gdrive_url', 
+  'content_id', 'brand', 'type', 'title', 'cloudinary_url', 'cloudinary_public_id', 'gdrive_url', 
   'generation_recipe', 'status', 'patrol_pre_result', 'scheduled_date', 'post_url', 
   'posted_at', 'patrol_post_result', 'cloudinary_deleted', 'slack_ts', 'error_detail'
 ];
@@ -109,7 +110,7 @@ export async function addQueueItem(item: Partial<QueueItem>) {
 
   await sheets.spreadsheets.values.append({
     spreadsheetId: QUEUE_SPREADSHEET_ID,
-    range: 'A:P', 
+    range: 'A:Q', 
     valueInputOption: 'USER_ENTERED',
     requestBody: {
       values: [rowData]
@@ -126,7 +127,7 @@ export async function getQueueItems(): Promise<(QueueItem & { rowNumber: number 
 
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: QUEUE_SPREADSHEET_ID,
-    range: 'A:P',
+    range: 'A:Q',
   });
 
   const rows = response.data.values;
@@ -179,12 +180,13 @@ export async function updateQueueItem(rowNumber: number, updates: Partial<QueueI
 
 export type TopicItem = {
   theme_id: string;
+  brand: string;
   theme_text: string;
   status: string;    // 'pending' | 'used'
   used_date: string;
 };
 
-const TOPICS_HEADERS = ['theme_id', 'theme_text', 'status', 'used_date'];
+const TOPICS_HEADERS = ['theme_id', 'brand', 'theme_text', 'status', 'used_date'];
 const TOPICS_SHEET_NAME = 'Topics';
 
 /**
@@ -197,7 +199,7 @@ export async function getTopics(): Promise<(TopicItem & { rowNumber: number })[]
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: QUEUE_SPREADSHEET_ID,
-      range: `${TOPICS_SHEET_NAME}!A:D`,
+      range: `${TOPICS_SHEET_NAME}!A:E`,
     });
 
     const rows = response.data.values;
@@ -231,7 +233,7 @@ export async function updateTopicStatus(rowNumber: number, status: string, usedD
 
   await sheets.spreadsheets.values.update({
     spreadsheetId: QUEUE_SPREADSHEET_ID,
-    range: `${TOPICS_SHEET_NAME}!C${rowNumber}:D${rowNumber}`, // C:status, D:used_date
+    range: `${TOPICS_SHEET_NAME}!D${rowNumber}:E${rowNumber}`, // D:status, E:used_date
     valueInputOption: 'USER_ENTERED',
     requestBody: {
       values: [[status, usedDate]]

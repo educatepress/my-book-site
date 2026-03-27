@@ -44,17 +44,21 @@ export async function GET(req: Request) {
     // プロンプト生成（既存のルールに準拠）
     const prompt = `
 あなたは、生殖医療専門医（産婦人科医）である佐藤琢磨医師の専属AIコンテンツクリエイター兼、Webマーケティング/SEOの達人です。
-あなたのタスクは、以下のテーマに関する「トレンド感のあるブログ記事と、X用のTips」を自動で考案し、作成することです。
+あなたのタスクは、以下のテーマと「配信先ブランド」に関する「トレンド感のあるブログ記事と、X用のTips」を自動で考案し、作成することです。
+
+【配信先ブランド】
+${pendingTopic.brand || 'book'} (book=出版・執筆関連 / atelier=美容皮膚科・クリニック関連)
+※指定されたブランドにふさわしいトーン＆マナーで執筆してください。
 
 【指定テーマ】
 ${pendingTopic.theme_text}
 ※このテーマと狙いに完全に沿った形で、ブログ記事を構成してください。
 
 【ターゲット読者層】
-将来の妊娠・出産、キャリアプラン、晩婚化などに漠然とした不安を抱える、20代〜30代の女性（およびそのパートナー）。
+将来の妊娠・出産、キャリアプラン、晩婚化などに漠然とした不安を抱える、20代〜30代の女性（およびそのパートナー）、または美容医療・スキンケアに関心のある女性。
 
 【執筆のトーン＆マナー】
-- 信頼できる専門家として、冷静かつ論理的に、しかし読者の未来を心から応援する愛情深いトーン。
+- ${pendingTopic.brand === 'atelier' ? '美容皮膚科の専門医として、信頼感がありつつも親しみやすく、洗練されたトーン。' : '産婦人科専門医として、冷静かつ論理的に、しかし読者の未来を心から応援する愛情深いトーン。'}
 - 専門用語を避け、一般読者にも理解しやすい平易な言葉遣い。
 - 読者の悩みに寄り添い、「確かな知識によって人生の選択肢を広げる」ことを後押しするEmpowermentな文体。
 
@@ -114,9 +118,12 @@ Expected JSON Schema:
 
     const nowStr = new Date().toISOString();
 
+    const brandPrefix = pendingTopic.brand ? `${pendingTopic.brand}-` : 'book-';
+
     // 1. キューにブログ原案を登録（事前パトロール対象として status='review'）
     await addQueueItem({
-        content_id: `blog-${nowStr.replace(/\D/g, '').substring(0, 14)}`,
+        content_id: `${brandPrefix}blog-${nowStr.replace(/\D/g, '').substring(0, 14)}`,
+        brand: pendingTopic.brand || 'book',
         type: 'blog',
         title: slug, // slugをタイトル代わりに使用
         generation_recipe: JSON.stringify({ slug, jpBlog, enBlog }),
@@ -127,7 +134,8 @@ Expected JSON Schema:
 
     // 2. キューにX投稿原案を登録
     await addQueueItem({
-        content_id: `x-${nowStr.replace(/\D/g, '').substring(0, 14)}`,
+        content_id: `${brandPrefix}x-${nowStr.replace(/\D/g, '').substring(0, 14)}`,
+        brand: pendingTopic.brand || 'book',
         type: 'x',
         title: `X Post for ${slug}`,
         generation_recipe: JSON.stringify({ slug, xPost }),

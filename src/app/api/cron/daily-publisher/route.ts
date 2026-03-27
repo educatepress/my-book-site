@@ -105,6 +105,7 @@ export async function GET(req: Request) {
             const payload = {
               type: item.type,
               title: item.title,
+              brand: item.brand || 'book',
               cloudinary_url: item.cloudinary_url,
               captionText: captionText
             };

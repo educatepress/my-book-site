@@ -32,7 +32,7 @@ async function sendSlackAlert(message: string, SLACK_BOT_TOKEN: string, ALERT_CH
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { content, title, type } = body;
+    const { content, title, type, brand } = body;
 
     if (!content) {
       return NextResponse.json({ error: 'Missing content field' }, { status: 400 });
@@ -47,8 +47,9 @@ export async function POST(req: Request) {
     if (result.status === 'ng') {
       const reelsEnv = getReelsFactoryEnv();
       const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN || reelsEnv.SLACK_BOT_TOKEN || '';
+      const brandBadge = brand === 'atelier' ? '🟦 hiroo-open' : '🟩 Skin Atelier';
       
-      const alertMsg = `コンテンツ: *${title || '名称未設定'}* (${type || '種別不明'})\n判定: ❌ ガイドライン違反\n理由:\n\`\`\`\n${result.reason}\n\`\`\``;
+      const alertMsg = `【配信先: ${brandBadge}】\nコンテンツ: *${title || '名称未設定'}* (${type || '種別不明'})\n判定: ❌ ガイドライン違反\n理由:\n\`\`\`\n${result.reason}\n\`\`\``;
       await sendSlackAlert(alertMsg, SLACK_BOT_TOKEN, '#post-alerts');
       console.warn('❌ Pre-patrol failed:', result.reason);
     } else {
