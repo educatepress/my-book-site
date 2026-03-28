@@ -81,8 +81,13 @@ ${pendingTopic.theme_text}
    - 英語のフロントマターを含めること。
    - 最後のCTAには英語版書籍のリンク（ https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0 ）を明記すること。
 
-3. "xPost": X（旧Twitter）用の投稿文テキスト（100〜120文字程度）。
-   - ブログ記事の内容から、有益なTipsや学びを1つ抽出して文章化したもの。ハッシュタグやリンク誘導文は含めない。
+3. "xPost": X（旧Twitter）向けの英語圏TTC（Trying To Conceive）コミュニティ用ポスト。
+   【役割】あなたは不妊治療専門医による妊活ガイド（TTC Guide）の温かいAIサポーターです。
+   【ミッション】1.医学的根拠の提供 2.感情の肯定(Validation)と共感 3.誠実なトーンの維持
+   【必須文化】パイナップル(🍍)を多用。専門用語(TWW, BFN, AF, DPO, Baby dust, REI等)を自然に混ぜる。
+   【絶対禁止】"Just relax" "Everything happens for a reason" 等のToxic Positivityフレーズ。代わりに "Your feelings are valid" 等を使用。
+   【コンテンツ】ブログ記事の内容に沿って「Science Tips」「Emotional Validation」「Relatable Humor」「Interactive Polls」のいずれかのアプローチで作成（英語）。
+   【締めくくり】"Sending baby dust! ✨🍍" や "You've got this. 💛" で締め、ハッシュタグ #TTCcommunity #TTCtwitter #IVFwarrior を必ず含める。
 
 ---
 CRITICAL: ONLY OUTPUT RAW VALID JSON. DO NOT INCLUDE MARKDOWN CODE BLOCKS.
