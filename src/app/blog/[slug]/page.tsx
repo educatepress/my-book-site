@@ -72,16 +72,28 @@ export default async function BlogPost({ params }: PostProps) {
     };
 
     return (
-        <div className="min-h-screen bg-[var(--color-cream)] py-16 md:py-24 px-6">
+        /* 
+           【修正点1】
+           - px-6 を px-0 に (スマホでは端まで使う)
+           - sm:px-6 以上で余白を復活させる
+           - py-10 にしてスマホでの上下余白を適正化
+        */
+        <div className="min-h-screen bg-[var(--color-cream)] py-10 md:py-24 px-0 sm:px-6">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            <article className="max-w-[760px] mx-auto bg-white rounded-[32px] p-5 sm:p-8 md:p-14 shadow-sm border border-black/5">
+            {/* 
+               【修正点2】
+               - rounded-none (スマホでは角を丸めず横幅いっぱい) 
+               - sm:rounded-[32px] (タブレット以上でデザイン復活)
+               - border-x-0 (スマホでは左右の線を消して広く見せる)
+            */}
+            <article className="max-w-[760px] mx-auto bg-white rounded-none sm:rounded-[32px] p-5 sm:p-8 md:p-14 shadow-sm border-y sm:border border-black/5">
 
-                <nav className="mb-10">
-                    <Link href="/blog" className="text-[var(--color-sage)] text-sm font-bold hover:underline inline-flex items-center tracking-wider">
+                <nav className="mb-8 px-2 sm:px-0">
+                    <Link href="/blog" className="text-[var(--color-sage)] text-sm font-bold hover:underline inline-flex items-center tracking-wider py-2">
                         <span className="mr-2">←</span> 記事一覧へ戻る
                     </Link>
                 </nav>
@@ -104,18 +116,33 @@ export default async function BlogPost({ params }: PostProps) {
                     </div>
                 </header>
 
-                <div className="prose prose-sage max-w-none text-left
+                {/* 
+                   【修正点3 & 4】
+                   - prose-sm を基本にし、sm:prose-base でタブレット以上に対応
+                   - prose-ulの左余白をスマホ用に最適化 (pl-4 sm:pl-8)
+                   - 見出しサイズもスマホでは一段階小さく
+                */}
+                <div className="prose prose-sm sm:prose-base prose-sage max-w-none text-left
                         prose-headings:font-['Zen_Kaku_Gothic_New'] prose-headings:font-bold prose-headings:text-[var(--color-text-dark)]
-                        prose-h2:text-[1.5rem] prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-black/5 prose-h2:pb-4
-                        prose-h3:text-[1.25rem] prose-h3:mt-8 prose-h3:mb-4
-                        prose-p:text-[var(--color-text-mid)] prose-p:leading-[1.8] prose-p:tracking-[0.02em] prose-p:mb-8
+                        prose-h2:text-[1.3rem] sm:prose-h2:text-[1.5rem] prose-h2:mt-10 sm:prose-h2:mt-12 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:border-b prose-h2:border-black/5 prose-h2:pb-4
+                        prose-h3:text-[1.15rem] sm:prose-h3:text-[1.25rem] prose-h3:mt-6 sm:prose-h3:mt-8 prose-h3:mb-3 sm:prose-h3:mb-4
+                        prose-p:text-[var(--color-text-mid)] prose-p:leading-[1.8] prose-p:tracking-[0.02em] prose-p:mb-6 sm:prose-p:mb-8
                         prose-a:text-[var(--color-sage)] prose-a:no-underline hover:prose-a:underline
                         prose-strong:text-[var(--color-text-dark)] prose-strong:font-bold
-                        prose-ul:my-6 prose-li:text-[var(--color-text-mid)] prose-li:leading-[1.8] prose-li:tracking-[0.02em]
+                        prose-ul:my-6 prose-ul:pl-4 sm:prose-ul:pl-8 prose-li:text-[var(--color-text-mid)] prose-li:leading-[1.8] prose-li:tracking-[0.02em]
                         prose-blockquote:not-italic prose-blockquote:border-l-4 prose-blockquote:border-[var(--color-sage)] prose-blockquote:bg-[var(--color-surface)] prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:text-[0.95rem] prose-blockquote:text-[var(--color-text-mid)]
                         prose-img:rounded-2xl prose-img:shadow-sm
                 ">
-                    <MDXRemote source={post.content} />
+                    <MDXRemote 
+                        source={post.content} 
+                        components={{
+                            table: (props) => (
+                                <div className="overflow-x-auto my-8">
+                                    <table className="w-full text-left" {...props} />
+                                </div>
+                            ),
+                        }} 
+                    />
                 </div>
 
                 <footer className="mt-16 pt-12 border-t border-black/5">

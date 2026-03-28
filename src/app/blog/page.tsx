@@ -10,7 +10,12 @@ export default async function BlogIndex() {
     const posts = await getAllPosts('jp');
 
     return (
-        <div className="min-h-screen bg-[var(--color-surface)] py-20 md:py-32 px-6">
+        /* 
+           【修正点】
+           - px-6 を px-4 に軽減 (一覧は少し余白があったほうがリストとして見やすいため)
+           - py-12 にしてスマホでの間延び感を解消
+        */
+        <div className="min-h-screen bg-[var(--color-surface)] py-12 md:py-32 px-4 sm:px-6">
             <div className="max-w-[800px] mx-auto">
 
                 {/* 1. シンメトリーで威厳のあるヘッダー */}
