@@ -149,8 +149,8 @@ Expected JSON Schema:
         scheduled_date: postDateStr
     });
 
-    // 3. TopicsのステータスをUsedに更新
-    await updateTopicStatus(pendingTopic.rowNumber, 'used', new Date().toISOString().split('T')[0]);
+    // 3. TopicsのステータスをUsedに更新し、brand列（空欄の場合）も上書きする
+    await updateTopicStatus(pendingTopic.rowNumber, 'used', new Date().toISOString().split('T')[0], pendingTopic.brand || 'book');
 
     console.log(`✅ Generation completed and queued successfully: ${slug}`);
 

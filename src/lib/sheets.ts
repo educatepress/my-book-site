@@ -227,10 +227,11 @@ export async function getTopics(): Promise<(TopicItem & { rowNumber: number })[]
 /**
  * Topics（ネタ帳）の特定の行のステータスを更新する
  */
-export async function updateTopicStatus(rowNumber: number, status: string, usedDate: string) {
+export async function updateTopicStatus(rowNumber: number, status: string, usedDate: string, brand?: string) {
   const auth = await getGoogleAuthClient();
   const sheets = google.sheets({ version: 'v4', auth: auth as any });
 
+  // Update Status and Used Date (D:E)
   await sheets.spreadsheets.values.update({
     spreadsheetId: QUEUE_SPREADSHEET_ID,
     range: `${TOPICS_SHEET_NAME}!D${rowNumber}:E${rowNumber}`, // D:status, E:used_date
@@ -239,5 +240,15 @@ export async function updateTopicStatus(rowNumber: number, status: string, usedD
       values: [[status, usedDate]]
     }
   });
+
+  // Update Brand (B) if provided
+  if (brand) {
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: QUEUE_SPREADSHEET_ID,
+      range: `${TOPICS_SHEET_NAME}!B${rowNumber}`,
+      valueInputOption: 'USER_ENTERED',
+      requestBody: { values: [[brand]] }
+    });
+  }
 }
 
