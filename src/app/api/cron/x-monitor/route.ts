@@ -6,7 +6,7 @@ import { getReelsFactoryEnv } from '@/lib/sheets';
 async function sendSlackAlert(blocks: any[], SLACK_BOT_TOKEN: string, ALERT_CHANNEL: string) {
   if (!SLACK_BOT_TOKEN) return;
   try {
-    await fetch('https://slack.com/api/chat.postMessage', {
+    const res = await fetch('https://slack.com/api/chat.postMessage', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -18,6 +18,8 @@ async function sendSlackAlert(blocks: any[], SLACK_BOT_TOKEN: string, ALERT_CHAN
         blocks
       })
     });
+    const data = await res.json();
+    if (!data.ok) console.error('Slack alert failed:', data.error);
   } catch (e) {
     console.error('Slack alert failed:', e);
   }
@@ -95,15 +97,20 @@ export async function GET(req: Request) {
 - 単なる怒りの吐け口・ネガティブすぎる愚痴や他者への誹謗中傷。
 - 宣伝目的や、スパム・ニュースアカウント。
 
+【🎨 トーン＆マナー（重要）】
+- 発信者は「男性の生殖医療専門医」です。そのため、ハート絵文字（💕, 💛, ❤️ 等）の使用は不自然になるため絶対に禁止してください。
+- 代わりに、✨, 🍍, 🫂, 🙌, 💡 など、寄り添いと連帯を示す英語圏のTTCコミュニティで一般的な絵文字を使用してください。
+
 以下のJSONフォーマットで回答してください。最も適したツイートを優先して選んでください。
 {
   "matches": [
     {
       "tweetId": "12345",
       "username": "example_user",
-      "summary": "日本語でポストの内容を要約",
-      "reason": "日本語で反応すべき理由（なぜ今、人間が声をかけるべきか）",
-      "suggestedReply": "英語でのリプライ案（温かく寄り添い、パイナップル🍍やBaby Dust✨を含む）"
+      "summaryJp": "本人のツイートの日本語翻訳および要約",
+      "reasonJp": "日本語での選定理由（なぜ今声をかけるべきか）",
+      "suggestedReplyEn": "英語でのリプライ案（温かく寄り添い、パイナップル🍍やBaby Dust✨を含む。ハートは禁止）",
+      "suggestedReplyJp": "上記英語リプライ案の日本語訳"
     }
   ]
 }
@@ -138,33 +145,40 @@ ${tweetListText}
       const blocks = [
         {
           type: 'header',
-          text: { type: 'plain_text', text: '🚨 【AI秘書】TTC見守りレーダー🚨', emoji: true }
+          text: { type: 'plain_text', text: '🚨 【AI秘書】TTC見守りレーダー', emoji: true }
         },
         {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `*対象ユーザー*: @${match.username}\n*内容要約*: ${match.summary}\n*選定理由*: ${match.reason}`
+            text: `*対象ユーザー*: @${match.username}\n\n*📝 ツイート内容（和訳）*\n${match.summaryJp}\n\n*💡 選定理由*\n${match.reasonJp}`
           }
         },
         {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `🔗 *元の投稿を見る*\n${tweetUrl}`
+            text: `🔗 *元の投稿（英語）を確認する*\n${tweetUrl}`
           }
         },
         {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `📝 *リプライ案 (Copy & Paste)*:\n\`\`\`${match.suggestedReply}\`\`\``
+            text: `*💬 返信案の和訳*\n_${match.suggestedReplyJp}_`
+          }
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `*👇 リプライ用英文 (Copy & Paste)*:\n\`\`\`${match.suggestedReplyEn}\`\`\``
           }
         },
         { type: 'divider' }
       ];
 
-      await sendSlackAlert(blocks, slackToken, '#post-alerts');
+      await sendSlackAlert(blocks, slackToken, '#ttcpreconception_co');
     }
 
     return NextResponse.json({
