@@ -60,7 +60,7 @@ export async function GET(req: Request) {
     
     console.log(`🔍 Searching X with query: ${query}`);
     const searchResult = await client.v2.search(query, {
-      max_results: 20, // 最新20件を取得
+      max_results: 60, // より多くの母集団から最低1件を探すために拡張
       expansions: ['author_id'],
       'user.fields': ['username']
     });
@@ -82,16 +82,20 @@ export async function GET(req: Request) {
     // 2. Geminiによる判定
     const ai = new GoogleGenAI({ apiKey: geminiKey });
     const prompt = `
-あなたはTTCコミュニティの「見守り秘書」です。
-以下の条件に合う投稿を見つけ、中の人（人間）が手動でリプライすべき案件として抽出・報告してください。
+あなたはTTC（Trying To Conceive: 妊活・不妊治療）コミュニティの「見守り秘書」です。
+以下のツイートリストから、中の人（専門医・サポーター）が手動でリプライし、温かく寄り添うべき案件を【必ず1件以上（最大3件）】抽出・報告してください。
 
 【抽出対象】
-1. 「BFN（陰性）」でひどく落ち込んでいる、または「AF（生理）」が来て絶望している当事者。
-2. 「TWW（判定待ち）」で不安が爆発しそうな当事者。
-3. 医学的な疑問（例：このサプリどう思う？など）を投げかけている当事者。
-※ 宣伝目的や、明らかにスパム・ニュースアカウントからの投稿は除外すること。
+1. ちょっとした妊活の悩みや、「TWW（判定待ち）」の不安、「AF（生理）」が来て落ち込んでいる当事者。絶望や緊急性がなくても、少し寄り添えば前向きになれそうなもの。
+2. クリニック通いやサプリ、採卵・移植などのプロセスについて医学的・一般的な疑問を呟いている人。
+3. これから治療を始める、または結果を待つにあたって誰かの応援（Baby dust）を必要としている人。
 
-以下のJSONフォーマットで回答してください。抽出対象がない場合は空の配列を返してください。
+【❌ 絶対に除外する条件（NG）】
+- 言葉遣いが悪すぎる、または攻撃的（Toxic）なもの。
+- 単なる怒りの吐け口・ネガティブすぎる愚痴や他者への誹謗中傷。
+- 宣伝目的や、スパム・ニュースアカウント。
+
+以下のJSONフォーマットで回答してください。最も適したツイートを優先して選んでください。
 {
   "matches": [
     {
@@ -99,7 +103,7 @@ export async function GET(req: Request) {
       "username": "example_user",
       "summary": "日本語でポストの内容を要約",
       "reason": "日本語で反応すべき理由（なぜ今、人間が声をかけるべきか）",
-      "suggestedReply": "英語でのリプライ案（温かく、パイナップル🍍やBaby Dust✨を含む）"
+      "suggestedReply": "英語でのリプライ案（温かく寄り添い、パイナップル🍍やBaby Dust✨を含む）"
     }
   ]
 }
