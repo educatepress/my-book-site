@@ -48,7 +48,7 @@ async function sendSlackAlert(message: string, SLACK_BOT_TOKEN: string, ALERT_CH
 export async function GET(req: Request) {
   const reelsEnv = getReelsFactoryEnv();
   const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN || reelsEnv.SLACK_BOT_TOKEN || '';
-  const ALERT_CHANNEL = '#post-alerts';
+  const ALERT_CHANNEL = '#ttcpreconception_co';
   
   const apiKey = process.env.TWITTER_API_KEY || '';
   const apiSecret = process.env.TWITTER_API_SECRET || '';
