@@ -90,6 +90,17 @@ function buildSlackBlocks(item: any): any[] {
         text: `*🐦 JP投稿文:*\n${item.jpPost}\n\n*🌐 EN投稿文（日本語訳）:*\n${item.enPostJa}`,
       },
     });
+    blocks.push({
+      type: 'actions',
+      elements: [
+        {
+          type: 'button',
+          text: { type: 'plain_text', text: '✨ この案でそのままポストする (Xアプリ起動)', emoji: true },
+          style: 'primary',
+          url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(item.jpPost)}`
+        }
+      ]
+    });
   }
 
   // リール/カルーセルの場合

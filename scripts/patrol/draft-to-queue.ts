@@ -144,6 +144,17 @@ async function sendSlackNotification(item: any) {
         text: `*JP投稿:*\n${item.jpPost}\n\n*英語版（日本語訳）:*\n${item.enPostJa}`,
       },
     });
+    blocks.push({
+      type: 'actions',
+      elements: [
+        {
+          type: 'button',
+          text: { type: 'plain_text', text: '✨ この案でそのままポストする (Xアプリ起動)', emoji: true },
+          style: 'primary',
+          url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(item.jpPost)}`
+        }
+      ]
+    });
   }
   if (item.type === 'reel' || item.type === 'carousel') {
     blocks.push({

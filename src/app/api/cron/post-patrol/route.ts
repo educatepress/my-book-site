@@ -73,13 +73,13 @@ export async function GET(req: Request) {
   // ---------------------------------------------------------
   try {
     const host = req.headers.get('host') || 'localhost:3000';
-    const protocol = host.includes('localhost') ? 'http' : 'https';
-    
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ttcguide.co';
+
     // DEV環境での自己Fetchによるデッドロックを回避
     if (host.includes('localhost')) {
       reports.push('✅ Blog Site: 稼働中 (ローカルスキップ)');
     } else {
-      const blogUrl = `${protocol}://${host}/blog`;
+      const blogUrl = `${siteUrl}/blog`;
       const blogRes = await fetch(blogUrl, { method: 'HEAD' });
       if (!blogRes.ok) {
         throw new Error(`Blog returned status ${blogRes.status}`);
