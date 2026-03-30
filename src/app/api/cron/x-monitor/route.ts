@@ -3,7 +3,7 @@ import { TwitterApi } from 'twitter-api-v2';
 import { GoogleGenAI } from '@google/genai';
 import { getReelsFactoryEnv } from '@/lib/sheets';
 
-async function sendSlackAlert(blocks: any[], SLACK_BOT_TOKEN: string, ALERT_CHANNEL: string) {
+async function sendSlackAlert(blocks: any[], threadedText: string, SLACK_BOT_TOKEN: string, ALERT_CHANNEL: string) {
   if (!SLACK_BOT_TOKEN) return;
   try {
     const res = await fetch('https://slack.com/api/chat.postMessage', {
@@ -12,14 +12,21 @@ async function sendSlackAlert(blocks: any[], SLACK_BOT_TOKEN: string, ALERT_CHAN
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${SLACK_BOT_TOKEN}`
       },
-      body: JSON.stringify({
-        channel: ALERT_CHANNEL,
-        text: '🚨 TTCコミュニティ サポート要請',
-        blocks
-      })
+      body: JSON.stringify({ channel: ALERT_CHANNEL, text: '🚨 TTCコミュニティ サポート要請', blocks })
     });
     const data = await res.json();
-    if (!data.ok) console.error('Slack alert failed:', data.error);
+    if (!data.ok) return console.error('Slack alert failed:', data.error);
+
+    if (threadedText && data.ts) {
+      await fetch('https://slack.com/api/chat.postMessage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SLACK_BOT_TOKEN}`
+        },
+        body: JSON.stringify({ channel: ALERT_CHANNEL, thread_ts: data.ts, text: threadedText })
+      });
+    }
   } catch (e) {
     console.error('Slack alert failed:', e);
   }
@@ -57,12 +64,12 @@ export async function GET(req: Request) {
       accessSecret
     });
 
-    // 検索クエリ: TTCコミュニティのSOSや質問を狙う
-    const query = '(TWW OR BFN OR "#TTCcommunity" OR "Baby dust") -is:retweet -is:reply lang:en';
+    // 検索クエリ: TTCコミュニティのSOSや幅広い妊活の悩み・過程を狙う
+    const query = '(#TTC OR #TTCcommunity OR #IVFjourney OR TWW OR "two week wait" OR BFN OR BFP OR IVF OR IUI OR "egg retrieval" OR "Baby dust") -is:retweet -is:reply lang:en';
     
     console.log(`🔍 Searching X with query: ${query}`);
     const searchResult = await client.v2.search(query, {
-      max_results: 60, // より多くの母集団から最低1件を探すために拡張
+      max_results: 100, // 英語圏からより広く母集団を集めるため最大化
       expansions: ['author_id'],
       'user.fields': ['username']
     });
@@ -85,11 +92,11 @@ export async function GET(req: Request) {
     const ai = new GoogleGenAI({ apiKey: geminiKey });
     const prompt = `
 あなたはTTC（Trying To Conceive: 妊活・不妊治療）コミュニティの「見守り秘書」です。
-以下のツイートリストから、中の人（専門医・サポーター）が手動でリプライし、温かく寄り添うべき案件を【必ず1件以上（最大3件）】抽出・報告してください。
+以下のツイートリストから、中の人（専門医・サポーター）が手動でリプライし、温かく寄り添うべき案件を【必ず5件】抽出・報告してください。
 
 【抽出対象】
 1. ちょっとした妊活の悩みや、「TWW（判定待ち）」の不安、「AF（生理）」が来て落ち込んでいる当事者。絶望や緊急性がなくても、少し寄り添えば前向きになれそうなもの。
-2. クリニック通いやサプリ、採卵・移植などのプロセスについて医学的・一般的な疑問を呟いている人。
+2. クリニック通いやサプリ、採卵(Egg retrieval)・移植(Transfer)・人工授精(IUI)・体外受精(IVF)などのプロセスについて医学的・一般的な疑問や進捗を呟いている人。
 3. これから治療を始める、または結果を待つにあたって誰かの応援（Baby dust）を必要としている人。
 
 【リプライの3原則】
@@ -161,41 +168,17 @@ ${tweetListText}
       const tweetUrl = `https://twitter.com/${match.username}/status/${match.tweetId}`;
       const blocks = [
         {
-          type: 'header',
-          text: { type: 'plain_text', text: '🚨 【AI秘書】TTC見守りレーダー', emoji: true }
-        },
-        {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `*対象ユーザー*: @${match.username}\n\n*📝 ツイート内容（和訳）*\n${match.summaryJp}\n\n*💡 選定理由*\n${match.reasonJp}`
+            text: `*🚨 @${match.username} がSOSを発信中*\n_${match.summaryJp}_\n\n🔗 <${tweetUrl}|元の投稿を開く>\n\n*👇 リプライ用英文 (Copy & Paste)*:\n\`\`\`${match.suggestedReplyEn}\`\`\`\n_(※選定理由や和訳はスレッドに記載)_`
           }
-        },
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: `🔗 *元の投稿（英語）を確認する*\n${tweetUrl}`
-          }
-        },
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: `*💬 返信案の和訳*\n_${match.suggestedReplyJp}_`
-          }
-        },
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: `*👇 リプライ用英文 (Copy & Paste)*:\n\`\`\`${match.suggestedReplyEn}\`\`\``
-          }
-        },
-        { type: 'divider' }
+        }
       ];
 
-      await sendSlackAlert(blocks, slackToken, '#ttcpreconception_co');
+      const threadedText = `*💡 選定理由*\n${match.reasonJp}\n\n*💬 返信案の和訳*\n${match.suggestedReplyJp}`;
+
+      await sendSlackAlert(blocks, threadedText, slackToken, '#ttcpreconception_co');
     }
 
     return NextResponse.json({

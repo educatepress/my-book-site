@@ -50,35 +50,32 @@ export async function POST(req: Request) {
         const ts = payload.container?.message_ts;
         const blocks = payload.message?.blocks;
 
-        // バックグラウンドで非同期実行（Slackへの応答を待たせない）
-        (async () => {
-          try {
-            const today = new Date().toISOString().split('T')[0];
-            await updateSheetRow(contentId, {
-              status: 'approved',
-              scheduled_date: today
-            });
-            console.log(`[Slack API] ✅ Successfully approved ${contentId} in Google Sheets.`);
-          } catch (err) {
-            console.error('[Slack API] Failed to update Google Sheets on approve:', err);
-          }
+        try {
+          const today = new Date().toISOString().split('T')[0];
+          await updateSheetRow(contentId, {
+            status: 'approved',
+            scheduled_date: today
+          });
+          console.log(`[Slack API] ✅ Successfully approved ${contentId} in Google Sheets.`);
+        } catch (err) {
+          console.error('[Slack API] Failed to update Google Sheets on approve:', err);
+        }
 
-          if (channel && ts && blocks) {
-            const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
-            if (actionBlockIndex !== -1) {
-              blocks[actionBlockIndex] = {
-                type: 'section',
-                text: {
-                  type: 'mrkdwn',
-                  text: `✅ *承認済み* (明朝9時の自動投稿キューに登録されました)`
-                }
-              };
-              await updateSlackMessage(channel, ts, '承認されました', blocks);
-            }
+        if (channel && ts && blocks) {
+          const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
+          if (actionBlockIndex !== -1) {
+            blocks[actionBlockIndex] = {
+              type: 'section',
+              text: {
+                type: 'mrkdwn',
+                text: `✅ *承認済み* (明朝の自動投稿キューに登録されました)`
+              }
+            };
+            await updateSlackMessage(channel, ts, '承認されました', blocks);
           }
-        })();
+        }
 
-        // Slackに即座に200を返す（バックグラウンド処理は裏で継続）
+        // 処理が完了してからSlackに200を返す
         return NextResponse.json({ ok: true });
       }
 

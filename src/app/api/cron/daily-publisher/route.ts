@@ -2,6 +2,46 @@ import { NextResponse } from 'next/server';
 import { getQueueItems, updateQueueItem, QueueItem, getReelsFactoryEnv } from '@/lib/sheets';
 import { TwitterApi } from 'twitter-api-v2';
 
+/**
+ * GitHub APIを用いて指定リポジトリのパスにファイルをコミット（作成・更新）する
+ */
+async function pushToGithub(token: string, owner: string, repo: string, path: string, content: string, message: string) {
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: 'application/vnd.github.v3+json',
+  };
+
+  let sha = undefined;
+  // Check if file exists to get its SHA for updating
+  const getRes = await fetch(url, { headers });
+  if (getRes.ok) {
+    const data = await getRes.json();
+    sha = data.sha;
+  }
+
+  // To support UTF-8 strings accurately in Base64
+  const utf8Buffer = Buffer.from(content, 'utf8');
+  const base64Content = utf8Buffer.toString('base64');
+
+  const payload = {
+    message,
+    content: base64Content,
+    sha
+  };
+
+  const putRes = await fetch(url, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify(payload)
+  });
+
+  if (!putRes.ok) {
+    const errorText = await putRes.text();
+    throw new Error(`GitHub API Error (${putRes.status}): ${errorText}`);
+  }
+}
+
 export async function GET(req: Request) {
   // Cron Authenticity
   const reelsEnv = getReelsFactoryEnv();
@@ -68,8 +108,9 @@ export async function GET(req: Request) {
 
             if (!textToPost) throw new Error('投稿用テキストが空です');
 
-            // 自動付与するリンクやハッシュタグ（設定が必要であれば追加）
-            const finalTweet = `${textToPost}\n\n👇詳細はこちら\nhttps://www.google.com\n\n#プレコンセプションケア #不妊予防`;
+            // リンクなどを付与する場合（省略可能・AIが生成済みならそのまま使用）
+            const blogUrl = item.brand === 'atelier' ? 'https://hiroo-open.com/blog' : 'https://ttcguide.co/blog';
+            const finalTweet = textToPost.includes('http') ? textToPost : `${textToPost}\n\n👇Read More\n${blogUrl}`;
 
             const tweetResult = await client.v2.tweet(finalTweet);
             postUrl = `https://twitter.com/user/status/${tweetResult.data.id}`;
@@ -79,10 +120,58 @@ export async function GET(req: Request) {
           }
 
         } else if (item.type === 'blog') {
-          // ブログは Sheets の status を posted にするだけで
-          // Next.js (mdx.ts) がそれを動的CMSとしてロードする仕様
-          postUrl = `https://your-domain.com/blog/${item.title}`;
-          isSuccess = true;
+          // --- Phase 6: GitHub Auto-Commit ---
+          const githubToken = process.env.GITHUB_TOKEN || reelsEnv.GITHUB_TOKEN;
+          
+          if (!githubToken) {
+            console.log(`⏭️ GITHUB_TOKEN not set. Skipping auto-commit for ${item.title} (Marking as posted for now).`);
+            postUrl = 'https://github.com/pending/token-missing';
+            isSuccess = true;
+          } else {
+            console.log(`🐙 Pushing [blog] ${item.title} to GitHub...`);
+            
+            let jpContent = '';
+            let enContent = '';
+            try {
+              const recipe = JSON.parse(item.generation_recipe || '{}');
+              jpContent = recipe.jpBlog || '';
+              enContent = recipe.enBlog || '';
+            } catch (e) {
+              console.error('Failed to parse generation_recipe for blog:', e);
+            }
+
+            if (!jpContent && !enContent) {
+              throw new Error('ブログのコンテンツ(jpBlog/enBlog)が空です。');
+            }
+
+            const commitMessage = `Auto-publish: ${item.title}`;
+            let pushedTo = '';
+            const isAtelier = (item.brand === 'atelier');
+
+            // 1. Push to JP
+            if (jpContent) {
+               const owner = 'educatepress';
+               const repo = isAtelier ? 'the-skin-atelier' : 'my-book-site';
+               const targetPath = isAtelier 
+                 ? `content/blog/${item.title}.md`
+                 : `src/content/blog/jp/${item.title}.mdx`;
+               
+               await pushToGithub(githubToken, owner, repo, targetPath, jpContent, commitMessage);
+               pushedTo = `https://github.com/${owner}/${repo}/blob/main/${targetPath}`;
+            }
+
+            // 2. Push to EN (Book only, if enContent exists)
+            if (enContent && !isAtelier) {
+               const owner = 'educatepress';
+               const repo = 'my-book-site';
+               const targetPath = `src/content/blog/en/${item.title}.mdx`;
+               await pushToGithub(githubToken, owner, repo, targetPath, enContent, commitMessage);
+               if (!pushedTo) pushedTo = `https://github.com/${owner}/${repo}/blob/main/${targetPath}`;
+            }
+
+            postUrl = pushedTo || 'https://github.com/published';
+            isSuccess = true;
+          }
 
         } else if (item.type === 'carousel' || item.type === 'reel') {
           // MakeのWebhookへ発射してInstagram投稿を行う
