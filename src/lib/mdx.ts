@@ -13,6 +13,7 @@ export interface BlogPostMetadata {
     coverImage?: string;
     author?: string;
     tags?: string[];
+    category?: string;
 }
 
 export async function getPostSlugs(lang: 'jp' | 'en' = 'jp'): Promise<string[]> {
