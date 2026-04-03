@@ -252,3 +252,55 @@ export async function updateTopicStatus(rowNumber: number, status: string, usedD
   }
 }
 
+// ============================================================================
+// ThemeSchedule Management Functions
+// ============================================================================
+
+export type ThemeScheduleItem = {
+  date: string;
+  brand: string;
+  themeArea: string;
+  theme: string;
+  searchKeywords: string;
+};
+
+const THEME_SCHEDULE_SHEET_NAME = 'ThemeSchedule';
+const THEME_SCHEDULE_HEADERS = ['date', 'brand', 'themeArea', 'theme', 'searchKeywords'];
+
+/**
+ * ThemeScheduleから指定した日付とブランドに合致するテーマを取得する
+ */
+export async function getThemeSchedule(dateStr: string, brandFilter: string): Promise<ThemeScheduleItem | null> {
+  const auth = await getGoogleAuthClient();
+  const sheets = google.sheets({ version: 'v4', auth: auth as any });
+
+  try {
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: QUEUE_SPREADSHEET_ID,
+      range: `${THEME_SCHEDULE_SHEET_NAME}!A:E`,
+    });
+
+    const rows = response.data.values;
+    if (!rows || rows.length <= 1) return null;
+
+    // 1行目はヘッダーなのでi=1から開始
+    for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        const dateVal = row[0] || '';
+        const brandVal = row[1] || '';
+        
+        if (dateVal === dateStr && brandVal === brandFilter) {
+            const item: any = {};
+            THEME_SCHEDULE_HEADERS.forEach((header, index) => {
+                item[header] = row[index] || '';
+            });
+            return item as ThemeScheduleItem;
+        }
+    }
+    
+    return null;
+  } catch (error) {
+    console.error(`Failed to fetch ThemeSchedule:`, error);
+    return null;
+  }
+}
