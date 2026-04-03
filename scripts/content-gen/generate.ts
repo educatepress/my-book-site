@@ -11,6 +11,20 @@ if (!process.env.GEMINI_API_KEY) {
 }
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+// Safety: strip inner double-quotes from YAML frontmatter values to prevent build failures
+function sanitizeFrontmatter(mdx: string): string {
+    if (!mdx.startsWith('---')) return mdx;
+    const endIdx = mdx.indexOf('---', 3);
+    if (endIdx === -1) return mdx;
+    const fm = mdx.slice(0, endIdx);
+    const body = mdx.slice(endIdx);
+    const fixedFm = fm.replace(/^((?:title|excerpt|x_post):\s*)"(.*)"\s*$/gm, (_match, prefix, value) => {
+        const cleaned = value.replace(/"/g, "'");
+        return `${prefix}"${cleaned}"`;
+    });
+    return fixedFm + body;
+}
+
 async function main() {
     const draftPath = process.argv[2];
     if (!draftPath) {
@@ -80,13 +94,13 @@ Expected JSON Schema:
         // 2. Save JP Blog MDX
         const jpBlogDir = path.join(process.cwd(), 'src/content/blog/jp');
         const jpBlogPath = path.join(jpBlogDir, `${result.slug}.mdx`);
-        await fs.writeFile(jpBlogPath, result.jpBlog);
+        await fs.writeFile(jpBlogPath, sanitizeFrontmatter(result.jpBlog));
         console.log(`✅ Saved JP Blog -> ${jpBlogPath}`);
 
         // 3. Save EN Blog MDX
         const enBlogDir = path.join(process.cwd(), 'src/content/blog/en');
         const enBlogPath = path.join(enBlogDir, `${result.slug}-en.mdx`);
-        await fs.writeFile(enBlogPath, result.enBlog);
+        await fs.writeFile(enBlogPath, sanitizeFrontmatter(result.enBlog));
         console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
 
         console.log("🎉 All content generated and distributed successfully!");

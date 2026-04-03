@@ -7,6 +7,20 @@ import * as cheerio from 'cheerio'; // Ensure we can parse HTML
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+// Safety: strip inner double-quotes from YAML frontmatter values to prevent build failures
+function sanitizeFrontmatter(mdx: string): string {
+    if (!mdx.startsWith('---')) return mdx;
+    const endIdx = mdx.indexOf('---', 3);
+    if (endIdx === -1) return mdx;
+    const fm = mdx.slice(0, endIdx);
+    const body = mdx.slice(endIdx);
+    const fixedFm = fm.replace(/^((?:title|excerpt|x_post):\s*)"(.*)"\s*$/gm, (_match, prefix, value) => {
+        const cleaned = value.replace(/"/g, "'");
+        return `${prefix}"${cleaned}"`;
+    });
+    return fixedFm + body;
+}
+
 async function main() {
     console.log("🚀 Starting Book Batch Generation Script...");
 
@@ -143,13 +157,13 @@ Expected JSON Schema:
             const jpBlogDir = path.join(process.cwd(), 'src/content/blog/jp');
             await fs.mkdir(jpBlogDir, { recursive: true });
             const jpBlogPath = path.join(jpBlogDir, `${blogResult.slug}.mdx`);
-            await fs.writeFile(jpBlogPath, blogResult.jpBlog);
+            await fs.writeFile(jpBlogPath, sanitizeFrontmatter(blogResult.jpBlog));
 
             // Save EN Blog
             const enBlogDir = path.join(process.cwd(), 'src/content/blog/en');
             await fs.mkdir(enBlogDir, { recursive: true });
             const enBlogPath = path.join(enBlogDir, `${blogResult.slug}-en.mdx`);
-            await fs.writeFile(enBlogPath, blogResult.enBlog);
+            await fs.writeFile(enBlogPath, sanitizeFrontmatter(blogResult.enBlog));
 
             console.log(`✅ Saved: ${jpBlogPath}`);
         } catch (e) {

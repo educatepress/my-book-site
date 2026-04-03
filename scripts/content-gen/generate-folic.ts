@@ -73,6 +73,20 @@ function injectXPostFrontmatter(mdxText: string, xPostText: string): string {
     return `---\nx_post: "${safeXPost}"\n---\n${mdxText}`;
 }
 
+// Safety: strip inner double-quotes from YAML frontmatter values to prevent build failures
+function sanitizeFrontmatter(mdx: string): string {
+    if (!mdx.startsWith('---')) return mdx;
+    const endIdx = mdx.indexOf('---', 3);
+    if (endIdx === -1) return mdx;
+    const fm = mdx.slice(0, endIdx);
+    const body = mdx.slice(endIdx);
+    const fixedFm = fm.replace(/^((?:title|excerpt|x_post):\s*)"(.*)"\s*$/gm, (_match, prefix, value) => {
+        const cleaned = value.replace(/"/g, "'");
+        return `${prefix}"${cleaned}"`;
+    });
+    return fixedFm + body;
+}
+
 async function main() {
     console.log("🚀 Starting Automatic Blog Generation with Gemini AI...");
 
@@ -199,7 +213,8 @@ Expected JSON Schema:
         await fs.mkdir(jpBlogDir, { recursive: true });
         const jpBlogPath = path.join(jpBlogDir, `${result.slug}.mdx`);
         // Inject xPost into frontmatter
-        const finalJpBlog = injectXPostFrontmatter(rawJpBlog, safeXPost);
+        const jpSanitized = sanitizeFrontmatter(rawJpBlog);
+        const finalJpBlog = injectXPostFrontmatter(jpSanitized, safeXPost);
         await fs.writeFile(jpBlogPath, finalJpBlog);
         console.log(`✅ Saved JP Blog -> ${jpBlogPath}`);
 
@@ -208,7 +223,8 @@ Expected JSON Schema:
         await fs.mkdir(enBlogDir, { recursive: true });
         const enBlogPath = path.join(enBlogDir, `${result.slug}-en.mdx`);
         // We only inject to JP, but let's make sure EN is clean
-        const finalEnBlog = rawEnBlog;
+        const enSanitized = sanitizeFrontmatter(rawEnBlog);
+        const finalEnBlog = enSanitized;
         await fs.writeFile(enBlogPath, finalEnBlog);
         console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
 
