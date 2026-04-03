@@ -29,6 +29,26 @@ function injectXPostFrontmatter(mdxText: string, xPostText: string): string {
     return `---\nx_post: "${safeXPost}"\n---\n${mdxText}`;
 }
 
+// Safety: strip inner double-quotes from YAML frontmatter values to prevent build failures
+function sanitizeFrontmatter(mdx: string): string {
+    if (!mdx.startsWith('---')) return mdx;
+    const endIdx = mdx.indexOf('---', 3);
+    if (endIdx === -1) return mdx;
+
+    const fm = mdx.slice(0, endIdx);
+    const body = mdx.slice(endIdx);
+
+    // For each line like:  key: "value with "bad" quotes"
+    // Replace inner quotes with single quotes
+    const fixedFm = fm.replace(/^((?:title|excerpt|x_post):\s*)"(.*)"\s*$/gm, (_match, prefix, value) => {
+        // value may contain unescaped inner double quotes — replace them
+        const cleaned = value.replace(/"/g, "'");
+        return `${prefix}"${cleaned}"`;
+    });
+
+    return fixedFm + body;
+}
+
 async function main() {
     console.log("🚀 Starting Automatic Blog Generation from Queue...");
 
@@ -132,7 +152,8 @@ ${item.sourceUrls.join('\n')}
 以下の3つのアセットをJSON形式で出力してください。
 
 1. "jpBlog": 完全な日本語版のMDXブログ記事（1800〜2200文字）。
-   - フロントマター（title, date, excerpt, author）から始めること。タイトルはダブルクォーテーションで囲む。
+   - フロントマター（title, date, excerpt, author, category）から始めること。タイトルはダブルクォーテーションで囲む。
+    - 【YAML安全ルール（CRITICAL）】フロントマターの title, excerpt の値の中にダブルクォーテーション（"）を絶対に含めないこと。強調したい語句には「」や『』を使用すること。これに違反するとビルドが壊れます。
    - author は必ず「佐藤琢磨」と記載すること（肩書き・スペース・括弧は不要）。
    - "date" の値には必ず「${postDateStr}」を指定すること。
    - ${item.direction} に沿った構成にすること。
@@ -383,7 +404,8 @@ Expected JSON Schema:
         await fs.mkdir(jpBlogDir2, { recursive: true });
         const jpBlogPath = path.join(jpBlogDir2, `${result.slug}.mdx`);
         const jpWithInfographic = injectInfographic(jpBlogContent, infographicInsertJp);
-        const finalJpBlog = injectXPostFrontmatter(jpWithInfographic, safeXPost);
+        const jpSanitized = sanitizeFrontmatter(jpWithInfographic);
+        const finalJpBlog = injectXPostFrontmatter(jpSanitized, safeXPost);
         await fs.writeFile(jpBlogPath, finalJpBlog);
         console.log(`✅ Saved JP Blog -> ${jpBlogPath}`);
 
@@ -392,7 +414,8 @@ Expected JSON Schema:
         await fs.mkdir(enBlogDir, { recursive: true });
         const enBlogPath = path.join(enBlogDir, `${result.slug}-en.mdx`);
         const enWithInfographic = injectInfographic(enBlogContent, infographicInsertEn);
-        const finalEnBlog = injectXPostFrontmatter(enWithInfographic, safeXPost);
+        const enSanitized = sanitizeFrontmatter(enWithInfographic);
+        const finalEnBlog = injectXPostFrontmatter(enSanitized, safeXPost);
         await fs.writeFile(enBlogPath, finalEnBlog);
         console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
 

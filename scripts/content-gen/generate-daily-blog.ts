@@ -26,6 +26,23 @@ function injectXPostFrontmatter(mdxText: string, xPostText: string): string {
     return `---\nx_post: "${safeXPost}"\n---\n${mdxText}`;
 }
 
+// Safety: strip inner double-quotes from YAML frontmatter values to prevent build failures
+function sanitizeFrontmatter(mdx: string): string {
+    if (!mdx.startsWith('---')) return mdx;
+    const endIdx = mdx.indexOf('---', 3);
+    if (endIdx === -1) return mdx;
+
+    const fm = mdx.slice(0, endIdx);
+    const body = mdx.slice(endIdx);
+
+    const fixedFm = fm.replace(/^((?:title|excerpt|x_post):\s*)"(.*)"\s*$/gm, (_match, prefix, value) => {
+        const cleaned = value.replace(/"/g, "'");
+        return `${prefix}"${cleaned}"`;
+    });
+
+    return fixedFm + body;
+}
+
 async function main() {
     console.log("🚀 Starting Automatic Blog Generation from ThemeSchedule...");
 
@@ -78,6 +95,7 @@ async function main() {
 
 1. "jpBlog": 完全な日本語版のMDXブログ記事（1500〜2000文字程度）。
    - フロントマター（title, date, excerpt, author）から始めること。タイトルはダブルクォーテーションで囲む。
+   - 【YAML安全ルール（CRITICAL）】フロントマターの title, excerpt の値の中にダブルクォーテーション（"）を絶対に含めないこと。強調したい語句には「」や『』を使用すること。これに違反するとビルドが壊れます。
    - author は必ず「佐藤琢磨」と記載。date は "${postDateStr}" を指定。
    - 記事の構成: リード文 → 本文（見出し付き） → FAQ。
    - 記事の最後（CTA）には必ず **Amazon.co.jpの書籍リンク** を以下のように挿入すること。
@@ -155,7 +173,8 @@ Expected JSON Schema:
         const jpBlogDir = path.join(process.cwd(), 'src/content/blog/jp');
         await fs.mkdir(jpBlogDir, { recursive: true });
         const jpBlogPath = path.join(jpBlogDir, `${result.slug}.mdx`);
-        const finalJpBlog = injectXPostFrontmatter(result.jpBlog, safeXPost);
+        const jpSanitized = sanitizeFrontmatter(result.jpBlog);
+        const finalJpBlog = injectXPostFrontmatter(jpSanitized, safeXPost);
         await fs.writeFile(jpBlogPath, finalJpBlog);
         console.log(`✅ Saved JP Blog -> ${jpBlogPath}`);
 
@@ -163,7 +182,8 @@ Expected JSON Schema:
         const enBlogDir = path.join(process.cwd(), 'src/content/blog/en');
         await fs.mkdir(enBlogDir, { recursive: true });
         const enBlogPath = path.join(enBlogDir, `${result.slug}-en.mdx`);
-        const finalEnBlog = injectXPostFrontmatter(result.enBlog, safeXPost);
+        const enSanitized = sanitizeFrontmatter(result.enBlog);
+        const finalEnBlog = injectXPostFrontmatter(enSanitized, safeXPost);
         await fs.writeFile(enBlogPath, finalEnBlog);
         console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
 
