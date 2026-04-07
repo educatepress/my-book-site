@@ -93,11 +93,17 @@ ${contentText}
       // Fallback to Gemini for now to ensure pipeline runs
       const { GoogleGenAI } = require('@google/genai');
       const geminiAi = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || reelsEnv.GEMINI_API_KEY });
-      const response = await geminiAi.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: prompt
-      });
-      const aiFeedback = response.text || 'フィードバックをパースできませんでした';
+      let aiFeedback = '';
+      try {
+        const response = await geminiAi.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: prompt
+        });
+        aiFeedback = response.text || 'フィードバックをパースできませんでした';
+      } catch (geminiError: any) {
+        console.warn(`⚠️ [Pre-Patrol] AI evaluation failed for ${item.content_id}, skipping AI audit, but continuing Slack push. Error:`, geminiError.message);
+        aiFeedback = '⚠️ AI Audit Failed (High Demand). Please manually review the content.';
+      }
 
 
       // ── Slack Notification via Webhook ──
