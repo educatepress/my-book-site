@@ -311,8 +311,8 @@ Expected JSON Schema:
         type: 'reel',
         title: `Reel Script for ${slug}`,
         generation_recipe: JSON.stringify({ slug, reelScript }),
-        status: 'pending',
-        patrol_pre_result: 'pending',
+        status: 'waiting_for_render',
+        patrol_pre_result: 'waiting',
         scheduled_date: postDateStr,
         ymyl_evidence: evidenceStr
     });
@@ -324,8 +324,8 @@ Expected JSON Schema:
         type: 'carousel',
         title: `Carousel Format for ${slug}`,
         generation_recipe: JSON.stringify({ slug, title: slug, slides: carouselJson }),
-        status: 'pending',
-        patrol_pre_result: 'pending',
+        status: 'waiting_for_render',
+        patrol_pre_result: 'waiting',
         scheduled_date: postDateStr,
         ymyl_evidence: evidenceStr
     });

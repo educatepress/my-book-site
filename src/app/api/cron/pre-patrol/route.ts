@@ -113,6 +113,11 @@ ${contentText}
 
       const previewText = contentText.length > 80 ? contentText.substring(0, 80) + '...' : contentText;
 
+      let mediaLinkText = '';
+      if (item.cloudinary_url || item.gdrive_url) {
+        mediaLinkText = `\n\n🎬 *完成済みメディアプレビュー:*\n${item.cloudinary_url ? `<${item.cloudinary_url}|Cloudinaryを開く>` : ''} ${item.gdrive_url ? `<${item.gdrive_url}|Google Driveを開く>` : ''}`;
+      }
+
       const blocks = [
         {
           type: 'header',
@@ -132,7 +137,7 @@ ${contentText}
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `*📝 プレビュー:* ${previewText.replace(/\n/g, ' ')}\n📍 *本文の全文（カルーセルや動画台本の詳細）は「スレッド」に入っています！タップしてご確認ください。*`
+            text: `*📝 プレビュー:* ${previewText.replace(/\n/g, ' ')}\n📍 *本文の全文（カルーセルや動画台本の詳細）は「スレッド」に入っています！タップしてご確認ください。*${mediaLinkText}`
           }
         },
         {
