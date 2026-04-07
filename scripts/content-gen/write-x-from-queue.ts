@@ -3,7 +3,7 @@ import { GoogleGenAI } from '@google/genai';
 import { TwitterApi } from 'twitter-api-v2';
 import fs from 'fs/promises';
 import path from 'path';
-import { getNextPendingItem, markItemStatus } from './queue-manager';
+import { getThemeSchedule, updateThemeScheduleStatus } from '../../src/lib/sheets';
 import { verifyUrl, extractAndVerifySourceUrl } from './url-verifier';
 
 // ============================================================================
@@ -79,7 +79,7 @@ async function generateWithRetry(item: any, maxRetries = 3) {
     const ctxIndex = Math.floor(Math.random() * writingContextsJp.length);
     const ctxIndexEn = Math.floor(Math.random() * writingContextsEn.length);
 
-    let prompt = `
+let prompt = `
 あなたは生殖医療専門医・佐藤琢磨のゴーストライターです。
 
 🎯 最も重要な指示:
@@ -87,9 +87,9 @@ async function generateWithRetry(item: any, maxRetries = 3) {
 AIが書いた教科書的な文章は絶対にNGです。
 
 【発信テーマ】
-- JP: ${item.theme} / EN: ${item.themeEn}
-- 目的: ${item.direction} / ${item.directionEn}
-- エビデンス元: ${item.sourceUrls.join('\n')}
+- JP: ${item.theme || '未定'} / EN: ${item.theme || 'N/A'}
+- 関連キーワード（参考）: ${item.searchKeywords || 'なし'}
+- エビデンス元: ${item.referenceUrl || 'なし'}
 
 【本日の文体設定（ラベルとして挿入しないこと）】
 JP: ${writingContextsJp[ctxIndex]}
@@ -318,14 +318,25 @@ async function verifyThreadUrls(thread: string[], label: string): Promise<string
 async function main() {
     console.log("🚀 Starting Fully Automated X Content Generation...");
 
-    const item = await getNextPendingItem("x");
+    const dt = new Date(new Date().getTime() + 9 * 3600 * 1000);
+    const todayStr = process.env.TARGET_DATE || dt.toISOString().split('T')[0];
+    const brand = process.env.BRAND || 'book';
+
+    console.log(`📅 Target Date: ${todayStr} | Brand: ${brand}`);
+
+    const item = await getThemeSchedule(todayStr, brand);
     if (!item) {
-        console.log("🟢 The Queue is empty. No pending X posts to process today.");
+        console.log(`🟢 The ThemeSchedule has no data for Date: ${todayStr} / Brand: ${brand}.`);
         process.exit(0);
     }
 
-    console.log(`\n📋 Processing Item [${item.id}]: ${item.theme}`);
-    console.log(`🔗 Primary Source URL: ${item.sourceUrls[0]}`);
+    if (item.status === 'done' || item.status === 'posted') {
+        console.log(`🟢 The ThemeSchedule for ${todayStr} is already processed (${item.status}).`);
+        process.exit(0);
+    }
+
+    console.log(`\n📋 Processing Date [${todayStr}]: ${item.theme}`);
+    console.log(`🔗 Primary Source URL: ${item.referenceUrl || 'なし'}`);
 
     try {
         const result = await generateWithRetry(item);
@@ -383,16 +394,17 @@ async function main() {
         }
 
         if (postSuccess) {
-            await markItemStatus(item.id, "posted");
+            await updateThemeScheduleStatus(item.rowNumber, "posted");
         } else {
-            await markItemStatus(item.id, "generated");
+            // ローカルで成功したというマーク
+            await updateThemeScheduleStatus(item.rowNumber, "generated");
             console.log("✅ Marked as 'generated' locally due to Twitter API failure (or running locally).");
         }
 
         console.log("\n🎉 Fully Automated Posting complete!");
 
     } catch (err: any) {
-        console.error("❌ Fatal Error processing X queue:", err);
+        console.error("❌ Fatal Error processing X generation:", err);
         process.exit(1);
     }
 }

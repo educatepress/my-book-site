@@ -61,6 +61,30 @@ export async function POST(req: Request) {
           console.error('[Slack API] Failed to update Google Sheets on approve:', err);
         }
 
+        // --- Automatically publish pending Drafts for Webpage.new ---
+        // Assuming this route runs on the same environment where .pending files are written
+        try {
+          const fs = require('fs');
+          const path = require('path');
+          // contentId is like "blog-some-slug-12345"
+          const slugMatch = contentId.match(/^blog-(.+?)-\d+$/);
+          const rawSlug = slugMatch ? slugMatch[1] : contentId;
+
+          const jpBlogPath = path.join(process.cwd(), 'src/content/blog/jp', `${rawSlug}.mdx.pending`);
+          const enBlogPath = path.join(process.cwd(), 'src/content/blog/en', `${rawSlug}-en.mdx.pending`);
+          
+          if (fs.existsSync(jpBlogPath)) {
+            fs.renameSync(jpBlogPath, jpBlogPath.replace('.pending', ''));
+            console.log(`✅ Auto-published: ${rawSlug}.mdx`);
+          }
+          if (fs.existsSync(enBlogPath)) {
+            fs.renameSync(enBlogPath, enBlogPath.replace('.pending', ''));
+            console.log(`✅ Auto-published: ${rawSlug}-en.mdx`);
+          }
+        } catch (postErr) {
+          console.error('[Slack API] Failed to auto-publish pending MDX file:', postErr);
+        }
+
         if (channel && ts && blocks) {
           const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
           if (actionBlockIndex !== -1) {

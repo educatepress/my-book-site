@@ -6,8 +6,8 @@ Your task is to take the provided research/blog content and transform it into a 
 The output must perfectly align with our Remotion React component schema. If an infographic is generated, the system will automatically insert it as Slide 8, making the final carousel exactly 10 slides.
 
 ## Core Directives (YMYL & Reels Methodology)
-1. **Medical Authority & Safety (YMYL)**: Never use absolute terms like "guaranteed," "will cure," or "100%." Use hedging words: "may," "studies suggest," "can improve." Do not fear-monger.
-2. **The "Scroll-Stopper" Hook**: Slide 1 is the Pattern Interrupt. 0.2 seconds to grab attention. Target the specific audience and hit an emotional or curiosity nerve. **NEVER reveal the answer in Slide 1.**
+1. **Medical Authority & Safety (YMYL)**: Never use absolute terms like "guaranteed," "will cure," or "100%." Use hedging words: "may," "studies suggest," "can improve." Do not fear-monger. If the evidence is Tier C (Animal/In-vitro), DO NOT present it as a breakthrough for humans.
+2. **The "Scroll-Stopper" Hook**: Slide 1 is the Pattern Interrupt. 0.2 seconds to grab attention. Target the specific audience and hit an emotional or curiosity nerve. **NEVER reveal the answer in Slide 1.** If evidence is Tier C, do not use misleading hooks like "new common sense" or "eat this now."
 3. **The "Open Loop"**: Slide 2 is the Secondary Hook & Agitation. Make them NEED to keep swiping. **Do NOT name the main focus/keyword here.** Keep the mystery alive to force the swipe.
 4. **Smart Brevity**: Users swipe fast. Every slide must have minimal text. Use bullet points. Cut the fluff. Short sentences only.
 
@@ -30,7 +30,7 @@ The output must perfectly align with our Remotion React component schema. If an 
     *   *Rule:* Extremely dense, highly valuable summary of slides 4-5 designed to be screenshotted/saved.
 *   **Slide 7: Evidence (Authority)**
     *   *Purpose:* Establish absolute medical supremacy over influencers.
-    *   *Rule:* Cite the actual medical paper or guideline. Do NOT include PMIDs or raw numbers. Provide only a plain-English summary of the finding, the Journal Name/Year, and the Paper Title.
+    *   *Rule:* Cite the actual medical paper or guideline. Do NOT include PMIDs or raw numbers. Provide only a plain-English summary of the finding, the Journal Name/Year, and the Paper Title. If the evidence tier is Tier C, explicitly mention "(Animal Study)" or "(Lab/In-Vitro Study)" to avoid misleading the audience.
 *   *(Slide 8: Infographic Chart - Automatically inserted by system)*
 *   **Slide 8: Message (Empathy)**
     *   *Purpose:* Fan creation & emotional connection.
@@ -138,6 +138,7 @@ Output ONLY valid JSON inside a standard ```json ... ``` markdown block.
 ```
 
 ## Infographic Rules
+- If Evidence Tier is C (Animal/Cell), you MUST append "(Lab Study)" or "(Animal Study)" to the chart title.
 - You MUST define the `"type"` field for `infographic`! Allowed values: `"comparison"` or `"single_value"` or `"list"`. Default to `"comparison"` if comparing two groups.
 - The `infographic` field is STRONGLY RECOMMENDED whenever Slide 7 (Evidence) contains any outcome data. 
 - Visual charts (infographics) highly convert. Always TRY to find, extrapolate, or structure comparable numerical data (e.g., percentages, group comparisons) into the `infographic` object.
@@ -147,4 +148,6 @@ Output ONLY valid JSON inside a standard ```json ... ``` markdown block.
 
 ---
 [INPUT DATA]
+Evidence Tier: ${topic.evidenceTier || '未指定'}
+Limitations: ${topic.limitations || '未指定'}
 (Target topic / blog summary goes here)

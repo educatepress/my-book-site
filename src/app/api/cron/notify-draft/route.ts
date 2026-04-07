@@ -6,10 +6,10 @@
 // =============================================================
 
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { getQueueItems } from '@/lib/sheets';
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL!;
+
 // Vercel KVを使う場合はここにKVクライアントを追加
 // import { kv } from '@vercel/kv';
 
@@ -19,24 +19,35 @@ export async function GET(request: Request) {
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
-  // approved-queue.json からペンディング中の原稿を取得
-  // 本番ではVercel KVを使うが、まずファイルベースで実装
-  const queuePath = path.join(process.cwd(), 'content-approval-queue.json');
-  if (!fs.existsSync(queuePath)) {
-    return NextResponse.json({ status: 'no_queue', message: 'キューファイルが存在しません' });
-  }
-
-  const queue = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
-  const pending = queue.filter((item: any) => item.status === 'pending');
+  const allQueue = await getQueueItems();
+  const pending = allQueue.filter((item: any) => item.status === 'pending' && (item.type === 'blog' || item.type === 'x'));
 
   if (pending.length === 0) {
-    return NextResponse.json({ status: 'no_pending', message: '承認待ちの原稿はありません' });
+    return NextResponse.json({ status: 'no_pending', message: '承認待ちの原稿（ブログ・X）はありません' });
   }
 
   // 最も古い承認待ち原稿を選択
-  const item = pending[0];
+  const item = pending[pending.length - 1]; // or [0] depending on sort, but since append adds to bottom, let's just pick [0]
+  
+  // Parse the generation_recipe to reconstruct the payload `send-slack-approval` expects
+  let recipe: any = {};
+  try {
+    recipe = JSON.parse(item.generation_recipe || '{}');
+  } catch (e) {}
 
-  const blocks = buildSlackBlocks(item);
+  const parsedItem = {
+    id: item.content_id,
+    type: item.type,
+    theme: item.title,
+    createdAt: new Date().toISOString(), // Since queue doesn't store created_at easily, use now
+    jpTitle: recipe.slug || item.title,
+    jpExcerpt: (recipe.jpBlog || '').substring(0, 300) + '...',
+    enTitleJa: '（自動英訳）',
+    jpPost: recipe.xPost || '',
+    enPostJa: '（自動英訳ポスト）'
+  };
+
+  const blocks = buildSlackBlocks(parsedItem);
 
   if (SLACK_WEBHOOK_URL) {
     await fetch(SLACK_WEBHOOK_URL, {
@@ -126,7 +137,7 @@ function buildSlackBlocks(item: any): any[] {
     type: 'section',
     text: {
       type: 'mrkdwn',
-      text: `✅ 承認する場合は以下のリンクから：\nhttps://ttcguide.co/api/approve?id=${item.id}&token=${item.approvalToken}\n\n❌ 却下する場合：\nhttps://ttcguide.co/api/approve?id=${item.id}&token=${item.approvalToken}&action=reject`,
+      text: `✅ 承認する場合は以下のリンクから：\nhttps://ttcguide.co/api/approve?id=${item.id}&token=SKIP_SHEETS\n\n❌ 却下する場合：\nhttps://ttcguide.co/api/approve?id=${item.id}&token=SKIP_SHEETS&action=reject`,
     },
   });
   blocks.push({

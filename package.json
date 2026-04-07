@@ -13,7 +13,7 @@
     "generate-auto": "tsx scripts/content-gen/auto-generate.ts",
     "post-twitter": "ts-node scripts/content-gen/post-to-twitter.ts",
     "reel:inject": "npx tsx scripts/content-gen/inject-reel-to-blog.ts",
-    "blog:gen": "npx tsx scripts/content-gen/write-blog-from-queue.ts",
+    "blog:gen": "npx tsx scripts/content-gen/generate-daily-blog.ts",
     "x:gen": "npx tsx scripts/content-gen/write-x-from-queue.ts",
     "infographic:gen": "npx ts-node --project tsconfig.scripts.json scripts/generate-infographic.ts"
   },

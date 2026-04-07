@@ -166,18 +166,26 @@ async function sendSlackNotification(item: any) {
     });
   }
 
-  // 承認ボタン（URLリンク形式）
+  // 承認ボタン（Interactive Block Kit）
   blocks.push({ type: 'divider' });
   blocks.push({
-    type: 'section',
-    text: {
-      type: 'mrkdwn',
-      text: `*承認する場合:* <${approveUrl}|✅ タップして承認>\n*却下する場合:* <${rejectUrl}|❌ タップして却下>`,
-    },
-  });
-  blocks.push({
-    type: 'context',
-    elements: [{ type: 'mrkdwn', text: `承認リンクをタップするとスマホのブラウザで完了します 📱` }],
+    type: 'actions',
+    elements: [
+      {
+        type: 'button',
+        text: { type: 'plain_text', text: '✅ この案で承認', emoji: true },
+        style: 'primary',
+        action_id: 'approve_content',
+        value: JSON.stringify({ id: item.id, p: 'webpage.new' })
+      },
+      {
+        type: 'button',
+        text: { type: 'plain_text', text: '❌ 却下 / リライト指示', emoji: true },
+        style: 'danger',
+        action_id: 'reject_content',
+        value: JSON.stringify({ id: item.id, p: 'webpage.new' })
+      }
+    ]
   });
 
   await fetch(SLACK_WEBHOOK_URL, {

@@ -91,12 +91,13 @@ export type QueueItem = {
   cloudinary_deleted: string;
   slack_ts: string;
   error_detail: string;
+  ymyl_evidence: string;
 };
 
 const HEADERS = [
   'content_id', 'brand', 'type', 'title', 'cloudinary_url', 'cloudinary_public_id', 'gdrive_url', 
   'generation_recipe', 'status', 'patrol_pre_result', 'scheduled_date', 'post_url', 
-  'posted_at', 'patrol_post_result', 'cloudinary_deleted', 'slack_ts', 'error_detail'
+  'posted_at', 'patrol_post_result', 'cloudinary_deleted', 'slack_ts', 'error_detail', 'ymyl_evidence'
 ];
 
 /**
@@ -110,7 +111,7 @@ export async function addQueueItem(item: Partial<QueueItem>) {
 
   await sheets.spreadsheets.values.append({
     spreadsheetId: QUEUE_SPREADSHEET_ID,
-    range: 'A:Q', 
+    range: 'A:R', // Expanded range to include R for ymyl_evidence
     valueInputOption: 'USER_ENTERED',
     requestBody: {
       values: [rowData]
@@ -127,7 +128,7 @@ export async function getQueueItems(): Promise<(QueueItem & { rowNumber: number 
 
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: QUEUE_SPREADSHEET_ID,
-    range: 'A:Q',
+    range: 'A:R',
   });
 
   const rows = response.data.values;
@@ -160,19 +161,17 @@ export async function updateQueueItem(rowNumber: number, updates: Partial<QueueI
     const colIndex = HEADERS.indexOf(key);
     if (colIndex === -1) continue;
 
-    const columnLetter = String.fromCharCode(65 + colIndex); // A, B, C...
-    const range = `${columnLetter}${rowNumber}`;
-
+    const colLetter = String.fromCharCode(65 + colIndex);
     await sheets.spreadsheets.values.update({
       spreadsheetId: QUEUE_SPREADSHEET_ID,
-      range,
+      range: `${colLetter}${rowNumber}`,
       valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [[value]]
-      }
+      requestBody: { values: [[value]] }
     });
   }
 }
+
+
 
 // ============================================================================
 // Topics (ネタ帳) Management Functions
@@ -262,10 +261,15 @@ export type ThemeScheduleItem = {
   themeArea: string;
   theme: string;
   searchKeywords: string;
+  referenceUrl: string;
+  status: string;
+  evidenceTier: string;
+  limitations: string;
+  rowNumber: number;
 };
 
 const THEME_SCHEDULE_SHEET_NAME = 'ThemeSchedule';
-const THEME_SCHEDULE_HEADERS = ['date', 'brand', 'themeArea', 'theme', 'searchKeywords'];
+const THEME_SCHEDULE_HEADERS = ['date', 'brand', 'themeArea', 'theme', 'searchKeywords', 'referenceUrl', 'status', 'evidenceTier', 'limitations'];
 
 /**
  * ThemeScheduleから指定した日付とブランドに合致するテーマを取得する
@@ -277,7 +281,7 @@ export async function getThemeSchedule(dateStr: string, brandFilter: string): Pr
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: QUEUE_SPREADSHEET_ID,
-      range: `${THEME_SCHEDULE_SHEET_NAME}!A:E`,
+      range: `${THEME_SCHEDULE_SHEET_NAME}!A:I`,
     });
 
     const rows = response.data.values;
@@ -290,7 +294,7 @@ export async function getThemeSchedule(dateStr: string, brandFilter: string): Pr
         const brandVal = row[1] || '';
         
         if (dateVal === dateStr && brandVal === brandFilter) {
-            const item: any = {};
+            const item: any = { rowNumber: i + 1 };
             THEME_SCHEDULE_HEADERS.forEach((header, index) => {
                 item[header] = row[index] || '';
             });
@@ -303,4 +307,16 @@ export async function getThemeSchedule(dateStr: string, brandFilter: string): Pr
     console.error(`Failed to fetch ThemeSchedule:`, error);
     return null;
   }
+}
+
+export async function updateThemeScheduleStatus(rowNumber: number, newStatus: string): Promise<void> {
+  const auth = await getGoogleAuthClient();
+  const sheets = google.sheets({ version: 'v4', auth: auth as any });
+
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: QUEUE_SPREADSHEET_ID,
+    range: `ThemeSchedule!G${rowNumber}`,
+    valueInputOption: 'USER_ENTERED',
+    requestBody: { values: [[newStatus]] }
+  });
 }

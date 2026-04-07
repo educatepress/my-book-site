@@ -6,11 +6,8 @@
 // =============================================================
 
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { updateQueueItem, getQueueItems } from '@/lib/sheets';
 
-const QUEUE_PATH = path.join(process.cwd(), 'content-approval-queue.json');
-const APPROVED_REELS_PATH = path.join(process.cwd(), 'approved-reels-queue.json');
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL!;
 
 export async function GET(request: Request) {
@@ -23,18 +20,12 @@ export async function GET(request: Request) {
     return new NextResponse('Missing id or token', { status: 400 });
   }
 
-  if (!fs.existsSync(QUEUE_PATH)) {
-    return new NextResponse('Queue not found', { status: 404 });
+  const queue = await getQueueItems();
+  const item = queue.find((item: any) => item.content_id === id);
+
+  if (!item) {
+    return new NextResponse('Item not found', { status: 404 });
   }
-
-  const queue: any[] = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8'));
-  const itemIndex = queue.findIndex((item) => item.id === id && item.approvalToken === token);
-
-  if (itemIndex === -1) {
-    return new NextResponse('Item not found or invalid token', { status: 404 });
-  }
-
-  const item = queue[itemIndex];
 
   if (item.status !== 'pending') {
     return new NextResponse(
@@ -44,48 +35,28 @@ export async function GET(request: Request) {
   }
 
   if (action === 'reject') {
-    queue[itemIndex].status = 'rejected';
-    queue[itemIndex].rejectedAt = new Date().toISOString();
-    fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2));
+    await updateQueueItem(item.rowNumber, { status: 'rejected', scheduled_date: '' });
 
     // Slack通知（却下）
-    await notifySlack(`❌ 原稿が却下されました\n*テーマ:* ${item.theme}\n*ID:* ${id}`);
+    await notifySlack(`❌ 原稿が却下されました\n*テーマ:* ${item.title}\n*ID:* ${id}`);
 
     return new NextResponse(
-      buildResultHTML('❌ 却下しました', item.theme, false),
+      buildResultHTML('❌ 却下しました', item.title, false),
       { status: 200, headers: { 'Content-Type': 'text/html' } }
     );
   }
 
   // ── 承認処理 ──────────────────────────────────────────────
-  queue[itemIndex].status = 'approved';
-  queue[itemIndex].approvedAt = new Date().toISOString();
-  fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2));
+  await updateQueueItem(item.rowNumber, { status: 'approved' });
 
-  // リール/カルーセルの場合は Make 用の承認済みリストにも追加
-  if (item.type === 'reel' || item.type === 'carousel') {
-    let approvedReels: any[] = [];
-    if (fs.existsSync(APPROVED_REELS_PATH)) {
-      approvedReels = JSON.parse(fs.readFileSync(APPROVED_REELS_PATH, 'utf8'));
-    }
-    approvedReels.push({
-      id: item.id,
-      type: item.type,
-      title: item.title,
-      summaryJa: item.summaryJa,
-      filePath: item.filePath,
-      captionPath: item.captionPath,
-      approvedAt: new Date().toISOString(),
-      posted: false,  // Makeがこれをtrueにする
-    });
-    fs.writeFileSync(APPROVED_REELS_PATH, JSON.stringify(approvedReels, null, 2));
-  }
+  // リール/カルーセルの場合は Make 用のリストが必要なら別途実装可能ですが、
+  // Google Sheets を Make側でポーリングするように移行している場合は不要です。
 
   // Slack通知（承認完了）
-  await notifySlack(`✅ 承認されました！投稿予約に追加しました\n*テーマ:* ${item.theme}\n*種別:* ${item.type}\n*ID:* ${id}`);
+  await notifySlack(`✅ 承認されました！明朝の予約投稿に追加しました\n*テーマ:* ${item.title}\n*種別:* ${item.type}\n*ID:* ${id}`);
 
   return new NextResponse(
-    buildResultHTML('✅ 承認完了！', item.theme, true),
+    buildResultHTML('✅ 承認完了！', item.title, true),
     { status: 200, headers: { 'Content-Type': 'text/html' } }
   );
 }

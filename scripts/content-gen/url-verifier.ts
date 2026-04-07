@@ -11,10 +11,11 @@ export async function verifyUrl(url: string): Promise<boolean> {
             redirect: 'follow',
             signal: AbortSignal.timeout(8000),
             headers: {
-                'User-Agent': 'Mozilla/5.0 (compatible; ContentBot/1.0)'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
             }
         });
-        return res.ok;
+        // 403/401 indicates the page exists but blocked the bot. This is valid for anti-hallucination.
+        return res.ok || res.status === 403 || res.status === 401;
     } catch {
         // Some sites block HEAD. Try GET as fallback.
         try {
@@ -23,10 +24,10 @@ export async function verifyUrl(url: string): Promise<boolean> {
                 redirect: 'follow',
                 signal: AbortSignal.timeout(8000),
                 headers: {
-                    'User-Agent': 'Mozilla/5.0 (compatible; ContentBot/1.0)'
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
                 }
             });
-            return res.ok;
+            return res.ok || res.status === 403 || res.status === 401;
         } catch {
             return false;
         }

@@ -1,10 +1,8 @@
 import 'dotenv/config';
 import { GoogleGenAI, Type } from '@google/genai';
-import fs from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
-import { getThemeSchedule } from '../../src/lib/sheets';
-import { enqueueBlog, enqueueXPost } from '../patrol/draft-to-queue';
+import { getThemeSchedule, addQueueItem, updateThemeScheduleStatus } from '../../src/lib/sheets';
 
 if (!process.env.GEMINI_API_KEY) {
     console.error("❌ Error: GEMINI_API_KEY is missing in .env");
@@ -75,15 +73,25 @@ async function main() {
 【提供された発信テーマ情報】
 - 日本語テーマ: ${item.theme}
 - SEOキーワード: ${item.searchKeywords}
+- 参考URL/PMID: ${item.referenceUrl}
+- 情報のTier: ${item.evidenceTier || '不明（必要に応じて推測してください）'}
+- 情報の限界(Limitations): ${item.limitations || '特になし'}
 
 【ターゲット読者層】
 将来の妊娠・出産、キャリアプランなどに漠然とした不安を抱える20代〜30代の女性（およびそのパートナー）。
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-【医療コンテンツ品質ガイドライン（厳守）】
+【医療的正確性・エビデンス・配慮に関する厳格なルール】
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-1. 日本産科婦人科学会など、エビデンスレベルの高い情報源に基づき執筆すること。クリニック等の低いエビデンス源からの引用はしない。
-2. 煽り表現・恐怖喚起表現は使用禁止。「知っておくと選択肢が増える事実」としてエンパワーメントなトーンで。
+1. 【階層別エビデンスの明示（必須）】
+   情報のTierが「マウス/細胞実験の段階（ティアC相当）」などヒトでのエビデンスが未確立である場合、必ずリード文の直後（冒頭）に太字で「**この記事で紹介する内容は、細胞・動物実験の段階であり、ヒトでの有効性が確立されたものではありません**」という旨の免責文を挿入すること。これを怠ることは重大な規約違反である。
+2. 【参考文献の厳格化】
+   記事の最後に出力する参考文献は、提供された主論文（PMIDやURL）のみを記載すること。「日本産科婦人科学会 (JSOG) ガイドライン」や「WHO」など、記事内容と直接関係のない権威ある組織名を安易に列挙する（偽りの権威付け）ことは絶対に禁止。
+3. 【食事・サプリメント推奨の禁止（トーンダウン）】
+   「〜を食べて妊活をサポートしましょう」等、食品やサプリが直接生殖能力を向上させるような論理的飛躍と断定は避けること。「一般的な健康維持に役立つ食品ですが、生殖機能への直接的効果は今後の研究課題です」という慎重なスタンスを維持すること。
+4. 【中立性の徹底】
+   過度な期待を抱かせる「新作用」「確実に改善する」「保証する」等の煽り表現や断定表現は絶対に禁止。
+5. 【トリガーワーニング】妊娠成功の事例が含まれる場合は、必ずトリガーワーニング（TW: Pregnancy等）を明記すること。
 
 記事の投稿日（フロントマター用）: ${postDateStr}
 
@@ -110,12 +118,19 @@ async function main() {
      [Dr. Sato's Guide to Women's Health (Amazon US)](https://amzn.to/47BuEbQ)
 
 3. "noteBlog": Note.com用の日本語ブログ原稿（Markdown不要プレーンテキスト寄りのフォーマット）。
-   - MDX用のフロントマターは不要です。一番上に大タイトルを配置し、すぐ本文を始めてください。
-   - URLリンクはMarkdown (\`[テキスト](URL)\`) ではなく、地の文でURLを直接記載するか、テキストの後にURLをそのまま挿入するスタイルにしてください。
-   - 記事の最後（CTA）には必ず **公式ブログ「ttcguide.co」へのリンク** を以下のように挿入すること。
-     📖 効率的な妊活・不妊症予防・ライフプランについてより深く知りたい方は、
-     以下の公式ブログのより詳しい最新記事一覧もぜひご覧ください。
-     https://ttcguide.co
+
+   【構成ルール】
+   - MDX用のフロントマター不要。
+   - タイトルに「新常識」「革命」等の煽り言葉は使わず、誠実な内容にする。
+   - 基礎研究（ティアC）の場合は「まだ研究段階であること」をリード文で必ず伝える。
+   - 参考文献は、その記事で扱った特定の論文のみを記載し、学会ガイドライン等の無関係な権威付けを避ける。
+   - URLリンクは地の文でURLを直接記載。
+
+   【CTA（必須）】
+   記事の最後に以下を必ず挿入すること。
+   📖 効率的な妊活・不妊症予防・ライフプランについてより深く知りたい方は、
+   以下の公式ブログのより詳しい最新記事一覧もぜひご覧ください。
+   https://ttcguide.co
 
 4. "xPost": Blog投稿に紐づくX用の告知テキスト（100〜120文字程度）。記事内容から有益なファクトを1つ抽出。
 
@@ -166,54 +181,49 @@ Expected JSON Schema:
         let result = JSON.parse(resultText);
 
         const safeXPost = result.xPost ? result.xPost : "";
-
-        // URL Verification could be added here if needed
-
-        // Save JP Blog MDX
-        const jpBlogDir = path.join(process.cwd(), 'src/content/blog/jp');
-        await fs.mkdir(jpBlogDir, { recursive: true });
-        const jpBlogPath = path.join(jpBlogDir, `${result.slug}.mdx`);
         const jpSanitized = sanitizeFrontmatter(result.jpBlog);
         const finalJpBlog = injectXPostFrontmatter(jpSanitized, safeXPost);
-        await fs.writeFile(jpBlogPath, finalJpBlog);
-        console.log(`✅ Saved JP Blog -> ${jpBlogPath}`);
-
-        // Save EN Blog MDX
-        const enBlogDir = path.join(process.cwd(), 'src/content/blog/en');
-        await fs.mkdir(enBlogDir, { recursive: true });
-        const enBlogPath = path.join(enBlogDir, `${result.slug}-en.mdx`);
+        
         const enSanitized = sanitizeFrontmatter(result.enBlog);
         const finalEnBlog = injectXPostFrontmatter(enSanitized, safeXPost);
-        await fs.writeFile(enBlogPath, finalEnBlog);
-        console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
 
-        // Save Note Article as .txt to ~/Desktop/note/
-        // Expanding homedir manually
-        const userHome = process.env.HOME || '/Users/satoutakuma';
-        const noteDir = path.join(userHome, 'Desktop', 'note');
-        await fs.mkdir(noteDir, { recursive: true });
-        const notePath = path.join(noteDir, `${result.slug}.txt`);
-        await fs.writeFile(notePath, result.noteBlog);
-        console.log(`✅ Saved Note Article -> ${notePath}`);
+        const nowStr = new Date().toISOString();
+        const ts = nowStr.replace(/\D/g, '').substring(0, 14);
+        const brandPrefix = brand ? `${brand}-` : 'book-';
+        const evidenceStr = `Tier: ${item.evidenceTier || 'Unknown'} | Limitations: ${item.limitations || 'None'} | Source: ${item.referenceUrl}`;
 
-        console.log(`📝 Generated xPost Tip: ${safeXPost}`);
-
-        // Slack承認キューに追加
-        const jpTitleMatch = finalJpBlog.match(/^title:\s*["']?(.+?)["']?$/m);
-        const enTitleMatch = finalEnBlog.match(/^title:\s*["']?(.+?)["']?$/m);
-        const jpTitle = jpTitleMatch?.[1] || item.theme;
-        const enTitle = enTitleMatch?.[1] || item.theme;
-        await enqueueBlog({
-            theme: item.theme,
-            slug: result.slug,
-            jpTitle,
-            jpExcerpt: (result.jpBlog || '').slice(0, 200),
-            enTitle,
-            enTitleJa: `（英語版）${enTitle}`,
-            postDate: postDateStr,
+        // 1. キューにブログ原案を登録
+        await addQueueItem({
+            content_id: `${brandPrefix}blog-${ts}`,
+            brand: brand,
+            type: 'blog',
+            title: result.slug,
+            generation_recipe: JSON.stringify({ slug: result.slug, jpBlog: finalJpBlog, enBlog: finalEnBlog, noteBlog: result.noteBlog }),
+            status: 'pending',
+            patrol_pre_result: 'pending',
+            scheduled_date: postDateStr,
+            ymyl_evidence: evidenceStr
         });
+        console.log(`✅ Queued Blog -> ${result.slug}`);
 
-        console.log("🎉 ThemeSchedule Blog Generation complete!");
+        // 2. キューにX投稿原案を登録
+        await addQueueItem({
+            content_id: `${brandPrefix}x-${ts}`,
+            brand: brand,
+            type: 'x',
+            title: `X Post for ${result.slug}`,
+            generation_recipe: JSON.stringify({ slug: result.slug, xPost: safeXPost }),
+            status: 'pending',
+            patrol_pre_result: 'pending',
+            scheduled_date: postDateStr,
+            ymyl_evidence: evidenceStr
+        });
+        console.log(`✅ Queued X Post -> ${safeXPost.substring(0, 30)}...`);
+
+        // 3. ThemeScheduleのステータスを更新
+        await updateThemeScheduleStatus(item.rowNumber, 'generated');
+        
+        console.log("🎉 ThemeSchedule Blog Generation complete and queued successfully!");
 
     } catch (err: any) {
         console.error("❌ Error generating content from ThemeSchedule:");
