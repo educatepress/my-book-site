@@ -1,0 +1,69 @@
+════════════════════════════════════════
+📝 Daily Blog Publish — 2026-04-07 09:00:05
+════════════════════════════════════════
+
+🚀 Step 1: Generating blog from Queue...
+🚀 Starting Automatic Blog Generation from Queue...
+
+📋 Processing Item [blog-85646b23]: 精子の質を落とす「見えない敵」：マイクロプラスチックと最新の男性不妊研究
+🔗 Primary Source URLs:
+https://pubmed.ncbi.nlm.nih.gov/41724789/2.
+https://pmc.ncbi.nlm.nih.gov/articles/PMC12929567/
+📅 Target Post Date calculated as: 2026-04-28
+
+🔍 Verifying URLs in generated blog content...
+
+  [Checking JP Blog]
+  ❌ Source URL broken (removing): https://amzn.to/3NcOWBl
+  ⚠️ JP Blog URL issue: ❌ All provided source URLs were invalid or broken. Suspected hallucination.
+
+  [Checking EN Blog]
+  ⚠️ EN Blog URL issue: ❌ No source URL found in the generated text. Suspected hallucination.
+✅ Saved JP Blog -> /Users/satoutakuma/Desktop/webpage.new/src/content/blog/jp/microplastics-male-fertility.mdx
+✅ Saved EN Blog -> /Users/satoutakuma/Desktop/webpage.new/src/content/blog/en/microplastics-male-fertility-en.mdx
+📝 Generated xPost Tip: 最新研究が示す「見えない敵」マイクロプラスチックが、男性の精子の質に影響を与える可能性。
+酸化ストレスによる精子DNA損傷リスクと、日常生活でできる対策を専門医が解説。
+#男性不妊 #マイクロプラスチック
+⚠️ SLACK_WEBHOOK_URL が未設定のため通知を省略
+📬 ブログ原稿をキューに追加: blog-microplastics-male-fertility-1775520064615
+📬 Slack承認通知を送りました！
+✅ Queue item [blog-85646b23] marked as generated.
+🎉 Queue Blog Generation complete!
+✅ Blog generation succeeded.
+
+📦 Step 2: Checking for new/modified files...
+  → 8 files changed.
+
+🚢 Step 3: Committing and pushing to GitHub...
+[main afe8f1a] feat(content): auto-publish daily blog — 2026-04-07
+ Committer: 佐藤琢磨 <satoutakuma@satoutakumanoMacBook-Air.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 14 files changed, 395 insertions(+), 1 deletion(-)
+ create mode 100644 scripts/content-gen/out-daily-x/debug-blog-1775193320189.txt
+ create mode 100644 scripts/content-gen/out-daily-x/debug-blog-1775193399916.txt
+ create mode 100644 scripts/content-gen/out-daily-x/debug-blog-1775193577288.txt
+ create mode 100644 scripts/content-gen/out-daily-x/debug-blog-1775260850622.txt
+ create mode 100644 scripts/content-gen/out-daily-x/debug-blog-1775347230046.txt
+ create mode 100644 scripts/content-gen/out-daily-x/debug-blog-1775520064046.txt
+ create mode 100644 src/content/blog/en/microplastics-and-male-fertility-en.mdx
+ create mode 100644 src/content/blog/en/microplastics-male-fertility-en.mdx
+ create mode 100644 src/content/blog/en/microplastics-male-fertility-sperm-quality-en.mdx.backup
+ create mode 100644 src/content/blog/jp/microplastics-and-male-fertility.mdx
+ create mode 100644 src/content/blog/jp/microplastics-male-fertility-sperm-quality.mdx.backup
+ create mode 100644 src/content/blog/jp/microplastics-male-fertility.mdx
+To https://github.com/educatepress/my-book-site.git
+   0c91fec..afe8f1a  main -> main
+
+✅ Pushed to GitHub! Vercel auto-deploy triggered.
+完了: 09:01:07

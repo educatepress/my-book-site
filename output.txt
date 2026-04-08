@@ -1,0 +1,11 @@
+=== Resetting ThemeSchedule status to pending ===
+Status reset to pending for row 3
+=== Running Auto Generator ===
+🤖 Auto Generator Cron Job Started.
+📝 Found topic to generate: [①最新成分＆サプリメント] 妊娠しやすい体を作る「腸活」の最新科学。酪酸菌とプロバイオテ...
+🤖 Firing Parallel Gemini API tasks for generation...
+✅ Parallel generation completed and queued successfully: gut-microbiome-fertility-latest-science
+{"success":true,"message":"Generated and queued content for slug: gut-microbiome-fertility-latest-science","slug":"gut-microbiome-fertility-latest-science"}
+
+=== Running Notify Draft ===
+{"status":"notified","item":{"rowNumber":46,"content_id":"book-x-20260407062220","brand":"book","type":"x","title":"X Post for gut-microbiome-fertility-latest-science","cloudinary_url":"","cloudinary_public_id":"","gdrive_url":"","generation_recipe":"{\"slug\":\"gut-microbiome-fertility-latest-science\",\"xPost\":\"Navigating the TTC journey can bring up many questions, and your feelings are valid. Recent science is exploring the fascinating link between your gut microbiome, egg quality, and implantation. Studies suggest potential roles for butyrate and probiotics, but human research is still emerging. Stay informed, not overwhelmed! New blog post explains the latest.\\n\\n#TTCcommunity #FertilityJourney #GutHealth #Probiotics #EggQuality #IVF #InfertilitySupport\\n\\nSending baby dust! ✨🍍\"}","status":"pending","patrol_pre_result":"pending","scheduled_date":"2026-04-10","post_url":"","posted_at":"","patrol_post_result":"","cloudinary_deleted":"","slack_ts":"","error_detail":"","ymyl_evidence":"Tier: Tier B | Limitations: ヒトでの大規模介入研究はまだ発展途上である点、最適なプロバイオティクスの種類や用量が未確立な点 | Source: "}}

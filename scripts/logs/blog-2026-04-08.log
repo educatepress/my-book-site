@@ -1,0 +1,27 @@
+════════════════════════════════════════
+📝 Daily Blog Publish — 2026-04-08 09:00:05
+════════════════════════════════════════
+
+🚀 Step 1: Generating blog from Queue...
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/satoutakuma/Desktop/webpage.new/scripts/content-gen/write-blog-from-queue.ts' imported from /Users/satoutakuma/Desktop/webpage.new/
+    at finalizeResolution (node:internal/modules/esm/resolve:275:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:991:11)
+    at nextResolve (node:internal/modules/esm/hooks:785:28)
+    at resolveBase (file:///Users/satoutakuma/Desktop/webpage.new/node_modules/tsx/dist/esm/index.mjs?1775606407202:2:3744)
+    at async resolveDirectory (file:///Users/satoutakuma/Desktop/webpage.new/node_modules/tsx/dist/esm/index.mjs?1775606407202:2:4237)
+    at async resolve (file:///Users/satoutakuma/Desktop/webpage.new/node_modules/tsx/dist/esm/index.mjs?1775606407202:2:5355)
+    at async nextResolve (node:internal/modules/esm/hooks:785:22)
+    at async AsyncLoaderHooksOnLoaderHookWorker.resolve (node:internal/modules/esm/hooks:269:24)
+    at async handleMessage (node:internal/modules/esm/worker:251:18) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/satoutakuma/Desktop/webpage.new/scripts/content-gen/write-blog-from-queue.ts'
+}
+
+Node.js v24.14.0
+⚠️ Blog generation failed or Queue is empty. Skipping git push.
+完了: 09:00:07

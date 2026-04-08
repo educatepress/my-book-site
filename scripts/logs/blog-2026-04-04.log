@@ -1,0 +1,19 @@
+════════════════════════════════════════
+📝 Daily Blog Publish — 2026-04-04 09:00:05
+════════════════════════════════════════
+
+🚀 Step 1: Generating blog from Queue...
+🚀 Starting Automatic Blog Generation from Queue...
+
+📋 Processing Item [blog-85646b23]: 精子の質を落とす「見えない敵」：マイクロプラスチックと最新の男性不妊研究
+🔗 Primary Source URLs:
+https://pubmed.ncbi.nlm.nih.gov/41724789/2.
+https://pmc.ncbi.nlm.nih.gov/articles/PMC12929567/
+📅 Target Post Date calculated as: 2026-04-28
+⚠️ JSON直接パース失敗 — 修復を試行中...
+❌ JSON修復失敗。Raw response saved to: /Users/satoutakuma/Desktop/webpage.new/scripts/content-gen/out-daily-x/debug-blog-1775260850622.txt
+❌ Error generating content from queue:
+Error: jpBlog field extraction failed
+    at main (/Users/satoutakuma/Desktop/webpage.new/scripts/content-gen/write-blog-from-queue.ts:327:43)
+⚠️ Blog generation failed or Queue is empty. Skipping git push.
+完了: 09:00:50
