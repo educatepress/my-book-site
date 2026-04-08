@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { getThemeSchedule, updateThemeScheduleStatus, addQueueItem, getReelsFactoryEnv } from '@/lib/sheets';
 import { GoogleGenAI } from '@google/genai';
 
+export const maxDuration = 300;
+
 /**
  * 毎日未明（04:00 JST）に起動する自動原案作成エンドポイント
  * Architecture v4.0: ThemeSchedule連携 日次自動コンテンツジェネレーター

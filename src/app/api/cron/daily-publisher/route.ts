@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { getQueueItems, updateQueueItem, QueueItem, getReelsFactoryEnv } from '@/lib/sheets';
 import { TwitterApi } from 'twitter-api-v2';
 
+export const maxDuration = 300;
+
 /**
  * GitHub APIを用いて指定リポジトリのパスにファイルをコミット（作成・更新）する
  */

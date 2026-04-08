@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { getQueueItems, updateQueueItem, getReelsFactoryEnv } from '@/lib/sheets';
 import Anthropic from '@anthropic-ai/sdk';
 
+export const maxDuration = 300;
+
 export async function GET(req: Request) {
   const reelsEnv = getReelsFactoryEnv();
   const authHeader = req.headers.get('authorization');
