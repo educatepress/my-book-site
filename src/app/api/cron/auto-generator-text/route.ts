@@ -94,16 +94,21 @@ ${pendingTopic.searchKeywords}
 
 以下の3つのアセットをJSON形式で出力してください。
 
-1. "jpBlog": 完全な日本語版のMDXブログ記事（2000文字程度）。
-   - Markdownのフロントマター（title, date, excerpt, author）から始める。（titleはシングルクォートで囲むこと。例: title: '...'）
-   - "date" の値には必ず「${postDateStr}」を指定。
-   - 【SEO】: LPトップ（ \`/\` ）へのテキストリンクを文脈に合わせて2箇所以上挿入。
-   - 【CTA】: 記事の最後には必ず書籍へのリンク（ https://amzn.to/3NcOWBl ）を挿入すること。ただし、「妊活全般についてさらに深く学びたい場合」という一般的な文脈でのみ紹介し、今回のブログテーマ（特定のサプリや治療法等）が書籍に書いてあるかのような誤解を与える宣伝文句は絶対に禁止。
+1. "jpBlog": 完全な日本語版のMDXブログ記事（2500文字程度）。
+   【ブログ記事の厳格な構成ルール】必ず以下の順番と構成を守って出力してください。
+   ① フロントマター: (title, date, excerpt, author)から始める。"date"には「${postDateStr}」を指定。
+   ② リード文: 導入と、Tierによる免責事項（必要な場合）
+   ③ 本文: ## や ### を使った見出しと内容。【SEO】トップ（ \`/\` ）へのテキストリンクを2箇所以上挿入。
+   ④ よくある質問 (FAQ): \`## よくある質問 (FAQ)\` を作成し、SEO/AEOに有利な対象読者の疑問と回答を3つ配置。
+   ⑤ まとめ: \`## まとめ\` の見出しで記事を締めくくる。
+   ⑥ 参考文献: \`### 参考文献\` の見出しを作成し、提供された参考URL/PMIDのみを箇条書きで記載。
+   ⑦ CTA: 最後に必ず書籍へのリンク（ https://amzn.to/3NcOWBl ）を挿入。「妊活全般についてさらに深く学びたい場合」という一般的な文脈に限定すること。
    - "slug" キーには、ファイル名として使えるURLフレンドリーな短い英語文字列を指定。
 
 2. "enBlog": 日本語版と同内容の、英語に翻訳・ローカライズされたMDXブログ記事。
+   - 上記 jpBlog で指定した「FAQ」「参考文献」「CTA」の構成をそのまま英語で再現すること。
    - TTCのLingo（2WW, DPO, BFP, AF, Baby dust等）を活用すること。
-   - 最後のCTAには英語版書籍のリンク（ https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0 ）を明記すること。ここでも「To learn more about fertility journey in general...」と汎用的な文脈とし、特定トピックと結びつけないこと。
+   - 最後のCTAには英語版書籍のリンク（ https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0 ）を明記すること。
 
 3. "xPost": X（旧Twitter）向けの英語圏TTCコミュニティ用ポスト。
    - 【役割】不妊治療専門医による妊活ガイドの温かいAIサポーター。
