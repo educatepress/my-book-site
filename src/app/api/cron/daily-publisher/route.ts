@@ -66,9 +66,17 @@ export async function GET(req: Request) {
         .filter(item => item.status === 'approved' && (!item.scheduled_date || item.scheduled_date <= today))
         .sort((a, b) => (a.scheduled_date || '').localeCompare(b.scheduled_date || ''));
 
-    // 設計要件「1日1投稿」を満たすため、最古の1件のみ（または各プラットフォーム最古1件）を取得
-    // Architecture v3.0: "LIMIT 1とすることで自動担保"
-    const targetItems = eligibleItems.length > 0 ? [eligibleItems[0]] : [];
+    // 設計要件「1日につき X(1件) + Blog(1件) + Instagram(リールかカルーセル1件) を並行して一気に同時投稿する」
+    const targetItems: typeof eligibleItems = [];
+    
+    const xItem = eligibleItems.find(item => item.type === 'x');
+    if (xItem) targetItems.push(xItem);
+    
+    const blogItem = eligibleItems.find(item => item.type === 'blog');
+    if (blogItem) targetItems.push(blogItem);
+    
+    const igItem = eligibleItems.find(item => item.type === 'reel' || item.type === 'carousel');
+    if (igItem) targetItems.push(igItem);
 
     if (targetItems.length === 0) {
       console.log('ℹ️ No approved items found to publish for today.');
