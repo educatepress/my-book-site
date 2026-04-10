@@ -58,7 +58,8 @@ export async function GET(req: Request) {
 
   try {
     const allItems = await getQueueItems();
-    const today = new Date().toISOString().split('T')[0];
+    const dt = new Date(new Date().getTime() + 9 * 3600 * 1000);
+    const today = dt.toISOString().split('T')[0];
 
     // 対象のアイテム： status = 'approved' & scheduled_date === today 
     // 古い「エラーで詰まっていた未処理データ」を無視して「今日のテーマ」だけを狙い撃ちする
