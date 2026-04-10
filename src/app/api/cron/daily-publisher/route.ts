@@ -60,11 +60,10 @@ export async function GET(req: Request) {
     const allItems = await getQueueItems();
     const today = new Date().toISOString().split('T')[0];
 
-    // 対象のアイテム： status = 'approved' & scheduled_date <= today (or empty)
-    // 予定日が古いもの順にソート（最古のものを優先）
+    // 対象のアイテム： status = 'approved' & scheduled_date === today 
+    // 古い「エラーで詰まっていた未処理データ」を無視して「今日のテーマ」だけを狙い撃ちする
     const eligibleItems = allItems
-        .filter(item => item.status === 'approved' && (!item.scheduled_date || item.scheduled_date <= today))
-        .sort((a, b) => (a.scheduled_date || '').localeCompare(b.scheduled_date || ''));
+        .filter(item => item.status === 'approved' && item.scheduled_date === today);
 
     // 設計要件「1日につき X(1件) + Blog(1件) + Instagram(リールかカルーセル1件) を並行して一気に同時投稿する」
     const targetItems: typeof eligibleItems = [];

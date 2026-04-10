@@ -1,0 +1,1294 @@
+{
+  "lastUpdated": "2026-03-20T22:02:45.110481",
+  "sourceReport": "20260315_monthly_content_research.md",
+  "queue": [
+    {
+      "id": "topic-test-infographic-blog-01",
+      "theme": "卵子の質を向上？CoQ10のデータが示す事実",
+      "themeEn": "CoQ10 May Improve Egg Quality: What the Data Shows",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/30416089/"
+      ],
+      "direction": "CoQ10のサプリメントが卵子の質、特に受精率に与える影響についてデータを用いて解説する。",
+      "directionEn": "Explain the impact of CoQ10 on egg quality and fertilization rates using actual research data.",
+      "type": "blog",
+      "status": "generated"
+    },
+    {
+      "id": "2026-03-01",
+      "theme": "排卵日タイミングの誤解",
+      "themeEn": "Ovulation Timing Myths",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/31341051/"
+      ],
+      "direction": "排卵日当日ではなく2-3日前が最も妊娠率が高い事実を伝える",
+      "directionEn": "Fertile window is 2-3 days BEFORE ovulation, not on ovulation day",
+      "type": "x",
+      "status": "posted"
+    },
+    {
+      "id": "2026-03-02",
+      "theme": "AMHと卵子凍結の現実",
+      "themeEn": "AMH and the Egg Freezing Reality",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/practice-committee-documents/evidence-based-outcomes-after-oocyte-cryopreservation-for-donor-oocyte-in-vitro-fertilization-and-planned-oocyte-cryopreservation-a-guideline-2021/"
+      ],
+      "direction": "凍結＝保険ではない。AMH値と年齢の関係をデータで示す",
+      "directionEn": "Egg freezing is not an insurance policy. Show AMH-age correlation data",
+      "type": "blog",
+      "status": "generated"
+    },
+    {
+      "id": "x-af6f50cf",
+      "theme": "TTC神話：ストレスと不妊",
+      "themeEn": "TTC Myth: Stress & Infertility",
+      "sourceUrls": [
+        "https://www.who.int/news-room/fact-sheets/detail/infertility"
+      ],
+      "direction": "「リラックスすれば妊娠する」という周囲からの心ない言葉による二次的ストレスから患者を解放する。",
+      "directionEn": "Relieve patients from the \"just relax\" pressure by stating stress isn't a direct biological cause of infertility.",
+      "type": "x",
+      "status": "generated"
+    },
+    {
+      "id": "x-2edfd545",
+      "theme": "治療：自然周期FETの優位性",
+      "themeEn": "Natural vs Programmed FET",
+      "sourceUrls": [
+        "https://www.bmj.com/content/392/e087045"
+      ],
+      "direction": "ホルモン剤の副作用に悩む患者へ「自然周期」という選択肢のエビデンスを提示し、主治医への相談を促す。",
+      "directionEn": "Share BMJ 2026 data showing natural FET has fewer maternal complications with equal success rates.",
+      "type": "x",
+      "status": "generated"
+    },
+    {
+      "id": "x-841f2c9b",
+      "theme": "女性の健康：内膜症の「診断遅延10年」",
+      "themeEn": "Endometriosis Diagnostic Delay",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/40999898/"
+      ],
+      "direction": "「生理痛は我慢するもの」という呪縛を破壊。痛みが異常ならすぐ受診するようSOSサインを啓発。",
+      "directionEn": "Validate women's pain; highlight the unacceptable 10-year diagnostic delay to urge early clinic visits.",
+      "type": "x",
+      "status": "generated"
+    },
+    {
+      "id": "x-5d6f83eb",
+      "theme": "女性の健康：ACOG内膜症ガイドライン",
+      "themeEn": "ACOG 2026 Endo Guidelines",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/41712950/"
+      ],
+      "direction": "確定診断（腹腔鏡）の壁を越え、エコーと問診だけで治療を始めて良いという世界的な最新方針を解説。",
+      "directionEn": "Break the news that ACOG now supports initiating endometriosis treatment based on clinical diagnosis.",
+      "type": "x",
+      "status": "posted"
+    },
+    {
+      "id": "x-bba07557",
+      "theme": "男性不妊：マイクロプラスチックの脅威",
+      "themeEn": "Microplastics & Sperm Quality",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/41724789/"
+      ],
+      "direction": "環境因子が精子に与える最新研究を紹介。過度な恐怖を避けつつ、プラ製品削減の具体策を提案する。",
+      "directionEn": "Highlight emerging research on environmental toxins and actionable lifestyle changes for men.",
+      "type": "x",
+      "status": "posted"
+    },
+    {
+      "id": "x-28170831",
+      "theme": "制度：東京都の不妊治療助成(2026)",
+      "themeEn": "Tokyo 2026 Subsidy Expansion",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin"
+      ],
+      "direction": "経済的ハードルが下がることを速報。高額療養費制度と併用することで実質無償化に近づくことを提示。",
+      "directionEn": "Urgently inform Tokyo residents about the new financial safety net starting April 2026.",
+      "type": "x",
+      "status": "posted"
+    },
+    {
+      "id": "x-9f2f004e",
+      "theme": "キャリア：卵子凍結の国の助成",
+      "themeEn": "National Egg Freezing Subsidy",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin"
+      ],
+      "direction": "キャリアと出産の選択肢が広がる制度として紹介。ただし凍結＝妊娠確定ではないという前提も添える。",
+      "directionEn": "Announce the new national subsidy for elective egg freezing while managing realistic expectations.",
+      "type": "x",
+      "status": "posted"
+    },
+    {
+      "id": "x-4fd9de12",
+      "theme": "キャリア：卵子融解の残酷な生存率",
+      "themeEn": "Reality of Egg Thaw Survival",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "「1回採卵すれば安心」という風潮に対し、年齢別の必要卵子数の目安を提示し、現実的な計画を促す。",
+      "directionEn": "Provide realistic attrition rates for egg freezing to combat overly optimistic marketing.",
+      "type": "x",
+      "status": "posted"
+    },
+    {
+      "id": "x-880611c8",
+      "theme": "プレコン：父方からのエピジェネティクス",
+      "themeEn": "Paternal Preconception Epigenetics",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/40913545/"
+      ],
+      "direction": "「妊活＝女性が身体を整えるもの」という常識を破壊。男性のプレコンセプションケアの重要性を説く。",
+      "directionEn": "Stress that a father's diet physically alters sperm DNA, affecting the future child's lifelong health.",
+      "type": "x",
+      "status": "posted"
+    },
+    {
+      "id": "x-ab7a555a",
+      "theme": "プレコン：WHO新ガイドライン",
+      "themeEn": "WHO Global Infertility Guideline",
+      "sourceUrls": [
+        "https://www.who.int/publications/i/item/9789240115774"
+      ],
+      "direction": "不妊が「個人の問題」ではなく「世界的な健康課題」としてWHOに認められた意義を語り、当事者を勇気づける。",
+      "directionEn": "Frame infertility as a recognized global public health issue affecting 1 in 6, removing personal stigma.",
+      "type": "x",
+      "status": "posted"
+    },
+    {
+      "id": "x-47f1d812",
+      "theme": "TTC神話：性交の頻度と精子の質",
+      "themeEn": "TTC Myth: Intercourse Frequency",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "「精子を溜める」という誤解を破壊。排卵期は連日のタイミングでも全く問題ないことを科学的に啓発。",
+      "directionEn": "Debunk \"saving sperm\" myth; daily intercourse during the fertile window is completely fine.",
+      "type": "x",
+      "status": "posted"
+    },
+    {
+      "id": "x-34859c48",
+      "theme": "男性不妊：睡眠と精子DNA断片化",
+      "themeEn": "Sleep & Sperm DNA Fragmentation",
+      "sourceUrls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12787072/"
+      ],
+      "direction": "忙しい男性に向け、高額なサプリメントの前に「まず7時間睡眠」が最強の妊活薬であると啓発。",
+      "directionEn": "Frame adequate sleep as the ultimate, free fertility supplement for hard-working men.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-1dc201d3",
+      "theme": "女性の健康：PCOSの最新診断基準(AMH)",
+      "themeEn": "PCOS & AMH Diagnostic Criteria",
+      "sourceUrls": [
+        "https://academic.oup.com/humrep/article/38/9/1655/7241786"
+      ],
+      "direction": "エコー検査に抵抗がある人でも、血液検査（AMH）でPCOSの診断補助ができるようになった進歩を紹介。",
+      "directionEn": "Explain how high AMH is now an official diagnostic marker for PCOS in adults, replacing ultrasound in some cases.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-268bd330",
+      "theme": "栄養：コエンザイムQ10と精子運動率",
+      "themeEn": "CoQ10 & Male Fertility",
+      "sourceUrls": [
+        "https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2024.1497930/full"
+      ],
+      "direction": "サプリ選びに迷う男性へ、エビデンスレベルが特に高い「CoQ10」をピンポイントで推奨。",
+      "directionEn": "Highlight CoQ10 as an evidence-backed supplement for improving sperm motility and concentration.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-dda7f768",
+      "theme": "産後：骨盤底筋トレーニングの頻度",
+      "themeEn": "Postpartum PFMT Frequency",
+      "sourceUrls": [
+        "https://bjsm.bmj.com/content/59/8/515"
+      ],
+      "direction": "産後の尿もれは「仕方ない」ものではなく、毎日の継続的なケアで高確率で改善できるエビデンスを発信。",
+      "directionEn": "Motivate mothers to perform daily pelvic floor exercises to significantly reduce urinary incontinence.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-7cf90024",
+      "theme": "産後：運動再開の基準（120分/週）",
+      "themeEn": "Postpartum Exercise Guidelines",
+      "sourceUrls": [
+        "https://bjsm.bmj.com/content/59/8/515"
+      ],
+      "direction": "「産後はとにかく安静に」という旧来の常識をアップデート。メンタルケアとしての段階的な運動を推奨。",
+      "directionEn": "Update the \"total rest\" myth; structured exercise effectively reduces postpartum depression.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-72b2b6ce",
+      "theme": "男性不妊：重労働とテストステロン",
+      "themeEn": "Heavy Lifting & Male Fertility",
+      "sourceUrls": [
+        "https://academic.oup.com/humrep/"
+      ],
+      "direction": "デスクワーク中心の男性に向け、日常的な筋トレや運動が精子形成において重要であることをロジカルに解説。",
+      "directionEn": "Encourage desk-bound men to lift weights, citing studies linking physical exertion to higher sperm counts.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-c50b6547",
+      "theme": "栄養：ビタミンDと体外受精（FAST試験）",
+      "themeEn": "Vitamin D & IVF (FAST Trial)",
+      "sourceUrls": [
+        "https://www.bmj.com/content/392/e087438"
+      ],
+      "direction": "「ビタミンDを飲めば必ず妊娠率が上がる」というサプリメント信仰に対し、冷静な最新データを提示。",
+      "directionEn": "Provide a nuanced update: Vitamin D is vital, but recent trials show it's not a magic bullet for IVF success.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-195a34ad",
+      "theme": "栄養：葉酸サプリの継続率と摂取時期",
+      "themeEn": "Folic Acid Adherence Gaps",
+      "sourceUrls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11786555/"
+      ],
+      "direction": "妊娠に気づいてからでは遅い神経管形成の事実を伝え、避妊をやめる前からの葉酸摂取を強く促す。",
+      "directionEn": "Create urgency: Start taking folic acid before stopping birth control to prevent neural tube defects.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-ba0d64eb",
+      "theme": "プレコン：若年がん患者の妊孕性温存",
+      "themeEn": "Fertility Preservation for Cancer",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/ethics-opinions/"
+      ],
+      "direction": "がん治療と宣告された際の「卵子・精子凍結」の権利について。医療者側から提示されない場合の自衛手段。",
+      "directionEn": "Empower cancer patients to proactively ask about fertility preservation before starting chemo/radiation.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-7de98428",
+      "theme": "女性の健康：骨盤底筋の電気刺激療法",
+      "themeEn": "PFMT & Biofeedback Therapy",
+      "sourceUrls": [
+        "https://bmjopen.bmj.com/content/13/4/e069874"
+      ],
+      "direction": "自力でのケーゲル体操で効果が出ない層に向け、医療機関での専門的な物理療法という解決策を提示。",
+      "directionEn": "Inform mothers struggling with Kegels that professional biofeedback therapy yields significantly better results.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-3c786dfe",
+      "theme": "制度：TESE（精子回収術）への助成",
+      "themeEn": "Subsidies for TESE",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin"
+      ],
+      "direction": "男性不妊治療における高額な自己負担が軽減されるニュース。男性へのメンタル・経済的支援として発信。",
+      "directionEn": "Broadcast the financial relief for severe male infertility treatments under new subsidy schemes.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-a2a673dc",
+      "theme": "産後：産後脱毛のタイムライン",
+      "themeEn": "Timeline of Postpartum Hair Loss",
+      "sourceUrls": [
+        "https://www.hopkinsmedicine.org/health/wellness-and-prevention/postpartum-hair-loss"
+      ],
+      "direction": "激しい脱毛にショックを受ける母親に、「ホルモンの正常な働きであり、6-12ヶ月で元に戻る」と安心感を与える。",
+      "directionEn": "Reassure new mothers that extreme hair shedding postpartum is physiological, normal, and temporary.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-8eb6bef1",
+      "theme": "制度：仕事と不妊治療の両立支援助成",
+      "themeEn": "Work-Fertility Balance Grants",
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/"
+      ],
+      "direction": "企業の人事・当事者双方に向け、不妊治療を理由に退職しなくて済む社会制度が整いつつあることを発信。",
+      "directionEn": "Highlight corporate grants to encourage patients to advocate for fertility leave policies at their workplace.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-ecf470e7",
+      "theme": "治療：PGT-P（多遺伝子疾患）の倫理",
+      "themeEn": "Ethics of PGT-P",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/ethics-opinions/"
+      ],
+      "direction": "デザイナーベビー等の最新技術への過度な期待に対し、生殖医学会の慎重な見解をわかりやすく解説。",
+      "directionEn": "Break down ASRM's cautious stance on polygenic embryo testing to manage patient expectations realistically.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-f1136ba6",
+      "theme": "TTC神話：基礎体温の1回の低下",
+      "themeEn": "TTC Myth: Single BBT Drop",
+      "sourceUrls": [
+        "https://www.acog.org/clinical/"
+      ],
+      "direction": "神経質になりがちなBBT計測について、日々の変動に一喜一憂せず、大局的なトレンドを見る重要性を解説。",
+      "directionEn": "Emphasize looking at BBT trends rather than panicking over a single day's temperature drop.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-425d3159",
+      "theme": "TTC神話：授乳中の妊娠可能性",
+      "themeEn": "TTC Myth: Breastfeeding & Pregnancy",
+      "sourceUrls": [
+        "https://www.acog.org/clinical/"
+      ],
+      "direction": "「授乳中だから妊娠しない」という誤解による予期せぬ妊娠（または早期妊活への影響）について正しく啓発。",
+      "directionEn": "Correct the misconception that breastfeeding is a foolproof contraceptive; ovulation can occur before periods return.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-0656de3a",
+      "theme": "TTC神話：特定の体位",
+      "themeEn": "TTC Myth: Sex Positions",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/40846945/"
+      ],
+      "direction": "情報過多で疲弊している層に向け、「医学的根拠のない努力」を手放してリラックスしてよいと伝える。",
+      "directionEn": "Reassure couples that specific sex positions or elevating hips post-coitus do not objectively increase conception chances.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-7fb9817c",
+      "theme": "プレコン：こども家庭庁シンポジウム",
+      "themeEn": "Preconception Symposium 2026",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/"
+      ],
+      "direction": "国が「プレコンセプションケア」に本腰を入れ始めた事実をシェアし、社会全体の認識アップデートを促す。",
+      "directionEn": "Alert the public and HR professionals that preconception care is now a recognized national policy priority.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-5fb89986",
+      "theme": "男性不妊：禁欲期間のジレンマ",
+      "themeEn": "The Abstinence Dilemma",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "クリニックへの採精時、「長期間溜めた方が濃い」という誤解で失敗するケースを防ぐための超実践的アドバイス。",
+      "directionEn": "Educate on the perfect 2-3 day abstinence window for sperm collection to minimize DNA fragmentation risks.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "blog-93dbf3cf",
+      "theme": "【2026年最新】東京都・不妊治療助成金の劇的変化と実質無償化への道",
+      "themeEn": "2026 Tokyo Fertility Subsidy Updates",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin2.",
+        "https://www.mhlw.go.jp/"
+      ],
+      "direction": "構成案:\n\n-  2026年4月スタート！助成金拡充（予算56億円）の全容\n-  「保険適用」＋「先進医療」の3階建て構造とは？\n-  無精子症など男性不妊（TESE等）も15万円の対象に\n-  申請前に絶対確認すべき高額療養費制度との併用テクニック\n\nSEOキーワード: 不妊治療, 助成金, 2026年, 東京都, 保険適用, 先進医療\n\nターゲット言語指定: JP（日本のローカル制度に特化し、都内のクリニックへの直接的な検索流入を狙うため）",
+      "directionEn": "N/A",
+      "type": "blog",
+      "status": "generated"
+    },
+    {
+      "id": "blog-994310f9",
+      "theme": "ACOG 2026年改訂版：子宮内膜症は「手術を待たずに」治療を開始する時代へ",
+      "themeEn": "ACOG 2026 Endometriosis Guidelines",
+      "sourceUrls": [
+        "https://www.acog.org/clinical/2.",
+        "https://pubmed.ncbi.nlm.nih.gov/40999898/"
+      ],
+      "direction": "構成案:\n\n-  世界的課題「診断まで平均10年」がもたらす不妊への悪影響\n-  ACOG新ガイドラインの衝撃：腹腔鏡なしで治療開始が推奨に\n-  エコーと問診で見逃さない「5つのSOSサイン」\n-  ピル等の薬物療法と将来の妊活（卵子凍結）の両立戦略\n\nSEOキーワード: 子宮内膜症, 診断遅延, 最新ガイドライン, 治療, エコー, ACOG 2026\n\nターゲット言語指定: JP/EN両方（世界的なパラダイムシフトであり、医療通訳や外国人患者の集客にも繋がる）",
+      "directionEn": "Generate an English article based on the provided topic. Target Lang: JP/EN両方（世界的なパラダイムシフトであり、医療通訳や外国人患者の集客にも繋がる）",
+      "type": "blog",
+      "status": "generated"
+    },
+    {
+      "id": "blog-85646b23",
+      "theme": "精子の質を落とす「見えない敵」：マイクロプラスチックと最新の男性不妊研究",
+      "themeEn": "Microplastics and Male Fertility",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/41724789/2.",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12929567/"
+      ],
+      "direction": "構成案:\n\n-  現代の精子濃度低下と「エクスポゾーム（生涯曝露蓄積）」\n-  2026年最新研究：マイクロプラスチックが精巣に与えるダメージ\n-  酸化ストレスと精子DNA断片化（SDF）の恐ろしい関係\n-  日常生活でできるプラスチック削減と抗酸化サプリ（CoQ10）\n\nSEOキーワード: 男性不妊, 精子, マイクロプラスチック, 環境ホルモン, 酸化ストレス\n\nターゲット言語指定: EN（環境毒性に対する関心は欧米圏のReddit等で非常に高く、英語での検索ボリュームが大きいため）",
+      "directionEn": "Generate an English article based on the provided topic. Target Lang: EN（環境毒性に対する関心は欧米圏のReddit等で非常に高く、英語での検索ボリュームが大きいため）",
+      "type": "blog",
+      "status": "pending"
+    },
+    {
+      "id": "blog-0acedc1f",
+      "theme": "凍結胚移植の着床率を上げる？「自然周期 vs ホルモン補充周期」の最新データ",
+      "themeEn": "Natural vs Programmed FET Outcomes",
+      "sourceUrls": [
+        "https://www.bmj.com/content/392/e0870452.",
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "構成案:\n\n-  凍結胚移植（FET）における2つの王道ルートの違いと特徴\n-  2026年BMJ誌発表：自然周期は出産率同等・母体合併症が低い\n-  なぜ自然周期は妊娠高血圧腎症や癒着胎盤を防ぐのか？（黄体の役割）\n-  わたしにはどっちが合っている？主治医と相談するポイント\n\nSEOキーワード: 凍結胚移植, 自然周期, ホルモン補充周期, 着床率, 妊娠高血圧\n\nターゲット言語指定: JP（国内の不妊治療患者が最も検索する専門的な悩みの一つであり、治療の納得度を高めるため）",
+      "directionEn": "N/A",
+      "type": "blog",
+      "status": "pending"
+    },
+    {
+      "id": "blog-60953083",
+      "theme": "「卵子を凍結すれば安心」の落とし穴：融解後の残酷な生存率とキャリア設計",
+      "themeEn": "The Reality and Attrition of Egg Freezing",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin2.",
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "構成案:\n\n-  SNSで急増する「卵子凍結」のポジティブな罠と後悔の声\n-  ASRMデータで見る残酷な「融解生存率・胚盤胞到達率」\n-  将来1人の子どもを授かるために必要な年齢別「採卵数」の真実\n-  こども家庭庁の2026年新助成（20万円）と現実的な活用法\n\nSEOキーワード: 卵子凍結, デメリット, 融解生存率, 費用, 助成金 2026\n\nターゲット言語指定: JP（こども家庭庁の助成開始を機に検索需要が爆発するタイミングに合わせる）",
+      "directionEn": "N/A",
+      "type": "blog",
+      "status": "pending"
+    },
+    {
+      "id": "blog-77c2bc03",
+      "theme": "産後の尿もれ・メンタル低下の科学：カナダ2025年版ガイドラインの実践",
+      "themeEn": "Postpartum Guidelines: Exercise & PFMT",
+      "sourceUrls": [
+        "https://bjsm.bmj.com/content/59/8/5152.",
+        "https://bmjopen.bmj.com/content/13/4/e069874"
+      ],
+      "direction": "構成案:\n\n-  「産後はひたすら安静」はもう古い？メンタルを救う運動の重要性\n-  1日何回？最新ガイドラインが示す骨盤底筋トレーニング（PFMT）\n-  マイナートラブル（抜け毛・尿もれ）のメカニズムと回復タイムライン\n-  バイオフィードバック療法など、医療機関でできる産後ケア\n\nSEOキーワード: 産後ダイエット, 尿もれ, 骨盤底筋トレーニング, 産後うつ, 抜け毛\n\nターゲット言語指定: JP/EN両方（グローバルなガイドラインであり、普遍的かつ医学的に解決可能な女性の悩みであるため）",
+      "directionEn": "Generate an English article based on the provided topic. Target Lang: JP/EN両方（グローバルなガイドラインであり、普遍的かつ医学的に解決可能な女性の悩みであるため）",
+      "type": "blog",
+      "status": "pending"
+    },
+    {
+      "id": "blog-73bb31be",
+      "theme": "PCOS（多嚢胞性卵巣症候群）の診断革命：AMH検査がもたらす変化",
+      "themeEn": "PCOS Diagnosis Revolution: The Role of AMH",
+      "sourceUrls": [
+        "https://academic.oup.com/humrep/article/38/9/1655/72417862.",
+        "https://www.eshre.eu/Guidelines/"
+      ],
+      "direction": "構成案:\n\n-  女性の10人に1人？PCOSが排卵障害・不妊に直結するメカニズム\n-  ESHRE新ガイドライン：エコーの代わりにAMHで診断可能に\n-  「AMHが高すぎる＝卵子がたくさんあって安心」の致命的な誤解\n-  ライフスタイル介入とPCOSの正しい付き合い方\n\nSEOキーワード: PCOS, 多嚢胞性卵巣症候群, AMH, 診断基準, 不妊\n\nターゲット言語指定: EN（PCOS関連の英語圏での啓発は進んでおり、最新ESHREガイドラインへの関心が高いため）",
+      "directionEn": "Generate an English article based on the provided topic. Target Lang: EN（PCOS関連の英語圏での啓発は進んでおり、最新ESHREガイドラインへの関心が高いため）",
+      "type": "blog",
+      "status": "pending"
+    },
+    {
+      "id": "blog-43a99f1c",
+      "theme": "プレコンセプションの「父親」の責任：エピジェネティクスと精子の関係",
+      "themeEn": "Paternal Preconception Care & Epigenetics",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/40913545/2.",
+        "https://www.who.int/publications/i/item/9789240115774"
+      ],
+      "direction": "構成案:\n\n-  母体だけじゃない。赤ちゃんの健康を左右する「父方のDNA」\n-  エピジェネティクスとは？父親の食生活が遺伝子スイッチを変える\n-  高脂肪食・肥満が未来の我が子に与えるメタボ・疾患リスク\n-  パートナーと一緒に始める男性のプレコンセプションケア3カ条\n\nSEOキーワード: プレコンセプションケア, 妊活, 男性, 食生活, エピジェネティクス\n\nターゲット言語指定: JP（日本の男性の妊活リテラシー・当事者意識向上が少子化対策において急務であるため）",
+      "directionEn": "N/A",
+      "type": "blog",
+      "status": "pending"
+    },
+    {
+      "id": "x-1750be0e",
+      "theme": "TTC神話：ストレスと不妊",
+      "themeEn": "TTC Myth: Stress & Infertility",
+      "sourceUrls": [
+        "https://www.who.int/news-room/fact-sheets/detail/infertility"
+      ],
+      "direction": "「リラックスすれば妊娠する」という周囲からの心ない言葉による二次的ストレスから患者を解放する。",
+      "directionEn": "Relieve patients from the \"just relax\" pressure by stating stress isn't a direct biological cause of infertility.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-1b623b0f",
+      "theme": "治療：自然周期FETの優位性",
+      "themeEn": "Natural vs Programmed FET",
+      "sourceUrls": [
+        "https://www.bmj.com/content/392/e087045"
+      ],
+      "direction": "ホルモン剤の副作用に悩む患者へ「自然周期」という選択肢のエビデンスを提示し、主治医への相談を促す。",
+      "directionEn": "Share BMJ 2026 data showing natural FET has fewer maternal complications with equal success rates.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-a74713c9",
+      "theme": "女性の健康：内膜症の「診断遅延10年」",
+      "themeEn": "Endometriosis Diagnostic Delay",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/40999898/"
+      ],
+      "direction": "「生理痛は我慢するもの」という呪縛を破壊。痛みが異常ならすぐ受診するようSOSサインを啓発。",
+      "directionEn": "Validate women's pain; highlight the unacceptable 10-year diagnostic delay to urge early clinic visits.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-e12c468c",
+      "theme": "女性の健康：ACOG内膜症ガイドライン",
+      "themeEn": "ACOG 2026 Endo Guidelines",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/41712950/"
+      ],
+      "direction": "確定診断（腹腔鏡）の壁を越え、エコーと問診だけで治療を始めて良いという世界的な最新方針を解説。",
+      "directionEn": "Break the news that ACOG now supports initiating endometriosis treatment based on clinical diagnosis.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-2ade7577",
+      "theme": "男性不妊：マイクロプラスチックの脅威",
+      "themeEn": "Microplastics & Sperm Quality",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/41724789/"
+      ],
+      "direction": "環境因子が精子に与える最新研究を紹介。過度な恐怖を避けつつ、プラ製品削減の具体策を提案する。",
+      "directionEn": "Highlight emerging research on environmental toxins and actionable lifestyle changes for men.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-d66e8fc1",
+      "theme": "制度：東京都の不妊治療助成(2026)",
+      "themeEn": "Tokyo 2026 Subsidy Expansion",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin"
+      ],
+      "direction": "経済的ハードルが下がることを速報。高額療養費制度と併用することで実質無償化に近づくことを提示。",
+      "directionEn": "Urgently inform Tokyo residents about the new financial safety net starting April 2026.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-fbafc392",
+      "theme": "キャリア：卵子凍結の国の助成",
+      "themeEn": "National Egg Freezing Subsidy",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin"
+      ],
+      "direction": "キャリアと出産の選択肢が広がる制度として紹介。ただし凍結＝妊娠確定ではないという前提も添える。",
+      "directionEn": "Announce the new national subsidy for elective egg freezing while managing realistic expectations.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-930ade17",
+      "theme": "キャリア：卵子融解の残酷な生存率",
+      "themeEn": "Reality of Egg Thaw Survival",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "「1回採卵すれば安心」という風潮に対し、年齢別の必要卵子数の目安を提示し、現実的な計画を促す。",
+      "directionEn": "Provide realistic attrition rates for egg freezing to combat overly optimistic marketing.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-a31ca841",
+      "theme": "プレコン：父方からのエピジェネティクス",
+      "themeEn": "Paternal Preconception Epigenetics",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/40913545/"
+      ],
+      "direction": "「妊活＝女性が身体を整えるもの」という常識を破壊。男性のプレコンセプションケアの重要性を説く。",
+      "directionEn": "Stress that a father's diet physically alters sperm DNA, affecting the future child's lifelong health.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-f01304d8",
+      "theme": "プレコン：WHO新ガイドライン",
+      "themeEn": "WHO Global Infertility Guideline",
+      "sourceUrls": [
+        "https://www.who.int/publications/i/item/9789240115774"
+      ],
+      "direction": "不妊が「個人の問題」ではなく「世界的な健康課題」としてWHOに認められた意義を語り、当事者を勇気づける。",
+      "directionEn": "Frame infertility as a recognized global public health issue affecting 1 in 6, removing personal stigma.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-4d33cfaf",
+      "theme": "TTC神話：性交の頻度と精子の質",
+      "themeEn": "TTC Myth: Intercourse Frequency",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "「精子を溜める」という誤解を破壊。排卵期は連日のタイミングでも全く問題ないことを科学的に啓発。",
+      "directionEn": "Debunk \"saving sperm\" myth; daily intercourse during the fertile window is completely fine.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-6ea729f7",
+      "theme": "男性不妊：睡眠と精子DNA断片化",
+      "themeEn": "Sleep & Sperm DNA Fragmentation",
+      "sourceUrls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12787072/"
+      ],
+      "direction": "忙しい男性に向け、高額なサプリメントの前に「まず7時間睡眠」が最強の妊活薬であると啓発。",
+      "directionEn": "Frame adequate sleep as the ultimate, free fertility supplement for hard-working men.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-ae57e2b7",
+      "theme": "女性の健康：PCOSの最新診断基準(AMH)",
+      "themeEn": "PCOS & AMH Diagnostic Criteria",
+      "sourceUrls": [
+        "https://academic.oup.com/humrep/article/38/9/1655/7241786"
+      ],
+      "direction": "エコー検査に抵抗がある人でも、血液検査（AMH）でPCOSの診断補助ができるようになった進歩を紹介。",
+      "directionEn": "Explain how high AMH is now an official diagnostic marker for PCOS in adults, replacing ultrasound in some cases.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-b014765f",
+      "theme": "栄養：コエンザイムQ10と精子運動率",
+      "themeEn": "CoQ10 & Male Fertility",
+      "sourceUrls": [
+        "https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2024.1497930/full"
+      ],
+      "direction": "サプリ選びに迷う男性へ、エビデンスレベルが特に高い「CoQ10」をピンポイントで推奨。",
+      "directionEn": "Highlight CoQ10 as an evidence-backed supplement for improving sperm motility and concentration.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-a19d13ab",
+      "theme": "産後：骨盤底筋トレーニングの頻度",
+      "themeEn": "Postpartum PFMT Frequency",
+      "sourceUrls": [
+        "https://bjsm.bmj.com/content/59/8/515"
+      ],
+      "direction": "産後の尿もれは「仕方ない」ものではなく、毎日の継続的なケアで高確率で改善できるエビデンスを発信。",
+      "directionEn": "Motivate mothers to perform daily pelvic floor exercises to significantly reduce urinary incontinence.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-4ff09ac3",
+      "theme": "産後：運動再開の基準（120分/週）",
+      "themeEn": "Postpartum Exercise Guidelines",
+      "sourceUrls": [
+        "https://bjsm.bmj.com/content/59/8/515"
+      ],
+      "direction": "「産後はとにかく安静に」という旧来の常識をアップデート。メンタルケアとしての段階的な運動を推奨。",
+      "directionEn": "Update the \"total rest\" myth; structured exercise effectively reduces postpartum depression.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-f66352a1",
+      "theme": "男性不妊：重労働とテストステロン",
+      "themeEn": "Heavy Lifting & Male Fertility",
+      "sourceUrls": [
+        "https://academic.oup.com/humrep/"
+      ],
+      "direction": "デスクワーク中心の男性に向け、日常的な筋トレや運動が精子形成において重要であることをロジカルに解説。",
+      "directionEn": "Encourage desk-bound men to lift weights, citing studies linking physical exertion to higher sperm counts.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-28ba6187",
+      "theme": "栄養：ビタミンDと体外受精（FAST試験）",
+      "themeEn": "Vitamin D & IVF (FAST Trial)",
+      "sourceUrls": [
+        "https://www.bmj.com/content/392/e087438"
+      ],
+      "direction": "「ビタミンDを飲めば必ず妊娠率が上がる」というサプリメント信仰に対し、冷静な最新データを提示。",
+      "directionEn": "Provide a nuanced update: Vitamin D is vital, but recent trials show it's not a magic bullet for IVF success.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-0d01ab6e",
+      "theme": "栄養：葉酸サプリの継続率と摂取時期",
+      "themeEn": "Folic Acid Adherence Gaps",
+      "sourceUrls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11786555/"
+      ],
+      "direction": "妊娠に気づいてからでは遅い神経管形成の事実を伝え、避妊をやめる前からの葉酸摂取を強く促す。",
+      "directionEn": "Create urgency: Start taking folic acid before stopping birth control to prevent neural tube defects.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-3b7773de",
+      "theme": "プレコン：若年がん患者の妊孕性温存",
+      "themeEn": "Fertility Preservation for Cancer",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/ethics-opinions/"
+      ],
+      "direction": "がん治療と宣告された際の「卵子・精子凍結」の権利について。医療者側から提示されない場合の自衛手段。",
+      "directionEn": "Empower cancer patients to proactively ask about fertility preservation before starting chemo/radiation.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-3f0ce357",
+      "theme": "女性の健康：骨盤底筋の電気刺激療法",
+      "themeEn": "PFMT & Biofeedback Therapy",
+      "sourceUrls": [
+        "https://bmjopen.bmj.com/content/13/4/e069874"
+      ],
+      "direction": "自力でのケーゲル体操で効果が出ない層に向け、医療機関での専門的な物理療法という解決策を提示。",
+      "directionEn": "Inform mothers struggling with Kegels that professional biofeedback therapy yields significantly better results.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-bfefa3c1",
+      "theme": "制度：TESE（精子回収術）への助成",
+      "themeEn": "Subsidies for TESE",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin"
+      ],
+      "direction": "男性不妊治療における高額な自己負担が軽減されるニュース。男性へのメンタル・経済的支援として発信。",
+      "directionEn": "Broadcast the financial relief for severe male infertility treatments under new subsidy schemes.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-c27cd39c",
+      "theme": "産後：産後脱毛のタイムライン",
+      "themeEn": "Timeline of Postpartum Hair Loss",
+      "sourceUrls": [
+        "https://www.hopkinsmedicine.org/health/wellness-and-prevention/postpartum-hair-loss"
+      ],
+      "direction": "激しい脱毛にショックを受ける母親に、「ホルモンの正常な働きであり、6-12ヶ月で元に戻る」と安心感を与える。",
+      "directionEn": "Reassure new mothers that extreme hair shedding postpartum is physiological, normal, and temporary.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-9bee506e",
+      "theme": "制度：仕事と不妊治療の両立支援助成",
+      "themeEn": "Work-Fertility Balance Grants",
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/"
+      ],
+      "direction": "企業の人事・当事者双方に向け、不妊治療を理由に退職しなくて済む社会制度が整いつつあることを発信。",
+      "directionEn": "Highlight corporate grants to encourage patients to advocate for fertility leave policies at their workplace.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-d5eb0b63",
+      "theme": "治療：PGT-P（多遺伝子疾患）の倫理",
+      "themeEn": "Ethics of PGT-P",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/ethics-opinions/"
+      ],
+      "direction": "デザイナーベビー等の最新技術への過度な期待に対し、生殖医学会の慎重な見解をわかりやすく解説。",
+      "directionEn": "Break down ASRM's cautious stance on polygenic embryo testing to manage patient expectations realistically.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-abf66752",
+      "theme": "TTC神話：基礎体温の1回の低下",
+      "themeEn": "TTC Myth: Single BBT Drop",
+      "sourceUrls": [
+        "https://www.acog.org/clinical/"
+      ],
+      "direction": "神経質になりがちなBBT計測について、日々の変動に一喜一憂せず、大局的なトレンドを見る重要性を解説。",
+      "directionEn": "Emphasize looking at BBT trends rather than panicking over a single day's temperature drop.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-00613a47",
+      "theme": "TTC神話：授乳中の妊娠可能性",
+      "themeEn": "TTC Myth: Breastfeeding & Pregnancy",
+      "sourceUrls": [
+        "https://www.acog.org/clinical/"
+      ],
+      "direction": "「授乳中だから妊娠しない」という誤解による予期せぬ妊娠（または早期妊活への影響）について正しく啓発。",
+      "directionEn": "Correct the misconception that breastfeeding is a foolproof contraceptive; ovulation can occur before periods return.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-2e4de1ea",
+      "theme": "TTC神話：特定の体位",
+      "themeEn": "TTC Myth: Sex Positions",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/40846945/"
+      ],
+      "direction": "情報過多で疲弊している層に向け、「医学的根拠のない努力」を手放してリラックスしてよいと伝える。",
+      "directionEn": "Reassure couples that specific sex positions or elevating hips post-coitus do not objectively increase conception chances.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-ccccce59",
+      "theme": "プレコン：こども家庭庁シンポジウム",
+      "themeEn": "Preconception Symposium 2026",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/"
+      ],
+      "direction": "国が「プレコンセプションケア」に本腰を入れ始めた事実をシェアし、社会全体の認識アップデートを促す。",
+      "directionEn": "Alert the public and HR professionals that preconception care is now a recognized national policy priority.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-1f9a4488",
+      "theme": "男性不妊：禁欲期間のジレンマ",
+      "themeEn": "The Abstinence Dilemma",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "クリニックへの採精時、「長期間溜めた方が濃い」という誤解で失敗するケースを防ぐための超実践的アドバイス。",
+      "directionEn": "Educate on the perfect 2-3 day abstinence window for sperm collection to minimize DNA fragmentation risks.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-acdc636b",
+      "theme": "TTC神話：ストレスと不妊",
+      "themeEn": "TTC Myth: Stress & Infertility",
+      "sourceUrls": [
+        "https://www.who.int/news-room/fact-sheets/detail/infertility"
+      ],
+      "direction": "「リラックスすれば妊娠する」という周囲からの心ない言葉による二次的ストレスから患者を解放する。",
+      "directionEn": "Relieve patients from the \"just relax\" pressure by stating stress isn't a direct biological cause of infertility.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-2c6084ee",
+      "theme": "治療：自然周期FETの優位性",
+      "themeEn": "Natural vs Programmed FET",
+      "sourceUrls": [
+        "https://www.bmj.com/content/392/e087045"
+      ],
+      "direction": "ホルモン剤の副作用に悩む患者へ「自然周期」という選択肢のエビデンスを提示し、主治医への相談を促す。",
+      "directionEn": "Share BMJ 2026 data showing natural FET has fewer maternal complications with equal success rates.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-95dd47cc",
+      "theme": "女性の健康：内膜症の「診断遅延10年」",
+      "themeEn": "Endometriosis Diagnostic Delay",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/40999898/"
+      ],
+      "direction": "「生理痛は我慢するもの」という呪縛を破壊。痛みが異常ならすぐ受診するようSOSサインを啓発。",
+      "directionEn": "Validate women's pain; highlight the unacceptable 10-year diagnostic delay to urge early clinic visits.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-09468bc6",
+      "theme": "女性の健康：ACOG内膜症ガイドライン",
+      "themeEn": "ACOG 2026 Endo Guidelines",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/41712950/"
+      ],
+      "direction": "確定診断（腹腔鏡）の壁を越え、エコーと問診だけで治療を始めて良いという世界的な最新方針を解説。",
+      "directionEn": "Break the news that ACOG now supports initiating endometriosis treatment based on clinical diagnosis.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-bec577a5",
+      "theme": "男性不妊：マイクロプラスチックの脅威",
+      "themeEn": "Microplastics & Sperm Quality",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/41724789/"
+      ],
+      "direction": "環境因子が精子に与える最新研究を紹介。過度な恐怖を避けつつ、プラ製品削減の具体策を提案する。",
+      "directionEn": "Highlight emerging research on environmental toxins and actionable lifestyle changes for men.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-6d2ac7f0",
+      "theme": "制度：東京都の不妊治療助成(2026)",
+      "themeEn": "Tokyo 2026 Subsidy Expansion",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin"
+      ],
+      "direction": "経済的ハードルが下がることを速報。高額療養費制度と併用することで実質無償化に近づくことを提示。",
+      "directionEn": "Urgently inform Tokyo residents about the new financial safety net starting April 2026.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-efc9d111",
+      "theme": "キャリア：卵子凍結の国の助成",
+      "themeEn": "National Egg Freezing Subsidy",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin"
+      ],
+      "direction": "キャリアと出産の選択肢が広がる制度として紹介。ただし凍結＝妊娠確定ではないという前提も添える。",
+      "directionEn": "Announce the new national subsidy for elective egg freezing while managing realistic expectations.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-dbefcdcb",
+      "theme": "キャリア：卵子融解の残酷な生存率",
+      "themeEn": "Reality of Egg Thaw Survival",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "「1回採卵すれば安心」という風潮に対し、年齢別の必要卵子数の目安を提示し、現実的な計画を促す。",
+      "directionEn": "Provide realistic attrition rates for egg freezing to combat overly optimistic marketing.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-58639a19",
+      "theme": "プレコン：父方からのエピジェネティクス",
+      "themeEn": "Paternal Preconception Epigenetics",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/40913545/"
+      ],
+      "direction": "「妊活＝女性が身体を整えるもの」という常識を破壊。男性のプレコンセプションケアの重要性を説く。",
+      "directionEn": "Stress that a father's diet physically alters sperm DNA, affecting the future child's lifelong health.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-7a03293b",
+      "theme": "プレコン：WHO新ガイドライン",
+      "themeEn": "WHO Global Infertility Guideline",
+      "sourceUrls": [
+        "https://www.who.int/publications/i/item/9789240115774"
+      ],
+      "direction": "不妊が「個人の問題」ではなく「世界的な健康課題」としてWHOに認められた意義を語り、当事者を勇気づける。",
+      "directionEn": "Frame infertility as a recognized global public health issue affecting 1 in 6, removing personal stigma.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-97d81b68",
+      "theme": "TTC神話：性交の頻度と精子の質",
+      "themeEn": "TTC Myth: Intercourse Frequency",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "「精子を溜める」という誤解を破壊。排卵期は連日のタイミングでも全く問題ないことを科学的に啓発。",
+      "directionEn": "Debunk \"saving sperm\" myth; daily intercourse during the fertile window is completely fine.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-be9a1b6f",
+      "theme": "男性不妊：睡眠と精子DNA断片化",
+      "themeEn": "Sleep & Sperm DNA Fragmentation",
+      "sourceUrls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12787072/"
+      ],
+      "direction": "忙しい男性に向け、高額なサプリメントの前に「まず7時間睡眠」が最強の妊活薬であると啓発。",
+      "directionEn": "Frame adequate sleep as the ultimate, free fertility supplement for hard-working men.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-0b833cac",
+      "theme": "女性の健康：PCOSの最新診断基準(AMH)",
+      "themeEn": "PCOS & AMH Diagnostic Criteria",
+      "sourceUrls": [
+        "https://academic.oup.com/humrep/article/38/9/1655/7241786"
+      ],
+      "direction": "エコー検査に抵抗がある人でも、血液検査（AMH）でPCOSの診断補助ができるようになった進歩を紹介。",
+      "directionEn": "Explain how high AMH is now an official diagnostic marker for PCOS in adults, replacing ultrasound in some cases.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-f2faa4c4",
+      "theme": "栄養：コエンザイムQ10と精子運動率",
+      "themeEn": "CoQ10 & Male Fertility",
+      "sourceUrls": [
+        "https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2024.1497930/full"
+      ],
+      "direction": "サプリ選びに迷う男性へ、エビデンスレベルが特に高い「CoQ10」をピンポイントで推奨。",
+      "directionEn": "Highlight CoQ10 as an evidence-backed supplement for improving sperm motility and concentration.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-f288fe44",
+      "theme": "産後：骨盤底筋トレーニングの頻度",
+      "themeEn": "Postpartum PFMT Frequency",
+      "sourceUrls": [
+        "https://bjsm.bmj.com/content/59/8/515"
+      ],
+      "direction": "産後の尿もれは「仕方ない」ものではなく、毎日の継続的なケアで高確率で改善できるエビデンスを発信。",
+      "directionEn": "Motivate mothers to perform daily pelvic floor exercises to significantly reduce urinary incontinence.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-05ee5cb2",
+      "theme": "産後：運動再開の基準（120分/週）",
+      "themeEn": "Postpartum Exercise Guidelines",
+      "sourceUrls": [
+        "https://bjsm.bmj.com/content/59/8/515"
+      ],
+      "direction": "「産後はとにかく安静に」という旧来の常識をアップデート。メンタルケアとしての段階的な運動を推奨。",
+      "directionEn": "Update the \"total rest\" myth; structured exercise effectively reduces postpartum depression.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-e2a54c71",
+      "theme": "男性不妊：重労働とテストステロン",
+      "themeEn": "Heavy Lifting & Male Fertility",
+      "sourceUrls": [
+        "https://academic.oup.com/humrep/"
+      ],
+      "direction": "デスクワーク中心の男性に向け、日常的な筋トレや運動が精子形成において重要であることをロジカルに解説。",
+      "directionEn": "Encourage desk-bound men to lift weights, citing studies linking physical exertion to higher sperm counts.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-fa722657",
+      "theme": "栄養：ビタミンDと体外受精（FAST試験）",
+      "themeEn": "Vitamin D & IVF (FAST Trial)",
+      "sourceUrls": [
+        "https://www.bmj.com/content/392/e087438"
+      ],
+      "direction": "「ビタミンDを飲めば必ず妊娠率が上がる」というサプリメント信仰に対し、冷静な最新データを提示。",
+      "directionEn": "Provide a nuanced update: Vitamin D is vital, but recent trials show it's not a magic bullet for IVF success.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-7cd9689e",
+      "theme": "栄養：葉酸サプリの継続率と摂取時期",
+      "themeEn": "Folic Acid Adherence Gaps",
+      "sourceUrls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11786555/"
+      ],
+      "direction": "妊娠に気づいてからでは遅い神経管形成の事実を伝え、避妊をやめる前からの葉酸摂取を強く促す。",
+      "directionEn": "Create urgency: Start taking folic acid before stopping birth control to prevent neural tube defects.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-21bfaaba",
+      "theme": "プレコン：若年がん患者の妊孕性温存",
+      "themeEn": "Fertility Preservation for Cancer",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/ethics-opinions/"
+      ],
+      "direction": "がん治療と宣告された際の「卵子・精子凍結」の権利について。医療者側から提示されない場合の自衛手段。",
+      "directionEn": "Empower cancer patients to proactively ask about fertility preservation before starting chemo/radiation.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-fef3f930",
+      "theme": "女性の健康：骨盤底筋の電気刺激療法",
+      "themeEn": "PFMT & Biofeedback Therapy",
+      "sourceUrls": [
+        "https://bmjopen.bmj.com/content/13/4/e069874"
+      ],
+      "direction": "自力でのケーゲル体操で効果が出ない層に向け、医療機関での専門的な物理療法という解決策を提示。",
+      "directionEn": "Inform mothers struggling with Kegels that professional biofeedback therapy yields significantly better results.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-f9974752",
+      "theme": "制度：TESE（精子回収術）への助成",
+      "themeEn": "Subsidies for TESE",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/policies/boshihoken/funin"
+      ],
+      "direction": "男性不妊治療における高額な自己負担が軽減されるニュース。男性へのメンタル・経済的支援として発信。",
+      "directionEn": "Broadcast the financial relief for severe male infertility treatments under new subsidy schemes.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-2246e43b",
+      "theme": "産後：産後脱毛のタイムライン",
+      "themeEn": "Timeline of Postpartum Hair Loss",
+      "sourceUrls": [
+        "https://www.hopkinsmedicine.org/health/wellness-and-prevention/postpartum-hair-loss"
+      ],
+      "direction": "激しい脱毛にショックを受ける母親に、「ホルモンの正常な働きであり、6-12ヶ月で元に戻る」と安心感を与える。",
+      "directionEn": "Reassure new mothers that extreme hair shedding postpartum is physiological, normal, and temporary.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-0ca55aec",
+      "theme": "制度：仕事と不妊治療の両立支援助成",
+      "themeEn": "Work-Fertility Balance Grants",
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/"
+      ],
+      "direction": "企業の人事・当事者双方に向け、不妊治療を理由に退職しなくて済む社会制度が整いつつあることを発信。",
+      "directionEn": "Highlight corporate grants to encourage patients to advocate for fertility leave policies at their workplace.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-337d09cd",
+      "theme": "治療：PGT-P（多遺伝子疾患）の倫理",
+      "themeEn": "Ethics of PGT-P",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/ethics-opinions/"
+      ],
+      "direction": "デザイナーベビー等の最新技術への過度な期待に対し、生殖医学会の慎重な見解をわかりやすく解説。",
+      "directionEn": "Break down ASRM's cautious stance on polygenic embryo testing to manage patient expectations realistically.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-c0052a49",
+      "theme": "TTC神話：基礎体温の1回の低下",
+      "themeEn": "TTC Myth: Single BBT Drop",
+      "sourceUrls": [
+        "https://www.acog.org/clinical/"
+      ],
+      "direction": "神経質になりがちなBBT計測について、日々の変動に一喜一憂せず、大局的なトレンドを見る重要性を解説。",
+      "directionEn": "Emphasize looking at BBT trends rather than panicking over a single day's temperature drop.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-00cef46d",
+      "theme": "TTC神話：授乳中の妊娠可能性",
+      "themeEn": "TTC Myth: Breastfeeding & Pregnancy",
+      "sourceUrls": [
+        "https://www.acog.org/clinical/"
+      ],
+      "direction": "「授乳中だから妊娠しない」という誤解による予期せぬ妊娠（または早期妊活への影響）について正しく啓発。",
+      "directionEn": "Correct the misconception that breastfeeding is a foolproof contraceptive; ovulation can occur before periods return.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-289cf329",
+      "theme": "TTC神話：特定の体位",
+      "themeEn": "TTC Myth: Sex Positions",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/40846945/"
+      ],
+      "direction": "情報過多で疲弊している層に向け、「医学的根拠のない努力」を手放してリラックスしてよいと伝える。",
+      "directionEn": "Reassure couples that specific sex positions or elevating hips post-coitus do not objectively increase conception chances.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-7cd7c41e",
+      "theme": "プレコン：こども家庭庁シンポジウム",
+      "themeEn": "Preconception Symposium 2026",
+      "sourceUrls": [
+        "https://www.cfa.go.jp/"
+      ],
+      "direction": "国が「プレコンセプションケア」に本腰を入れ始めた事実をシェアし、社会全体の認識アップデートを促す。",
+      "directionEn": "Alert the public and HR professionals that preconception care is now a recognized national policy priority.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "x-fd4efb4b",
+      "theme": "男性不妊：禁欲期間のジレンマ",
+      "themeEn": "The Abstinence Dilemma",
+      "sourceUrls": [
+        "https://www.asrm.org/practice-guidance/"
+      ],
+      "direction": "クリニックへの採精時、「長期間溜めた方が濃い」という誤解で失敗するケースを防ぐための超実践的アドバイス。",
+      "directionEn": "Educate on the perfect 2-3 day abstinence window for sperm collection to minimize DNA fragmentation risks.",
+      "type": "x",
+      "status": "pending"
+    },
+    {
+      "id": "reel-blog-topic-20260317-06",
+      "theme": "AMH値は自然妊娠の予知子ではない？2.8万人のデータが示す新常識",
+      "themeEn": "Your AMH Does NOT Predict Natural Conception",
+      "sourceUrls": [
+        "https://pubmed.ncbi.nlm.nih.gov/28697256/",
+        "https://pubmed.ncbi.nlm.nih.gov/28181269/",
+        "https://www.asrm.org/practice-guidance/practice-committee-documents/testing-and-interpreting-measures-of-ovarian-reserve/"
+      ],
+      "direction": "Smart Brevity構成案:\n\n- H2: AMH値は自然妊娠の「可能性」を予測しない：2.8万人の大規模研究から\n- H2: AMHが示すのは「卵巣予備能」：卵の質や排卵とは別物\n- H2: 低AMHでも諦めないで：40歳未満の自然妊娠との関連性\n- H2: 不妊治療（特に体外受精）におけるAMHの重要性\n- H2: あなたのAMH値を正しく理解するために：専門家への相談を\n\nSEOキーワード: AMH, 自然妊娠, 卵巣予備能, 妊娠可能性, 不妊治療\n\nSmart Brevity原則: 結論ファースト、各セクション3文以内、モバイルファースト",
+      "directionEn": "This blog post aims to debunk the common misconception that AMH levels predict natural conception, especially for women under 40, based on a large meta-analysis. The structure follows Smart Brevity principles: lead with the conclusion, each section covers 'one big thing' followed by 'why it matters' and 'what's next.' Paragraphs should be concise (2-3 sentences max), mobile-optimized, and use hedging language ('may,' 'research suggests'). Maintain an empowering, informative tone, avoiding any fear-mongering.\n\nSection 1: The Core Revelation. Start with the surprising finding that AMH doesn't predict natural conception, referencing the 28,000-person study.\nSection 2: What AMH Truly Represents. Explain that AMH indicates ovarian reserve (the quantity of eggs), not egg quality or the ability to conceive naturally. Use the 'gas gauge' analogy.\nSection 3: Implications for Natural Conception. Detail why a low AMH doesn't necessarily mean inability to conceive naturally for women under 40. Emphasize that age is still a factor, but AMH's role in this specific context is limited.\nSection 4: Where AMH *Is* Crucial. Pivot to the scenarios where AMH is vital, primarily for IVF planning and timing, as it helps determine treatment protocols and expected response.\nSection 5: Empowering Next Steps. Encourage readers to seek personalized advice from healthcare professionals to understand their AMH levels in their unique context, stressing individual variations and the importance of comprehensive assessment beyond a single marker.",
+      "type": "blog",
+      "status": "pending"
+    },
+    {
+      "id": "reel-blog-topic-20260317-07",
+      "theme": "35歳からの妊活応援！CoQ10が卵子の質を劇的に改善する可能性",
+      "themeEn": "CoQ10 May Improve Egg Quality After 35",
+      "sourceUrls": [
+        "https://doi.org/10.1016/j.rbmo.2018.12.002",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7550497/",
+        "https://www.tandfonline.com/doi/full/10.1080/07853890.2024.2389469",
+        "https://www.asrm.org/practice-guidance/practice-committee-documents/optimizing-natural-fertility-a-committee-opinion-2021/"
+      ],
+      "direction": "Smart Brevity構成案:\n\nリード文: 35歳からの妊活で「卵子の質」に悩む方に、科学的な希望の光となるのがCoQ10（コエンザイムQ10）です。研究では、CoQ10が卵子のエネルギー源であるミトコンドリアを活性化させ、体外受精の妊娠率を向上させる可能性が示されています。\n\nH2: なぜ年齢とともに「卵子の質」は下がるのか？\nH2: CoQ10は卵子の「バッテリーパック」\nH2: 臨床データが示すCoQ10の実力と限界\nH2: 還元型（ユビキノール）と酸化型（ユビキノン）の違い\nH2: 摂取のタイミングは「3ヶ月前」が勝負\n\n\n\n═════ ガイドライン推奨 ═════\nASRMやESHREの公式ガイドラインでは「出産率（Live birth rate）」の向上を証明する大規模データが不足しているため、全患者への標準治療としては推奨されていません。しかし、細胞のミトコンドリア機能を活性化し「臨床的妊娠率」を向上させるデータがあるため、多くの専門クリニックで実用的な補助療法として使用されています。\n\n═════ 実践アドバイス ═════\n卵子が成熟するサイクルを考慮し、採卵や妊活の少なくとも3ヶ月（90日）前からの摂取開始が推奨されます。一般的な目安はユビキノン（酸化型）で1日600mg、ユビキノール（還元型）で200〜400mgです。必ず主治医に相談の上で開始してください。\n\nSEOキーワード（JP）: CoQ10 妊活, 卵子の質 改善, 35歳 妊活, コエンザイムQ10 体外受精, ユビキノール\nSEOキーワード（EN）: CoQ10 egg quality, CoQ10 fertility, IVF success over 35, ubiquinol fertility, mitochondrial health\n\n安全性チェック: 「若返る」「奇跡のサプリ」「必ず妊娠する」という誇大表現を厳格に排除。ガイドラインの推奨度（標準推奨ではない）を正直に記載。サプリメントであるため効果には個人差がある旨を明記。",
+      "directionEn": "Overall: Empowering tone, not fear-mongering. Use hedging (may, suggests, could). Keep paragraphs 2-3 sentences max. Optimize for mobile readability.\n\nSection 1 (H2: 結論：35歳以上の妊活にCoQ10が有効な可能性 - Conclusion: CoQ10 May Be Effective for Fertility over 35):\n*   **Big Thing:** State upfront that CoQ10 shows promise for improving egg quality in women over 35.\n*   **Why it matters:** This offers a potential pathway to enhance fertility outcomes for an underserved demographic.\n*   **What's next:** Encourage readers to continue to understand the science and practical steps.\n\nSection 2 (H2: CoQ10が卵子の質を高める科学的メカニズム - Scientific Mechanism: How CoQ10 Boosts Egg Quality):\n*   **Big Thing:** Explain CoQ10's role in energizing egg mitochondria, the 'battery packs' of the cell.\n*   **Why it matters:** Healthier mitochondria lead to more viable, higher-quality eggs, crucial for conception and healthy embryonic development.\n*   **What's next:** Transition to how this mechanism translates into tangible results.\n\nSection 3 (H2: 研究が示すCoQ10の具体的な効果とデータ - Specific Effects and Data from Research on CoQ10):\n*   **Big Thing:** Highlight the RCT (N=186 women >35) demonstrating improved egg quality and fertilization rates with CoQ10 prior to IVF.\n*   **Why it matters:** This human clinical evidence provides strong support for CoQ10's efficacy in a relevant population.\n*   **What's next:** Move to practical considerations for those looking to implement CoQ10.\n\nSection 4 (H2: 効果を実感するためのCoQ10の正しい使い方 - Correct Usage of CoQ10 to Feel the Effects):\n*   **Big Thing:** Emphasize the 'catch' – it typically takes three months of consistent use to see significant effects.\n*   **Why it matters:** Setting proper expectations for timeline and commitment is vital for success and avoiding disappointment. Suggest consulting a healthcare professional for dosage.\n*   **What's next:** Broaden the perspective to other fertility factors.\n\nSection 5 (H2: CoQ10を補完する妊活の全体戦略 - Holistic Fertility Strategy Complementing CoQ10):\n*   **Big Thing:** Position CoQ10 as one part of a comprehensive fertility strategy.\n*   **Why it matters:** Optimal fertility often involves a combination of nutrition, lifestyle, stress management, and professional medical guidance.\n*   **What's next:** Conclude with encouragement for a holistic approach and medical consultation.",
+      "type": "blog",
+      "status": "pending"
+    },
+    {
+      "id": "reel-blog-topic-20260317-08",
+      "theme": "あなたのスマホが彼の精子を傷つけているかも？妊活男性必見の対策",
+      "themeEn": "Your Phone Might Be Hurting His Sperm",
+      "sourceUrls": [
+        "https://doi.org/10.1016/j.fertnstert.2023.09.012",
+        "https://pubmed.ncbi.nlm.nih.gov/37921737/",
+        "https://pubmed.ncbi.nlm.nih.gov/34333014/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12459597/"
+      ],
+      "direction": "Smart Brevity構成案:\n\nリード文: パートナーのスマホの使いすぎが、実は精子の濃度に影響を与えているかもしれません。しかし驚くべきことに、最新の大規模研究では「ズボンのポケットにスマホを入れること」自体は精子に悪影響を与えないことが分かりました。\n\nH2: 2,886人のデータが明かす「スマホと精子」のリアル\nH2: ズボンのポケットは安全？意外な研究結果\nH2: 電磁波よりも怖い「スマホ依存による生活習慣の乱れ」\nH2: 夜間のブルーライトと男性ホルモンの関係\nH2: 彼にお願いしたい3つのデジタルデトックス習慣\n\n═════ FAQ ═════\nQ: スマホの電磁波防止シールは精子を守る効果がありますか？\nA: 科学的な根拠は不十分です。電磁波を気にするよりも、座りっぱなしを防ぎ、適度な運動を取り入れる方がはるかに効果的です。\n\nQ: 精子の質を改善するにはどれくらい時間がかかりますか？\nA: 精子が作られるまでには約74日（約2ヶ月半〜3ヶ月）かかります。生活習慣を改善しても、結果が出るまでには数ヶ月の継続が必要です。\n\nQ: ノートパソコンを膝の上で使うのはNGですか？\nA: はい。パソコンの「熱」が直接精巣を温めてしまうため、精子の製造機能に悪影響を及ぼす可能性があります。机の上に置いて使用してください。\n\n═════ ガイドライン推奨 ═════\nWHO等からは、スマホの電磁波が直接的に不妊を引き起こすという確証的な警告は出されていませんが、予防原則に基づき、男性のプレコンセプションケア（生活習慣の改善、睡眠時間の確保、座りっぱなしの防止）の一環としてスクリーンタイムの適正化が推奨されています。\n\n═════ 実践アドバイス ═════\n「スマホをポケットに入れること」自体よりも、「スマホを長時間使うことによる生活習慣の乱れ（睡眠不足や運動不足）」が精子に悪影響を与えている可能性があります。夜間のスクリーンタイムを減らし、良質な睡眠をとることが精子力アップの近道です。\n\nSEOキーワード（JP）: スマホ 精子, 男性不妊, 精子濃度, 妊活 男性 習慣, 電磁波 精子\nSEOキーワード（EN）: smartphone sperm quality, male fertility tips, cell phone sperm count, RF-EMR fertility, male factor infertility\n\n安全性チェック: 「電磁波が不妊の原因である」と断定する陰謀論的な表現を排除。最新のメンデルランダム化分析に基づき、交絡因子（睡眠不足等）の可能性に言及。過度な恐怖を煽らないトーンを維持。",
+      "directionEn": "This blog post should strictly adhere to Smart Brevity principles. It must lead with the main conclusion about smartphone use and sperm concentration. Each of the 4 H2 sections should present 'one big thing,' explain 'why it matters,' and suggest 'what's next' or actionable advice. Paragraphs must be concise (2-3 sentences maximum) to ensure mobile-optimized readability. Maintain an evidence-backed, empowering tone, utilizing hedging language like 'may' or 'research suggests' rather than fear-mongering. The overall objective is to inform and empower men and couples planning conception, offering practical tips while referencing scientific findings from the N=2,886 study.",
+      "type": "blog",
+      "status": "pending"
+    },
+    {
+      "id": "reel-blog-topic-20260317-09",
+      "theme": "25歳でAMH検査は早すぎる？未来の妊活計画に役立つ理由と注意点",
+      "themeEn": "Should You Test AMH at 25?",
+      "sourceUrls": [],
+      "direction": "Smart Brevity構成案:\n\nリード文: 最近話題の「若年層のAMH（卵巣年齢）検査」。25歳で自分のベースラインを知ることは将来のライフプラン設計に役立ちますが、検査のタイミングやピルの影響など、知っておくべき「落とし穴」があります。\n\nH2: なぜ今、20代でのAMH検査が注目されているのか？\nH2: AMHの数値は「25歳」でピークを迎える\nH2: 要注意！低用量ピルがAMHの数値を下げる理由\nH2: 数値が低くても「今すぐ妊娠できない」わけではない\nH2: 検査結果をどう受け止め、どう行動するか\n\n═════ FAQ ═════\nQ: 25歳でAMHが平均より低かった場合、卵子凍結をすべきですか？\nA: すぐにする必要はありませんが、将来の選択肢の一つとして専門医と相談する良いきっかけになります。AMHが低くても、20代であれば卵子の「質」は高いため妊娠率は良好です。\n\nQ: AMH検査は生理周期のいつ受けるのがベストですか？\nA: AMHは生理周期による変動が少ないホルモンなので、基本的にいつでも採血検査が可能です。\n\nQ: AMH検査は保険適用になりますか？\nA: 日本では、不妊治療の一環として医師が必要と認めた場合は保険適用となりますが、単なるブライダルチェックや健康診断目的の場合は自費診療となります。\n\n═════ ガイドライン推奨 ═════\nACOG（米国産婦人科学会）およびASRMは、不妊症でない若い女性に対する「不安解消のため」のAMH検査を推奨していません。しかし、将来のキャリアプランや卵子凍結を視野に入れている女性にとって、ベースラインを知るためのプレコンセプションケアとしての価値は認められつつあります。\n\n═════ 実践アドバイス ═════\n25歳でのAMH検査は自分の身体のマップを手に入れるようなものです。ただし、低用量ピル（経口避妊薬）を服用しているとAMHは20〜30%低く出ることがあるため、正確な数値を測るには休薬から2ヶ月後に検査するか、ピル服用中であることを考慮して数値を解釈してください。\n\nSEOキーワード（JP）: AMH検査 20代, 卵巣年齢 25歳, 卵子凍結, ピル AMH 下がる, プレコンセプションケア\nSEOキーワード（EN）: AMH test at 25, proactive fertility testing, birth control AMH levels, egg freezing, ovarian reserve\n\n安全性チェック: 「今すぐ検査しないと手遅れになる」といったFOMO（取り残される恐怖）を利用したマーケティング表現を厳禁。ピルによる一時的な数値低下の事実を記載し、不必要なパニックを防ぐ構成にしている。",
+      "directionEn": "This blog article aims to provide a concise, mobile-optimized guide on AMH testing at age 25, following the Smart Brevity principle. The tone should be empowering and informative, not fear-mongering. The article will clarify the benefits of early AMH testing for fertility planning while also emphasizing its limitations and the need for a holistic approach.\n\nKey Principles:\n1.  **Lead with the conclusion:** Start by directly addressing the question \"Should you test AMH at 25?\" and provide the main takeaway upfront (it's valuable as a planning tool, but not the full picture).\n2.  **Section Structure:** Each H2 section (4-5 total) must deliver \"one big thing,\" explain \"why it matters,\" and suggest \"what's next.\" Use clear, concise language.\n3.  **Paragraph Length:** Keep paragraphs extremely short (2-3 sentences max), followed by a line break for easy mobile readability.\n4.  **Evidence-Backed but Hedged:** Incorporate phrases like \"research suggests,\" \"may indicate,\" \"can offer\" to convey informed opinions without overstating certainty.\n5.  **Empowerment Tone:** Frame AMH testing as a tool for proactive health management and future planning, emphasizing agency and informed decision-making rather than creating anxiety.",
+      "type": "blog",
+      "status": "pending"
+    },
+    {
+      "id": "reel-blog-topic-20260317-10",
+      "theme": "シードサイクリングと妊活：科学的根拠はどこに？知るべき真実",
+      "themeEn": "Seed Cycling Does NOT Boost Fertility",
+      "sourceUrls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12461132/",
+        "https://pubmed.ncbi.nlm.nih.gov/40511049/",
+        "https://www.medicalnewstoday.com/articles/seed-cycling"
+      ],
+      "direction": "Smart Brevity構成案:\n\nリード文: SNSで大流行している「シードサイクリング」。生理周期に合わせて種を食べることでホルモンバランスが整うと言われていますが、科学的な見地から言うと、これが直接的に「妊娠率を劇的に上げる」という証拠はありません。\n\n\n\n\n\n═════ ガイドライン推奨 ═════\n主要な生殖医学会（ASRM, ESHRE）のガイドラインにおいて、シードサイクリングは不妊治療のプロトコルとして一切記載・推奨されていません。あくまで「安全な健康食品の摂取」の範疇に留まります。\n\n═════ 実践アドバイス ═════\nシード（種子）には良質な脂質や亜鉛、ビタミンEが含まれており、健康的な食生活の一部としては優れています。しかし、これに依存して医学的な不妊治療を遅らせてはいけません。ホルモンバランスの乱れがある場合は、まずクリニックで血液検査を受けましょう。\n\nSEOキーワード（JP）: シードサイクリング, ホルモンバランス, PCOS 妊活, 生理不順 食事, 妊活 迷信\nSEOキーワード（EN）: seed cycling fertility, hormone balance diet, PCOS seed cycling, TTC myths, natural fertility\n\n安全性チェック: 「シードサイクリングで必ず妊娠する」「ホルモン異常が治る」といった未承認治療に対する断定・誇大表現を徹底排除。PCOS等に対する一部のポジティブな研究結果は認めつつも、医学的治療の代替にならないことを明記。",
+      "directionEn": "This blog post will adopt a Smart Brevity approach, leading with the core conclusion: seed cycling lacks robust scientific evidence for boosting fertility. Each section will present one key idea, explain its significance, and suggest a next step or broader implication, all within short, mobile-friendly paragraphs (2-3 sentences max). The tone will be empowering and evidence-based, using hedging language (e.g., \"research suggests,\" \"may\") where appropriate, rather than fear-mongering.\n\n**Section 1: The Bottom Line Up Front**\n*   **Big Thing:** Directly state that seed cycling lacks strong scientific evidence for fertility benefits.\n*   **Why it Matters:** Readers need accurate, reliable information for their fertility journey.\n*   **What's Next:** Encourage readers to look beyond popular trends to proven methods.\n\n**Section 2: Understanding Seed Cycling and its Claims**\n*   **Big Thing:** Briefly explain what seed cycling involves (flax, pumpkin, sesame, sunflower seeds) and its purported mechanism for hormone balancing.\n*   **Why it Matters:** To address reader familiarity with the trend and set the stage for scientific evaluation.\n*   **What's Next:** Transition to examining the actual scientific support for these claims.\n\n**Section 3: The Scientific Reality: What Research Actually Says**\n*   **Big Thing:** Detail the lack of robust scientific studies, particularly randomized controlled trials (RCTs), supporting seed cycling's impact on fertility or hormone regulation.\n*   **Why it Matters:** To counter popular misconceptions with scientific facts and help readers make informed choices.\n*   **What's Next:** Shift focus to proven strategies for supporting reproductive health.\n\n**Section 4: What Truly Supports Hormone Health and Fertility**\n*   **Big Thing:** Emphasize the proven importance of a balanced diet, healthy lifestyle, and professional medical consultation for hormone health and fertility.\n*   **Why it Matters:** To provide readers with actionable, evidence-backed advice.\n*   **What's Next:** Empower readers to prioritize comprehensive care and consult healthcare professionals for personalized guidance.",
+      "type": "blog",
+      "status": "pending"
+    }
+  ]
+}

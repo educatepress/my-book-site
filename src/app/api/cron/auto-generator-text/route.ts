@@ -26,14 +26,16 @@ export async function GET(req: Request) {
   }
 
   try {
+    // 翌日（tomorrow）のテーマを取得する
     const dt = new Date(new Date().getTime() + 9 * 3600 * 1000);
-    const todayStr = dt.toISOString().split('T')[0];
+    dt.setDate(dt.getDate() + 1);
+    const tomorrowStr = dt.toISOString().split('T')[0];
     const targetBrand = 'book'; // 指定によりbookのみ対象
 
-    const pendingTopic = await getThemeSchedule(todayStr, targetBrand);
+    const pendingTopic = await getThemeSchedule(tomorrowStr, targetBrand);
 
     if (!pendingTopic) {
-      console.log(`ℹ️ No ThemeSchedule found for date: ${todayStr} / brand: ${targetBrand}.`);
+      console.log(`ℹ️ No ThemeSchedule found for date: ${tomorrowStr} / brand: ${targetBrand}.`);
       return NextResponse.json({ success: true, message: 'No more topics to generate.' });
     }
     
@@ -46,10 +48,8 @@ export async function GET(req: Request) {
 
     const ai = new GoogleGenAI({ apiKey: geminiKey });
     
-    // 3日後を公開予定日として計算
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 3);
-    const postDateStr = targetDate.toISOString().split('T')[0];
+    // 公開予定日は「明日の日付(tomorrowStr)」に正確に合わせる
+    const postDateStr = tomorrowStr;
 
     // ==========================================
     // PROMPT 1: テキストアセット (Blog & X)
@@ -89,6 +89,8 @@ ${pendingTopic.searchKeywords}
 4. 【中立性の徹底】
    過度な期待を抱かせる「新作用」「確実に改善する」「保証する」等の煽り表現や断定表現は絶対に禁止。
 5. 必ずトリガーワーニング（TW: Pregnancy等）を適切な場合のみ明記すること。
+6. 【MDX構文エラーの完全防止】
+   ブログ記事(MDX)内でリンクを記述する際、JSX記法と衝突してビルドエラーを起こすため、markdownリンクの後ろに特殊な波括弧で属性を付ける記法（例: \`[テキスト](/){.text-link}\`）は **絶対に禁止** します。通常のMarkdownリンク（\\[テキスト\\](URL)）のみを使用し、中括弧 \`{\` や \`}\` および \`<\` \`>\` はコードブロック外での使用を避けるかエスケープしてください。
 
 記事の投稿日: ${postDateStr}
 

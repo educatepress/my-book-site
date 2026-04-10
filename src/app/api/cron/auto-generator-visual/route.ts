@@ -26,14 +26,16 @@ export async function GET(req: Request) {
   }
 
   try {
+    // 翌日（tomorrow）のテーマを取得する
     const dt = new Date(new Date().getTime() + 9 * 3600 * 1000);
-    const todayStr = dt.toISOString().split('T')[0];
+    dt.setDate(dt.getDate() + 1);
+    const tomorrowStr = dt.toISOString().split('T')[0];
     const targetBrand = 'book'; // 指定によりbookのみ対象
 
-    const pendingTopic = await getThemeSchedule(todayStr, targetBrand);
+    const pendingTopic = await getThemeSchedule(tomorrowStr, targetBrand);
 
     if (!pendingTopic) {
-      console.log(`ℹ️ No ThemeSchedule found for date: ${todayStr} / brand: ${targetBrand}.`);
+      console.log(`ℹ️ No ThemeSchedule found for date: ${tomorrowStr} / brand: ${targetBrand}.`);
       return NextResponse.json({ success: true, message: 'No more topics to generate.' });
     }
     
@@ -46,10 +48,8 @@ export async function GET(req: Request) {
 
     const ai = new GoogleGenAI({ apiKey: geminiKey });
     
-    // 3日後を公開予定日として計算
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 3);
-    const postDateStr = targetDate.toISOString().split('T')[0];
+    // 公開予定日は「明日の日付(tomorrowStr)」に正確に合わせる
+    const postDateStr = tomorrowStr;
 
     
 
@@ -86,16 +86,43 @@ ${pendingTopic.brand === 'atelier' ? '美容皮膚科の専門医として、信
    - "englishSubtitles": 動画全体を通して画面に出す英語字幕の配列。
    - CTAには必ず「Comment 'GUIDE' below to get my recommended link!」を含めること。
 
-2. "carouselJson": カルーセル形式の画像スライド用の構成データ（JSON配列。最大8枚）。
-   - 各配列要素は以下の形式のオブジェクトであること:
-     { "slideNumber": 1, "type": "Cover", "headline": "...", "subheadline": "..." }
-   - スライドの "type" は、Cover, Agitation, Intro, Content, Infographic, Summary のいずれかを使用すること。
-   - 構成の例:
-     1. Cover (タイトル "headline", "subheadline")
-     2. Agitation (問題提起・共感 "headline", "body")
-     3. Intro (これから解説する内容 "headline", "points": ["...", "..."])
-     4-6. Content または Infographic ("headline", "body", "highlightKeyword")
-     7. Summary ("headline", "summaryItems": ["...", "..."])
+2. "carouselJson": カルーセル形式の画像スライド用の構成データ（JSON配列。合計 8〜10枚 のスライド構成にすること）。
+   - スライドの "type" は、Cover, Agitation, Intro, Content, Infographic, Summary, CTA のいずれかを必ず使用すること。
+   
+   【スライドの構成と各JSONプロパティの厳格な指定】
+   1. Cover (表紙 - 1枚目)
+     { "slideNumber": 1, "type": "Cover", "headline": "タイトル", "subheadline": "サブタイトル" }
+     
+   2. Agitation / Intro / Content (解説テキスト - 随時複数枚使用)
+     { "slideNumber": 2, "type": "Content", "headline": "見出し", "body": "本文テキスト", "highlightKeyword": "強調したい単語" }
+     
+   3. Infographic (グラフ作成スライド - 医学データ比較用として中盤に1〜2枚使用)
+     与えられたテーマやエビデンス(PMID等)に基づく具体的な数値比較グラフを生成してください。サイズの概念はなく、パーセンテージ等の数値そのものを指定します。
+     {
+       "slideNumber": 5,
+       "type": "Infographic",
+       "chartType": "comparison",             // "comparison" または "single_value" または "list"
+       "title": "グラフのタイトル",
+       "source": "出典(例: Fertility and Sterility)", 
+       "metricLabel": "指標名(例: Pregnancy Rate)",
+       "group1Label": "比較群1(例: XX投与群)",
+       "group1Value": 55.4,                   // 【超重要】具体的な数字を入れてください
+       "group2Label": "比較群2(例: 対照群)",
+       "group2Value": 32.1,                   // 【超重要】具体的な数字を入れてください
+       "unit": "%"                            // 単位(例: %, 歳, kg)
+     }
+     
+   4. Summary (まとめ - 終盤に使用)
+     { "slideNumber": 9, "type": "Summary", "headline": "まとめ", "summaryItems": ["ポイント1", "ポイント2", "Pro Tip: 専門医からの視点"] }
+
+   5. CTA (エンゲージメント誘導 - 【必ず最後のスライド（8〜10枚目）】に必須)
+     {
+       "slideNumber": 10,
+       "type": "CTA",
+       "headline": "Read the Full Guide",
+       "actionText": "To get my exclusive guide, type the word below in the comments!",
+       "commentTrigger": "GUIDE"
+     }
 
 CRITICAL: ONLY OUTPUT RAW VALID JSON. DO NOT INCLUDE MARKDOWN CODE BLOCKS.
 CRITICAL: ALL string values MUST properly escape newlines as \\n and double quotes as \\". DO NOT output raw newline characters inside the JSON strings.
