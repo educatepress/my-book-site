@@ -1,6 +1,0 @@
-=== Running Auto Generator ===
-🤖 Auto Generator Cron Job Started.
-📝 Found topic to generate: [②日常の落とし穴＆ライフスタイル] 見過ごされがちな「歯周病」が不妊リスクを高める？ 口腔内細菌...
-🤖 Firing Parallel Gemini API tasks for generation...
-✅ Parallel generation completed and queued successfully: periodontal-disease-fertility-risk
-{"success":true,"message":"Generated and queued content for slug: periodontal-disease-fertility-risk","slug":"periodontal-disease-fertility-risk"}

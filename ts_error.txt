@@ -1,3 +1,0 @@
-.next/dev/types/validator.ts(134,39): error TS2307: Cannot find module '../../../src/app/api/cron/auto-generator/route.js' or its corresponding type declarations.
-test-auto-generator.ts(2,21): error TS2307: Cannot find module './src/app/api/cron/auto-generator/route' or its corresponding type declarations.
-test-generator.ts(1,21): error TS2307: Cannot find module './src/app/api/cron/auto-generator/route' or its corresponding type declarations.
