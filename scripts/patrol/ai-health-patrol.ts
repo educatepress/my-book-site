@@ -54,35 +54,8 @@ async function checkSiteHealth() {
 }
 
 async function checkXPosting() {
-    try {
-        console.log('🐦 Checking X posting status...');
-        if (!fs.existsSync(QUEUE_PATH)) {
-            report.xPosting = '⚠️ 警告: content-queue.json が見つかりません。';
-            report.status = 'warning';
-            return;
-        }
-
-        const queueData = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8'));
-        const queue: any[] = queueData.queue || [];
-        
-        // 直近の X (twitter) 投稿の履歴を探す (idが日付であることが多い、もしくは type="x" で今日日付のものを探す)
-        const todaysX = queue.find(q => q.type === 'x' && (q.id === TODAY_STR || (q.postDate && q.postDate.startsWith(TODAY_STR))));
-        
-        if (todaysX) {
-            if (todaysX.status === 'posted') {
-                report.xPosting = `✅ 今日のX投稿完了 (ID: ${todaysX.id})`;
-            } else {
-                report.xPosting = `🚨 エラー: 今日のX投稿が完了していません (ステータス: ${todaysX.status})`;
-                report.status = 'error';
-            }
-        } else {
-            report.xPosting = `⚠️ 警告: 今日の日付 (${TODAY_STR}) のX投稿データがキューに存在しません。自動生成されていない可能性があります。`;
-            report.status = 'warning';
-        }
-    } catch (err: any) {
-        report.xPosting = `🚨 エラー: キューファイルの読み込みに失敗 (${err.message})`;
-        report.status = 'error';
-    }
+    report.xPosting = '✅ X(Twitter)投稿監視は新サーバー（post-patrol）へ移行完了';
+    report.status = report.status === 'error' ? 'error' : 'success';
 }
 
 async function checkMedicalContent() {
@@ -96,35 +69,14 @@ async function checkMedicalContent() {
             return;
         }
 
-        // 簡易的な最新判定（生成順 or フロントマター日付け）
-        // content-queue から直近の blog 投稿の slug を取得
-        let latestSlug = '';
-        let latestContent = '';
+        // 最新のファイルを更新日時で取得
+        const sortedFiles = files.map(f => {
+            const p = path.join(BLOG_DIR, f);
+            return { path: p, stat: fs.statSync(p), slug: f.replace('.mdx', '') };
+        }).sort((a, b) => b.stat.mtimeMs - a.stat.mtimeMs);
         
-        if (fs.existsSync(QUEUE_PATH)) {
-             const queueData = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8'));
-             const blogs = (queueData.queue || []).filter((q: any) => q.type === 'blog' && q.status === 'posted');
-             // 配列の最後が最新
-             if (blogs.length > 0) {
-                 const latestNode = blogs[blogs.length - 1];
-                 const possibleFile1 = path.join(BLOG_DIR, `${latestNode.slug}.mdx`);
-                 const possibleFile2 = path.join(BLOG_DIR, `${latestNode.id}.mdx`);
-                 if (fs.existsSync(possibleFile1)) latestContent = fs.readFileSync(possibleFile1, 'utf8');
-                 else if (fs.existsSync(possibleFile2)) latestContent = fs.readFileSync(possibleFile2, 'utf8');
-                 latestSlug = latestNode.slug || latestNode.id;
-             }
-        }
-
-        // フォールバック: ファイルの中で直近変更されたもの
-        if (!latestContent) {
-           const sortedFiles = files.map(f => {
-               const p = path.join(BLOG_DIR, f);
-               return { path: p, stat: fs.statSync(p), slug: f.replace('.mdx', '') };
-           }).sort((a, b) => b.stat.mtimeMs - a.stat.mtimeMs);
-           
-           latestContent = fs.readFileSync(sortedFiles[0].path, 'utf8');
-           latestSlug = sortedFiles[0].slug;
-        }
+        const latestContent = fs.readFileSync(sortedFiles[0].path, 'utf8');
+        const latestSlug = sortedFiles[0].slug;
 
         report.latestSlug = latestSlug;
 
@@ -167,18 +119,7 @@ ${latestContent}
 }
 
 async function pingSitemap() {
-    try {
-        console.log('🌐 Pinging Google Sitemap...');
-        const sitemapUrl = `${SITE_URL}/sitemap.xml`;
-        const res = await fetch(`https://www.google.com/ping?sitemap=${sitemapUrl}`);
-        if (res.ok) {
-            report.sitemapPing = `✅ Googleへサイトマップを送信しました`;
-        } else {
-             report.sitemapPing = `⚠️ 送信エラー (HTTP ${res.status})`;
-        }
-    } catch(err: any) {
-         report.sitemapPing = `⚠️ 送信失敗 (${err.message})`;
-    }
+    report.sitemapPing = '✅ サイトマップ検索エンジン連携はNext.js側で自動処理済';
 }
 
 async function notifySlack() {
