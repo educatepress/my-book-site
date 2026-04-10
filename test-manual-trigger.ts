@@ -2,6 +2,7 @@ import { GET as genText } from './src/app/api/cron/auto-generator-text/route';
 import { GET as genVisual } from './src/app/api/cron/auto-generator-visual/route';
 
 async function main() {
+  // @ts-ignore
   process.env.NODE_ENV = 'development';
   const req = new Request('http://localhost', { headers: { authorization: 'Bearer dev-secret' } });
 

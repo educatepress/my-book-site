@@ -2,6 +2,7 @@ import { getThemeSchedule, updateThemeScheduleStatus, addQueueItem, getReelsFact
 import { GoogleGenAI } from '@google/genai';
 
 async function main() {
+  // @ts-ignore
   process.env.NODE_ENV = 'development';
   const reelsEnv = getReelsFactoryEnv();
   const geminiKey = process.env.GEMINI_API_KEY || reelsEnv.GEMINI_API_KEY;

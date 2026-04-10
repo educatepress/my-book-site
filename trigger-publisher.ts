@@ -7,6 +7,7 @@ dotenv.config({ path: path.join(process.cwd(), '.env') });
 dotenv.config({ path: path.join(process.cwd(), '.env.local') });
 
 async function run() {
+  // @ts-ignore
   process.env.NODE_ENV = 'development';
   // Fake request
   const req = new NextRequest('http://localhost:3000/api/cron/daily-publisher', {
