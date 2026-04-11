@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, after } from 'next/server';
 import { getEnvVar } from '@/lib/env-helper';
 import { updateSheetRow } from '@/lib/sheets-rest';
 
@@ -41,8 +41,6 @@ export async function POST(req: Request) {
       const action = payload.actions?.[0];
       if (!action) return NextResponse.json({ ok: true });
 
-      // ✅ [Approve] -> Mark as approved in Google Sheets (for Daily Publisher)
-      // ⚡ Slackは3秒以内の応答を要求するため、重い処理はバックグラウンドで実行
       if (action.action_id === 'approve_content') {
         const parsedValue = JSON.parse(action.value || '{}');
         const contentId = parsedValue.id;
@@ -50,56 +48,57 @@ export async function POST(req: Request) {
         const ts = payload.container?.message_ts;
         const blocks = payload.message?.blocks;
 
-        try {
-          const today = new Date().toISOString().split('T')[0];
-          await updateSheetRow(contentId, {
-            status: 'approved',
-            scheduled_date: today
-          });
-          console.log(`[Slack API] ✅ Successfully approved ${contentId} in Google Sheets.`);
-        } catch (err) {
-          console.error('[Slack API] Failed to update Google Sheets on approve:', err);
-        }
-
-        // --- Automatically publish pending Drafts for Webpage.new ---
-        // Assuming this route runs on the same environment where .pending files are written
-        try {
-          const fs = require('fs');
-          const path = require('path');
-          // contentId is like "blog-some-slug-12345"
-          const slugMatch = contentId.match(/^blog-(.+?)-\d+$/);
-          const rawSlug = slugMatch ? slugMatch[1] : contentId;
-
-          const jpBlogPath = path.join(process.cwd(), 'src/content/blog/jp', `${rawSlug}.mdx.pending`);
-          const enBlogPath = path.join(process.cwd(), 'src/content/blog/en', `${rawSlug}-en.mdx.pending`);
-          
-          if (fs.existsSync(jpBlogPath)) {
-            fs.renameSync(jpBlogPath, jpBlogPath.replace('.pending', ''));
-            console.log(`✅ Auto-published: ${rawSlug}.mdx`);
+        // ⚡ Slackは3秒以内の応答を要求するため、重い処理はafter構文でバックグラウンド実行
+        after(async () => {
+          try {
+            const today = new Date().toISOString().split('T')[0];
+            await updateSheetRow(contentId, {
+              status: 'approved',
+              scheduled_date: today
+            });
+            console.log(`[Slack API] ✅ Successfully approved ${contentId} in Google Sheets.`);
+          } catch (err) {
+            console.error('[Slack API] Failed to update Google Sheets on approve:', err);
           }
-          if (fs.existsSync(enBlogPath)) {
-            fs.renameSync(enBlogPath, enBlogPath.replace('.pending', ''));
-            console.log(`✅ Auto-published: ${rawSlug}-en.mdx`);
-          }
-        } catch (postErr) {
-          console.error('[Slack API] Failed to auto-publish pending MDX file:', postErr);
-        }
 
-        if (channel && ts && blocks) {
-          const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
-          if (actionBlockIndex !== -1) {
-            blocks[actionBlockIndex] = {
-              type: 'section',
-              text: {
-                type: 'mrkdwn',
-                text: `✅ *承認済み* (明朝の自動投稿キューに登録されました)`
-              }
-            };
-            await updateSlackMessage(channel, ts, '承認されました', blocks);
-          }
-        }
+          // --- Automatically publish pending Drafts for Webpage.new ---
+          try {
+            const fs = require('fs');
+            const path = require('path');
+            const slugMatch = contentId.match(/^blog-(.+?)-\d+$/);
+            const rawSlug = slugMatch ? slugMatch[1] : contentId;
 
-        // 処理が完了してからSlackに200を返す
+            const jpBlogPath = path.join(process.cwd(), 'src/content/blog/jp', `${rawSlug}.mdx.pending`);
+            const enBlogPath = path.join(process.cwd(), 'src/content/blog/en', `${rawSlug}-en.mdx.pending`);
+            
+            if (fs.existsSync(jpBlogPath)) {
+              fs.renameSync(jpBlogPath, jpBlogPath.replace('.pending', ''));
+              console.log(`✅ Auto-published: ${rawSlug}.mdx`);
+            }
+            if (fs.existsSync(enBlogPath)) {
+              fs.renameSync(enBlogPath, enBlogPath.replace('.pending', ''));
+              console.log(`✅ Auto-published: ${rawSlug}-en.mdx`);
+            }
+          } catch (postErr) {
+            console.error('[Slack API] Failed to auto-publish pending MDX file:', postErr);
+          }
+
+          if (channel && ts && blocks) {
+            const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
+            if (actionBlockIndex !== -1) {
+              blocks[actionBlockIndex] = {
+                type: 'section',
+                text: {
+                  type: 'mrkdwn',
+                  text: `✅ *承認済み* (明朝の自動投稿キューに登録されました)`
+                }
+              };
+              await updateSlackMessage(channel, ts, '承認されました', blocks);
+            }
+          }
+        });
+
+        // 処理のキューイング完了後、即座にSlackへ200 OKを返す
         return NextResponse.json({ ok: true });
       }
 
@@ -165,34 +164,36 @@ export async function POST(req: Request) {
       const privateMetadata = JSON.parse(payload.view.private_metadata || '{}');
       const contentId = privateMetadata.id;
 
-      let success = false;
-      try {
-        await updateSheetRow(contentId, {
-          status: 'rejected',
-          rej_reason: reason
-        });
-        console.log(`[Slack API] Successfully recorded rejection for ${contentId} in Google Sheets. Reason: ${reason}`);
-        success = true;
-      } catch (err) {
-        console.error('[Slack API] Failed to update Google Sheets:', err);
-      }
-
-      // Update the original Slack message to show the rejection
-      if (privateMetadata.channel && privateMetadata.ts && privateMetadata.blocks) {
-        const blocks = privateMetadata.blocks;
-        const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
-        
-        if (actionBlockIndex !== -1) {
-          blocks[actionBlockIndex] = {
-            type: 'section',
-            text: {
-              type: 'mrkdwn',
-              text: `❌ *却下済み*\n*理由:* ${reason}${!success ? ' (※queue.jsonの更新に失敗)' : ''}`
-            }
-          };
-          await updateSlackMessage(privateMetadata.channel, privateMetadata.ts, '却下されました', blocks);
+      after(async () => {
+        let success = false;
+        try {
+          await updateSheetRow(contentId, {
+            status: 'rejected',
+            rej_reason: reason
+          });
+          console.log(`[Slack API] Successfully recorded rejection for ${contentId} in Google Sheets. Reason: ${reason}`);
+          success = true;
+        } catch (err) {
+          console.error('[Slack API] Failed to update Google Sheets:', err);
         }
-      }
+
+        // Update the original Slack message to show the rejection
+        if (privateMetadata.channel && privateMetadata.ts && privateMetadata.blocks) {
+          const blocks = privateMetadata.blocks;
+          const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
+          
+          if (actionBlockIndex !== -1) {
+            blocks[actionBlockIndex] = {
+              type: 'section',
+              text: {
+                type: 'mrkdwn',
+                text: `❌ *却下済み*\n*理由:* ${reason}${!success ? ' (※queue.jsonの更新に失敗)' : ''}`
+              }
+            };
+            await updateSlackMessage(privateMetadata.channel, privateMetadata.ts, '却下されました', blocks);
+          }
+        }
+      });
 
       // Clear the modal
       return NextResponse.json({
