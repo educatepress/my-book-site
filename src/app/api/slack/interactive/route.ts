@@ -53,12 +53,17 @@ export async function POST(req: Request) {
         const blocks = payload.message?.blocks;
 
         try {
-          const today = new Date().toISOString().split('T')[0];
+          // Schedule for tomorrow (JST) so that the daily-publisher cron (runs 10:00 JST) picks it up.
+          // Previously set to `today`, but the cron filters scheduled_date === today —
+          // any approval after 10:00 JST would be orphaned. UI copy says "明朝の自動投稿キュー", so honor that.
+          const tomorrowJst = new Date(Date.now() + 9 * 3600 * 1000 + 24 * 3600 * 1000)
+            .toISOString()
+            .split('T')[0];
           await updateSheetRow(contentId, {
             status: 'approved',
-            scheduled_date: today
+            scheduled_date: tomorrowJst
           });
-          console.log(`[Slack API] ✅ Successfully approved ${contentId} in Google Sheets.`);
+          console.log(`[Slack API] ✅ Successfully approved ${contentId} (scheduled for ${tomorrowJst}).`);
         } catch (err) {
           console.error('[Slack API] Failed to update Google Sheets on approve:', err);
         }
