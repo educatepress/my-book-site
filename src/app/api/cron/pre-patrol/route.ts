@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getQueueItems, updateQueueItem, getReelsFactoryEnv } from '@/lib/sheets';
+import { brandBadge } from '@/lib/brand';
 import Anthropic from '@anthropic-ai/sdk';
 
 export const maxDuration = 300;
@@ -110,8 +111,7 @@ ${contentText}
 
       // ── Slack Notification via Webhook ──
       // Sending Block Kit to the standard Webhook URL (Usually chat.postMessage is better for buttons, but webhook supports block actions if configured properly in Slack app)
-      const isAtelier = item.brand === 'atelier';
-      const brandBadge = isAtelier ? '🟩 Skin Atelier' : '🟦 hiroo-open';
+      const badge = brandBadge(item.brand);
 
       const previewText = contentText.length > 80 ? contentText.substring(0, 80) + '...' : contentText;
 
@@ -132,7 +132,7 @@ ${contentText}
         {
           type: 'context',
           elements: [
-            { type: 'mrkdwn', text: `*配信先:* ${brandBadge}  |  *ID:* \`${item.content_id}\`` }
+            { type: 'mrkdwn', text: `*配信先:* ${badge}  |  *ID:* \`${item.content_id}\`` }
           ]
         },
         {

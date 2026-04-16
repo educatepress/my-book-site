@@ -55,15 +55,21 @@ async function getAccessToken(): Promise<string> {
   return data.access_token;
 }
 
+// 🔴 列順は実スプレッドシートのヘッダー行と厳密に一致させること。
+// この配列は updateSheetRow() で「カラム名 → 列レター」の変換に使われる。
+// 'brand' が抜けていたり 'ymyl_evidence' が漏れていたりすると status などが
+// 1列ズレた位置に書き込まれ、Slack 承認が反映されない事故が起きる。
+// 詳細: src/lib/sheets.ts の HEADERS と同期させること。
 export const HEADERS = [
-  'content_id', 'type', 'title', 'cloudinary_url', 'cloudinary_public_id', 'gdrive_url',
+  'content_id', 'brand', 'type', 'title', 'cloudinary_url', 'cloudinary_public_id', 'gdrive_url',
   'generation_recipe', 'status', 'patrol_pre_result', 'scheduled_date', 'post_url',
-  'posted_at', 'patrol_post_result', 'cloudinary_deleted', 'slack_ts', 'error_detail'
+  'posted_at', 'patrol_post_result', 'cloudinary_deleted', 'slack_ts', 'error_detail',
+  'ymyl_evidence'
 ];
 
 export async function getSheetsRows() {
   const accessToken = await getAccessToken();
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/A2:P`;
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/A2:R`;
   
   const res = await fetch(url, {
     headers: { 'Authorization': `Bearer ${accessToken}` }
