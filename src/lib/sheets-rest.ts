@@ -1,59 +1,16 @@
-import fs from 'fs';
+/**
+ * sheets-rest.ts — スプレッドシート更新ユーティリティ（サービスアカウント方式）
+ *
+ * 以前は OAuth + Refresh Token で動作していたが、`invalid_grant: Bad Request`
+ * エラーで Slack 承認フローが止まる事故があったため、サービスアカウント方式に
+ * 統一した。認証ロジックと SPREADSHEET_ID は src/lib/sheets.ts を共有する。
+ *
+ * NOTE: 呼び出し側は updateSheetRow(contentId, updates) / getSheetsRows() の
+ * 既存シグネチャをそのまま使えるよう互換維持。
+ */
 
-// Vercel環境ではprocess.envを使用、ローカル開発では.envファイルから読み込む
-function getEnvVar(key: string): string {
-  if (process.env[key]) return process.env[key]!;
-  // ローカル開発時のフォールバック
-  const envPath = '/Users/satoutakuma/Desktop/reels-factory/.env';
-  if (fs.existsSync(envPath)) {
-    const content = fs.readFileSync(envPath, 'utf8');
-    const match = content.match(new RegExp(`^${key}=(.*)$`, 'm'));
-    if (match) return match[1].trim().replace(/^["']|["']$/g, '');
-  }
-  return '';
-}
-
-const CLIENT_ID = getEnvVar('GOOGLE_OAUTH_CLIENT_ID');
-const CLIENT_SECRET = getEnvVar('GOOGLE_OAUTH_CLIENT_SECRET');
-const SHEET_ID = getEnvVar('GOOGLE_SHEETS_QUEUE_ID');
-
-// トークンを取得する（新しいアクセストークンをリフレッシュする）
-async function getAccessToken(): Promise<string> {
-  // 1. 環境変数からリフレッシュトークンを取得（Vercel用）
-  let refresh_token = process.env.GOOGLE_REFRESH_TOKEN || '';
-
-  // 2. ローカル開発時はtoken.jsonから取得
-  if (!refresh_token) {
-    const tokenPath = '/Users/satoutakuma/Desktop/reels-factory/scripts/data/token.json';
-    if (fs.existsSync(tokenPath)) {
-      const tokenData = JSON.parse(fs.readFileSync(tokenPath, 'utf8'));
-      refresh_token = tokenData.refresh_token || '';
-      if (!refresh_token) return tokenData.access_token;
-    }
-  }
-
-  if (!refresh_token) throw new Error('No refresh token available (set GOOGLE_REFRESH_TOKEN env var)');
-
-  // Refresh Token を使って Access Token を再取得
-  const res = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      refresh_token: refresh_token,
-      grant_type: 'refresh_token'
-    })
-  });
-
-  if (!res.ok) {
-    const error = await res.text();
-    throw new Error(`Failed to refresh token: ${error}`);
-  }
-
-  const data = await res.json();
-  return data.access_token;
-}
+import { google } from 'googleapis';
+import { getGoogleAuthClient, QUEUE_SPREADSHEET_ID } from './sheets';
 
 // 🔴 列順は実スプレッドシートのヘッダー行と厳密に一致させること。
 // この配列は updateSheetRow() で「カラム名 → 列レター」の変換に使われる。
@@ -67,19 +24,20 @@ export const HEADERS = [
   'ymyl_evidence'
 ];
 
+async function getSheetsClient() {
+  const auth = await getGoogleAuthClient();
+  // googleapis の型が AuthClient と GoogleAuth で微妙に異なるので any で吸収
+  return google.sheets({ version: 'v4', auth: auth as any });
+}
+
 export async function getSheetsRows() {
-  const accessToken = await getAccessToken();
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/A2:R`;
-  
-  const res = await fetch(url, {
-    headers: { 'Authorization': `Bearer ${accessToken}` }
+  const sheets = await getSheetsClient();
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: QUEUE_SPREADSHEET_ID,
+    range: 'シート1!A2:R'
   });
-  
-  if (!res.ok) throw new Error(`Google Sheets API Error: ${await res.text()}`);
-  
-  const data = await res.json();
-  const rows = data.values || [];
-  
+
+  const rows = res.data.values || [];
   return rows.map((row: any[]) => {
     const obj: Record<string, string> = {};
     HEADERS.forEach((header, index) => {
@@ -90,51 +48,41 @@ export async function getSheetsRows() {
 }
 
 export async function updateSheetRow(contentId: string, updates: Record<string, string>) {
-  const accessToken = await getAccessToken();
-  
-  // IDから行番号を特定するためにもう一度最新を取得
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/A2:A`;
-  const res = await fetch(url, {
-    headers: { 'Authorization': `Bearer ${accessToken}` }
+  const sheets = await getSheetsClient();
+
+  // ID から行番号を特定するため A 列を取得
+  const idsResponse = await sheets.spreadsheets.values.get({
+    spreadsheetId: QUEUE_SPREADSHEET_ID,
+    range: 'シート1!A2:A'
   });
-  
-  if (!res.ok) throw new Error(`Failed to fetch sheet IDs: ${await res.text()}`);
-  const data = await res.json();
-  const ids = data.values || [];
-  const rowIndex = ids.findIndex((row: string[]) => row[0] === contentId);
-  
+  const ids = idsResponse.data.values || [];
+  const rowIndex = ids.findIndex((row: any[]) => row[0] === contentId);
+
   if (rowIndex === -1) return false;
-  
-  const actualRowNumber = rowIndex + 2;
-  const dataToUpdate = [];
-  
+
+  const actualRowNumber = rowIndex + 2; // 1行目ヘッダー + 0-indexed → +2
+
+  // 更新する列のみ batchUpdate 用データを組む
+  const data: { range: string; values: string[][] }[] = [];
   for (const key of Object.keys(updates)) {
     const colIndex = HEADERS.indexOf(key);
     if (colIndex !== -1) {
       const letter = String.fromCharCode(65 + colIndex);
-      dataToUpdate.push({
-        range: `${letter}${actualRowNumber}`,
+      data.push({
+        range: `シート1!${letter}${actualRowNumber}`,
         values: [[updates[key]]]
       });
     }
   }
 
-  if (dataToUpdate.length > 0) {
-    const updateUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values:batchUpdate`;
-    const updateRes = await fetch(updateUrl, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        valueInputOption: 'USER_ENTERED',
-        data: dataToUpdate
-      })
-    });
-    
-    if (!updateRes.ok) throw new Error(`Failed to update sheet: ${await updateRes.text()}`);
-    return true;
-  }
-  return false;
+  if (data.length === 0) return false;
+
+  await sheets.spreadsheets.values.batchUpdate({
+    spreadsheetId: QUEUE_SPREADSHEET_ID,
+    requestBody: {
+      valueInputOption: 'USER_ENTERED',
+      data
+    }
+  });
+  return true;
 }
