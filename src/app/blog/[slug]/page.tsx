@@ -49,6 +49,16 @@ export default async function BlogPost({ params }: PostProps) {
         notFound();
     }
 
+    const breadcrumbLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://ttcguide.co' },
+            { '@type': 'ListItem', position: 2, name: 'ブログ', item: 'https://ttcguide.co/blog' },
+            { '@type': 'ListItem', position: 3, name: post.frontmatter.title },
+        ],
+    };
+
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'Article',
@@ -79,6 +89,10 @@ export default async function BlogPost({ params }: PostProps) {
            - py-10 にしてスマホでの上下余白を適正化
         */
         <div className="min-h-screen bg-[var(--color-cream)] py-10 md:py-24 px-0 sm:px-6">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

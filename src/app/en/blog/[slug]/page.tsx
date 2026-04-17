@@ -47,6 +47,16 @@ export default async function BlogPostEn({ params }: PostProps) {
         notFound();
     }
 
+    const breadcrumbLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ttcguide.co/en' },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://ttcguide.co/en/blog' },
+            { '@type': 'ListItem', position: 3, name: post.frontmatter.title },
+        ],
+    };
+
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'Article',
@@ -71,6 +81,10 @@ export default async function BlogPostEn({ params }: PostProps) {
 
     return (
         <div className="min-h-screen bg-[var(--color-cream)] py-16 md:py-24 px-6 font-en">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

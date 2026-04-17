@@ -67,9 +67,9 @@ async function processFile(filePath: string) {
         console.log(`🌐 Language detected: ${langStr}`);
 
         const slug = path.basename(filePath, '.mdx');
-        const blogUrl = isEnglish 
-            ? `https://doctors-guide-womens-health.vercel.app/en/blog/${slug}`
-            : `https://doctors-guide-womens-health.vercel.app/blog/${slug}`;
+        const blogUrl = isEnglish
+            ? `https://ttcguide.co/en/blog/${slug}`
+            : `https://ttcguide.co/blog/${slug}`;
 
         let tweetText = "";
         if (isEnglish) {
