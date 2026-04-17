@@ -1,6 +1,7 @@
 "use client";
 
 import FadeIn from "@/components/common/fade-in";
+import { trackCtaClick } from "@/lib/track-cta";
 
 export default function SimulatorCtaEn() {
     return (
@@ -28,6 +29,7 @@ export default function SimulatorCtaEn() {
 
                             <a
                                 href="/en/simulator"
+                                onClick={() => trackCtaClick("lp-en", "cta", "simulator")}
                                 className="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-base rounded-full px-10 py-4 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
                             >
                                 Try the Simulator →
