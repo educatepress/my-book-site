@@ -33,7 +33,7 @@ const bookJsonLd = {
         "price": "1250",
         "priceCurrency": "JPY",
         "availability": "https://schema.org/InStock",
-        "url": "https://amazon.co.jp/dp/B0F7XTWJ3X"
+        "url": "https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-lp-22"
     }
 };
 

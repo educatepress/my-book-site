@@ -51,7 +51,7 @@ const bookJsonLdEn = {
         "price": "9.99",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://amzn.to/4tRV6qk"
+        "url": "https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enlp-22"
     }
 };
 

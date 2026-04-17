@@ -32,7 +32,7 @@ export default function StickyCta() {
                             <span className="text-[0.65rem] text-[var(--color-text-muted)] font-medium">Kindle ¥1,250</span>
                         </div>
                         <a
-                            href="https://amzn.to/3NcOWBl"
+                            href="https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-lp-22"
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => trackCtaClick("lp-jp", "sticky", "sticky-bar")}

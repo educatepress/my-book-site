@@ -183,7 +183,7 @@ ${item.sourceUrls.join('\n')}
      ④ よくある質問（FAQ）: 各回答は20文字以内の結論1文から始め、その後詳細を解説（AEO対策）
      ⑤ 書籍CTA（以下の定型文のみ使用、独自のセールス文は追加禁止）:
         📖 **同じ著者による、妊活・プレコンセプションケアの基礎知識をまとめた書籍はこちら**
-        [『20代で考える 将来妊娠で困らないための選択』（Amazon）](https://amzn.to/3NcOWBl)
+        [『20代で考える 将来妊娠で困らないための選択』（Amazon）](https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-blog-22)
    - "slug" キーには短い英語のスラッグを指定すること。
 
 2. "enBlog": 日本語版と同内容の英語版MDXブログ記事。
@@ -196,7 +196,7 @@ ${item.sourceUrls.join('\n')}
    - References は [Author. "Title." Journal, Year. PMID/DOI] 形式で3件以上。
    - FAQ の各回答はAIが引用しやすい簡潔かつ正確な表現で（AEO最適化）。
    - 書籍CTA: 📖 **Want to learn more? Check out the book.**
-     [Dr. Sato's Guide to Women's Health (Amazon)](https://amzn.to/4tRV6qk)
+     [Dr. Sato's Guide to Women's Health (Amazon)](https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enblog-22)
 
 3. "xPost": Blog投稿に紐づくX用の告知テキスト（100〜120文字程度）。
    - 記事の内容から有益なファクトを1つ抽出。

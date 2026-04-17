@@ -103,13 +103,13 @@ ${pendingTopic.searchKeywords}
    ④ よくある質問 (FAQ): \`## よくある質問 (FAQ)\` を作成し、SEO/AEOに有利な対象読者の疑問と回答を3つ配置。
    ⑤ まとめ: \`## まとめ\` の見出しで記事を締めくくる。
    ⑥ 参考文献: \`### 参考文献\` の見出しを作成し、提供された参考URL/PMIDのみを箇条書きで記載。
-   ⑦ CTA: 最後に「📖 同じ著者による、妊活・プレコンセプションケアの基礎知識をまとめた書籍はこちら」という文言で書籍リンク（ https://amzn.to/3NcOWBl ）を挿入。注意：書籍はブログ記事のテーマを深掘りした内容ではなく、一般的なプレコンセプションケアの入門書である。ブログの内容と書籍の内容が直結しているかのような誘導は絶対に避けること。
+   ⑦ CTA: 最後に「📖 同じ著者による、妊活・プレコンセプションケアの基礎知識をまとめた書籍はこちら」という文言で書籍リンク（ https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-blog-22 ）を挿入。注意：書籍はブログ記事のテーマを深掘りした内容ではなく、一般的なプレコンセプションケアの入門書である。ブログの内容と書籍の内容が直結しているかのような誘導は絶対に避けること。
    - "slug" キーには、ファイル名として使えるURLフレンドリーな短い英語文字列を指定。
 
 2. "enBlog": 日本語版と同内容の、英語に翻訳・ローカライズされたMDXブログ記事。
    - 上記 jpBlog で指定した「FAQ」「参考文献」「CTA」の構成をそのまま英語で再現すること。
    - TTCのLingo（2WW, DPO, BFP, AF, Baby dust等）を活用すること。
-   - 最後のCTAは「Written by the same author — a general guide to preconception care and fertility planning:」という文言で英語版書籍リンク（ https://amzn.to/4tRV6qk ）を明記。ブログ記事のテーマと書籍内容が直結しているかのような表現は禁止。
+   - 最後のCTAは「Written by the same author — a general guide to preconception care and fertility planning:」という文言で英語版書籍リンク（ https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enblog-22 ）を明記。ブログ記事のテーマと書籍内容が直結しているかのような表現は禁止。
 
 3. "xPost": X（旧Twitter）向けの英語圏TTCコミュニティ用ポスト。
    - 【役割】不妊治療専門医による妊活ガイドの温かいAIサポーター。

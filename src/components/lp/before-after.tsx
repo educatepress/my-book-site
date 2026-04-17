@@ -76,7 +76,7 @@ export default function BeforeAfter() {
                     </h2>
 
                     <a
-                        href="https://amzn.to/3NcOWBl"
+                        href="https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-lp-22"
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackCtaClick("lp-jp", "cta", "before-after")}

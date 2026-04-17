@@ -33,7 +33,7 @@ export default function StickyCtaEn() {
                             </p>
                         </div>
                         <a
-                            href="https://amzn.to/4tRV6qk"
+                            href="https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enlp-22"
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => trackCtaClick("lp-en", "sticky", "sticky-bar")}

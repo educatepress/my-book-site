@@ -48,7 +48,7 @@ export default function Reviews() {
                         <div className="flex items-center gap-2 text-[0.9rem] font-medium text-[var(--color-text-dark)]">
                             <AnimatedStars /> 5.0（12件のレビュー）
                         </div>
-                        <a href="https://amzn.to/3NcOWBl" target="_blank" rel="noreferrer" onClick={() => trackCtaClick("lp-jp", "cta", "reviews")} className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
+                        <a href="https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-lp-22" target="_blank" rel="noreferrer" onClick={() => trackCtaClick("lp-jp", "cta", "reviews")} className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
                             → Amazonで全てのレビューを見る
                         </a>
                     </div>

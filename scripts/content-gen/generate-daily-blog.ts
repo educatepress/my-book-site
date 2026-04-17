@@ -108,14 +108,14 @@ async function main() {
    - 記事の構成: リード文 → 本文（見出し付き） → FAQ。
    - 記事の最後（CTA）には必ず **Amazon.co.jpの書籍リンク** を以下のように挿入すること。
      📖 **同じ著者による、妊活・プレコンセプションケアの基礎知識をまとめた書籍はこちら**
-     [『20代で考える 将来妊娠で困らないための選択』（Amazon）](https://amzn.to/3NcOWBl)
+     [『20代で考える 将来妊娠で困らないための選択』（Amazon）](https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-blog-22)
    - "slug" キーには短い英語のスラッグを指定すること。
 
 2. "enBlog": 日本語版と同内容の英語版MDXブログ記事。
    - フロントマターには英語で title, date, excerpt, author("Takuma Sato, MD")を含める。date は "${postDateStr}" を指定。
    - 記事の最後（CTA）には必ず **Amazon.comの書籍リンク** を以下のように挿入すること。
      📖 **Want to learn more? Check out the book.**
-     [Dr. Sato's Guide to Women's Health (Amazon US)](https://amzn.to/47BuEbQ)
+     [Dr. Sato's Guide to Women's Health (Amazon US)](https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enblog-22)
 
 3. "noteBlog": Note.com用の日本語ブログ原稿（Markdown不要プレーンテキスト寄りのフォーマット）。
 
