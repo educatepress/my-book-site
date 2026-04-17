@@ -72,9 +72,7 @@ export async function GET(req: Request) {
       }
 
       // ── Claude 3.5 Sonnet Patrol ──
-      const brandContext = item.brand === 'atelier'
-        ? 'あなたは美容皮膚科（Skin Atelier）専門の校閲者です。トーンは「洗練された身近な専門家」。薬機法や過剰な美容医療の勧誘表現、不自然なNGワード（アンチエイジングの効果を断言するなど）がないかチェックしてください。'
-        : 'あなたは不妊治療専門の校閲者（Book/TTC Guide）です。トーンは「寄り添う専門家」。Toxic Positivity（前向きの強要）がなく、感情の肯定（Validation）ができているかチェックしてください。';
+      const brandContext = 'あなたは不妊治療専門の校閲者（Book/TTC Guide）です。トーンは「寄り添う専門家」。Toxic Positivity（前向きの強要）がなく、感情の肯定（Validation）ができているかチェックしてください。';
 
       const prompt = `
 ${brandContext}
@@ -83,7 +81,7 @@ ${brandContext}
 【チェック内容】
 1. トーン＆マナーの逸脱（冷たすぎる、過剰なテンション等）
 2. 医療情報の断定表現（「必ず治る」等のYMYL違反）
-3. ${item.brand === 'atelier' ? '美容医療の価格強調やBefore/Afterの過度な断言' : '「Just relax」などToxic Positivityフレーズの使用'}
+3. 「Just relax」などToxic Positivityフレーズの使用
 
 【出力フォーマット】
 問題がない場合は「✅ 異常なし。トーンも完璧です。」と出力。

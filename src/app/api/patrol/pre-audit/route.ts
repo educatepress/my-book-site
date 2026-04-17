@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       const reelsEnv = getReelsFactoryEnv();
       const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN || reelsEnv.SLACK_BOT_TOKEN || '';
       const badge = brandBadge(brand);
-      const targetChannel = brand === 'atelier' ? '#skin-atelier' : '#ttcpreconception_co';
+      const targetChannel = '#ttcpreconception_co';
 
       const alertMsg = `【配信先: ${badge}】\nコンテンツ: *${title || '名称未設定'}* (${type || '種別不明'})\n判定: ❌ ガイドライン違反\n理由:\n\`\`\`\n${result.reason}\n\`\`\``;
       await sendSlackAlert(alertMsg, SLACK_BOT_TOKEN, targetChannel);

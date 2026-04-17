@@ -119,7 +119,7 @@ export async function GET(req: Request) {
             if (!textToPost) throw new Error('投稿用テキストが空です');
 
             // リンクなどを付与する場合（省略可能・AIが生成済みならそのまま使用）
-            const blogUrl = item.brand === 'atelier' ? 'https://hiroo-open.com/blog' : 'https://ttcguide.co/blog';
+            const blogUrl = 'https://ttcguide.co/blog';
             const finalTweet = textToPost.includes('http') ? textToPost : `${textToPost}\n\n👇Read More\n${blogUrl}`;
 
             const tweetResult = await client.v2.tweet(finalTweet);
@@ -156,24 +156,16 @@ export async function GET(req: Request) {
 
             const commitMessage = `Auto-publish: ${item.title}`;
             let pushedTo = '';
-            const isAtelier = (item.brand === 'atelier');
+            const owner = 'educatepress';
+            const repo = 'my-book-site';
 
-            // 1. Push to JP
             if (jpContent) {
-               const owner = 'educatepress';
-               const repo = isAtelier ? 'the-skin-atelier' : 'my-book-site';
-               const targetPath = isAtelier 
-                 ? `content/blog/${item.title}.md`
-                 : `src/content/blog/jp/${item.title}.mdx`;
-               
+               const targetPath = `src/content/blog/jp/${item.title}.mdx`;
                await pushToGithub(githubToken, owner, repo, targetPath, jpContent, commitMessage);
                pushedTo = `https://github.com/${owner}/${repo}/blob/main/${targetPath}`;
             }
 
-            // 2. Push to EN (Book only, if enContent exists)
-            if (enContent && !isAtelier) {
-               const owner = 'educatepress';
-               const repo = 'my-book-site';
+            if (enContent) {
                const targetPath = `src/content/blog/en/${item.title}.mdx`;
                await pushToGithub(githubToken, owner, repo, targetPath, enContent, commitMessage);
                if (!pushedTo) pushedTo = `https://github.com/${owner}/${repo}/blob/main/${targetPath}`;
