@@ -1,4 +1,5 @@
 import HeroEn from '@/components/lp-en/hero-en';
+import EvidenceBlockEn from '@/components/lp-en/evidence-block-en';
 import EmpathyEn from '@/components/lp-en/empathy-en';
 import BeforeAfterEn from '@/components/lp-en/before-after-en';
 import BookDetailEn from '@/components/lp-en/book-detail-en';
@@ -24,6 +25,7 @@ export default function HomeEn() {
         <main>
             <div className="fixed top-0 left-0 right-0 h-[3px] bg-[var(--color-sage)] opacity-70 z-50 origin-left" />
             <HeroEn />
+            <EvidenceBlockEn />
             <EmpathyEn />
             <BeforeAfterEn />
             <BookDetailEn />

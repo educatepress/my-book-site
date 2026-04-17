@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { trackCtaClick } from "@/lib/track-cta";
 
 export default function StickyCta() {
     const { scrollY } = useScroll();
@@ -34,6 +35,7 @@ export default function StickyCta() {
                             href="https://amzn.to/3NcOWBl"
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackCtaClick("lp-jp", "sticky", "sticky-bar")}
                             className="cta-button btn-amazon flex-1 sm:flex-none inline-flex items-center justify-center rounded-full px-6 py-3 w-full sm:w-auto shadow-md hover:scale-105 transition-transform"
                         >
                             <span className="text-[14px] tracking-wide font-bold">

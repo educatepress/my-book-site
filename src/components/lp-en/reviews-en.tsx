@@ -3,6 +3,7 @@
 import FadeIn from "@/components/common/fade-in";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { trackCtaClick } from "@/lib/track-cta";
 
 // Star rating component with stagger animation
 const AnimatedStars = () => {
@@ -49,7 +50,7 @@ export default function ReviewsEn() {
                         <div className="flex items-center gap-2 text-[0.9rem] font-medium text-[var(--color-text-dark)]">
                             <AnimatedStars /> 5.0 (12 Reviews)
                         </div>
-                        <a href="https://www.amazon.com/dp/B0F7XTWJ3X" target="_blank" rel="noreferrer" className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
+                        <a href="https://amzn.to/4tRV6qk" target="_blank" rel="noreferrer" onClick={() => trackCtaClick("lp-en", "cta", "reviews")} className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
                             → View all reviews on Amazon
                         </a>
                     </div>

@@ -29,6 +29,8 @@ jobs:
         run: npm run generate-auto
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEETS_QUEUE_ID: ${{ secrets.GOOGLE_SHEETS_QUEUE_ID }}
 
       - name: Check for New Content
         id: check

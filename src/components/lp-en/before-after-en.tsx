@@ -2,6 +2,7 @@
 
 import FadeIn from "@/components/common/fade-in";
 import { motion } from "framer-motion";
+import { trackCtaClick } from "@/lib/track-cta";
 
 export default function BeforeAfterEn() {
     const cards = [
@@ -75,9 +76,10 @@ export default function BeforeAfterEn() {
                     </h2>
 
                     <a
-                        href="https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0"
+                        href="https://amzn.to/4tRV6qk"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackCtaClick("lp-en", "cta", "before-after")}
                         className="cta-button btn-amazon inline-flex items-center justify-center rounded-full px-8 py-4 w-full sm:w-auto mb-4"
                     >
                         <span className="text-[15px] tracking-wide">

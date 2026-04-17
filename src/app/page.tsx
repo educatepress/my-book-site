@@ -1,4 +1,5 @@
 import Hero from '@/components/lp/hero';
+import EvidenceBlock from '@/components/lp/evidence-block';
 import Empathy from '@/components/lp/empathy';
 import BeforeAfter from '@/components/lp/before-after';
 import BookDetail from '@/components/lp/book-detail';
@@ -14,6 +15,7 @@ export default function Home() {
         <main>
             <div className="fixed top-0 left-0 right-0 h-[3px] bg-[var(--color-sage)] opacity-70 z-50 origin-left" />
             <Hero />
+            <EvidenceBlock />
             <Empathy />
             <BeforeAfter />
             <BookDetail />

@@ -3,6 +3,7 @@
 import FadeIn from "@/components/common/fade-in";
 import Accordion from "@/components/common/accordion";
 import { motion } from "framer-motion";
+import { trackCtaClick } from "@/lib/track-cta";
 
 export default function BookDetail() {
     const chapters = [
@@ -125,6 +126,7 @@ export default function BookDetail() {
                                     href="https://amzn.to/3NcOWBl"
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={() => trackCtaClick("lp-jp", "cta", "book-detail")}
                                     className="cta-button btn-amazon w-full text-[0.95rem] font-bold text-white rounded-full px-6 py-4 shadow-lg hover:scale-105 transition-transform flex items-center justify-center"
                                 >
                                     続きをAmazonで読む（¥1,250） →

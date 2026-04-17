@@ -3,6 +3,7 @@
 import FadeIn from "@/components/common/fade-in";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { trackCtaClick } from "@/lib/track-cta";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -86,6 +87,7 @@ export default function FinalCta() {
                         href="https://amzn.to/3NcOWBl"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackCtaClick("lp-jp", "cta", "final")}
                         className="cta-button btn-amazon inline-flex items-center justify-center rounded-full px-10 py-5 w-full sm:w-auto mb-6"
                     >
                         <span className="text-[16px] tracking-wide font-bold">

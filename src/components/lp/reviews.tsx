@@ -3,6 +3,7 @@
 import FadeIn from "@/components/common/fade-in";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { trackCtaClick } from "@/lib/track-cta";
 
 // Star rating component with stagger animation
 const AnimatedStars = () => {
@@ -47,7 +48,7 @@ export default function Reviews() {
                         <div className="flex items-center gap-2 text-[0.9rem] font-medium text-[var(--color-text-dark)]">
                             <AnimatedStars /> 5.0（12件のレビュー）
                         </div>
-                        <a href="https://amzn.to/3NcOWBl" target="_blank" rel="noreferrer" className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
+                        <a href="https://amzn.to/3NcOWBl" target="_blank" rel="noreferrer" onClick={() => trackCtaClick("lp-jp", "cta", "reviews")} className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
                             → Amazonで全てのレビューを見る
                         </a>
                     </div>

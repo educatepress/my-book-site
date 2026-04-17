@@ -109,7 +109,7 @@ ${pendingTopic.searchKeywords}
 2. "enBlog": 日本語版と同内容の、英語に翻訳・ローカライズされたMDXブログ記事。
    - 上記 jpBlog で指定した「FAQ」「参考文献」「CTA」の構成をそのまま英語で再現すること。
    - TTCのLingo（2WW, DPO, BFP, AF, Baby dust等）を活用すること。
-   - 最後のCTAには英語版書籍のリンク（ https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0 ）を明記すること。
+   - 最後のCTAには英語版書籍のリンク（ https://amzn.to/4tRV6qk ）を明記すること。
 
 3. "xPost": X（旧Twitter）向けの英語圏TTCコミュニティ用ポスト。
    - 【役割】不妊治療専門医による妊活ガイドの温かいAIサポーター。

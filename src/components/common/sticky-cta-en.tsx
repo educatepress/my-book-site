@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { trackCtaClick } from "@/lib/track-cta";
 
 export default function StickyCtaEn() {
     const { scrollY } = useScroll();
@@ -32,9 +33,10 @@ export default function StickyCtaEn() {
                             </p>
                         </div>
                         <a
-                            href="https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/"
+                            href="https://amzn.to/4tRV6qk"
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackCtaClick("lp-en", "sticky", "sticky-bar")}
                             className="cta-button btn-amazon flex-1 sm:flex-none inline-flex items-center justify-center rounded-full px-8 py-3.5 w-full sm:w-auto m-0 shadow-md hover:scale-105 transition-transform"
                         >
                             <span className="text-[15px] tracking-wide font-bold">
