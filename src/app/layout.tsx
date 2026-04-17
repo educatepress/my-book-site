@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Zen_Kaku_Gothic_New, Noto_Sans_JP, DM_Sans } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from 'next/script';
 import './globals.css';
 
 // Fonts configuration
@@ -61,6 +62,12 @@ export default function RootLayout({
       <body className="overflow-x-hidden w-full relative">
         {children}
         <GoogleAnalytics gaId="G-576MQ3QBDX" />
+        <Script
+          defer
+          data-domain="ttcguide.co"
+          src="https://plausible.io/js/script.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
