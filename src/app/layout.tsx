@@ -32,6 +32,14 @@ export const metadata: Metadata = {
   verification: {
     google: 'aTPMEdxI6hTwRQB5mDiqtTtaJsVfMeD3pNCZdbnPguo',
   },
+  alternates: {
+    canonical: 'https://ttcguide.co',
+    languages: {
+      'ja': 'https://ttcguide.co',
+      'en': 'https://ttcguide.co/en',
+      'x-default': 'https://ttcguide.co',
+    },
+  },
   openGraph: {
     title: '『20代で考える 将来妊娠で困らないための選択』',
     description: '生殖医療専門医がやさしく解説。産婦人科医が「先に知っていると差がつく」24の医学的事実を整理した一冊です。',

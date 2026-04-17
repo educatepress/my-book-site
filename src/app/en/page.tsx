@@ -13,6 +13,14 @@ import StickyCtaEn from '@/components/common/sticky-cta-en';
 export const metadata = {
     title: "Thinking in your 20s: Choices for a Future Pregnancy Without Trouble",
     description: "24 medical facts for women in their 20s and 30s and their partners.",
+    alternates: {
+        canonical: 'https://ttcguide.co/en',
+        languages: {
+            'ja': 'https://ttcguide.co',
+            'en': 'https://ttcguide.co/en',
+            'x-default': 'https://ttcguide.co',
+        },
+    },
     openGraph: {
         title: "Thinking in your 20s: Choices for a Future Pregnancy Without Trouble",
         description: "24 medical facts for women in their 20s and 30s and their partners.",
@@ -20,9 +28,44 @@ export const metadata = {
     },
 };
 
+const faqJsonLdEn = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Can I become infertile even in my 20s?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Even with regular periods, you may struggle to conceive due to issues like fallopian tube problems or male factors. Having an early baseline checkup will help keep your future options open."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the 'best age' for pregnancy?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Generally, pregnancy rates peak in the late 20s to around 30. However, individual differences are huge. It's important to look comprehensively not just at age, but also at AMH levels, menstrual cycles, and any diseases that pose an infertility risk."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "When should I see a doctor?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We recommend consulting a doctor if you haven't conceived after 1 year if under 35, or after 6 months if 35 or older. Consulting a fertility specialist early can save you time and detours."
+            }
+        }
+    ]
+};
+
 export default function HomeEn() {
     return (
         <main>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLdEn) }}
+            />
             <div className="fixed top-0 left-0 right-0 h-[3px] bg-[var(--color-sage)] opacity-70 z-50 origin-left" />
             <HeroEn />
             <EvidenceBlockEn />
