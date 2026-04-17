@@ -185,7 +185,7 @@ export async function GET(req: Request) {
 
         } else if (item.type === 'carousel' || item.type === 'reel') {
           // MakeのWebhookへ発射してInstagram投稿を行う
-          const makeWebhookUrl = process.env.MAKE_IG_PUBLISH_WEBHOOK_URL || reelsEnv.MAKE_IG_PUBLISH_WEBHOOK_URL;
+          const makeWebhookUrl = process.env.MAKE_IG_PUBLISH_WEBHOOK_URL || process.env.MAKE_PUBLISH_WEBHOOK_URL || reelsEnv.MAKE_IG_PUBLISH_WEBHOOK_URL || reelsEnv.MAKE_PUBLISH_WEBHOOK_URL;
 
           if (!makeWebhookUrl) {
             console.log(`⏭️ MAKE_IG_PUBLISH_WEBHOOK_URL not set. Skipping Instagram post for ${item.title} (Marking as posted for now).`);
