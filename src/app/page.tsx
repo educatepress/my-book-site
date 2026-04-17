@@ -10,6 +10,33 @@ import FaqSection from '@/components/lp/faq-section';
 import FinalCta from '@/components/lp/final-cta';
 import StickyCta from '@/components/common/sticky-cta';
 
+const bookJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": "20代で考える 将来妊娠で困らないための選択",
+    "author": {
+        "@type": "Person",
+        "name": "佐藤琢磨",
+        "jobTitle": "生殖医療専門医"
+    },
+    "bookFormat": "https://schema.org/EBook",
+    "isbn": "B0F7XTWJ3X",
+    "numberOfPages": 180,
+    "inLanguage": "ja",
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "12"
+    },
+    "offers": {
+        "@type": "Offer",
+        "price": "1250",
+        "priceCurrency": "JPY",
+        "availability": "https://schema.org/InStock",
+        "url": "https://amazon.co.jp/dp/B0F7XTWJ3X"
+    }
+};
+
 const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -44,6 +71,10 @@ const faqJsonLd = {
 export default function Home() {
     return (
         <main>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(bookJsonLd) }}
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

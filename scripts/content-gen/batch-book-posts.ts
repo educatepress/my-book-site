@@ -128,7 +128,7 @@ ${fullText}
 2. "enBlog": 日本語版と同内容の、英語に翻訳・ローカライズされたMDXブログ記事。
    - 英語圏の読者にとって自然で響く表現にすること。
    - 英語のフロントマターを含めること。"date" の値には「${postDateStr}」を指定すること。
-   - 記事の最後には必ず以下のURLで英語版書籍へのCTAを含めること: https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0
+   - 記事の最後には必ず以下のURLで英語版書籍へのCTAを含めること: https://amzn.to/4tRV6qk
 
 ---
 CRITICAL: ONLY OUTPUT RAW VALID JSON. DO NOT INCLUDE MARKDOWN CODE BLOCKS. DO NOT INCLUDE ANY OTHER TEXT.

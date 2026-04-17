@@ -28,6 +28,33 @@ export const metadata = {
     },
 };
 
+const bookJsonLdEn = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": "A Doctor's Guide to Women's Health & Preconception",
+    "author": {
+        "@type": "Person",
+        "name": "Takuma Sato, MD",
+        "jobTitle": "Board-Certified Reproductive Medicine Specialist"
+    },
+    "bookFormat": "https://schema.org/EBook",
+    "isbn": "B0F7XTWJ3X",
+    "numberOfPages": 180,
+    "inLanguage": "en",
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "12"
+    },
+    "offers": {
+        "@type": "Offer",
+        "price": "9.99",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://amzn.to/4tRV6qk"
+    }
+};
+
 const faqJsonLdEn = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -62,6 +89,10 @@ const faqJsonLdEn = {
 export default function HomeEn() {
     return (
         <main>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(bookJsonLdEn) }}
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLdEn) }}

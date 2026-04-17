@@ -196,7 +196,7 @@ ${item.sourceUrls.join('\n')}
    - References は [Author. "Title." Journal, Year. PMID/DOI] 形式で3件以上。
    - FAQ の各回答はAIが引用しやすい簡潔かつ正確な表現で（AEO最適化）。
    - 書籍CTA: 📖 **Want to learn more? Check out the book.**
-     [Dr. Sato's Guide to Women's Health (Amazon)](https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0)
+     [Dr. Sato's Guide to Women's Health (Amazon)](https://amzn.to/4tRV6qk)
 
 3. "xPost": Blog投稿に紐づくX用の告知テキスト（100〜120文字程度）。
    - 記事の内容から有益なファクトを1つ抽出。

@@ -147,11 +147,13 @@ export default async function BlogPostEn({ params }: PostProps) {
                                 Dedicated to sharing accurate, accessible medical knowledge regarding future pregnancy and life planning.
                             </p>
 
-                            <a 
-                                href="https://ttcguide.co/en" 
+                            <a
+                                href="https://amzn.to/4tRV6qk"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center bg-[var(--color-sage)] hover:bg-[#5a7a5f] text-white text-[0.85rem] font-bold px-6 py-3 rounded-full transition-colors shadow-sm w-full sm:w-auto"
                             >
-                                View Book Details →
+                                Buy on Amazon →
                             </a>
                         </div>
                     </div>

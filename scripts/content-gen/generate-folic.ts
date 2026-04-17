@@ -122,7 +122,7 @@ ${synchronizedTheme}
 - 日本語版書籍名：『20代で考える 将来妊娠で困らないための選択』
 - 日本語版URL：https://amzn.to/3NcOWBl
 - 英語版書籍名（EN版で使用）：『A Doctor's Guide to Women's Health & Preconception』
-- 英語版URL：https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0
+- 英語版URL：https://amzn.to/4tRV6qk
 
 記事の投稿日（フロントマター用）: 2026-03-20
 
@@ -145,7 +145,7 @@ ${synchronizedTheme}
    - 英語のフロントマターを含めること。"date" の値には必ず「${postDateStr}」を指定すること。
    - 【SEO・内部リンクの必須ルール】: LPのトップページ（ \`/en\` ）へのテキストリンク（例: \`[Learnって more about our clinic](/en)\` ）を文脈に合わせて自然に組み込むこと。
    - 【AEO対策ルール】: 記事の最後に「FAQ」セクションを設け、英語で1〜2つのQ&Aを含めること。
-   - 記事の最後には必ず以下のURLで英語版書籍へのCTAを含めること: https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0
+   - 記事の最後には必ず以下のURLで英語版書籍へのCTAを含めること: https://amzn.to/4tRV6qk
 
 3. "xPost": X（旧Twitter）用の投稿文テキスト（100〜120文字程度）。
    - ブログ記事の内容から、読者が「なるほど！」と思えるような有益なTipsや学びを1つ抽出して文章化したもの。

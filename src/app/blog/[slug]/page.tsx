@@ -175,11 +175,13 @@ export default async function BlogPost({ params }: PostProps) {
                                 将来の妊娠・ライフプランに向けた正しい医学知識をわかりやすく発信しています。
                             </p>
 
-                            <a 
-                                href="https://ttcguide.co/" 
+                            <a
+                                href="https://amzn.to/3NcOWBl"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center bg-[var(--color-sage)] hover:bg-[#5a7a5f] text-white text-[0.85rem] font-bold px-6 py-3 rounded-full transition-colors shadow-sm w-full sm:w-auto"
                             >
-                                著書を詳しく見る →
+                                Amazonで書籍を見る →
                             </a>
                         </div>
                     </div>

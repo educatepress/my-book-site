@@ -56,7 +56,7 @@ Assets to generate:
 3. "enBlog": An English translated and localized MDX blog post.
    - The English version MUST sound natural to Western audiences (focus on Empowerment and Evidence-based choices).
    - Must have English frontmatter. Wrap title string in double quotes (title: "...", date, excerpt: "...", author: "Takuma Sato, MD, PhD").
-   - The book CTA MUST use this exact URL: https://www.amazon.co.jp/Doctor%E2%80%99s-Guide-Womens-Health-Preconception/dp/B0F7XTWJ3X/ref=tmm_pap_swatch_0
+   - The book CTA MUST use this exact URL: https://amzn.to/4tRV6qk
 
 ### User Draft:
 ${rawDraft}
