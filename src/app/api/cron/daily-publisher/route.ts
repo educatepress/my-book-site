@@ -64,7 +64,7 @@ export async function GET(req: Request) {
     // 対象のアイテム： status = 'approved' & scheduled_date === today 
     // 古い「エラーで詰まっていた未処理データ」を無視して「今日のテーマ」だけを狙い撃ちする
     const eligibleItems = allItems
-        .filter(item => item.status === 'approved' && item.scheduled_date === today);
+        .filter(item => item.status === 'approved' && item.scheduled_date === today && (!item.brand || item.brand === 'book'));
 
     // 設計要件「1日につき X(1件) + Blog(1件) + Instagram(リールかカルーセル1件) を並行して一気に同時投稿する」
     const targetItems: typeof eligibleItems = [];
