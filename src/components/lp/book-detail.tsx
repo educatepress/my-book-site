@@ -108,7 +108,7 @@ export default function BookDetail() {
                                             {[1, 2, 3, 4, 5].map((num) => (
                                                 <div key={num} className="snap-center shrink-0 w-[180px] md:w-[240px] aspect-[1/1.414] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-md relative group">
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img src={`/preview-jp-${num}.jpg`} alt={`プレビュー ${num}`} className="w-full h-full object-contain bg-white" />
+                                                    <img src={`/preview-jp-${num}.jpg`} alt={`プレビュー ${num}`} className="w-full h-full object-contain bg-white" loading="lazy" width={180} height={260} />
                                                     
                                                     <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                                         <span className="bg-white/95 text-[var(--color-text-dark)] text-[0.65rem] px-2.5 py-1.5 rounded-full font-bold shadow-md backdrop-blur-sm">拡大</span>

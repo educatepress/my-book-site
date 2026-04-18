@@ -15,7 +15,7 @@ export default function AuthorProfile() {
                             <img
                                 src="/author-blue.JPG"
                                 alt="佐藤 琢磨"
-                                className="w-[160px] h-[160px] rounded-full border-4 border-white object-cover object-[center_top] drop-shadow-md mb-5"
+                                loading="lazy" width={160} height={160} className="w-[160px] h-[160px] rounded-full border-4 border-white object-cover object-[center_top] drop-shadow-md mb-5"
                                 style={{ boxShadow: "0 12px 40px rgba(107,143,113,0.15)" }}
                             />
                             <div className="flex gap-4">

@@ -62,7 +62,7 @@ export default function Hero() {
             </div>
 
             {/* Main Content */}
-            <div className="relative z-10 max-w-[1120px] mx-auto px-6 pt-24 pb-32 md:py-0 w-full flex flex-col md:flex-row items-center justify-between gap-[var(--spacing-xl)] md:gap-[var(--spacing-2xl)]">
+            <div className="relative z-10 max-w-[1120px] mx-auto px-6 pt-12 pb-20 md:py-0 w-full flex flex-col md:flex-row items-center justify-between gap-[var(--spacing-xl)] md:gap-[var(--spacing-2xl)]">
 
                 {/* Left Column: Text Content */}
                 <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
@@ -159,7 +159,10 @@ export default function Hero() {
                     <img
                         src="/mockup-jp.png"
                         alt="20代で考える 将来妊娠で困らないための選択"
-                        className="w-full h-auto object-contain scale-105"
+                        className="w-full h-auto object-contain md:scale-105"
+                        width={440}
+                        height={600}
+                        loading="eager"
                     />
                 </motion.div>
             </div>
