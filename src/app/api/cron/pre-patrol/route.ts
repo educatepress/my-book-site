@@ -33,7 +33,7 @@ export async function GET(req: Request) {
     
     // Find items waiting for Pre-Patrol
     const pendingItems = queue.filter(
-      item => item.status === 'pending' && item.patrol_pre_result === 'pending'
+      item => item.status === 'pending' && (item.patrol_pre_result === 'pending' || !item.patrol_pre_result || item.patrol_pre_result === '')
     );
 
     if (pendingItems.length === 0) {
