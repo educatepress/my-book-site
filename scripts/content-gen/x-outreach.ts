@@ -133,10 +133,44 @@ async function generateReplyDrafts(candidates: TweetCandidate[]): Promise<Array<
   // Pick the most engaging tweets for reply
   const toReply = candidates
     .filter(t => t.text.length > 30) // skip very short tweets
-    .slice(0, MAX_REPLY_DRAFTS);
+    .slice(0, MAX_REPLY_DRAFTS * 2); // screen more candidates, filter by tone
 
   for (const tweet of toReply) {
+    if (drafts.length >= MAX_REPLY_DRAFTS) break;
+
     try {
+      // Step 1: Screen the tweet tone — skip negative/toxic/aggressive
+      const screenPrompt = `Analyze this tweet's tone. Reply with ONLY one word: "ENGAGE" or "SKIP".
+
+Tweet: "${tweet.text}"
+
+ENGAGE if the person is:
+- Genuinely seeking help or support
+- Sharing their TTC journey positively or with humor
+- Asking a medical question earnestly
+- Expressing vulnerability but open to encouragement
+
+SKIP if the person is:
+- Venting anger at doctors, clinics, or specific people
+- Using profanity or aggressive language
+- Spreading misinformation aggressively
+- Being sarcastic/cynical in a way that won't welcome a doctor's reply
+- Discussing topics unrelated to fertility (politics, drama)
+
+Reply ONLY "ENGAGE" or "SKIP".`;
+
+      const screenResult = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: screenPrompt,
+      });
+
+      const decision = screenResult.text?.trim().toUpperCase();
+      if (decision !== 'ENGAGE') {
+        console.log(`⏭️ Skipped @${tweet.authorUsername} (tone: ${decision})`);
+        continue;
+      }
+
+      // Step 2: Generate reply for screened tweet
       const prompt = `You are Dr. Takuma Sato, a board-certified fertility specialist (生殖医療専門医) replying to a tweet from the TTC community.
 
 Original tweet by @${tweet.authorUsername}:
@@ -189,7 +223,7 @@ async function sendToSlack(drafts: Array<{ tweet: TweetCandidate; reply: string 
     },
     {
       type: 'section',
-      text: { type: 'mrkdwn', text: `❤️ Auto-liked: *${likedCount}* tweets\n📝 Reply drafts: *${drafts.length}*` },
+      text: { type: 'mrkdwn', text: `❤️ Auto-liked: *${likedCount}* tweets\n💬 Auto-replied: *${drafts.length}* (tone-screened)` },
     },
     { type: 'divider' },
   ];
@@ -207,39 +241,15 @@ async function sendToSlack(drafts: Array<{ tweet: TweetCandidate; reply: string 
     }),
   });
 
-  // Individual reply drafts with approve/reject buttons
+  // Post reply log to Slack (FYI, already auto-posted)
   for (const d of drafts) {
     const blocks: any[] = [
       {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `*@${d.tweet.authorUsername}* wrote:\n> ${d.tweet.text.substring(0, 200)}\n\n*Proposed reply:*\n${d.reply}`,
+          text: `💬 *Auto-replied to @${d.tweet.authorUsername}*\n> ${d.tweet.text.substring(0, 150)}\n\n*Our reply:*\n${d.reply}\n\n<https://x.com/${d.tweet.authorUsername}/status/${d.tweet.id}|View on X>`,
         },
-      },
-      {
-        type: 'actions',
-        elements: [
-          {
-            type: 'button',
-            text: { type: 'plain_text', text: '✅ Post Reply' },
-            style: 'primary',
-            action_id: 'approve_reply',
-            value: JSON.stringify({ tweetId: d.tweet.id, reply: d.reply }),
-          },
-          {
-            type: 'button',
-            text: { type: 'plain_text', text: '❌ Skip' },
-            action_id: 'reject_reply',
-            value: d.tweet.id,
-          },
-          {
-            type: 'button',
-            text: { type: 'plain_text', text: '🔗 View Tweet' },
-            url: `https://x.com/${d.tweet.authorUsername}/status/${d.tweet.id}`,
-            action_id: 'view_tweet',
-          },
-        ],
       },
     ];
 
@@ -252,12 +262,12 @@ async function sendToSlack(drafts: Array<{ tweet: TweetCandidate; reply: string 
       body: JSON.stringify({
         channel: slackChannel,
         blocks,
-        text: `Reply draft for @${d.tweet.authorUsername}`,
+        text: `Auto-replied to @${d.tweet.authorUsername}`,
       }),
     });
   }
 
-  console.log(`📨 Sent ${drafts.length} reply drafts to Slack for approval`);
+  console.log(`📨 Sent reply log to Slack (${drafts.length} replies)`);
 }
 
 async function main() {
@@ -276,11 +286,24 @@ async function main() {
   const likedCount = await autoLike(candidates);
   console.log(`❤️ Liked ${likedCount} tweets`);
 
-  // Step 3: Generate reply drafts
+  // Step 3: Generate reply drafts (with tone screening)
   const drafts = await generateReplyDrafts(candidates);
   console.log(`📝 Generated ${drafts.length} reply drafts`);
 
-  // Step 4: Send to Slack for approval
+  // Step 4: Auto-post replies
+  let repliedCount = 0;
+  for (const d of drafts) {
+    try {
+      await twitter.v2.reply(d.reply, d.tweet.id);
+      console.log(`💬 Replied to @${d.tweet.authorUsername}: "${d.reply.substring(0, 50)}..."`);
+      repliedCount++;
+    } catch (e: any) {
+      console.warn(`⚠️ Reply failed for ${d.tweet.id}:`, e.message);
+    }
+  }
+  console.log(`💬 Auto-replied to ${repliedCount} tweets`);
+
+  // Step 5: Send summary report to Slack (not approval, just FYI)
   await sendToSlack(drafts, likedCount);
 
   console.log('✅ X Outreach complete!');
