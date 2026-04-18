@@ -1,4 +1,4 @@
-import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
+import { getPostBySlug, getPostSlugs, getAllPosts } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
@@ -202,6 +202,36 @@ export default async function BlogPost({ params }: PostProps) {
                 </footer>
 
             </article>
+
+            {/* Related Posts */}
+            <div className="max-w-[760px] mx-auto mt-12 px-4 sm:px-0">
+                <h3 className="text-[1.1rem] font-bold text-[var(--color-text-dark)] mb-4">他の記事も読む</h3>
+                <RecentPosts currentSlug={slug} lang="jp" />
+            </div>
+        </div>
+    );
+}
+
+async function RecentPosts({ currentSlug, lang }: { currentSlug: string; lang: 'jp' | 'en' }) {
+    const allPosts = await getAllPosts(lang);
+    const otherPosts = allPosts
+        .filter(p => p && p.slug !== currentSlug)
+        .slice(0, 3);
+
+    if (otherPosts.length === 0) return null;
+
+    return (
+        <div className="grid gap-3">
+            {otherPosts.map((post) => (
+                <Link
+                    key={post!.slug}
+                    href={`/blog/${post!.slug}`}
+                    className="block p-4 rounded-2xl bg-white border border-[rgba(107,143,113,0.1)] hover:shadow-md transition-shadow"
+                >
+                    <p className="text-[0.9rem] font-bold text-[var(--color-text-dark)] leading-snug">{post!.frontmatter.title}</p>
+                    <p className="text-[0.75rem] text-[var(--color-text-muted)] mt-1 line-clamp-2">{post!.frontmatter.excerpt}</p>
+                </Link>
+            ))}
         </div>
     );
 }
