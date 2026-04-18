@@ -1,0 +1,292 @@
+/**
+ * X Outreach Bot — TTC Community Engagement
+ *
+ * 1. Search #TTC tweets for engagement opportunities
+ * 2. Auto-like relevant tweets
+ * 3. Generate reply drafts with Gemini
+ * 4. Send to Slack for approval before posting
+ */
+
+import * as dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.join(process.cwd(), '.env') });
+dotenv.config({ path: path.join(process.cwd(), '.env.local') });
+
+import { TwitterApi } from 'twitter-api-v2';
+import { GoogleGenAI } from '@google/genai';
+
+// --- Config ---
+const SEARCH_QUERIES = [
+  '#TTC -is:retweet -is:reply lang:en',
+  '#TTCcommunity -is:retweet -is:reply lang:en',
+  'trying to conceive -is:retweet -is:reply lang:en',
+  'fertility journey -is:retweet -is:reply lang:en',
+  'low AMH -is:retweet lang:en',
+  'IVF journey -is:retweet -is:reply lang:en',
+  '2WW symptoms -is:retweet lang:en',
+];
+
+const MAX_LIKES = 10;
+const MAX_REPLY_DRAFTS = 5;
+
+const apiKey = process.env.EN_TWITTER_API_KEY || process.env.TWITTER_API_KEY;
+const apiSecret = process.env.EN_TWITTER_API_SECRET || process.env.TWITTER_API_SECRET;
+const accessToken = process.env.EN_TWITTER_ACCESS_TOKEN || process.env.TWITTER_ACCESS_TOKEN;
+const accessSecret = process.env.EN_TWITTER_ACCESS_SECRET || process.env.TWITTER_ACCESS_SECRET;
+
+if (!apiKey || !apiSecret || !accessToken || !accessSecret) {
+  console.error('❌ Twitter API credentials missing');
+  process.exit(1);
+}
+
+const twitter = new TwitterApi({
+  appKey: apiKey,
+  appSecret: apiSecret,
+  accessToken: accessToken,
+  accessSecret: accessSecret,
+});
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+
+const slackToken = process.env.SLACK_BOT_TOKEN;
+const slackChannel = process.env.SLACK_CHANNEL_ID;
+
+interface TweetCandidate {
+  id: string;
+  text: string;
+  authorUsername: string;
+  authorName: string;
+  query: string;
+}
+
+async function searchTweets(): Promise<TweetCandidate[]> {
+  const candidates: TweetCandidate[] = [];
+  const seenIds = new Set<string>();
+
+  // Get our own user ID to exclude self-tweets
+  const me = await twitter.v2.me();
+  const myId = me.data.id;
+
+  for (const query of SEARCH_QUERIES) {
+    try {
+      const result = await twitter.v2.search(query, {
+        max_results: 10,
+        'tweet.fields': ['author_id', 'created_at', 'public_metrics'],
+        expansions: ['author_id'],
+        'user.fields': ['username', 'name'],
+      });
+
+      if (!result.data?.data) continue;
+
+      const users = new Map<string, { username: string; name: string }>();
+      if (result.includes?.users) {
+        for (const u of result.includes.users) {
+          users.set(u.id, { username: u.username, name: u.name });
+        }
+      }
+
+      for (const tweet of result.data.data) {
+        if (seenIds.has(tweet.id)) continue;
+        if (tweet.author_id === myId) continue;
+        seenIds.add(tweet.id);
+
+        const author = users.get(tweet.author_id || '') || { username: 'unknown', name: 'Unknown' };
+        candidates.push({
+          id: tweet.id,
+          text: tweet.text,
+          authorUsername: author.username,
+          authorName: author.name,
+          query,
+        });
+      }
+    } catch (e: any) {
+      console.warn(`⚠️ Search failed for "${query}":`, e.message);
+    }
+  }
+
+  return candidates;
+}
+
+async function autoLike(candidates: TweetCandidate[]): Promise<number> {
+  let liked = 0;
+  const toLike = candidates.slice(0, MAX_LIKES);
+
+  for (const tweet of toLike) {
+    try {
+      const me = await twitter.v2.me();
+      await twitter.v2.like(me.data.id, tweet.id);
+      console.log(`❤️ Liked: @${tweet.authorUsername} — "${tweet.text.substring(0, 50)}..."`);
+      liked++;
+    } catch (e: any) {
+      // Already liked or rate limited
+      if (e.code !== 139) {
+        console.warn(`⚠️ Like failed for ${tweet.id}:`, e.message);
+      }
+    }
+  }
+  return liked;
+}
+
+async function generateReplyDrafts(candidates: TweetCandidate[]): Promise<Array<{ tweet: TweetCandidate; reply: string }>> {
+  const drafts: Array<{ tweet: TweetCandidate; reply: string }> = [];
+
+  // Pick the most engaging tweets for reply
+  const toReply = candidates
+    .filter(t => t.text.length > 30) // skip very short tweets
+    .slice(0, MAX_REPLY_DRAFTS);
+
+  for (const tweet of toReply) {
+    try {
+      const prompt = `You are Dr. Takuma Sato, a board-certified fertility specialist (生殖医療専門医) replying to a tweet from the TTC community.
+
+Original tweet by @${tweet.authorUsername}:
+"${tweet.text}"
+
+Generate a short, warm, helpful reply (max 240 characters). Rules:
+- Be genuinely empathetic and supportive
+- If medical: share ONE evidence-based fact with hedging ("research suggests...")
+- If emotional: validate their feelings, never say "just relax"
+- Sound human, not like a bot
+- Do NOT promote anything or include links
+- Do NOT diagnose or give specific medical advice
+- End naturally — no forced CTA
+- Output ONLY the reply text`;
+
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt,
+      });
+
+      const reply = response.text?.trim();
+      if (reply && reply.length <= 280) {
+        drafts.push({ tweet, reply });
+      }
+    } catch (e: any) {
+      console.warn(`⚠️ Reply generation failed for ${tweet.id}:`, e.message);
+    }
+  }
+
+  return drafts;
+}
+
+async function sendToSlack(drafts: Array<{ tweet: TweetCandidate; reply: string }>, likedCount: number) {
+  if (!slackToken || !slackChannel) {
+    console.log('⚠️ Slack not configured. Printing drafts to console:');
+    for (const d of drafts) {
+      console.log(`\n--- Reply to @${d.tweet.authorUsername} ---`);
+      console.log(`Original: "${d.tweet.text.substring(0, 100)}..."`);
+      console.log(`Reply: "${d.reply}"`);
+      console.log(`Tweet URL: https://x.com/${d.tweet.authorUsername}/status/${d.tweet.id}`);
+    }
+    return;
+  }
+
+  // Summary message
+  const summaryBlocks: any[] = [
+    {
+      type: 'header',
+      text: { type: 'plain_text', text: `🤖 X Outreach Report — ${new Date().toISOString().split('T')[0]}` },
+    },
+    {
+      type: 'section',
+      text: { type: 'mrkdwn', text: `❤️ Auto-liked: *${likedCount}* tweets\n📝 Reply drafts: *${drafts.length}*` },
+    },
+    { type: 'divider' },
+  ];
+
+  await fetch('https://slack.com/api/chat.postMessage', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${slackToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      channel: slackChannel,
+      blocks: summaryBlocks,
+      text: `X Outreach: ${likedCount} likes, ${drafts.length} reply drafts`,
+    }),
+  });
+
+  // Individual reply drafts with approve/reject buttons
+  for (const d of drafts) {
+    const blocks: any[] = [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `*@${d.tweet.authorUsername}* wrote:\n> ${d.tweet.text.substring(0, 200)}\n\n*Proposed reply:*\n${d.reply}`,
+        },
+      },
+      {
+        type: 'actions',
+        elements: [
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: '✅ Post Reply' },
+            style: 'primary',
+            action_id: 'approve_reply',
+            value: JSON.stringify({ tweetId: d.tweet.id, reply: d.reply }),
+          },
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: '❌ Skip' },
+            action_id: 'reject_reply',
+            value: d.tweet.id,
+          },
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: '🔗 View Tweet' },
+            url: `https://x.com/${d.tweet.authorUsername}/status/${d.tweet.id}`,
+            action_id: 'view_tweet',
+          },
+        ],
+      },
+    ];
+
+    await fetch('https://slack.com/api/chat.postMessage', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${slackToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        channel: slackChannel,
+        blocks,
+        text: `Reply draft for @${d.tweet.authorUsername}`,
+      }),
+    });
+  }
+
+  console.log(`📨 Sent ${drafts.length} reply drafts to Slack for approval`);
+}
+
+async function main() {
+  console.log('🔍 X Outreach Bot starting...');
+
+  // Step 1: Search for TTC tweets
+  const candidates = await searchTweets();
+  console.log(`Found ${candidates.length} candidate tweets`);
+
+  if (candidates.length === 0) {
+    console.log('No candidates found. Exiting.');
+    return;
+  }
+
+  // Step 2: Auto-like
+  const likedCount = await autoLike(candidates);
+  console.log(`❤️ Liked ${likedCount} tweets`);
+
+  // Step 3: Generate reply drafts
+  const drafts = await generateReplyDrafts(candidates);
+  console.log(`📝 Generated ${drafts.length} reply drafts`);
+
+  // Step 4: Send to Slack for approval
+  await sendToSlack(drafts, likedCount);
+
+  console.log('✅ X Outreach complete!');
+}
+
+main().catch(e => {
+  console.error('❌ Fatal error:', e.message || e);
+  process.exit(1);
+});

@@ -1,0 +1,43 @@
+name: X TTC Community Outreach
+
+on:
+  schedule:
+    # Run twice daily at optimal US times
+    # US morning: 14:30 UTC (10:30 US East / 23:30 JST)
+    - cron: '30 14 * * *'
+    # US afternoon: 20:00 UTC (16:00 US East / 05:00 JST+1)
+    - cron: '0 20 * * *'
+  workflow_dispatch:
+
+jobs:
+  outreach:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run X Outreach Bot
+        run: npx tsx scripts/content-gen/x-outreach.ts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          EN_TWITTER_API_KEY: ${{ secrets.EN_TWITTER_API_KEY }}
+          EN_TWITTER_API_SECRET: ${{ secrets.EN_TWITTER_API_SECRET }}
+          EN_TWITTER_ACCESS_TOKEN: ${{ secrets.EN_TWITTER_ACCESS_TOKEN }}
+          EN_TWITTER_ACCESS_SECRET: ${{ secrets.EN_TWITTER_ACCESS_SECRET }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}

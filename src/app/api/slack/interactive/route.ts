@@ -106,6 +106,69 @@ export async function POST(req: Request) {
         return NextResponse.json({ ok: true });
       }
 
+      // ✅ [Approve Reply] -> Post reply to X
+      if (action.action_id === 'approve_reply') {
+        const parsedValue = JSON.parse(action.value || '{}');
+        const tweetId = parsedValue.tweetId;
+        const replyText = parsedValue.reply;
+        const channel = payload.container?.channel_id;
+        const ts = payload.container?.message_ts;
+        const blocks = payload.message?.blocks;
+
+        try {
+          const twitterApiKey = process.env.EN_TWITTER_API_KEY || process.env.TWITTER_API_KEY || '';
+          const twitterApiSecret = process.env.EN_TWITTER_API_SECRET || process.env.TWITTER_API_SECRET || '';
+          const twitterAccessToken = process.env.EN_TWITTER_ACCESS_TOKEN || process.env.TWITTER_ACCESS_TOKEN || '';
+          const twitterAccessSecret = process.env.EN_TWITTER_ACCESS_SECRET || process.env.TWITTER_ACCESS_SECRET || '';
+
+          if (twitterApiKey && twitterAccessToken) {
+            const { TwitterApi } = await import('twitter-api-v2');
+            const twitterClient = new TwitterApi({
+              appKey: twitterApiKey,
+              appSecret: twitterApiSecret,
+              accessToken: twitterAccessToken,
+              accessSecret: twitterAccessSecret,
+            });
+
+            await twitterClient.v2.reply(replyText, tweetId);
+            console.log(`[Slack API] 💬 Reply posted to tweet ${tweetId}`);
+          }
+        } catch (err) {
+          console.error('[Slack API] Failed to post reply:', err);
+        }
+
+        if (channel && ts && blocks) {
+          const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
+          if (actionBlockIndex !== -1) {
+            blocks[actionBlockIndex] = {
+              type: 'section',
+              text: { type: 'mrkdwn', text: '✅ *Reply posted!*' },
+            };
+            await updateSlackMessage(channel, ts, 'Reply posted', blocks);
+          }
+        }
+        return NextResponse.json({ ok: true });
+      }
+
+      // ❌ [Reject Reply] -> Just dismiss
+      if (action.action_id === 'reject_reply') {
+        const channel = payload.container?.channel_id;
+        const ts = payload.container?.message_ts;
+        const blocks = payload.message?.blocks;
+
+        if (channel && ts && blocks) {
+          const actionBlockIndex = blocks.findIndex((b: any) => b.type === 'actions');
+          if (actionBlockIndex !== -1) {
+            blocks[actionBlockIndex] = {
+              type: 'section',
+              text: { type: 'mrkdwn', text: '❌ *Skipped*' },
+            };
+            await updateSlackMessage(channel, ts, 'Skipped', blocks);
+          }
+        }
+        return NextResponse.json({ ok: true });
+      }
+
       // ❌ [Reject] -> Open Modal for reason
       // 🔄 [Request Revision] -> Same modal, different status outcome
       if (action.action_id === 'reject_content' || action.action_id === 'request_revision') {
