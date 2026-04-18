@@ -134,9 +134,7 @@ export async function GET(req: Request) {
           const githubToken = process.env.GITHUB_TOKEN || reelsEnv.GITHUB_TOKEN;
           
           if (!githubToken) {
-            console.log(`⏭️ GITHUB_TOKEN not set. Skipping auto-commit for ${item.title} (Marking as posted for now).`);
-            postUrl = 'https://github.com/pending/token-missing';
-            isSuccess = true;
+            throw new Error('GITHUB_TOKEN not set. Cannot push blog to GitHub.');
           } else {
             console.log(`🐙 Pushing [blog] ${item.title} to GitHub...`);
             
@@ -180,9 +178,7 @@ export async function GET(req: Request) {
           const makeWebhookUrl = process.env.MAKE_IG_PUBLISH_WEBHOOK_URL || process.env.MAKE_PUBLISH_WEBHOOK_URL || reelsEnv.MAKE_IG_PUBLISH_WEBHOOK_URL || reelsEnv.MAKE_PUBLISH_WEBHOOK_URL;
 
           if (!makeWebhookUrl) {
-            console.log(`⏭️ MAKE_IG_PUBLISH_WEBHOOK_URL not set. Skipping Instagram post for ${item.title} (Marking as posted for now).`);
-            postUrl = 'https://instagram.com/pending';
-            isSuccess = true;
+            throw new Error('MAKE_PUBLISH_WEBHOOK_URL not set. Cannot post to Instagram.');
           } else {
             console.log(`📡 Sending [${item.type}] to Make.com for Instagram publishing...`);
             
