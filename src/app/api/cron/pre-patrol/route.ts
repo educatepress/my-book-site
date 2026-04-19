@@ -31,11 +31,14 @@ export async function GET(req: Request) {
   try {
     const queue = await getQueueItems();
     
-    // Find items waiting for Pre-Patrol (book brand only — atelier is handled by hiroo-open)
+    // Find items waiting for Pre-Patrol
+    // - book brand only (atelier handled by hiroo-open)
+    // - blog and x only (reel/carousel go through reels-factory render pipeline first)
     const pendingItems = queue.filter(
       item => item.status === 'pending'
         && (item.patrol_pre_result === 'pending' || !item.patrol_pre_result || item.patrol_pre_result === '')
         && (!item.brand || item.brand === 'book')
+        && (item.type === 'blog' || item.type === 'x')
     );
 
     if (pendingItems.length === 0) {
