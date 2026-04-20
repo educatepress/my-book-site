@@ -2,8 +2,8 @@ name: EN TTC Engagement Tweet
 
 on:
   schedule:
-    # 1日1回: US afternoon 16:00 UTC (12:00 US East / 01:00 JST+1)
-    - cron: '0 16 * * *'
+    # US morning commute: 12:00 UTC (08:00 US East / 21:00 JST)
+    - cron: '0 12 * * *'
   workflow_dispatch:
 
 jobs:

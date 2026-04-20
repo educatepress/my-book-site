@@ -2,8 +2,8 @@ name: Auto Generate and Post Daily X
 
 on:
   schedule:
-    # 1日1回: US morning 13:00 UTC (09:00 US East / 22:00 JST)
-    - cron: '0 13 * * *'
+    # US evening prime time: 01:00 UTC (21:00 US East / 10:00 JST)
+    - cron: '0 1 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI / App
 
 jobs:
