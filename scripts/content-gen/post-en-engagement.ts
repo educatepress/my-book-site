@@ -52,14 +52,23 @@ Rules:
 - Use TTC community lingo naturally (BFP, AF, DPO, TWW, etc.)
 - Output ONLY the tweet text, nothing else`;
 
-  const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
-    contents: prompt,
-  });
+  let tweetText = '';
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt,
+      });
+      tweetText = response.text?.trim() || '';
+      if (tweetText) break;
+    } catch (e: any) {
+      console.warn(`⚠️ Gemini attempt ${attempt + 1} failed: ${e.message}`);
+      if (attempt < 2) await new Promise(r => setTimeout(r, 5000 * (attempt + 1)));
+    }
+  }
 
-  const tweetText = response.text?.trim();
   if (!tweetText) {
-    console.error('❌ Empty response from Gemini');
+    console.error('❌ Failed after 3 attempts');
     process.exit(1);
   }
 
