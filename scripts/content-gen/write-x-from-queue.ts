@@ -330,8 +330,8 @@ async function main() {
         process.exit(0);
     }
 
-    if (item.status === 'done' || item.status === 'posted') {
-        console.log(`🟢 The ThemeSchedule for ${todayStr} is already processed (${item.status}).`);
+    if (item.status === 'posted') {
+        console.log(`🟢 The ThemeSchedule for ${todayStr} is already posted. Skipping.`);
         process.exit(0);
     }
 
