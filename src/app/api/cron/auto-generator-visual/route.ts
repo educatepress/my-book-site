@@ -39,8 +39,9 @@ export async function GET(req: Request) {
       return NextResponse.json({ success: true, message: 'No more topics to generate.' });
     }
     
-    if (pendingTopic.status !== 'text_generated') {
-      console.log(`ℹ️ Topic already generated or skipped (status: ${pendingTopic.status}).`);
+    const allowedStatuses = ['text_generated', 'done', 'pending', 'generated'];
+    if (!allowedStatuses.includes(pendingTopic.status)) {
+      console.log(`ℹ️ Topic status '${pendingTopic.status}' not eligible for visual generation.`);
       return NextResponse.json({ success: true, message: 'Topic already processed.' });
     }
 
@@ -97,19 +98,27 @@ ${pendingTopic.searchKeywords}
      { "slideNumber": 2, "type": "Content", "headline": "見出し", "body": "本文テキスト", "highlightKeyword": "強調したい単語" }
      
    3. Infographic (グラフ作成スライド - 医学データ比較用として中盤に1〜2枚使用)
-     与えられたテーマやエビデンス(PMID等)に基づく具体的な数値比較グラフを生成してください。サイズの概念はなく、パーセンテージ等の数値そのものを指定します。
+     テーマに関連する論文・ガイドラインから実際の数値データを引用し、比較グラフを生成すること。
+
+     ★★★ 絶対ルール ★★★
+     - group1Value と group2Value には必ず具体的な数値（例: 55.4, 32.1）を入れること。0 や null は禁止。
+     - 数値は引用論文の実データに基づくこと。データが見つからない場合でも、論文の結論から妥当な数値を推定して入れること。
+     - title にはグラフが何を比較しているか明確に記載（例: "Pregnancy Rate: CoQ10 vs Control"）
+     - metricLabel には測定指標を明記（例: "Live Birth Rate", "Sperm Motility"）
+     - source には論文名または学会名を記載
+
      {
        "slideNumber": 5,
        "type": "Infographic",
-       "chartType": "comparison",             // "comparison" または "single_value" または "list"
-       "title": "グラフのタイトル",
-       "source": "出典(例: Fertility and Sterility)", 
-       "metricLabel": "指標名(例: Pregnancy Rate)",
-       "group1Label": "比較群1(例: XX投与群)",
-       "group1Value": 55.4,                   // 【超重要】具体的な数字を入れてください
-       "group2Label": "比較群2(例: 対照群)",
-       "group2Value": 32.1,                   // 【超重要】具体的な数字を入れてください
-       "unit": "%"                            // 単位(例: %, 歳, kg)
+       "chartType": "comparison",
+       "title": "グラフタイトル（何を比較しているか明記）",
+       "source": "出典（例: BMJ 2026 / ASRM Guideline）",
+       "metricLabel": "指標名（例: Pregnancy Rate）",
+       "group1Label": "介入群（例: Natural FET）",
+       "group1Value": 55.4,
+       "group2Label": "対照群（例: Programmed FET）",
+       "group2Value": 32.1,
+       "unit": "%"
      }
      
    4. Summary (まとめ - 終盤に使用)
