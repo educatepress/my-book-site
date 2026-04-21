@@ -110,10 +110,10 @@ async function searchTweets(): Promise<TweetCandidate[]> {
 async function autoLike(candidates: TweetCandidate[]): Promise<number> {
   let liked = 0;
   const toLike = candidates.slice(0, MAX_LIKES);
+  const me = await twitter.v2.me();
 
   for (const tweet of toLike) {
     try {
-      const me = await twitter.v2.me();
       await twitter.v2.like(me.data.id, tweet.id);
       console.log(`❤️ Liked: @${tweet.authorUsername} — "${tweet.text.substring(0, 50)}..."`);
       liked++;
