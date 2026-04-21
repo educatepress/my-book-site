@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getQueueItems, updateQueueItem, QueueItem, getReelsFactoryEnv } from '@/lib/sheets';
 import { TwitterApi } from 'twitter-api-v2';
+import { withRetry, sendSlackErrorAlert } from '@/lib/retry';
 
 export const maxDuration = 300;
 
@@ -122,7 +123,11 @@ export async function GET(req: Request) {
             const blogUrl = 'https://ttcguide.co/blog';
             const finalTweet = textToPost.includes('http') ? textToPost : `${textToPost}\n\n👇Read More\n${blogUrl}`;
 
-            const tweetResult = await client.v2.tweet(finalTweet);
+            const tweetResult = await withRetry(
+              () => client.v2.tweet(finalTweet),
+              'daily-publisher/Twitter',
+              { maxAttempts: 2, baseDelayMs: 5000 }
+            );
             postUrl = `https://twitter.com/user/status/${tweetResult.data.id}`;
             isSuccess = true;
           } else {
@@ -159,13 +164,21 @@ export async function GET(req: Request) {
 
             if (jpContent) {
                const targetPath = `src/content/blog/jp/${item.title}.mdx`;
-               await pushToGithub(githubToken, owner, repo, targetPath, jpContent, commitMessage);
+               await withRetry(
+                 () => pushToGithub(githubToken, owner, repo, targetPath, jpContent, commitMessage),
+                 'daily-publisher/GitHub-JP',
+                 { maxAttempts: 2, baseDelayMs: 3000 }
+               );
                pushedTo = `https://github.com/${owner}/${repo}/blob/main/${targetPath}`;
             }
 
             if (enContent) {
                const targetPath = `src/content/blog/en/${item.title}.mdx`;
-               await pushToGithub(githubToken, owner, repo, targetPath, enContent, commitMessage);
+               await withRetry(
+                 () => pushToGithub(githubToken, owner, repo, targetPath, enContent, commitMessage),
+                 'daily-publisher/GitHub-EN',
+                 { maxAttempts: 2, baseDelayMs: 3000 }
+               );
                if (!pushedTo) pushedTo = `https://github.com/${owner}/${repo}/blob/main/${targetPath}`;
             }
 
@@ -198,15 +211,22 @@ export async function GET(req: Request) {
               captionText: captionText
             };
 
-            const response = await fetch(makeWebhookUrl, {
-               method: 'POST',
-               headers: { 'Content-Type': 'application/json' },
-               body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-               throw new Error(`Make Webhook failed with status ${response.status}`);
-            }
+            await withRetry(
+              async () => {
+                const response = await fetch(makeWebhookUrl, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                  const err: any = new Error(`Make Webhook failed with status ${response.status}`);
+                  err.status = response.status;
+                  throw err;
+                }
+              },
+              'daily-publisher/Make.com',
+              { maxAttempts: 2, baseDelayMs: 5000 }
+            );
 
             postUrl = 'https://instagram.com/published_via_make';
             isSuccess = true;
@@ -239,6 +259,9 @@ export async function GET(req: Request) {
 
   } catch (error: any) {
     console.error('❌ Daily Publisher Error:', error);
+    const slackToken = process.env.SLACK_BOT_TOKEN || reelsEnv.SLACK_BOT_TOKEN || '';
+    const slackChannel = process.env.SLACK_CHANNEL_ID || reelsEnv.SLACK_CHANNEL_ID || '';
+    await sendSlackErrorAlert(slackToken, slackChannel, 'daily-publisher', error.message || String(error));
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

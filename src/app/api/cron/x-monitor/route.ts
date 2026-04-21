@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { TwitterApi } from 'twitter-api-v2';
 import { GoogleGenAI } from '@google/genai';
 import { getReelsFactoryEnv } from '@/lib/sheets';
+import { withRetry } from '@/lib/retry';
 
 async function sendSlackAlert(blocks: any[], threadedText: string, SLACK_BOT_TOKEN: string, ALERT_CHANNEL: string) {
   if (!SLACK_BOT_TOKEN) return;
@@ -143,14 +144,18 @@ export async function GET(req: Request) {
 ${tweetListText}
 `;
 
-    console.log('🤖 Firing Gemini API for screening...');
-    const aiResult = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-      config: {
+    console.log('🤖 Firing Gemini API for screening (with retry)...');
+    const aiResult = await withRetry(
+      () => ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt,
+        config: {
           responseMimeType: "application/json",
-      }
-    });
+        }
+      }),
+      'x-monitor/Gemini',
+      { maxAttempts: 3, baseDelayMs: 5000 }
+    );
 
     const rawText = aiResult.text || '{}';
     let parsed: { matches: any[] };

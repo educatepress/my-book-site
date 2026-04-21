@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getQueueItems, updateQueueItem, getReelsFactoryEnv } from '@/lib/sheets';
 import { brandBadge } from '@/lib/brand';
 import Anthropic from '@anthropic-ai/sdk';
+import { withRetry, sendSlackErrorAlert } from '@/lib/retry';
 
 export const maxDuration = 300;
 
@@ -96,19 +97,23 @@ ${brandContext}
 ${contentText}
       `.trim();
 
-      // Fallback to Gemini for now to ensure pipeline runs
+      // Gemini AI audit with retry
       const { GoogleGenAI } = require('@google/genai');
       const geminiAi = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || reelsEnv.GEMINI_API_KEY });
       let aiFeedback = '';
       try {
-        const response = await geminiAi.models.generateContent({
-          model: 'gemini-2.5-flash',
-          contents: prompt
-        });
+        const response: any = await withRetry(
+          () => geminiAi.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt
+          }),
+          `pre-patrol/Gemini/${item.content_id}`,
+          { maxAttempts: 3, baseDelayMs: 5000 }
+        );
         aiFeedback = response.text || 'フィードバックをパースできませんでした';
       } catch (geminiError: any) {
-        console.warn(`⚠️ [Pre-Patrol] AI evaluation failed for ${item.content_id}, skipping AI audit, but continuing Slack push. Error:`, geminiError.message);
-        aiFeedback = '⚠️ AI Audit Failed (High Demand). Please manually review the content.';
+        console.warn(`⚠️ [Pre-Patrol] AI evaluation failed for ${item.content_id} after retries. Error:`, geminiError.message);
+        aiFeedback = '⚠️ AI Audit Failed after 3 retries (Gemini unavailable). Please manually review the content.';
       }
 
 
@@ -167,16 +172,27 @@ ${contentText}
       ];
 
       try {
-        const slackRes = await fetch('https://slack.com/api/chat.postMessage', {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${slackToken}`
+        const slackData = await withRetry(
+          async () => {
+            const slackRes = await fetch('https://slack.com/api/chat.postMessage', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${slackToken}`
+              },
+              body: JSON.stringify({ channel: slackChannel, text: `新しい原稿の承認待ち: ${item.title}`, blocks })
+            });
+            const data = await slackRes.json();
+            if (!data.ok) {
+              const err: any = new Error(data.error || 'Slack API Error');
+              if (data.error === 'ratelimited') err.status = 429;
+              throw err;
+            }
+            return data;
           },
-          body: JSON.stringify({ channel: slackChannel, text: `新しい原稿の承認待ち: ${item.title}`, blocks })
-        });
-        const slackData = await slackRes.json();
-        if (!slackData.ok) throw new Error(slackData.error || 'Slack API Error');
+          `pre-patrol/Slack/${item.content_id}`,
+          { maxAttempts: 3, baseDelayMs: 3000 }
+        );
 
         // Send full text in thread
         if (slackData.ts) {

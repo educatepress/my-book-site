@@ -4,6 +4,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
 
 import { getReelsFactoryEnv, getQueueItems, updateQueueItem } from '@/lib/sheets';
+import { withRetry } from '@/lib/retry';
 
 // --- Helpers ---
 

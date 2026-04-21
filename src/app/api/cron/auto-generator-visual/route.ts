@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getThemeSchedule, updateThemeScheduleStatus, addQueueItem, getReelsFactoryEnv } from '@/lib/sheets';
 import { GoogleGenAI } from '@google/genai';
+import { withRetry, sendSlackErrorAlert } from '@/lib/retry';
 
 export const maxDuration = 300;
 
@@ -150,13 +151,13 @@ Expected JSON Schema:
 }
 `;
 
-    console.log('🤖 Firing Parallel Gemini API tasks for generation...');
-    
-    // 2つのAPI呼び出しを並列実行
-    const visualResponse = await ai.models.generateContent({
+    console.log('🤖 Firing Gemini API with retry for visual generation...');
+
+    const visualResponse = await withRetry(
+      () => ai.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: visualPrompt,
-        config: { 
+        config: {
           responseMimeType: "application/json",
           responseSchema: {
             type: "OBJECT",
@@ -195,7 +196,10 @@ Expected JSON Schema:
             required: ["slug", "reelScript", "carouselJson"]
           }
         }
-      });
+      }),
+      'auto-generator-visual/Gemini',
+      { maxAttempts: 3, baseDelayMs: 10000 }
+    );
 
     // JSONパース処理
     const rawVisual = visualResponse.text || '{}';
@@ -255,7 +259,10 @@ Expected JSON Schema:
     });
 
   } catch (error: any) {
-    console.error('❌ Auto Generator Error:', error);
+    console.error('❌ Auto Generator (VISUAL) Error:', error);
+    const slackToken = process.env.SLACK_BOT_TOKEN || reelsEnv.SLACK_BOT_TOKEN || '';
+    const slackChannel = process.env.SLACK_CHANNEL_ID || reelsEnv.SLACK_CHANNEL_ID || '';
+    await sendSlackErrorAlert(slackToken, slackChannel, 'auto-generator-visual', error.message || String(error));
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
