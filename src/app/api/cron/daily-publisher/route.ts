@@ -157,6 +157,31 @@ export async function GET(req: Request) {
               throw new Error('ブログのコンテンツ(jpBlog/enBlog)が空です。');
             }
 
+            // Sanitize MDX frontmatter to prevent Vercel build failures
+            function sanitizeMdx(mdx: string): string {
+              return mdx.replace(/^---\n([\s\S]*?)\n---/, (match, fm) => {
+                const lines = fm.split('\n').map((line: string) => {
+                  // Remove leading spaces before keys
+                  line = line.replace(/^ +([\w_]+:)/, '$1');
+                  // Remove non-standard frontmatter fields
+                  if (/^(category|x_post|tags):/.test(line.trim())) return null;
+                  // Ensure values with special chars are quoted
+                  const m = line.match(/^(\w+):\s+(.+)$/);
+                  if (m && !m[2].startsWith("'") && !m[2].startsWith('"')) {
+                    const val = m[2];
+                    if (/[?:(){}[\]"「」\'\\*#|>]/.test(val)) {
+                      const escaped = val.replace(/'/g, "''");
+                      return `${m[1]}: '${escaped}'`;
+                    }
+                  }
+                  return line;
+                }).filter((l: string | null) => l !== null);
+                return `---\n${lines.join('\n')}\n---`;
+              });
+            }
+            jpContent = sanitizeMdx(jpContent);
+            enContent = sanitizeMdx(enContent);
+
             const commitMessage = `Auto-publish: ${item.title}`;
             let pushedTo = '';
             const owner = 'educatepress';
