@@ -1,10 +1,12 @@
 /**
- * X Outreach Bot — TTC Community Engagement
+ * X Outreach Bot — TTC Community Engagement (Safety-hardened v2)
  *
  * 1. Search #TTC tweets for engagement opportunities
- * 2. Auto-like relevant tweets
- * 3. Generate reply drafts with Gemini
- * 4. Send to Slack for approval before posting
+ * 2. Filter through grief/loss blocklist
+ * 3. Auto-like ONLY screened-safe tweets
+ * 4. Generate reply drafts with Gemini (no doctor credentials)
+ * 5. Safety-screen replies for harm potential
+ * 6. Auto-post safe replies, report to Slack
  */
 
 import * as dotenv from 'dotenv';
@@ -21,13 +23,23 @@ const SEARCH_QUERIES = [
   '#TTCcommunity -is:retweet -is:reply lang:en',
   'trying to conceive -is:retweet -is:reply lang:en',
   'fertility journey -is:retweet -is:reply lang:en',
-  'low AMH -is:retweet lang:en',
   'IVF journey -is:retweet -is:reply lang:en',
-  '2WW symptoms -is:retweet lang:en',
 ];
 
 const MAX_LIKES = 10;
 const MAX_REPLY_DRAFTS = 5;
+
+// Grief/loss/sensitive keyword blocklist — NEVER engage with these
+const GRIEF_BLOCKLIST = [
+  'miscarriage', 'miscarried', 'lost the baby', 'pregnancy loss',
+  'chemical pregnancy', 'stillbirth', 'stillborn', 'angel baby',
+  'TFMR', 'failed transfer', 'failed cycle', 'giving up',
+  'done with ttc', 'done trying', 'can\'t do this anymore',
+  'trigger warning', 'tw:', 'cw:',
+  'ectopic', 'molar pregnancy', 'd&c', 'dnc',
+  'rainbow baby', 'infant loss', 'neonatal',
+  'suicide', 'kill myself', 'self harm',
+];
 
 const apiKey = process.env.EN_TWITTER_API_KEY || process.env.TWITTER_API_KEY;
 const apiSecret = process.env.EN_TWITTER_API_SECRET || process.env.TWITTER_API_SECRET;
@@ -59,11 +71,18 @@ interface TweetCandidate {
   query: string;
 }
 
+/**
+ * Check if a tweet contains grief/loss/sensitive content
+ */
+function containsGriefContent(text: string): boolean {
+  const lower = text.toLowerCase();
+  return GRIEF_BLOCKLIST.some(kw => lower.includes(kw.toLowerCase()));
+}
+
 async function searchTweets(): Promise<TweetCandidate[]> {
   const candidates: TweetCandidate[] = [];
   const seenIds = new Set<string>();
 
-  // Get our own user ID to exclude self-tweets
   const me = await twitter.v2.me();
   const myId = me.data.id;
 
@@ -90,6 +109,12 @@ async function searchTweets(): Promise<TweetCandidate[]> {
         if (tweet.author_id === myId) continue;
         seenIds.add(tweet.id);
 
+        // Grief blocklist filter
+        if (containsGriefContent(tweet.text)) {
+          console.log(`🛡️ Blocked (grief/loss): @${users.get(tweet.author_id || '')?.username} — "${tweet.text.substring(0, 50)}..."`);
+          continue;
+        }
+
         const author = users.get(tweet.author_id || '') || { username: 'unknown', name: 'Unknown' };
         candidates.push({
           id: tweet.id,
@@ -109,8 +134,11 @@ async function searchTweets(): Promise<TweetCandidate[]> {
 
 async function autoLike(candidates: TweetCandidate[]): Promise<number> {
   let liked = 0;
-  const toLike = candidates.slice(0, MAX_LIKES);
   const me = await twitter.v2.me();
+
+  // Screen candidates before liking
+  const safeCandidates = candidates.filter(t => !containsGriefContent(t.text));
+  const toLike = safeCandidates.slice(0, MAX_LIKES);
 
   for (const tweet of toLike) {
     try {
@@ -118,7 +146,6 @@ async function autoLike(candidates: TweetCandidate[]): Promise<number> {
       console.log(`❤️ Liked: @${tweet.authorUsername} — "${tweet.text.substring(0, 50)}..."`);
       liked++;
     } catch (e: any) {
-      // Already liked or rate limited
       if (e.code !== 139) {
         console.warn(`⚠️ Like failed for ${tweet.id}:`, e.message);
       }
@@ -130,16 +157,15 @@ async function autoLike(candidates: TweetCandidate[]): Promise<number> {
 async function generateReplyDrafts(candidates: TweetCandidate[]): Promise<Array<{ tweet: TweetCandidate; reply: string }>> {
   const drafts: Array<{ tweet: TweetCandidate; reply: string }> = [];
 
-  // Pick the most engaging tweets for reply
   const toReply = candidates
-    .filter(t => t.text.length > 30) // skip very short tweets
-    .slice(0, MAX_REPLY_DRAFTS * 2); // screen more candidates, filter by tone
+    .filter(t => t.text.length > 30)
+    .slice(0, MAX_REPLY_DRAFTS * 2);
 
   for (const tweet of toReply) {
     if (drafts.length >= MAX_REPLY_DRAFTS) break;
 
     try {
-      // Step 1: Screen the tweet tone — skip negative/toxic/aggressive
+      // Step 1: Tone screening
       const screenPrompt = `Analyze this tweet's tone. Reply with ONLY one word: "ENGAGE" or "SKIP".
 
 Tweet: "${tweet.text}"
@@ -147,15 +173,15 @@ Tweet: "${tweet.text}"
 ENGAGE if the person is:
 - Genuinely seeking help or support
 - Sharing their TTC journey positively or with humor
-- Asking a medical question earnestly
+- Asking a question earnestly
 - Expressing vulnerability but open to encouragement
 
 SKIP if the person is:
 - Venting anger at doctors, clinics, or specific people
 - Using profanity or aggressive language
-- Spreading misinformation aggressively
-- Being sarcastic/cynical in a way that won't welcome a doctor's reply
-- Discussing topics unrelated to fertility (politics, drama)
+- Discussing pregnancy loss, miscarriage, or grief
+- Being sarcastic/cynical
+- Discussing topics unrelated to fertility
 
 Reply ONLY "ENGAGE" or "SKIP".`;
 
@@ -170,20 +196,21 @@ Reply ONLY "ENGAGE" or "SKIP".`;
         continue;
       }
 
-      // Step 2: Generate reply for screened tweet
-      const prompt = `You are Dr. Takuma Sato, a board-certified fertility specialist (生殖医療専門医) replying to a tweet from the TTC community.
+      // Step 2: Generate reply — NO doctor credentials, just supportive community member
+      const prompt = `You are a warm, knowledgeable fertility wellness advocate replying to a tweet from the TTC community. You are NOT a doctor in this reply — do not mention medical credentials, titles, or qualifications.
 
 Original tweet by @${tweet.authorUsername}:
 "${tweet.text}"
 
-Generate a short, warm, helpful reply (max 240 characters). Rules:
+Generate a short, warm reply (max 200 characters). Rules:
 - Be genuinely empathetic and supportive
-- If medical: share ONE evidence-based fact with hedging ("research suggests...")
-- If emotional: validate their feelings, never say "just relax"
+- Do NOT give medical advice or cite studies
+- Do NOT mention being a doctor or specialist
+- Validate their feelings — never say "just relax" or "it'll happen"
 - Sound human, not like a bot
 - Do NOT promote anything or include links
-- Do NOT diagnose or give specific medical advice
 - End naturally — no forced CTA
+- Use TTC-friendly emojis sparingly (🍍✨🫂 OK, avoid excessive hearts)
 - Output ONLY the reply text`;
 
       const response = await ai.models.generateContent({
@@ -192,9 +219,34 @@ Generate a short, warm, helpful reply (max 240 characters). Rules:
       });
 
       const reply = response.text?.trim();
-      if (reply && reply.length <= 280) {
-        drafts.push({ tweet, reply });
+      if (!reply || reply.length > 280) continue;
+
+      // Step 3: Safety screen — would this reply cause harm?
+      const safetyPrompt = `You are a safety reviewer. A fertility-focused social media account is about to auto-reply to a stranger's tweet.
+
+Original tweet: "${tweet.text}"
+Proposed reply: "${reply}"
+
+Could this reply cause harm? Check:
+1. Could it be perceived as unsolicited medical advice?
+2. Could it be insensitive if the person is experiencing loss or grief?
+3. Could it sound condescending, patronizing, or tone-deaf?
+4. Could it go viral negatively?
+
+Reply ONLY "SAFE" or "UNSAFE". If unsafe, add a brief reason.`;
+
+      const safetyResult = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: safetyPrompt,
+      });
+
+      const safetyDecision = safetyResult.text?.trim().toUpperCase();
+      if (!safetyDecision?.startsWith('SAFE')) {
+        console.log(`🛡️ Safety blocked @${tweet.authorUsername}: ${safetyResult.text?.substring(0, 80)}`);
+        continue;
       }
+
+      drafts.push({ tweet, reply });
     } catch (e: any) {
       console.warn(`⚠️ Reply generation failed for ${tweet.id}:`, e.message);
     }
@@ -210,12 +262,10 @@ async function sendToSlack(drafts: Array<{ tweet: TweetCandidate; reply: string 
       console.log(`\n--- Reply to @${d.tweet.authorUsername} ---`);
       console.log(`Original: "${d.tweet.text.substring(0, 100)}..."`);
       console.log(`Reply: "${d.reply}"`);
-      console.log(`Tweet URL: https://x.com/${d.tweet.authorUsername}/status/${d.tweet.id}`);
     }
     return;
   }
 
-  // Summary message
   const summaryBlocks: any[] = [
     {
       type: 'header',
@@ -223,7 +273,7 @@ async function sendToSlack(drafts: Array<{ tweet: TweetCandidate; reply: string 
     },
     {
       type: 'section',
-      text: { type: 'mrkdwn', text: `❤️ Auto-liked: *${likedCount}* tweets\n💬 Auto-replied: *${drafts.length}* (tone-screened)` },
+      text: { type: 'mrkdwn', text: `❤️ Auto-liked: *${likedCount}* tweets\n💬 Auto-replied: *${drafts.length}* (tone + safety screened)` },
     },
     { type: 'divider' },
   ];
@@ -237,11 +287,10 @@ async function sendToSlack(drafts: Array<{ tweet: TweetCandidate; reply: string 
     body: JSON.stringify({
       channel: slackChannel,
       blocks: summaryBlocks,
-      text: `X Outreach: ${likedCount} likes, ${drafts.length} reply drafts`,
+      text: `X Outreach: ${likedCount} likes, ${drafts.length} replies`,
     }),
   });
 
-  // Post reply log to Slack (FYI, already auto-posted)
   for (const d of drafts) {
     const blocks: any[] = [
       {
@@ -271,24 +320,24 @@ async function sendToSlack(drafts: Array<{ tweet: TweetCandidate; reply: string 
 }
 
 async function main() {
-  console.log('🔍 X Outreach Bot starting...');
+  console.log('🔍 X Outreach Bot starting (Safety-hardened v2)...');
 
-  // Step 1: Search for TTC tweets
+  // Step 1: Search (with grief blocklist)
   const candidates = await searchTweets();
-  console.log(`Found ${candidates.length} candidate tweets`);
+  console.log(`Found ${candidates.length} candidate tweets (after grief filter)`);
 
   if (candidates.length === 0) {
     console.log('No candidates found. Exiting.');
     return;
   }
 
-  // Step 2: Auto-like
+  // Step 2: Auto-like (screened)
   const likedCount = await autoLike(candidates);
   console.log(`❤️ Liked ${likedCount} tweets`);
 
-  // Step 3: Generate reply drafts (with tone screening)
+  // Step 3: Generate reply drafts (tone + safety screening)
   const drafts = await generateReplyDrafts(candidates);
-  console.log(`📝 Generated ${drafts.length} reply drafts`);
+  console.log(`📝 Generated ${drafts.length} safe reply drafts`);
 
   // Step 4: Auto-post replies
   let repliedCount = 0;
@@ -303,7 +352,7 @@ async function main() {
   }
   console.log(`💬 Auto-replied to ${repliedCount} tweets`);
 
-  // Step 5: Send summary report to Slack (not approval, just FYI)
+  // Step 5: FYI report to Slack
   await sendToSlack(drafts, likedCount);
 
   console.log('✅ X Outreach complete!');
