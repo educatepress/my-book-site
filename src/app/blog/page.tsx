@@ -65,7 +65,7 @@ export default async function BlogIndex() {
                                         {/* 3. タイトルの約物詰め */}
                                         <h2
                                             className="text-[1.3rem] md:text-[1.5rem] font-bold text-[var(--color-text-dark)] group-hover:text-[var(--color-sage)] transition-colors duration-300 mb-4 leading-[1.4]"
-                                            style={{ fontFeatureSettings: '"palt"' }}
+                                            style={{ fontFeatureSettings: '"palt"', textWrap: 'pretty' as any, lineBreak: 'strict', overflowWrap: 'anywhere', wordBreak: 'keep-all' }}
                                         >
                                             {post.frontmatter.title}
                                         </h2>
