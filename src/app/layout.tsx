@@ -65,7 +65,7 @@ export default function RootLayout({
         <Script
           defer
           data-domain="ttcguide.co"
-          src="https://plausible.io/js/script.js"
+          src="https://plausible.io/js/script.outbound-links.js"
           strategy="afterInteractive"
         />
       </body>

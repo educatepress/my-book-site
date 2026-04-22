@@ -107,7 +107,7 @@ export default function HeroEn() {
                     <FadeIn delay={0.8} className="w-full flex flex-col items-center md:items-start gap-3">
                         {/* CTA Button */}
                         <a
-                            href="https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enlp-22"
+                            href="https://amzn.to/4tRV6qk"
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => trackCtaClick("lp-en", "cta", "hero")}

@@ -50,7 +50,7 @@ export default function ReviewsEn() {
                         <div className="flex items-center gap-2 text-[0.9rem] font-medium text-[var(--color-text-dark)]">
                             <AnimatedStars /> 5.0 (12 Reviews)
                         </div>
-                        <a href="https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enlp-22" target="_blank" rel="noreferrer" onClick={() => trackCtaClick("lp-en", "cta", "reviews")} className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
+                        <a href="https://amzn.to/4tRV6qk" target="_blank" rel="noreferrer" onClick={() => trackCtaClick("lp-en", "cta", "reviews")} className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
                             → View all reviews on Amazon
                         </a>
                     </div>
