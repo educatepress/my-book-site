@@ -107,12 +107,20 @@ export default function FinalCtaEn() {
                         </p>
                         <div className="flex flex-wrap justify-center gap-3">
                             <a
-                                href={currentUrl ? `https://line.me/R/msg/text/?${encodeURIComponent('Taking care of yourself today expands your choices for tomorrow. 24 medical facts for women in their 20s and 30s and their partners. ' + currentUrl)}` : '#'}
+                                href={currentUrl ? `https://twitter.com/intent/tweet?text=${encodeURIComponent('24 evidence-based medical facts for fertility planning — by a reproductive medicine specialist')}&url=${encodeURIComponent(currentUrl)}` : '#'}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="bg-[#06C755] hover:bg-[#05B34C] text-white text-[0.8rem] font-bold px-4 py-2 rounded-full transition-colors flex items-center gap-1 shadow-sm"
+                                className="bg-[#1DA1F2] hover:bg-[#1a8cd8] text-white text-[0.8rem] font-bold px-4 py-2 rounded-full transition-colors flex items-center gap-1 shadow-sm"
                             >
-                                Share on LINE
+                                Share on X
+                            </a>
+                            <a
+                                href={currentUrl ? `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` : '#'}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="bg-[#1877F2] hover:bg-[#166fe5] text-white text-[0.8rem] font-bold px-4 py-2 rounded-full transition-colors flex items-center gap-1 shadow-sm"
+                            >
+                                Share on Facebook
                             </a>
                             <button
                                 onClick={handleCopy}

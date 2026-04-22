@@ -4,7 +4,7 @@ import FadeIn from "@/components/common/fade-in";
 import { motion, useInView, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect } from "react";
 
-// Counter component for the number "24"
+// Counter component for the number "24" — starts at 24 to avoid SSR "0" flash
 const AnimatedNumber = () => {
     const ref = useRef<HTMLSpanElement>(null);
     const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -14,7 +14,10 @@ const AnimatedNumber = () => {
         bounce: 0,
     });
 
-    const displayValue = useTransform(springValue, (current) => Math.round(current));
+    const displayValue = useTransform(springValue, (current) => {
+        const rounded = Math.round(current);
+        return rounded === 0 ? 24 : rounded;
+    });
 
     useEffect(() => {
         if (isInView) {

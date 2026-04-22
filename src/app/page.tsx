@@ -20,7 +20,11 @@ const bookJsonLd = {
         "jobTitle": "生殖医療専門医"
     },
     "bookFormat": "https://schema.org/EBook",
-    "isbn": "B0F7XTWJ3X",
+    "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "ASIN",
+        "value": "B0F7XTWJ3X"
+    },
     "numberOfPages": 180,
     "inLanguage": "ja",
     "aggregateRating": {

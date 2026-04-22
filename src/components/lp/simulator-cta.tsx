@@ -18,7 +18,7 @@ export default function SimulatorCta() {
                             </div>
 
                             <h3 className="text-[1.6rem] md:text-[2rem] font-bold text-[var(--color-text-dark)] mb-4 tracking-tight leading-tight">
-                                IVF 成功率シミュレーター
+                                ART妊活シミュレーター
                             </h3>
 
                             <p className="text-[0.95rem] text-[var(--color-text-muted)] leading-relaxed mb-8 max-w-[560px] mx-auto">

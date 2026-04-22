@@ -13,7 +13,10 @@ const AnimatedNumber = () => {
         bounce: 0,
     });
 
-    const displayValue = useTransform(springValue, (current) => Math.round(current));
+    const displayValue = useTransform(springValue, (current) => {
+        const rounded = Math.round(current);
+        return rounded === 0 ? 24 : rounded;
+    });
 
     useEffect(() => {
         if (isInView) {

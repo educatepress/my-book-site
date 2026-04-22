@@ -11,8 +11,8 @@ import FinalCtaEn from '@/components/lp-en/final-cta-en';
 import StickyCtaEn from '@/components/common/sticky-cta-en';
 
 export const metadata = {
-    title: "Thinking in your 20s: Choices for a Future Pregnancy Without Trouble",
-    description: "24 medical facts for women in their 20s and 30s and their partners.",
+    title: "A Doctor's Guide to Women's Health & Preconception",
+    description: "24 evidence-based medical facts for women in their 20s and 30s and their partners, by a board-certified reproductive medicine specialist.",
     alternates: {
         canonical: 'https://ttcguide.co/en',
         languages: {
@@ -22,8 +22,8 @@ export const metadata = {
         },
     },
     openGraph: {
-        title: "Thinking in your 20s: Choices for a Future Pregnancy Without Trouble",
-        description: "24 medical facts for women in their 20s and 30s and their partners.",
+        title: "A Doctor's Guide to Women's Health & Preconception",
+        description: "24 evidence-based medical facts for women in their 20s and 30s and their partners.",
         images: [{ url: '/mock-en.png', width: 800, height: 1100 }],
     },
 };
@@ -38,7 +38,11 @@ const bookJsonLdEn = {
         "jobTitle": "Board-Certified Reproductive Medicine Specialist"
     },
     "bookFormat": "https://schema.org/EBook",
-    "isbn": "B0F7XTWJ3X",
+    "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "ASIN",
+        "value": "B0F7XTWJ3X"
+    },
     "numberOfPages": 180,
     "inLanguage": "en",
     "aggregateRating": {

@@ -1,7 +1,7 @@
 import SimulatorClient from "@/components/common/simulator-client";
 
 export const metadata = {
-    title: "IVF 成功率シミュレーター | 佐藤琢磨 生殖医療専門医",
+    title: "ART妊活シミュレーター | 佐藤琢磨 生殖医療専門医",
     description: "年齢とAMHを入力するだけで、モンテカルロ法による3,000人の仮想コホートシミュレーションを実行。体外受精の累積妊娠確率と治療期間を推定します。",
 };
 

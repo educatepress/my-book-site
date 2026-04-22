@@ -304,7 +304,7 @@ export default function ART({ lang = "ja" }){
     return{t50,t80,r12,r24,nR,nT,mR,mT,note};
   },[res, lang, tObj]);
 
-  const fm=v=>isFinite(v)?`${Math.round(v)}`:'—';
+  const fm=v=>isFinite(v)?`${Math.round(v)}`:(lang==='ja'?'24ヶ月超':'24+ mo');
 
   // Apply smoothing to chart data (especially helps PGT-A curves)
   const chartData=useMemo(()=>{

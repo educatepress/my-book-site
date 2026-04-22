@@ -18,7 +18,7 @@ export default function SimulatorCtaEn() {
                             </div>
 
                             <h3 className="font-['Zen_Kaku_Gothic_New'] text-[1.6rem] md:text-[2rem] font-bold text-[var(--color-text-dark)] mb-4 tracking-tight leading-tight">
-                                IVF Success Rate Simulator
+                                ART Success Simulator
                             </h3>
 
                             <p className="text-[0.95rem] text-[var(--color-text-muted)] leading-relaxed mb-8 max-w-[560px] mx-auto font-en">

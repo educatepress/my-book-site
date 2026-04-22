@@ -138,6 +138,10 @@ export default function BookDetailEn() {
                                 >
                                     Continue reading on Amazon →
                                 </a>
+
+                                <p className="text-[0.8rem] text-[var(--color-text-muted)] mt-2">
+                                    Kindle $9.99 | Paperback $14.99
+                                </p>
                             </div>
 
                             {/* 🚨 書誌情報は目立たなくする */}
