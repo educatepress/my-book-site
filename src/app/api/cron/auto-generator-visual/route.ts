@@ -80,52 +80,54 @@ ${pendingTopic.searchKeywords}
 - 【中立性と非推奨の徹底】動画・スライド内で食事療法やサプリメントに言及する際、「これを食べれば妊娠率が上がる」といった論理的飛躍は避け、「健康維持には良いが、直接的な効果は今後の課題」というスタンスを取ること。
 - 【断定表現の禁止】「確実に改善する」「保証する」等の煽り表現は絶対に禁止。慎重な表現を貫くこと。
 
+★★★ CRITICAL: ALL output text (headlines, body, subtitles, summaries, labels) MUST be in ENGLISH. This content targets the English-speaking TTC community. Do NOT output any Japanese text in the JSON values. ★★★
+
 以下の2つのアセットをJSON形式で出力してください。
 
-1. "reelScript": リール動画用の英語台本データ
-   - "hookText": 最初の3秒間で画面中央に出す強烈なフックテキスト（行動経済学を意識した煽り）。
-   - "englishAudio": 15〜45秒で読まれるリズムの良い英語のナレーション台本。
-   - "englishSubtitles": 動画全体を通して画面に出す英語字幕の配列。
-   - CTAには必ず「Comment 'GUIDE' below to get my recommended link!」を含めること。
+1. "reelScript": English reel script data
+   - "hookText": A punchy 3-second hook text for screen center (use behavioral economics triggers).
+   - "englishAudio": A 15-45 second English narration script with good rhythm.
+   - "englishSubtitles": Array of English subtitle strings for the entire video.
+   - CTA must include: "Comment 'GUIDE' below to get my recommended link!"
 
-2. "carouselJson": カルーセル形式の画像スライド用の構成データ（JSON配列。合計 8〜10枚 のスライド構成にすること）。
-   - スライドの "type" は、Cover, Agitation, Intro, Content, Infographic, Summary, CTA のいずれかを必ず使用すること。
-   
-   【スライドの構成と各JSONプロパティの厳格な指定】
-   1. Cover (表紙 - 1枚目)
-     { "slideNumber": 1, "type": "Cover", "headline": "タイトル", "subheadline": "サブタイトル" }
-     
-   2. Agitation / Intro / Content (解説テキスト - 随時複数枚使用)
-     { "slideNumber": 2, "type": "Content", "headline": "見出し", "body": "本文テキスト", "highlightKeyword": "強調したい単語" }
-     
-   3. Infographic (グラフ作成スライド - 医学データ比較用として中盤に1〜2枚使用)
-     テーマに関連する論文・ガイドラインから実際の数値データを引用し、比較グラフを生成すること。
+2. "carouselJson": Carousel slide data (JSON array, 8-10 slides total). ALL text in ENGLISH.
+   - Slide "type" must be one of: Cover, Agitation, Intro, Content, Infographic, Summary, CTA.
 
-     ★★★ 絶対ルール ★★★
-     - group1Value と group2Value には必ず具体的な数値（例: 55.4, 32.1）を入れること。0 や null は禁止。
-     - 数値は引用論文の実データに基づくこと。データが見つからない場合でも、論文の結論から妥当な数値を推定して入れること。
-     - title にはグラフが何を比較しているか明確に記載（例: "Pregnancy Rate: CoQ10 vs Control"）
-     - metricLabel には測定指標を明記（例: "Live Birth Rate", "Sperm Motility"）
-     - source には論文名または学会名を記載
+   Slide structure and JSON properties:
+   1. Cover (slide 1)
+     { "slideNumber": 1, "type": "Cover", "headline": "Your Engaging Title", "subheadline": "A compelling subtitle" }
+
+   2. Agitation / Intro / Content (multiple explanation slides)
+     { "slideNumber": 2, "type": "Content", "headline": "Section Heading", "body": "Body text in English", "highlightKeyword": "keyword to emphasize" }
+
+   3. Infographic (1-2 data comparison slides in the middle)
+     Use actual numeric data from the referenced paper/guideline.
+
+     ★★★ ABSOLUTE RULES ★★★
+     - group1Value and group2Value MUST have concrete numbers (e.g. 55.4, 32.1). Never 0 or null.
+     - Numbers must be based on real data from the cited paper. If unavailable, estimate reasonable values from the paper's conclusions.
+     - title: clearly state what is being compared (e.g. "Pregnancy Rate: CoQ10 vs Control")
+     - metricLabel: specify the metric (e.g. "Live Birth Rate", "Sperm Motility")
+     - source: cite the paper or organization
 
      {
        "slideNumber": 5,
        "type": "Infographic",
        "chartType": "comparison",
-       "title": "グラフタイトル（何を比較しているか明記）",
-       "source": "出典（例: BMJ 2026 / ASRM Guideline）",
-       "metricLabel": "指標名（例: Pregnancy Rate）",
-       "group1Label": "介入群（例: Natural FET）",
+       "title": "Pregnancy Rate: Treatment vs Control",
+       "source": "BMJ 2026 / ASRM Guideline",
+       "metricLabel": "Pregnancy Rate",
+       "group1Label": "Natural FET",
        "group1Value": 55.4,
-       "group2Label": "対照群（例: Programmed FET）",
+       "group2Label": "Programmed FET",
        "group2Value": 32.1,
        "unit": "%"
      }
-     
-   4. Summary (まとめ - 終盤に使用)
-     { "slideNumber": 9, "type": "Summary", "headline": "まとめ", "summaryItems": ["ポイント1", "ポイント2", "Pro Tip: 専門医からの視点"] }
 
-   5. CTA (エンゲージメント誘導 - 【必ず最後のスライド（8〜10枚目）】に必須)
+   4. Summary (near the end)
+     { "slideNumber": 9, "type": "Summary", "headline": "Key Takeaways", "summaryItems": ["Point 1", "Point 2", "Pro Tip: A specialist perspective"] }
+
+   5. CTA (MUST be the last slide, slide 8-10)
      {
        "slideNumber": 10,
        "type": "CTA",
