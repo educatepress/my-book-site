@@ -67,17 +67,8 @@ export async function GET(req: Request) {
     const eligibleItems = allItems
         .filter(item => item.status === 'approved' && item.scheduled_date === today && (!item.brand || item.brand === 'book'));
 
-    // 設計要件「1日につき X(1件) + Blog(1件) + Instagram(リールかカルーセル1件) を並行して一気に同時投稿する」
-    const targetItems: typeof eligibleItems = [];
-    
-    const xItem = eligibleItems.find(item => item.type === 'x');
-    if (xItem) targetItems.push(xItem);
-    
-    const blogItem = eligibleItems.find(item => item.type === 'blog');
-    if (blogItem) targetItems.push(blogItem);
-    
-    const igItem = eligibleItems.find(item => item.type === 'reel' || item.type === 'carousel');
-    if (igItem) targetItems.push(igItem);
+    // 承認済みの全アイテムを投稿（滞留防止のため1タイプ1件制限を撤廃）
+    const targetItems = eligibleItems;
 
     if (targetItems.length === 0) {
       console.log('ℹ️ No approved items found to publish for today.');
