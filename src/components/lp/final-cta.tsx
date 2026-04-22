@@ -128,9 +128,15 @@ export default function FinalCta() {
                         さとうドクターのBlog & News はこちら →
                     </Link>
 
-                    <p className="text-[0.75rem] text-white/40">
-                        このページは生殖医療専門医 佐藤琢磨が監修しています。© Educate Press
-                    </p>
+                    <div className="text-[0.7rem] text-white/40 space-y-1">
+                        <p>このページは生殖医療専門医 佐藤琢磨が監修しています。</p>
+                        <p>本ページはAmazonアソシエイトリンク（広告）を含みます。</p>
+                        <div className="flex gap-3 justify-center mt-2">
+                            <Link href="/privacy" className="underline hover:text-white/60">プライバシーポリシー</Link>
+                            <Link href="/about" className="underline hover:text-white/60">運営者情報</Link>
+                        </div>
+                        <p className="mt-1">© Educate Press</p>
+                    </div>
 
                 </FadeIn>
             </div>

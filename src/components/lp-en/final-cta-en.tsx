@@ -127,9 +127,15 @@ export default function FinalCtaEn() {
                         📝 Dr. Sato's Blog & News →
                     </Link>
 
-                    <p className="text-[0.75rem] text-white/40">
-                        This page is supervised by Reproductive Medicine Specialist Takuma Sato. © Educate Press
-                    </p>
+                    <div className="text-[0.7rem] text-white/40 space-y-1">
+                        <p>This page is supervised by Reproductive Medicine Specialist Takuma Sato, MD.</p>
+                        <p>This page contains Amazon affiliate links (advertising).</p>
+                        <div className="flex gap-3 justify-center mt-2">
+                            <Link href="/privacy" className="underline hover:text-white/60">Privacy Policy</Link>
+                            <Link href="/about" className="underline hover:text-white/60">About Us</Link>
+                        </div>
+                        <p className="mt-1">© Educate Press</p>
+                    </div>
 
                 </FadeIn>
             </div>

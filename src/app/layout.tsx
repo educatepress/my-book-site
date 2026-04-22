@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: '『20代で考える 将来妊娠で困らないための選択』',
-    description: '生殖医療専門医がやさしく解説。産婦人科医が「先に知っていると差がつく」24の医学的事実を整理した一冊です。',
+    description: '生殖医療専門医がやさしく解説。「先に知っていると差がつく」24の医学的事実を整理した一冊です。',
     images: [{ url: '/logocircle.png' }],
   },
   twitter: {

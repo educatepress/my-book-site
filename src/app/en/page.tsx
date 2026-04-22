@@ -46,13 +46,24 @@ const bookJsonLdEn = {
         "ratingValue": "5.0",
         "reviewCount": "12"
     },
-    "offers": {
-        "@type": "Offer",
-        "price": "9.99",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://amzn.to/4tRV6qk"
-    }
+    "offers": [
+        {
+            "@type": "Offer",
+            "price": "9.99",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://amzn.to/4tRV6qk",
+            "description": "Kindle Edition"
+        },
+        {
+            "@type": "Offer",
+            "price": "14.99",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://amzn.to/4tRV6qk",
+            "description": "Paperback"
+        }
+    ]
 };
 
 const faqJsonLdEn = {

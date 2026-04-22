@@ -105,13 +105,19 @@ export default function BookDetailEn() {
                                         <div className="flex w-full overflow-x-auto snap-x snap-mandatory gap-3 pb-4 px-1 items-center" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                                             <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
                                             
-                                            {[1, 2, 3, 4, 5].map((num) => (
+                                            {[
+                                                { num: 1, label: "Egg Count & Age" },
+                                                { num: 2, label: "Understanding AMH" },
+                                                { num: 3, label: "Fertility Rate Data" },
+                                                { num: 4, label: "Basal Temperature" },
+                                                { num: 5, label: "When to See a Doctor" },
+                                            ].map(({ num, label }) => (
                                                 <div key={num} className="snap-center shrink-0 w-[180px] md:w-[240px] aspect-[1/1.414] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-md relative group">
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img src={`/preview-en-${num}.jpg`} alt={`Preview ${num}`} className="w-full h-full object-contain bg-white" loading="lazy" width={180} height={260} />
-                                                    
-                                                    <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                        <span className="bg-white/95 text-[var(--color-text-dark)] text-[0.65rem] px-2.5 py-1.5 rounded-full font-bold shadow-md backdrop-blur-sm uppercase">Expand</span>
+                                                    <img src={`/preview-en-${num}.jpg`} alt={`Figure ${num}: ${label}`} className="w-full h-full object-contain bg-white" loading="lazy" width={180} height={260} />
+
+                                                    <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" aria-label={`Expand ${label}`}>
+                                                        <span className="bg-white/95 text-[var(--color-text-dark)] text-[0.65rem] px-2.5 py-1.5 rounded-full font-bold shadow-md backdrop-blur-sm">{label}</span>
                                                     </div>
                                                 </div>
                                             ))}
@@ -119,7 +125,8 @@ export default function BookDetailEn() {
                                         {/* Right fade to hint more content */}
                                         <div className="absolute top-0 right-0 w-12 h-full bg-gradient-to-l from-[var(--color-surface)] to-transparent pointer-events-none rounded-r-[16px]" />
                                     </div>
-                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-1 font-bold uppercase tracking-wider"><span className="md:hidden">← Swipe to read →</span><span className="hidden md:inline">← Scroll to read →</span></p>
+                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-1 font-bold uppercase tracking-wider block md:hidden">← Swipe to read →</p>
+                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-1 font-bold uppercase tracking-wider hidden md:block">← Scroll to read →</p>
                                 </div>
 
                                 <a

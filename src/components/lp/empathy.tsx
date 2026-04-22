@@ -66,7 +66,7 @@ export default function Empathy() {
                         知っているか、知らないかで変わる
                         <span className="font-bold text-[var(--color-sage)]">「一年分の時間」</span>がある。
                         <br className="hidden md:block" />
-                        本書は、産婦人科医が「先に知っていると差がつく」
+                        本書は、生殖医療専門医が「先に知っていると差がつく」
                         <br className="hidden md:block" />
                         <span className="font-bold text-[1.2rem] text-[var(--color-sage)]">
                             <AnimatedNumber />の医学的事実

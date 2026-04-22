@@ -53,11 +53,9 @@ export default function BeforeAfterEn() {
                                     className="bg-[var(--color-white)] p-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 w-full border-l-4 border-l-[var(--color-blush)]"
                                     aria-label={`After: ${card.after}`}
                                 >
-                                    <div className="shrink-0 w-6 h-6 rounded-full bg-[var(--color-blush-pale)] text-[var(--color-blush)] flex items-center justify-center text-sm shadow-sm border border-[var(--color-blush-light)] mt-1 sm:mt-0">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-3.5 h-3.5">
-                                            <polyline points="20 6 9 17 4 12" />
-                                        </svg>
-                                    </div>
+                                    <span className="shrink-0 text-[0.65rem] font-bold text-[var(--color-blush)] tracking-widest bg-[var(--color-blush-pale)] px-2.5 py-1 rounded-full w-fit font-en border border-[var(--color-blush-light)]">
+                                        AFTER
+                                    </span>
                                     <p className="text-[1rem] font-bold text-[var(--color-text-dark)] leading-[1.6]" style={{ textWrap: 'pretty' as any }}>
                                         {card.after}
                                     </p>

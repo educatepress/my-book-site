@@ -105,13 +105,19 @@ export default function BookDetail() {
                                         <div className="flex w-full overflow-x-auto snap-x snap-mandatory gap-3 pb-4 px-1 items-center" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                                             <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
                                             
-                                            {[1, 2, 3, 4, 5].map((num) => (
+                                            {[
+                                                { num: 1, label: "卵子の数と年齢" },
+                                                { num: 2, label: "AMHの基礎知識" },
+                                                { num: 3, label: "妊娠率のデータ" },
+                                                { num: 4, label: "基礎体温の見方" },
+                                                { num: 5, label: "受診の目安" },
+                                            ].map(({ num, label }) => (
                                                 <div key={num} className="snap-center shrink-0 w-[180px] md:w-[240px] aspect-[1/1.414] rounded-[8px] border border-black/10 overflow-hidden bg-white shadow-md relative group">
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img src={`/preview-jp-${num}.jpg`} alt={`プレビュー ${num}`} className="w-full h-full object-contain bg-white" loading="lazy" width={180} height={260} />
-                                                    
-                                                    <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                        <span className="bg-white/95 text-[var(--color-text-dark)] text-[0.65rem] px-2.5 py-1.5 rounded-full font-bold shadow-md backdrop-blur-sm">拡大</span>
+                                                    <img src={`/preview-jp-${num}.jpg`} alt={`図解${num}: ${label}`} className="w-full h-full object-contain bg-white" loading="lazy" width={180} height={260} />
+
+                                                    <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" aria-label={`${label}を拡大`}>
+                                                        <span className="bg-white/95 text-[var(--color-text-dark)] text-[0.65rem] px-2.5 py-1.5 rounded-full font-bold shadow-md backdrop-blur-sm">{label}</span>
                                                     </div>
                                                 </div>
                                             ))}
@@ -119,7 +125,8 @@ export default function BookDetail() {
                                         {/* 右端フェードで「続きがある」を示唆 */}
                                         <div className="absolute top-0 right-0 w-12 h-full bg-gradient-to-l from-[var(--color-surface)] to-transparent pointer-events-none rounded-r-[16px]" />
                                     </div>
-                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-2 font-bold"><span className="md:hidden">← 横にスワイプして立ち読み →</span><span className="hidden md:inline">← 横にスクロールして立ち読み →</span></p>
+                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-2 font-bold block md:hidden">← 横にスワイプして立ち読み →</p>
+                                    <p className="text-[0.7rem] text-[var(--color-text-muted)] mt-2 font-bold hidden md:block">← 横にスクロールして立ち読み →</p>
                                 </div>
 
                                 <a

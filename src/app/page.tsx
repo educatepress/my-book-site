@@ -28,13 +28,24 @@ const bookJsonLd = {
         "ratingValue": "5.0",
         "reviewCount": "12"
     },
-    "offers": {
-        "@type": "Offer",
-        "price": "1250",
-        "priceCurrency": "JPY",
-        "availability": "https://schema.org/InStock",
-        "url": "https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-lp-22"
-    }
+    "offers": [
+        {
+            "@type": "Offer",
+            "price": "1250",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "url": "https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-lp-22",
+            "description": "Kindle版"
+        },
+        {
+            "@type": "Offer",
+            "price": "1500",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "url": "https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-lp-22",
+            "description": "ペーパーバック版"
+        }
+    ]
 };
 
 const faqJsonLd = {
