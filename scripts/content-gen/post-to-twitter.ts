@@ -11,10 +11,11 @@ const apiSecret = process.env.TWITTER_API_SECRET;
 const accessToken = process.env.TWITTER_ACCESS_TOKEN;
 const accessSecret = process.env.TWITTER_ACCESS_SECRET;
 
-const enApiKey = process.env.EN_TWITTER_API_KEY;
-const enApiSecret = process.env.EN_TWITTER_API_SECRET;
-const enAccessToken = process.env.EN_TWITTER_ACCESS_TOKEN;
-const enAccessSecret = process.env.EN_TWITTER_ACCESS_SECRET;
+// EN投稿もJPアカウント(@entu1201)で行う — ENアカウント廃止 (2026-04-24)
+const enApiKey = process.env.TWITTER_API_KEY;
+const enApiSecret = process.env.TWITTER_API_SECRET;
+const enAccessToken = process.env.TWITTER_ACCESS_TOKEN;
+const enAccessSecret = process.env.TWITTER_ACCESS_SECRET;
 
 if (!apiKey || !apiSecret || !accessToken || !accessSecret) {
     console.error("❌ Error: Missing JP Twitter API credentials in environment variables.");

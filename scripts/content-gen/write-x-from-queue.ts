@@ -22,10 +22,11 @@ const jpApiSecret = process.env.TWITTER_API_SECRET;
 const jpAccessToken = process.env.TWITTER_ACCESS_TOKEN;
 const jpAccessSecret = process.env.TWITTER_ACCESS_SECRET;
 
-const enApiKey = process.env.EN_TWITTER_API_KEY;
-const enApiSecret = process.env.EN_TWITTER_API_SECRET;
-const enAccessToken = process.env.EN_TWITTER_ACCESS_TOKEN;
-const enAccessSecret = process.env.EN_TWITTER_ACCESS_SECRET;
+// EN投稿もJPアカウント(@entu1201)で行う — ENアカウント廃止 (2026-04-24)
+const enApiKey = process.env.TWITTER_API_KEY;
+const enApiSecret = process.env.TWITTER_API_SECRET;
+const enAccessToken = process.env.TWITTER_ACCESS_TOKEN;
+const enAccessSecret = process.env.TWITTER_ACCESS_SECRET;
 
 let jpClient: TwitterApi | null = null;
 if (jpApiKey && jpApiSecret && jpAccessToken && jpAccessSecret) {

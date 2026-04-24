@@ -41,10 +41,11 @@ const GRIEF_BLOCKLIST = [
   'suicide', 'kill myself', 'self harm',
 ];
 
-const apiKey = process.env.EN_TWITTER_API_KEY || process.env.TWITTER_API_KEY;
-const apiSecret = process.env.EN_TWITTER_API_SECRET || process.env.TWITTER_API_SECRET;
-const accessToken = process.env.EN_TWITTER_ACCESS_TOKEN || process.env.TWITTER_ACCESS_TOKEN;
-const accessSecret = process.env.EN_TWITTER_ACCESS_SECRET || process.env.TWITTER_ACCESS_SECRET;
+// EN投稿もJPアカウント(@entu1201)で行う — ENアカウント廃止 (2026-04-24)
+const apiKey = process.env.TWITTER_API_KEY;
+const apiSecret = process.env.TWITTER_API_SECRET;
+const accessToken = process.env.TWITTER_ACCESS_TOKEN;
+const accessSecret = process.env.TWITTER_ACCESS_SECRET;
 
 if (!apiKey || !apiSecret || !accessToken || !accessSecret) {
   console.error('❌ Twitter API credentials missing');
