@@ -17,14 +17,22 @@ export const metadata = {
         canonical: 'https://ttcguide.co/en',
         languages: {
             'ja': 'https://ttcguide.co',
-            'en': 'https://ttcguide.co/en',
-            'x-default': 'https://ttcguide.co',
+            'en-US': 'https://ttcguide.co/en',
+            'x-default': 'https://ttcguide.co/en',
         },
     },
     openGraph: {
         title: "A Doctor's Guide to Women's Health & Preconception",
         description: "24 evidence-based medical facts for women in their 20s and 30s and their partners.",
+        url: 'https://ttcguide.co/en',
+        type: 'website',
         images: [{ url: '/mock-en.png', width: 800, height: 1100 }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: "A Doctor's Guide to Women's Health & Preconception",
+        description: "24 evidence-based medical facts by a reproductive medicine specialist.",
+        images: ['/mock-en.png'],
     },
 };
 
