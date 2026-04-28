@@ -17,12 +17,6 @@ export const metadata: Metadata = {
 export default function EnLayout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            {/* lang属性をクライアント側で書き換え（ルートlayout.tsxがlang="ja"固定のため） */}
-            <script
-                dangerouslySetInnerHTML={{
-                    __html: `document.documentElement.lang = 'en';`,
-                }}
-            />
             <HeaderEn />
             {children}
             <FooterEn />

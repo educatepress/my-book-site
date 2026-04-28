@@ -52,13 +52,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+import { headers } from 'next/headers';
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const h = await headers();
+  const pathname = h.get('x-pathname') || '';
+  const lang = pathname.startsWith('/en') ? 'en' : 'ja';
+
   return (
-    <html lang="ja" className={`${zenKaku.variable} ${notoSansJP.variable} ${dmSans.variable}`}>
+    <html lang={lang} className={`${zenKaku.variable} ${notoSansJP.variable} ${dmSans.variable}`}>
       <body className="overflow-x-hidden w-full relative">
         {children}
         <GoogleAnalytics gaId="G-576MQ3QBDX" />
