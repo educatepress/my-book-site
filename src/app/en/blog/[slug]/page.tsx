@@ -21,6 +21,11 @@ export async function generateMetadata({ params }: PostProps): Promise<Metadata>
         description: post.frontmatter.excerpt,
         alternates: {
             canonical: `/en/blog/${slug}`,
+            languages: {
+                'ja': `/blog/${slug}`,
+                'en-US': `/en/blog/${slug}`,
+                'x-default': `/en/blog/${slug}`,
+            },
         },
         openGraph: {
             title: post.frontmatter.title,
@@ -80,7 +85,7 @@ export default async function BlogPostEn({ params }: PostProps) {
     };
 
     return (
-        <div className="min-h-screen bg-[var(--color-cream)] py-16 md:py-24 px-6 font-en">
+        <div className="min-h-screen bg-[var(--color-cream)] py-10 md:py-24 px-0 sm:px-6 font-en">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
@@ -90,11 +95,11 @@ export default async function BlogPostEn({ params }: PostProps) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            <article className="max-w-[760px] mx-auto bg-white rounded-[32px] p-8 md:p-14 shadow-sm border border-black/5">
+            <article className="max-w-[760px] mx-auto bg-white rounded-none sm:rounded-[32px] p-5 sm:p-8 md:p-14 shadow-sm border-y sm:border border-black/5">
 
-                <nav className="mb-10">
-                    <Link href="/en/blog" className="text-[var(--color-sage)] text-sm font-bold hover:underline inline-flex items-center tracking-wider">
-                        <span className="mr-2">←</span> Back to Articles
+                <nav className="mb-8 px-2 sm:px-0">
+                    <Link href="/en/blog" className="text-[var(--color-sage)] text-sm font-bold hover:underline inline-flex items-center tracking-wider py-2 min-h-[44px]">
+                        <span className="mr-2" aria-hidden="true">←</span> Back to Articles
                     </Link>
                 </nav>
 
@@ -115,18 +120,41 @@ export default async function BlogPostEn({ params }: PostProps) {
                     </div>
                 </header>
 
-                <div className="prose prose-sage max-w-none text-left
+                <div className="prose prose-sm sm:prose-base prose-sage max-w-none text-left
                         prose-headings:font-['Zen_Kaku_Gothic_New'] prose-headings:font-bold prose-headings:text-[var(--color-text-dark)]
-                        prose-h2:text-[1.5rem] prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-black/5 prose-h2:pb-4
-                        prose-h3:text-[1.25rem] prose-h3:mt-8 prose-h3:mb-4
-                        prose-p:text-[var(--color-text-mid)] prose-p:leading-relaxed prose-p:mb-8
-                        prose-a:text-[var(--color-sage)] prose-a:no-underline hover:prose-a:underline
+                        prose-h2:text-[1.3rem] sm:prose-h2:text-[1.5rem] prose-h2:mt-10 sm:prose-h2:mt-12 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:border-b prose-h2:border-black/5 prose-h2:pb-4
+                        prose-h3:text-[1.15rem] sm:prose-h3:text-[1.25rem] prose-h3:mt-6 sm:prose-h3:mt-8 prose-h3:mb-3 sm:prose-h3:mb-4
+                        prose-p:text-[var(--color-text-mid)] prose-p:leading-[1.75] prose-p:mb-6 sm:prose-p:mb-8
+                        prose-a:text-[var(--color-sage)] prose-a:underline prose-a:underline-offset-4 prose-a:decoration-[var(--color-sage)]/40 hover:prose-a:decoration-[var(--color-sage)]
                         prose-strong:text-[var(--color-text-dark)] prose-strong:font-bold
-                        prose-ul:my-6 prose-li:text-[var(--color-text-mid)] prose-li:leading-relaxed 
+                        prose-ul:my-6 prose-ul:pl-5 sm:prose-ul:pl-8 prose-li:text-[var(--color-text-mid)] prose-li:leading-[1.75] prose-li:mb-2
+                        prose-ol:my-6 prose-ol:pl-5 sm:prose-ol:pl-8
                         prose-blockquote:not-italic prose-blockquote:border-l-4 prose-blockquote:border-[var(--color-sage)] prose-blockquote:bg-[var(--color-surface)] prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:text-[0.95rem] prose-blockquote:text-[var(--color-text-mid)]
                         prose-img:rounded-2xl prose-img:shadow-sm
                 ">
-                    <MDXRemote source={post.content} />
+                    <MDXRemote
+                        source={post.content}
+                        components={{
+                            table: (props) => (
+                                <div className="overflow-x-auto my-8 -mx-5 sm:mx-0 px-5 sm:px-0">
+                                    <table className="w-full text-left text-[0.85rem] sm:text-[0.95rem] border-collapse" {...props} />
+                                </div>
+                            ),
+                            a: ({ href, children, ...rest }: any) => {
+                                const isExternal = typeof href === 'string' && /^https?:\/\//.test(href);
+                                return (
+                                    <a
+                                        href={href}
+                                        {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                                        className="break-words"
+                                        {...rest}
+                                    >
+                                        {children}
+                                    </a>
+                                );
+                            },
+                        }}
+                    />
                 </div>
 
                 <footer className="mt-16 pt-12 border-t border-black/5">
