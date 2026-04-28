@@ -84,6 +84,50 @@ export async function POST(req: Request) {
           } catch (err) {
             console.error('[Slack API] Failed to trigger Make.com webhook:', err);
           }
+
+          // IG投稿と同時にXでもシェア（クロスプロモーション）
+          try {
+            const twitterApiKey = process.env.TWITTER_API_KEY || '';
+            const twitterApiSecret = process.env.TWITTER_API_SECRET || '';
+            const twitterAccessToken = process.env.TWITTER_ACCESS_TOKEN || '';
+            const twitterAccessSecret = process.env.TWITTER_ACCESS_SECRET || '';
+
+            if (twitterApiKey && twitterAccessToken) {
+              const { TwitterApi } = await import('twitter-api-v2');
+              const xClient = new TwitterApi({
+                appKey: twitterApiKey,
+                appSecret: twitterApiSecret,
+                accessToken: twitterAccessToken,
+                accessSecret: twitterAccessSecret,
+              });
+
+              // Slackメッセージからキャプションを抽出
+              const captionBlock = blocks?.find((b: any) =>
+                b.type === 'section' && b.text?.text?.includes('Caption (EN)')
+              );
+              let caption = '';
+              if (captionBlock) {
+                const rawText = captionBlock.text.text || '';
+                // "> " で始まる引用行を結合
+                const lines = rawText.split('\n').filter((l: string) => l.startsWith('> '));
+                caption = lines.map((l: string) => l.replace(/^>\s*/, '')).join(' ').trim();
+              }
+
+              // キャプションの先頭100文字 + IGアカウントへの誘導
+              const xText = caption
+                ? `${caption.substring(0, 200)}...\n\n📱 Full post on Instagram → @dr.sato.fertility.specialist`
+                : `New post on Instagram! 📱\n\n@dr.sato.fertility.specialist`;
+
+              // 280文字制限
+              const finalText = xText.length > 280 ? xText.substring(0, 277) + '...' : xText;
+
+              await xClient.v2.tweet(finalText);
+              console.log(`[Slack API] 🐦 X cross-post sent for ${contentId}`);
+            }
+          } catch (err) {
+            // Xへの投稿失敗はIG投稿をブロックしない
+            console.error('[Slack API] X cross-post failed (non-blocking):', err);
+          }
         }
 
         if (channel && ts && blocks) {
@@ -116,10 +160,11 @@ export async function POST(req: Request) {
         const blocks = payload.message?.blocks;
 
         try {
-          const twitterApiKey = process.env.EN_TWITTER_API_KEY || process.env.TWITTER_API_KEY || '';
-          const twitterApiSecret = process.env.EN_TWITTER_API_SECRET || process.env.TWITTER_API_SECRET || '';
-          const twitterAccessToken = process.env.EN_TWITTER_ACCESS_TOKEN || process.env.TWITTER_ACCESS_TOKEN || '';
-          const twitterAccessSecret = process.env.EN_TWITTER_ACCESS_SECRET || process.env.TWITTER_ACCESS_SECRET || '';
+          // ENアカウント廃止 — JPアカウント(@entu1201)で統一 (2026-04-24)
+          const twitterApiKey = process.env.TWITTER_API_KEY || '';
+          const twitterApiSecret = process.env.TWITTER_API_SECRET || '';
+          const twitterAccessToken = process.env.TWITTER_ACCESS_TOKEN || '';
+          const twitterAccessSecret = process.env.TWITTER_ACCESS_SECRET || '';
 
           if (twitterApiKey && twitterAccessToken) {
             const { TwitterApi } = await import('twitter-api-v2');
