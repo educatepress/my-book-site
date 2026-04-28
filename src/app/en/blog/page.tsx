@@ -10,7 +10,7 @@ export default async function BlogIndexEn() {
     const posts = await getAllPosts('en');
 
     return (
-        <div className="min-h-screen bg-[var(--color-surface)] py-20 md:py-32 px-6 font-en">
+        <div className="min-h-screen bg-[var(--color-surface)] py-12 md:py-32 px-4 sm:px-6 font-en">
             <div className="max-w-[800px] mx-auto">
 
                 {/* 1. 威厳と静寂を感じさせるシンメトリーなヘッダー */}
@@ -40,7 +40,7 @@ export default async function BlogIndexEn() {
                     {posts.map((post) => (
                         <Link href={`/en/blog/${post.slug}`} key={post.slug} className="block group">
                             {/* ホバー時の「しおり（Bookmark）」インタラクションを仕込んだカード */}
-                            <article className="bg-white rounded-[24px] p-8 md:p-10 shadow-sm border border-black/5 hover:shadow-[0_8px_30px_rgba(107,143,113,0.12)] hover:border-[var(--color-sage-pale)] transition-all duration-500 transform group-hover:-translate-y-1 relative overflow-hidden">
+                            <article className="bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-8 md:p-10 shadow-sm border border-black/5 hover:shadow-[0_8px_30px_rgba(107,143,113,0.12)] hover:border-[var(--color-sage-pale)] transition-all duration-500 transform group-hover:-translate-y-1 relative overflow-hidden">
 
                                 {/* 左端のアクセントライン（スピン） */}
                                 <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[var(--color-sage)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -57,7 +57,7 @@ export default async function BlogIndexEn() {
                                     {/* 右側：コンテンツ */}
                                     <div className="flex-1">
                                         {/* 英語タイトル：tracking-tight と leading-snug の組み合わせが至高 */}
-                                        <h2 className="font-['Zen_Kaku_Gothic_New'] text-[1.4rem] md:text-[1.65rem] font-black text-[var(--color-text-dark)] group-hover:text-[var(--color-sage)] transition-colors duration-300 mb-3 leading-snug tracking-tight">
+                                        <h2 className="font-['Zen_Kaku_Gothic_New'] text-[1.15rem] sm:text-[1.4rem] md:text-[1.65rem] font-black text-[var(--color-text-dark)] group-hover:text-[var(--color-sage)] transition-colors duration-300 mb-3 leading-snug tracking-tight">
                                             {post.frontmatter.title}
                                         </h2>
 

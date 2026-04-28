@@ -47,6 +47,45 @@ export async function getPostSlugs(lang: 'jp' | 'en' = 'jp'): Promise<string[]> 
     return Array.from(new Set(localSlugs));
 }
 
+// 日本語混入を表示時に吸収するサニタイザー
+const CATEGORY_JP_TO_EN: Record<string, string> = {
+    '女性の健康': 'Women\'s Health',
+    '不妊治療・生殖医療': 'Fertility & Reproductive Medicine',
+    'プレコンセプションケア': 'Preconception Care',
+    '男性不妊': 'Male Fertility',
+    '体外受精': 'IVF',
+};
+
+const containsCJK = (s: unknown): boolean =>
+    typeof s === 'string' && /[\u3000-\u9fff\uff00-\uffef]/.test(s);
+
+const sanitizeFrontmatter = (
+    data: Record<string, unknown>,
+    lang: 'jp' | 'en'
+): Record<string, unknown> => {
+    if (lang !== 'en') return data;
+    const out = { ...data };
+
+    // category 日本語残留を英語に変換
+    if (typeof out.category === 'string' && CATEGORY_JP_TO_EN[out.category]) {
+        out.category = CATEGORY_JP_TO_EN[out.category];
+    } else if (containsCJK(out.category)) {
+        out.category = 'Fertility';
+    }
+
+    // 著者名が漢字なら標準名に置換
+    if (containsCJK(out.author)) {
+        out.author = 'Takuma Sato, MD';
+    }
+
+    // x_post に日本語が混入していたら表示で隠す
+    if (containsCJK(out.x_post)) {
+        out.x_post = '';
+    }
+
+    return out;
+};
+
 export async function getPostBySlug(slug: string, lang: 'jp' | 'en' = 'jp') {
     const realSlug = slug.replace(/\.mdx$/, '');
 
@@ -55,14 +94,15 @@ export async function getPostBySlug(slug: string, lang: 'jp' | 'en' = 'jp') {
     if (fs.existsSync(fullPath)) {
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const { data, content } = matter(fileContents);
+        const sanitized = sanitizeFrontmatter(data, lang);
         return {
             slug: realSlug,
             content,
             frontmatter: {
-                ...data,
-                title: data.title || '',
-                date: data.date ? (data.date instanceof Date ? data.date.toISOString().split('T')[0] : String(data.date)) : '',
-                excerpt: data.excerpt || '',
+                ...sanitized,
+                title: (sanitized.title as string) || '',
+                date: sanitized.date ? (sanitized.date instanceof Date ? (sanitized.date as Date).toISOString().split('T')[0] : String(sanitized.date)) : '',
+                excerpt: (sanitized.excerpt as string) || '',
             } as Partial<BlogPostMetadata>,
         };
     }
@@ -85,14 +125,15 @@ export async function getPostBySlug(slug: string, lang: 'jp' | 'en' = 'jp') {
             const mdxString = lang === 'jp' ? recipe.jpBlog : recipe.enBlog;
             if (mdxString) {
                 const { data, content } = matter(mdxString);
+                const sanitized = sanitizeFrontmatter(data, lang);
                 return {
                     slug: realSlug,
                     content,
                     frontmatter: {
-                        ...data,
-                        title: data.title || '',
-                        date: data.date ? (data.date instanceof Date ? data.date.toISOString().split('T')[0] : String(data.date)) : '',
-                        excerpt: data.excerpt || '',
+                        ...sanitized,
+                        title: (sanitized.title as string) || '',
+                        date: sanitized.date ? (sanitized.date instanceof Date ? (sanitized.date as Date).toISOString().split('T')[0] : String(sanitized.date)) : '',
+                        excerpt: (sanitized.excerpt as string) || '',
                     } as Partial<BlogPostMetadata>,
                 };
             }

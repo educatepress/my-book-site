@@ -429,15 +429,30 @@ Expected JSON Schema:
         await fs.writeFile(jpBlogPath, finalJpBlog);
         console.log(`✅ Saved JP Blog -> ${jpBlogPath}`);
 
-        // Save EN Blog MDX
+        // Save EN Blog MDX (with pre-publish validation)
         const enBlogDir = path.join(process.cwd(), 'src/content/blog/en');
         await fs.mkdir(enBlogDir, { recursive: true });
         const enBlogPath = path.join(enBlogDir, `${result.slug}-en.mdx`);
         const enWithInfographic = injectInfographic(enBlogContent, infographicInsertEn);
         const enSanitized = sanitizeFrontmatter(enWithInfographic);
         const finalEnBlog = injectXPostFrontmatter(enSanitized, safeXPost);
-        await fs.writeFile(enBlogPath, finalEnBlog);
-        console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
+
+        // ── Pre-publish validator (no prompt changes — code-only quality gate) ──
+        const enValidation = validateEnglishMdx(finalEnBlog, result.slug);
+        if (!enValidation.ok) {
+            console.error(`❌ EN Blog validation FAILED for ${result.slug}:`);
+            enValidation.errors.forEach(e => console.error(`   🔴 ${e}`));
+            // Still save but with .draft extension so it doesn't appear on site
+            await fs.writeFile(enBlogPath + '.draft', finalEnBlog);
+            console.log(`⚠️ Saved as DRAFT (not published) -> ${enBlogPath}.draft`);
+        } else {
+            if (enValidation.warnings.length > 0) {
+                console.warn(`⚠️ EN Blog warnings for ${result.slug}:`);
+                enValidation.warnings.forEach(w => console.warn(`   🟡 ${w}`));
+            }
+            await fs.writeFile(enBlogPath, finalEnBlog);
+            console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
+        }
 
         console.log(`📝 Generated xPost Tip: ${safeXPost}`);
 
@@ -470,3 +485,67 @@ Expected JSON Schema:
 }
 
 main();
+
+// ── Pre-publish validator (code-only quality gate — no prompt changes) ──
+interface ValidationResult {
+    ok: boolean;
+    errors: string[];
+    warnings: string[];
+}
+
+function validateEnglishMdx(mdx: string, slug: string): ValidationResult {
+    const errors: string[] = [];
+    const warnings: string[] = [];
+
+    // 1. 空ファイルチェック
+    const bodyStartIdx = mdx.indexOf('---', 3);
+    const body = bodyStartIdx > 0 ? mdx.slice(bodyStartIdx + 3).trim() : '';
+    if (body.length < 800) {
+        errors.push(`本文が短すぎる(${body.length}字)。生成失敗の可能性`);
+    }
+
+    // 2. frontmatter の日本語混入
+    const frontmatter = mdx.slice(0, bodyStartIdx + 3);
+    const cjkRegex = /[\u3040-\u30ff\u3400-\u9fff]/;
+    const fmLines = frontmatter.split('\n');
+    for (const line of fmLines) {
+        const m = line.match(/^(category|author|x_post|tags):\s*(.+)$/);
+        if (m && cjkRegex.test(m[2])) {
+            errors.push(`frontmatter ${m[1]} に日本語混入: ${m[2].slice(0, 30)}`);
+        }
+    }
+
+    // 3. References セクションの有無
+    if (!/^#{1,4}\s*References/im.test(body)) {
+        warnings.push('References セクションが見つからない');
+    } else {
+        const refSection = body.split(/^#{1,4}\s*References/im)[1] || '';
+        if (/\]\(\s*\)/.test(refSection)) {
+            errors.push('References に空リンク `]()` が混入');
+        }
+        if (/no information provided|no provided references|n\/a/i.test(refSection)) {
+            errors.push('References がプレースホルダで埋まっている');
+        }
+    }
+
+    // 4. 重複AIフレーズ
+    const overusedPhrases = ['Your feelings are valid', "It's crucial to", "It's important to"];
+    for (const phrase of overusedPhrases) {
+        const count = (body.match(new RegExp(phrase, 'gi')) || []).length;
+        if (count >= 4) {
+            warnings.push(`「${phrase}」が${count}回出現(4回以上は単調)`);
+        }
+    }
+
+    // 5. 内部リンク形式の不統一
+    if (/\]\(\/blog\//.test(body) && !/\]\(\/en\/blog\//.test(body)) {
+        warnings.push('内部リンクが /blog/ 形式(英語記事は /en/blog/ 推奨)');
+    }
+
+    // 6. 未置換テンプレ変数
+    if (/\$\{[^}]+\}|\{\{[^}]+\}\}/.test(body)) {
+        errors.push('未置換のテンプレ変数が残存');
+    }
+
+    return { ok: errors.length === 0, errors, warnings };
+}
