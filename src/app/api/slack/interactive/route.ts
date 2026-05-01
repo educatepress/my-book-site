@@ -85,8 +85,9 @@ export async function POST(req: Request) {
             console.error('[Slack API] Failed to trigger Make.com webhook:', err);
           }
 
-          // IG投稿と同時にXでもシェア（クロスプロモーション）
-          try {
+          // X cross-post SUSPENDED — account banned 2026-05-01
+          // 復活する場合はこのブロックのコメントを外す
+          if (false) try {
             const twitterApiKey = process.env.TWITTER_API_KEY || '';
             const twitterApiSecret = process.env.TWITTER_API_SECRET || '';
             const twitterAccessToken = process.env.TWITTER_ACCESS_TOKEN || '';

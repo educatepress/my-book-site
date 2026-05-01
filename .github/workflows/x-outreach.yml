@@ -3,9 +3,9 @@ name: X TTC Community Outreach
 on:
   schedule:
     # US lunch: 17:00 UTC (13:00 US East / 02:00 JST)
-    - cron: '0 17 * * *'
+    # SUSPENDED (X account banned 2026-05-01) - cron: '0 17 * * *'
     # US night peak: 02:00 UTC (22:00 US East / 11:00 JST)
-    - cron: '0 2 * * *'
+    # SUSPENDED (X account banned 2026-05-01) - cron: '0 2 * * *'
   workflow_dispatch:
 
 jobs:

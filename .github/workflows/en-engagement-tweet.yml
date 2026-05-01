@@ -3,7 +3,7 @@ name: EN TTC Engagement Tweet
 on:
   schedule:
     # US morning commute: 12:00 UTC (08:00 US East / 21:00 JST)
-    - cron: '0 12 * * *'
+    # SUSPENDED (X account banned 2026-05-01) - cron: '0 12 * * *'
   workflow_dispatch:
 
 jobs:

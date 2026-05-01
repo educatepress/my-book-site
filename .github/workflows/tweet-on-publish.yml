@@ -2,7 +2,7 @@ name: Tweet New Blog Post
 
 on:
   push:
-    branches:
+    # SUSPENDED - branches:
       - main
     paths:
       - 'src/content/blog/jp/*.mdx'

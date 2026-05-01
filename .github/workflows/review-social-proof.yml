@@ -3,7 +3,7 @@ name: Weekly Review Social Proof Tweet
 on:
   schedule:
     # Wednesday and Saturday at 15:00 UTC (11:00 US East)
-    - cron: '0 15 * * 3,6'
+    # SUSPENDED (X account banned 2026-05-01) - cron: '0 15 * * 3,6'
   workflow_dispatch:
 
 jobs:

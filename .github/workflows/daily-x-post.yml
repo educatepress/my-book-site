@@ -3,7 +3,7 @@ name: Auto Generate and Post Daily X
 on:
   schedule:
     # US evening prime time: 01:00 UTC (21:00 US East / 10:00 JST)
-    - cron: '0 1 * * *'
+    # SUSPENDED (X account banned 2026-05-01) - cron: '0 1 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI / App
 
 jobs:

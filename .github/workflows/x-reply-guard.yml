@@ -3,7 +3,7 @@ name: X Reply Guard (Auto-delete backlash)
 on:
   schedule:
     # Every 4 hours — monitors recent replies for negative reception
-    - cron: '0 1,5,9,13,17,21 * * *'
+    # SUSPENDED (X account banned 2026-05-01) - cron: '0 1,5,9,13,17,21 * * *'
   workflow_dispatch:
 
 jobs:
