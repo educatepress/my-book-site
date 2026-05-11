@@ -73,8 +73,14 @@ const sanitizeFrontmatter = (
         out.category = 'Fertility';
     }
 
-    // 著者名が漢字なら標準名に置換
-    if (containsCJK(out.author)) {
+    // 著者名を一律 Takuma Sato, MD に統一（漢字・英語表記揺れ問わず）
+    const KNOWN_AUTHOR_VARIANTS = [
+        /^佐藤[\s\u3000]*琢磨$/,
+        /^Dr\.?\s+Takuma\s+Sato$/i,
+        /^Takuma\s+Sato$/i,
+        /^Takuma\s+Sato,\s+MD,?\s*PhD$/i,
+    ];
+    if (typeof out.author === 'string' && KNOWN_AUTHOR_VARIANTS.some(re => re.test(out.author as string))) {
         out.author = 'Takuma Sato, MD';
     }
 

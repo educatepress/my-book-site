@@ -1,9 +1,24 @@
 import { getAllPosts } from "@/lib/mdx";
 import Link from "next/link";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Blog & News | Fertility & Life Planning",
     description: "Latest medical insights and news from Dr. Takuma Sato, Reproductive Medicine Specialist.",
+    alternates: {
+        canonical: "/en/blog",
+        languages: {
+            'ja': '/blog',
+            'en-US': '/en/blog',
+            'x-default': '/en/blog',
+        },
+    },
+    openGraph: {
+        title: "Blog & News | Fertility & Life Planning",
+        description: "Latest medical insights and news from Dr. Takuma Sato.",
+        url: '/en/blog',
+        type: 'website',
+    },
 };
 
 export default async function BlogIndexEn() {
