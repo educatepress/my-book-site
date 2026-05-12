@@ -110,7 +110,7 @@ function extractPmidsFromUrls(urls: string[]): string[] {
     const pmids: string[] = [];
     for (const url of urls) {
         // https://pubmed.ncbi.nlm.nih.gov/32767206/ → 32767206
-        const match = url.match(/pubmed\.ncbi\.nlm\.nih\.gov\/(\d{7,8})/);
+        const match = url.match(/pubmed\.ncbi\.nlm\.nih\.gov\/(\d{5,8})/);
         if (match) pmids.push(match[1]);
     }
     return pmids;

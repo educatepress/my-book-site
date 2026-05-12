@@ -119,7 +119,7 @@ async function main() {
     } catch (err) {
         console.warn(`  ⚠️ PubMed検索失敗（Referencesなしで続行）:`, err);
     }
-    const referencesPromptBlock = formatReferencesForPrompt(references);
+    const referencesBlock = formatReferencesForPrompt(references);
 
     const prompt = `
 あなたは、生殖医療専門医（産婦人科医）である佐藤琢磨医師の専属AIコンテンツクリエイターです。
@@ -179,7 +179,7 @@ ${item.sourceUrls.join('\n')}
    自分でPMIDや論文情報を生成・推測することは絶対に禁止。提供された論文以外の文献を追加しないこと。
 
 【PubMed検証済み論文リスト（この論文のみ引用可能）】
-${referencesPromptBlock}
+${referencesBlock}
 
 記事の投稿日（フロントマター用）: ${postDateStr}
 

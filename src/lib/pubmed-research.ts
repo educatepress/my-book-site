@@ -88,7 +88,7 @@ export async function fetchPubMedSummary(pmids: string[]): Promise<VerifiedRefer
 function extractPmidsFromUrls(urls: string[]): string[] {
     const pmids: string[] = [];
     for (const url of urls) {
-        const match = url.match(/pubmed\.ncbi\.nlm\.nih\.gov\/(\d{7,8})/);
+        const match = url.match(/pubmed\.ncbi\.nlm\.nih\.gov\/(\d{5,8})/);
         if (match) pmids.push(match[1]);
     }
     return pmids;

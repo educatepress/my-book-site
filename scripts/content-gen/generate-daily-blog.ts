@@ -78,7 +78,7 @@ async function main() {
     } catch (err) {
         console.warn('  ⚠️ PubMed検索失敗（Referencesなしで続行）:', err);
     }
-    const referencesPromptBlock = formatReferencesForPrompt(references);
+    const referencesBlock = formatReferencesForPrompt(references);
 
     const prompt = `
 あなたは、生殖医療専門医（産婦人科医）である佐藤琢磨医師の専属AIコンテンツクリエイターです。
@@ -105,7 +105,7 @@ async function main() {
    権威ある組織名（JSOG, WHO等）を安易に列挙する偽りの権威付けも禁止。
 
 【PubMed検証済み論文リスト（この論文のみ引用可能）】
-${referencesPromptBlock}
+${referencesBlock}
 3. 【食事・サプリメント推奨の禁止（トーンダウン）】
    「〜を食べて妊活をサポートしましょう」等、食品やサプリが直接生殖能力を向上させるような論理的飛躍と断定は避けること。「一般的な健康維持に役立つ食品ですが、生殖機能への直接的効果は今後の研究課題です」という慎重なスタンスを維持すること。
 4. 【中立性の徹底】

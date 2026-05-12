@@ -30,8 +30,8 @@ function extractPmidsFromMdx(mdx: string): string[] {
     const pmids: string[] = [];
     // PMID: 32767206 or PMID:32767206 or pubmed.ncbi.nlm.nih.gov/32767206
     const patterns = [
-        /PMID:?\s*(\d{7,8})/gi,
-        /pubmed\.ncbi\.nlm\.nih\.gov\/(\d{7,8})/g,
+        /PMID:?\s*(\d{5,8})/gi,
+        /pubmed\.ncbi\.nlm\.nih\.gov\/(\d{5,8})/g,
     ];
     for (const pattern of patterns) {
         let match;
@@ -56,7 +56,7 @@ function extractCitationDetails(mdx: string): Map<string, { author: string; jour
     // 各行から著者・雑誌・年・PMID を抽出
     const lines = refSection.split('\n').filter(l => l.trim().length > 0);
     for (const line of lines) {
-        const pmidMatch = line.match(/PMID:?\s*(\d{7,8})/i) || line.match(/pubmed\.ncbi\.nlm\.nih\.gov\/(\d{7,8})/);
+        const pmidMatch = line.match(/PMID:?\s*(\d{5,8})/i) || line.match(/pubmed\.ncbi\.nlm\.nih\.gov\/(\d{5,8})/);
         if (!pmidMatch) continue;
         const pmid = pmidMatch[1];
 
@@ -65,8 +65,10 @@ function extractCitationDetails(mdx: string): Map<string, { author: string; jour
         const authorMatch = cleanLine.match(/^([A-Za-z\u00C0-\u024F]+(?:\s[A-Z][A-Za-z]*)?)[\s,]/);
         const author = authorMatch ? authorMatch[1].trim() : '';
 
-        // 雑誌: イタリック *Journal* or 通常テキストの Journal. Year
-        const journalMatch = line.match(/\*([^*]+)\*/) || line.match(/\.\s+([A-Z][A-Za-z\s&]+)\./);
+        // 雑誌: イタリック *Journal* or PMID/年の直前の "Journal. Year" パターン
+        const journalMatch = line.match(/\*([^*]+)\*/) ||
+            line.match(/\.\s+([A-Z][A-Za-z\s&]+)\.\s*(?:19|20)\d{2}/) ||  // Journal. Year
+            line.match(/\.\s+([A-Z][A-Za-z\s&]+)\.\s*\[?PMID/i);         // Journal. PMID
         const journal = journalMatch ? journalMatch[1].trim() : '';
 
         // 年: 4桁数字（PMID以外）
@@ -82,8 +84,11 @@ function extractCitationDetails(mdx: string): Map<string, { author: string; jour
 
 // ── 著者名の姓を正規化して比較 ──
 function normalizeAuthorSurname(name: string): string {
-    // "Florou P" → "florou", "Florou" → "florou"
-    return name.split(/[\s,]+/)[0].toLowerCase().replace(/[^a-z]/g, '');
+    // "Florou P" → "florou", "Kim S" → "kim", "李 M" → "李"
+    const parts = name.split(/[\s,]+/).filter(p => p.length > 0);
+    // 姓は最も長いパート（イニシャルを避ける）
+    const surname = parts.reduce((a, b) => a.length >= b.length ? a : b, parts[0] || '');
+    return surname.toLowerCase().replace(/[^a-z\u00C0-\u024F\u3000-\u9FFF\uAC00-\uD7AF]/g, '');
 }
 
 // ── 雑誌名の正規化（略称揺れを吸収）──
@@ -122,16 +127,33 @@ export async function verifyBlogReferences(mdxContent: string): Promise<Verifica
             continue;
         }
 
-        // 著者チェック
-        const authorMatch = cited.author
-            ? normalizeAuthorSurname(cited.author) === normalizeAuthorSurname(pubmed.firstAuthor)
-            : true; // 著者が抽出できなかった場合はスキップ
+        // 著者チェック（組織名の場合はキーワード部分一致で判定）
+        let authorMatch = true;
+        if (cited.author) {
+            const citedNorm = normalizeAuthorSurname(cited.author);
+            const pubmedNorm = normalizeAuthorSurname(pubmed.firstAuthor);
+            // 組織名（ASRM, ACOG, WHO, Ethics Committee等）はキーワード一致で許容
+            const orgKeywords = ['asrm', 'acog', 'who', 'committee', 'practice', 'ethics'];
+            const isOrgCitation = orgKeywords.some(k => cited.author.toLowerCase().includes(k));
+            const isOrgPubmed = orgKeywords.some(k => pubmed.firstAuthor.toLowerCase().includes(k));
+            if (isOrgCitation && isOrgPubmed) {
+                authorMatch = true; // 両方が組織名なら一致とみなす
+            } else {
+                authorMatch = citedNorm === pubmedNorm;
+            }
+        }
 
         // 雑誌チェック
-        const journalMatch = cited.journal
-            ? normalizeJournal(cited.journal).includes(normalizeJournal(pubmed.journal)) ||
-              normalizeJournal(pubmed.journal).includes(normalizeJournal(cited.journal))
-            : true;
+        // 雑誌名: ワード単位で2語以上一致 or 片方が他方を含む
+        let journalMatch = true;
+        if (cited.journal) {
+            const citedWords = normalizeJournal(cited.journal).split(/\s+/).filter(w => w.length > 2);
+            const pubmedWords = normalizeJournal(pubmed.journal).split(/\s+/).filter(w => w.length > 2);
+            const overlap = citedWords.filter(w => pubmedWords.includes(w));
+            journalMatch = overlap.length >= 2 ||
+                normalizeJournal(cited.journal).includes(normalizeJournal(pubmed.journal)) ||
+                normalizeJournal(pubmed.journal).includes(normalizeJournal(cited.journal));
+        }
 
         // 年チェック（±1年許容）
         const citedYearNum = parseInt(cited.year, 10);

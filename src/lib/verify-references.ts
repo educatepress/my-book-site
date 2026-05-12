@@ -82,7 +82,9 @@ function extractCitations(mdx: string): Map<string, { author: string; journal: s
 }
 
 function normSurname(name: string): string {
-    return name.split(/[\s,]+/)[0].toLowerCase().replace(/[^a-z]/g, '');
+    const parts = name.split(/[\s,]+/).filter(p => p.length > 0);
+    const surname = parts.reduce((a, b) => a.length >= b.length ? a : b, parts[0] || '');
+    return surname.toLowerCase().replace(/[^a-z\u00C0-\u024F\u3000-\u9FFF\uAC00-\uD7AF]/g, '');
 }
 
 function normJournal(name: string): string {
@@ -109,11 +111,22 @@ export async function verifyBlogReferences(mdx: string): Promise<VerificationRes
             continue;
         }
 
-        const authorMatch = cited.author ? normSurname(cited.author) === normSurname(pub.firstAuthor) : true;
-        const journalMatch = cited.journal
-            ? normJournal(cited.journal).includes(normJournal(pub.journal)) ||
-              normJournal(pub.journal).includes(normJournal(cited.journal))
-            : true;
+        let authorMatch = true;
+        if (cited.author) {
+            const orgKw = ['asrm', 'acog', 'who', 'committee', 'practice', 'ethics'];
+            const isOrgC = orgKw.some(k => cited.author.toLowerCase().includes(k));
+            const isOrgP = orgKw.some(k => pub.firstAuthor.toLowerCase().includes(k));
+            authorMatch = (isOrgC && isOrgP) || normSurname(cited.author) === normSurname(pub.firstAuthor);
+        }
+        let journalMatch = true;
+        if (cited.journal) {
+            const citedW = normJournal(cited.journal).split(/\s+/).filter(w => w.length > 2);
+            const pubW = normJournal(pub.journal).split(/\s+/).filter(w => w.length > 2);
+            const overlap = citedW.filter(w => pubW.includes(w));
+            journalMatch = overlap.length >= 2 ||
+                normJournal(cited.journal).includes(normJournal(pub.journal)) ||
+                normJournal(pub.journal).includes(normJournal(cited.journal));
+        }
         const citedYear = parseInt(cited.year, 10);
         const yearMatch = cited.year ? !isNaN(citedYear) && Math.abs(citedYear - pub.year) <= 1 : true;
 
