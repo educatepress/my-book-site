@@ -232,25 +232,34 @@ ${referencesBlock}
    - 「知っておくと選択肢が増える事実」というポジティブな文脈で書くこと。
    - 確定した事実は「〜です」、議論がある内容は「〜という報告もあります」と使い分けること。
 
-4. "infographic": 記事の参考文献から最も重要なアウトカムを1つ選び、グラフ化するためのデータ。
-   必ず以下のJSON構造で出力すること（このフィールドは記事生成と同時に必ず出力してください）:
+4. "infographic": 【PubMed検証済み論文リスト】から最も重要なアウトカムを1つ選び、グラフ化するためのデータ。
+   ビジュアルチャートはブログの説得力を大幅に向上させるため、可能な限り生成すること。
+
+   【インフォグラフィック生成ルール】
+   - "type" フィールドを必ず指定すること。許可値: "comparison"（2群比較）/ "single_value"（単一指標）/ "list"（リスト形式）。デフォルトは "comparison"。
+   - group1Value / group2Value は【PubMed検証済み論文リスト】の論文に記載されたデータのみ使用すること。数値を推測・捏造することは絶対に禁止。
+   - source フィールドには、データの出典となる論文の「著者名, 雑誌名, 年. PMID: XXXXX」を記載すること。【PubMed検証済み論文リスト】の情報をそのまま使うこと。
+   - 情報のTierがC（動物実験/細胞実験）の場合、タイトルに必ず「（基礎研究）」「(Lab Study)」を付記すること。
+   - 論文に数値データが明記されていない場合のみ infographic を null にすること。それ以外では積極的に生成すること。
+
+   必ず以下のJSON構造で出力すること:
    {
-     "title": "（日本語）グラフのタイトル（例：CoQ10の受精率への影響）",
-     "titleEn": "（英語）グラフのタイトル（例：CoQ10 Impact on Fertilization Rate）",
-     "group1Label": "（日本語）介入群ラベル（例：CoQ10群）",
-     "group1LabelEn": "（英語）介入群ラベル（例：CoQ10 Group）",
+     "type": "comparison",
+     "title": "（日本語）グラフのタイトル",
+     "titleEn": "（英語）グラフのタイトル",
+     "group1Label": "（日本語）介入群ラベル",
+     "group1LabelEn": "（英語）介入群ラベル",
      "group1Value": 68,
-     "group2Label": "（日本語）対照群ラベル（例：コントロール群）",
-     "group2LabelEn": "（英語）対照群ラベル（例：Control Group）",
+     "group2Label": "（日本語）対照群ラベル",
+     "group2LabelEn": "（英語）対照群ラベル",
      "group2Value": 48,
      "unit": "%",
-     "metric": "（日本語）評価指標名（例：受精率）",
-     "metricEn": "（英語）評価指標名（例：Fertilization Rate）",
+     "metric": "（日本語）評価指標名",
+     "metricEn": "（英語）評価指標名",
      "source": "First Author et al., Journal Name, Year. PMID: XXXXXXXX",
-     "captionJp": "（日本語）グラフの1行説明（例：CoQ10服用群で受精率が20ポイント向上）",
-     "captionEn": "（英語）グラフの1行説明（例：Fertilization rate improved by 20 points in the CoQ10 group）"
+     "captionJp": "（日本語）グラフの1行説明",
+     "captionEn": "（英語）グラフの1行説明"
    }
-   ※ 数値が論文に明記されていない場合は infographic フィールドを null にすること。
 
 ---
 CRITICAL INSTRUCTION: You are a JSON-only API. You MUST output ONLY a raw JSON object. 
