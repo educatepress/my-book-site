@@ -171,6 +171,40 @@ export async function verifyBlogReferences(mdxContent: string): Promise<Verifica
         if (!yearMatch) failures.push(`PMID ${pmid}: 年不一致 (記事: ${cited.year}, PubMed: ${pubmed.year})`);
     }
 
+    // ── 本文中の未検証組織引用チェック ──
+    // References外の本文で「WHO（2023）」「ASRMは〜推奨」等と書かれていた場合、
+    // その組織の論文がReferencesに含まれていなければ警告
+    const bodyWithoutRefs = mdxContent.replace(/#{1,4}\s*(?:参考文献?|References)[\s\S]*$/i, '');
+    const orgPatterns = [
+        /\b(WHO|World Health Organization)\s*[\(（]\s*\d{4}/gi,
+        /\b(ASRM|American Society for Reproductive Medicine)\s*[\(（]/gi,
+        /\b(ACOG|American College of Obstetricians)/gi,
+        /\b(JSOG|日本産科婦人科学会)/gi,
+        /\b(ESHRE|European Society of Human Reproduction)/gi,
+    ];
+    const referencedOrgs = new Set(
+        pubmedData.map(r => r.firstAuthor.toLowerCase())
+            .concat(pubmedData.map(r => r.journal.toLowerCase()))
+            .join(' ')
+    );
+    for (const pattern of orgPatterns) {
+        let match;
+        while ((match = pattern.exec(bodyWithoutRefs)) !== null) {
+            const orgName = match[1];
+            // Referencesにこの組織の論文があるかチェック
+            const orgLower = orgName.toLowerCase();
+            const hasInRefs = pubmedData.some(r =>
+                r.firstAuthor.toLowerCase().includes(orgLower) ||
+                r.journal.toLowerCase().includes(orgLower) ||
+                r.title.toLowerCase().includes(orgLower)
+            );
+            if (!hasInRefs) {
+                failures.push(`本文中に "${orgName}" の引用があるが、Referencesに対応する論文がない（ハルシネーションの可能性）`);
+                break; // 同じ組織は1回だけ報告
+            }
+        }
+    }
+
     return {
         passed: failures.length === 0,
         checkedCount: pmids.length,

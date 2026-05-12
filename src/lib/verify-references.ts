@@ -136,6 +136,32 @@ export async function verifyBlogReferences(mdx: string): Promise<VerificationRes
         if (!yearMatch) failures.push(`PMID ${pmid}: 年不一致 (${cited.year} vs ${pub.year})`);
     }
 
+    // 本文中の未検証組織引用チェック
+    const bodyWithoutRefs = mdx.replace(/#{1,4}\s*(?:参考文献?|References)[\s\S]*$/i, '');
+    const orgPatterns = [
+        /\b(WHO|World Health Organization)\s*[\(（]\s*\d{4}/gi,
+        /\b(ASRM|American Society for Reproductive Medicine)\s*[\(（]/gi,
+        /\b(ACOG|American College of Obstetricians)/gi,
+        /\b(JSOG|日本産科婦人科学会)/gi,
+        /\b(ESHRE|European Society of Human Reproduction)/gi,
+    ];
+    for (const pattern of orgPatterns) {
+        let match;
+        while ((match = pattern.exec(bodyWithoutRefs)) !== null) {
+            const orgName = match[1];
+            const orgLower = orgName.toLowerCase();
+            const hasInRefs = [...pubmedMap.values()].some(r =>
+                r.firstAuthor.toLowerCase().includes(orgLower) ||
+                r.journal.toLowerCase().includes(orgLower) ||
+                r.title.toLowerCase().includes(orgLower)
+            );
+            if (!hasInRefs) {
+                failures.push(`本文中に "${orgName}" の引用があるが、Referencesに対応する論文がない`);
+                break;
+            }
+        }
+    }
+
     return { passed: failures.length === 0, checkedCount: pmids.length, details, failures };
 }
 
