@@ -27,10 +27,19 @@ async function searchPubMed(query: string, maxResults = 10): Promise<string[]> {
     });
     const url = `${EUTILS_BASE}/esearch.fcgi?${params}`;
 
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`PubMed esearch failed: ${res.status}`);
-    const data = await res.json();
-    return data.esearchresult?.idlist || [];
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    try {
+        const res = await fetch(url, { signal: controller.signal });
+        if (!res.ok) throw new Error(`PubMed esearch failed: ${res.status}`);
+        const data = await res.json();
+        return data.esearchresult?.idlist || [];
+    } catch (err: any) {
+        if (err.name === 'AbortError') throw new Error('PubMed esearch timeout (15s)');
+        throw err;
+    } finally {
+        clearTimeout(timeoutId);
+    }
 }
 
 // ── PubMed esummary: PMID リストからメタデータを取得 ──
@@ -44,9 +53,24 @@ export async function fetchPubMedSummary(pmids: string[]): Promise<VerifiedRefer
     });
     const url = `${EUTILS_BASE}/esummary.fcgi?${params}`;
 
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`PubMed esummary failed: ${res.status}`);
-    const data = await res.json();
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    let res: Response;
+    try {
+        res = await fetch(url, { signal: controller.signal });
+        if (!res.ok) throw new Error(`PubMed esummary failed: ${res.status}`);
+    } catch (err: any) {
+        clearTimeout(timeoutId);
+        if (err.name === 'AbortError') throw new Error('PubMed esummary timeout (15s)');
+        throw err;
+    }
+    clearTimeout(timeoutId);
+    let data: any;
+    try {
+        data = await res.json();
+    } catch {
+        throw new Error('PubMed esummary returned invalid JSON');
+    }
 
     const results: VerifiedReference[] = [];
     const summaryResult = data.result || {};

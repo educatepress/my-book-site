@@ -160,5 +160,5 @@ export async function verifyBlogReferences(mdxContent: string): Promise<Verifica
 // ── References セクションを除去（フォールバック用）──
 export function removeReferencesSection(mdx: string): string {
     // "### 参考" or "## References" などで始まるセクションを次の見出しまで除去
-    return mdx.replace(/^#{1,4}\s*(?:参考|References)[^\n]*\n[\s\S]*?(?=^#{1,4}\s)/gm, '');
+    return mdx.replace(/#{1,4}\s*(?:参考文献?|References)[^\n]*\n[\s\S]*?(?=\n#{1,4}\s|\n---|\s*$)/gi, '');
 }

@@ -73,7 +73,7 @@ async function main() {
     const sourceUrls = item.referenceUrl ? [item.referenceUrl] : [];
     let references: Awaited<ReturnType<typeof researchTheme>> = [];
     try {
-        references = await researchTheme(item.theme, sourceUrls);
+        references = await researchTheme(item.searchKeywords || item.theme, sourceUrls);
         console.log(`  📚 ${references.length}件の検証済み論文を取得`);
     } catch (err) {
         console.warn('  ⚠️ PubMed検索失敗（Referencesなしで続行）:', err);
@@ -203,7 +203,30 @@ Expected JSON Schema:
         const finalJpBlog = injectXPostFrontmatter(jpSanitized, safeXPost);
         
         const enSanitized = sanitizeFrontmatter(result.enBlog);
-        const finalEnBlog = injectXPostFrontmatter(enSanitized, safeXPost);
+        let finalEnBlog = injectXPostFrontmatter(enSanitized, safeXPost);
+
+        // ── Agent 3: References検証 ──
+        if (references.length > 0) {
+            console.log('\n🔍 Agent 3: 参考文献を検証中...');
+            try {
+                const jpV = await verifyBlogReferences(finalJpBlog);
+                const enV = await verifyBlogReferences(finalEnBlog);
+                if (jpV.passed && enV.passed) {
+                    console.log(`  ✅ 検証合格 (JP: ${jpV.checkedCount}件, EN: ${enV.checkedCount}件)`);
+                } else {
+                    const failures = [...jpV.failures, ...enV.failures];
+                    console.warn(`  ⚠️ 検証不合格: ${failures.join('; ')}`);
+                    console.warn('  🚨 Referencesセクションを除去して出力');
+                    result.jpBlog = removeReferencesSection(result.jpBlog);
+                    result.enBlog = removeReferencesSection(result.enBlog);
+                    if (result.noteBlog) result.noteBlog = removeReferencesSection(result.noteBlog);
+                }
+            } catch (err) {
+                console.warn('  ⚠️ 検証エラー（References除去して続行）:', err);
+                result.jpBlog = removeReferencesSection(result.jpBlog);
+                result.enBlog = removeReferencesSection(result.enBlog);
+            }
+        }
 
         const nowStr = new Date().toISOString();
         const ts = nowStr.replace(/\D/g, '').substring(0, 14);

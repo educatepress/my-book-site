@@ -3,6 +3,7 @@ import { getThemeSchedule, updateThemeScheduleStatus, addQueueItem, getReelsFact
 import { GoogleGenAI } from '@google/genai';
 import { withRetry, sendSlackErrorAlert } from '@/lib/retry';
 import { researchTheme, formatReferencesForPrompt } from '@/lib/pubmed-research';
+import { verifyBlogReferences, removeReferencesSection } from '@/lib/verify-references';
 
 export const maxDuration = 300;
 
@@ -58,7 +59,7 @@ export async function GET(req: Request) {
     const sourceUrls = pendingTopic.referenceUrl ? [pendingTopic.referenceUrl] : [];
     let pubmedRefs: Awaited<ReturnType<typeof researchTheme>> = [];
     try {
-        pubmedRefs = await researchTheme(pendingTopic.theme, sourceUrls);
+        pubmedRefs = await researchTheme(pendingTopic.searchKeywords || pendingTopic.theme, sourceUrls);
         console.log(`  📚 ${pubmedRefs.length}件の検証済み論文を取得`);
     } catch (err) {
         console.warn('  ⚠️ PubMed検索失敗（Referencesなしで続行）:', err);
@@ -197,6 +198,30 @@ Expected JSON Schema:
     
     if (!slug) throw new Error('Generation failed: Slug is missing.');
 
+    // ── Agent 3: References検証 ──
+    let finalJpBlog = jpBlog;
+    let finalEnBlog = enBlog;
+    if (pubmedRefs.length > 0) {
+        console.log('🔍 Agent 3: 参考文献を検証中...');
+        try {
+            const jpV = await verifyBlogReferences(jpBlog);
+            const enV = await verifyBlogReferences(enBlog);
+            if (jpV.passed && enV.passed) {
+                console.log(`  ✅ 検証合格 (JP: ${jpV.checkedCount}件, EN: ${enV.checkedCount}件)`);
+            } else {
+                const failures = [...jpV.failures, ...enV.failures];
+                console.warn(`  ⚠️ 検証不合格: ${failures.join('; ')}`);
+                console.warn('  🚨 Referencesセクションを除去');
+                finalJpBlog = removeReferencesSection(jpBlog);
+                finalEnBlog = removeReferencesSection(enBlog);
+            }
+        } catch (err) {
+            console.warn('  ⚠️ 検証エラー（References除去して続行）:', err);
+            finalJpBlog = removeReferencesSection(jpBlog);
+            finalEnBlog = removeReferencesSection(enBlog);
+        }
+    }
+
     const nowStr = new Date().toISOString();
     const ts = nowStr.replace(/\D/g, '').substring(0, 14);
     const brandPrefix = pendingTopic.brand ? `${pendingTopic.brand}-` : 'book-';
@@ -209,7 +234,7 @@ Expected JSON Schema:
         brand: pendingTopic.brand || 'book',
         type: 'blog',
         title: slug,
-        generation_recipe: JSON.stringify({ slug, jpBlog, enBlog }),
+        generation_recipe: JSON.stringify({ slug, jpBlog: finalJpBlog, enBlog: finalEnBlog }),
         status: 'pending',
         patrol_pre_result: 'pending',
         scheduled_date: postDateStr,

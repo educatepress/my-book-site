@@ -1,8 +1,9 @@
 /**
- * PubMed Research Agent — src/lib ラッパー
- * Vercel Cron (src/app/) から使えるように scripts/content-gen/lib/ のロジックを再エクスポート。
- * 注: scripts 側は tsconfig.scripts.json でコンパイルされるため、直接 import できない。
- *     ここでは同じロジックをインラインで提供する。
+ * PubMed Research Agent — src/lib 版
+ *
+ * scripts/content-gen/lib/pubmed-research.ts と同一ロジック。
+ * Vercel Cron (src/app/) から使えるように src/lib/ に配置。
+ * ⚠️ scripts 側を変更した場合はここも同期すること。
  */
 
 const EUTILS_BASE = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils';
@@ -24,22 +25,51 @@ async function searchPubMed(query: string, maxResults = 10): Promise<string[]> {
         retmax: String(maxResults),
         sort: 'relevance',
     });
-    const res = await fetch(`${EUTILS_BASE}/esearch.fcgi?${params}`);
-    if (!res.ok) throw new Error(`PubMed esearch failed: ${res.status}`);
-    const data = await res.json();
-    return data.esearchresult?.idlist || [];
+    const url = `${EUTILS_BASE}/esearch.fcgi?${params}`;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    try {
+        const res = await fetch(url, { signal: controller.signal });
+        if (!res.ok) throw new Error(`PubMed esearch failed: ${res.status}`);
+        const data = await res.json();
+        return data.esearchresult?.idlist || [];
+    } catch (err: any) {
+        if (err.name === 'AbortError') throw new Error('PubMed esearch timeout (15s)');
+        throw err;
+    } finally {
+        clearTimeout(timeoutId);
+    }
 }
 
-async function fetchPubMedSummary(pmids: string[]): Promise<VerifiedReference[]> {
+export async function fetchPubMedSummary(pmids: string[]): Promise<VerifiedReference[]> {
     if (pmids.length === 0) return [];
     const params = new URLSearchParams({
         db: 'pubmed',
         id: pmids.join(','),
         retmode: 'json',
     });
-    const res = await fetch(`${EUTILS_BASE}/esummary.fcgi?${params}`);
-    if (!res.ok) throw new Error(`PubMed esummary failed: ${res.status}`);
-    const data = await res.json();
+    const url = `${EUTILS_BASE}/esummary.fcgi?${params}`;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    let res: Response;
+    try {
+        res = await fetch(url, { signal: controller.signal });
+        if (!res.ok) throw new Error(`PubMed esummary failed: ${res.status}`);
+    } catch (err: any) {
+        clearTimeout(timeoutId);
+        if (err.name === 'AbortError') throw new Error('PubMed esummary timeout (15s)');
+        throw err;
+    }
+    clearTimeout(timeoutId);
+    let data: any;
+    try {
+        data = await res.json();
+    } catch {
+        throw new Error('PubMed esummary returned invalid JSON');
+    }
+
     const results: VerifiedReference[] = [];
     const summaryResult = data.result || {};
     for (const pmid of pmids) {
@@ -68,14 +98,17 @@ export async function researchTheme(themeEn: string, sourceUrls: string[], targe
     const collected: VerifiedReference[] = [];
     const existingPmids = extractPmidsFromUrls(sourceUrls);
     if (existingPmids.length > 0) {
+        console.log(`  📎 sourceUrls から PMID ${existingPmids.length}件を抽出`);
         const verified = await fetchPubMedSummary(existingPmids);
         for (const ref of verified) { if (ref.year > 0) collected.push(ref); }
     }
     if (collected.length < targetCount) {
+        const remaining = targetCount - collected.length;
         const usedPmids = new Set(collected.map(r => r.pmid));
         const typeFilter = '(Review[pt] OR Meta-Analysis[pt] OR Systematic Review[pt] OR Guideline[pt] OR Randomized Controlled Trial[pt])';
         const query = `(${themeEn}) AND ${typeFilter} AND 2015:3000[dp]`;
-        const pmids = await searchPubMed(query, targetCount - collected.length + 5);
+        console.log(`  🔍 PubMed検索: "${themeEn.slice(0, 50)}..." (残${remaining}件)`);
+        const pmids = await searchPubMed(query, remaining + 5);
         if (pmids.length > 0) {
             const candidates = await fetchPubMedSummary(pmids);
             for (const ref of candidates) {
@@ -85,8 +118,10 @@ export async function researchTheme(themeEn: string, sourceUrls: string[], targe
             }
         }
         if (collected.length < targetCount) {
+            const remaining2 = targetCount - collected.length;
             const broaderQuery = `(${themeEn}) AND 2015:3000[dp]`;
-            const pmids2 = await searchPubMed(broaderQuery, targetCount - collected.length + 5);
+            console.log(`  🔍 フィルター緩和して再検索 (残${remaining2}件)`);
+            const pmids2 = await searchPubMed(broaderQuery, remaining2 + 5);
             if (pmids2.length > 0) {
                 const candidates2 = await fetchPubMedSummary(pmids2);
                 for (const ref of candidates2) {
