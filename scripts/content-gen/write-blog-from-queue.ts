@@ -7,6 +7,8 @@ import { getNextPendingItem, markItemStatus } from './queue-manager';
 import { extractAndVerifySourceUrl } from './url-verifier';
 import { enqueueBlog } from '../patrol/draft-to-queue';
 import { generateInfographic, type InfographicData } from '../generate-infographic';
+import { researchTheme, formatReferencesForPrompt, type VerifiedReference } from './lib/pubmed-research';
+import { verifyBlogReferences, removeReferencesSection } from './lib/verify-references';
 
 // Configure Gemini API
 if (!process.env.GEMINI_API_KEY) {
@@ -105,6 +107,20 @@ async function main() {
     const postDateStr = maxDateObj.toISOString().split('T')[0];
     console.log(`📅 Target Post Date calculated as: ${postDateStr}`);
 
+    // ── Agent 1: PubMed Research ──
+    console.log('\n🔬 Agent 1: PubMedで論文を検索中...');
+    let references: VerifiedReference[] = [];
+    try {
+        references = await researchTheme(item.themeEn, item.sourceUrls);
+        console.log(`  📚 ${references.length}件の検証済み論文を取得`);
+        for (const r of references) {
+            console.log(`    PMID:${r.pmid} | ${r.firstAuthor} | ${r.journal} ${r.year}`);
+        }
+    } catch (err) {
+        console.warn(`  ⚠️ PubMed検索失敗（Referencesなしで続行）:`, err);
+    }
+    const referencesPromptBlock = formatReferencesForPrompt(references);
+
     const prompt = `
 あなたは、生殖医療専門医（産婦人科医）である佐藤琢磨医師の専属AIコンテンツクリエイターです。
 医療情報サイトの編集基準として、「信頼性（E-E-A-T）」と「わかりやすさ」を最優先に記事を作成してください。
@@ -159,7 +175,11 @@ ${item.sourceUrls.join('\n')}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 1. 提供された【エビデンスとなるソースURL】を必ず読み込み、そのファクトに基づいて執筆すること。
 2. クリニックのホームページや医師個人ブログからの内容は引用禁止。
-3. 文中のエビデンスは「WHO（2023年）によると」「ASRM Practice Committee（2021年）では」のようにインラインで明記すること。
+3. 文中のエビデンスは以下の【PubMed検証済み論文リスト】の情報のみを使用し、インラインで引用すること。
+   自分でPMIDや論文情報を生成・推測することは絶対に禁止。提供された論文以外の文献を追加しないこと。
+
+【PubMed検証済み論文リスト（この論文のみ引用可能）】
+${referencesPromptBlock}
 
 記事の投稿日（フロントマター用）: ${postDateStr}
 
@@ -179,7 +199,9 @@ ${item.sourceUrls.join('\n')}
    - 記事の構成は必ず以下の順番とすること:
      ① リード文（結論ファースト）
      ② 本文（見出し付きセクション）
-     ③ 参考（References）: Author/Journal/Year/URL形式で3件以上
+     ③ 参考（References）: 上記【PubMed検証済み論文リスト】の情報をそのまま転記すること。
+        形式: Author, et al. Title. Journal. Year. [PMID: XXXXX](https://pubmed.ncbi.nlm.nih.gov/XXXXX/)
+        ※ 論文リストが空の場合、Referencesセクションは省略すること
      ④ よくある質問（FAQ）: 各回答は20文字以内の結論1文から始め、その後詳細を解説（AEO対策）
      ⑤ 書籍CTA（以下の定型文のみ使用、独自のセールス文は追加禁止）:
         📖 **同じ著者による、妊活・プレコンセプションケアの基礎知識をまとめた書籍はこちら**
@@ -193,7 +215,7 @@ ${item.sourceUrls.join('\n')}
    - "date" は「${postDateStr}」を指定すること。
    - ${item.directionEn} に沿った構成にすること。
    - 記事の構成は日本語版と同じ順番（References → FAQ → CTA）。
-   - References は [Author. "Title." Journal, Year. PMID/DOI] 形式で3件以上。
+   - References は【PubMed検証済み論文リスト】の情報をそのまま転記。形式: Author. "Title." Journal, Year. [PMID: XXXXX](URL)。論文リストが空の場合は省略。
    - FAQ の各回答はAIが引用しやすい簡潔かつ正確な表現で（AEO最適化）。
    - 書籍CTA: 📖 **Want to learn more? Check out the book.**
      [Dr. Sato's Guide to Women's Health (Amazon)](https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enblog-22)
@@ -417,6 +439,31 @@ Expected JSON Schema:
             enBlogContent = await extractAndVerifySourceUrl(enBlogContent);
         } catch (e: any) {
             console.warn(`  ⚠️ EN Blog URL issue: ${e.message}`);
+        }
+
+        // ── Agent 3: References検証 ──
+        if (references.length > 0) {
+            console.log('\n🔍 Agent 3: 参考文献を検証中...');
+            try {
+                const jpVerification = await verifyBlogReferences(jpBlogContent);
+                const enVerification = await verifyBlogReferences(enBlogContent);
+
+                if (jpVerification.passed && enVerification.passed) {
+                    console.log(`  ✅ 検証合格 (JP: ${jpVerification.checkedCount}件, EN: ${enVerification.checkedCount}件)`);
+                } else {
+                    const failures = [...jpVerification.failures, ...enVerification.failures];
+                    console.warn(`  ⚠️ 検証不合格: ${failures.join('; ')}`);
+                    console.warn('  🚨 Referencesセクションを除去して出力します');
+                    jpBlogContent = removeReferencesSection(jpBlogContent);
+                    enBlogContent = removeReferencesSection(enBlogContent);
+                }
+            } catch (verifyErr) {
+                console.warn('  ⚠️ 検証中にエラー（Referencesを除去して続行）:', verifyErr);
+                jpBlogContent = removeReferencesSection(jpBlogContent);
+                enBlogContent = removeReferencesSection(enBlogContent);
+            }
+        } else {
+            console.log('\n📝 PubMed論文なし — Referencesセクションなしで出力');
         }
 
         // Save JP Blog MDX

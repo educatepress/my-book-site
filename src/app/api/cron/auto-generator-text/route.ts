@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getThemeSchedule, updateThemeScheduleStatus, addQueueItem, getReelsFactoryEnv } from '@/lib/sheets';
 import { GoogleGenAI } from '@google/genai';
 import { withRetry, sendSlackErrorAlert } from '@/lib/retry';
+import { researchTheme, formatReferencesForPrompt } from '@/lib/pubmed-research';
 
 export const maxDuration = 300;
 
@@ -52,6 +53,18 @@ export async function GET(req: Request) {
     // 公開予定日は「明日の日付(tomorrowStr)」に正確に合わせる
     const postDateStr = tomorrowStr;
 
+    // ── Agent 1: PubMed Research ──
+    console.log('🔬 Agent 1: PubMedで論文を検索中...');
+    const sourceUrls = pendingTopic.referenceUrl ? [pendingTopic.referenceUrl] : [];
+    let pubmedRefs: Awaited<ReturnType<typeof researchTheme>> = [];
+    try {
+        pubmedRefs = await researchTheme(pendingTopic.theme, sourceUrls);
+        console.log(`  📚 ${pubmedRefs.length}件の検証済み論文を取得`);
+    } catch (err) {
+        console.warn('  ⚠️ PubMed検索失敗（Referencesなしで続行）:', err);
+    }
+    const referencesBlock = formatReferencesForPrompt(pubmedRefs);
+
     // ==========================================
     // PROMPT 1: テキストアセット (Blog & X)
     // ==========================================
@@ -82,8 +95,13 @@ ${pendingTopic.searchKeywords}
 【医療的正確性・エビデンス・配慮に関する厳格なルール】
 1. 【階層別エビデンスの明示とトーンの徹底（必須）】
    情報のTierが「マウス/細胞などの基礎実験段階（例えばTier CやD）」等、ヒトでの強力な臨床エビデンスが未確立である場合、記事全体のトーンを「可能性が示唆されている段階」「今後の研究が待たれる」といった慎重なものに留め、絶対に一般的な確定事実であるかのように（「〜であることが分かりました」「〜が原因です」等と）語らないこと。また、必ずリード文の直後（冒頭）に太字で「**この記事で紹介する内容は、細胞・動物実験などの基礎研究段階であり、ヒトでの有効性や影響が確立されたものではありません**」という免責文を必ず挿入すること。これを怠ることは重大な規約違反である。
-2. 【ハルシネーションの絶対的防止と参考文献の厳格化】
-   記事の最後に出力する参考文献には、提供された主論文（PMIDや指定URL）「以外」は一文字も追加してはならない。「日本産科婦人科学会 (JSOG) ガイドライン」や「WHO」など、与えられていない権威ある組織や一般的なガイドラインをAIの推測で絶対に付け加えないこと（偽りの権威付けによるハルシネーションを厳しく禁ずる）。
+2. 【ハルシネーションの絶対的防止と参考文献の厳格化（CRITICAL）】
+   参考文献は、以下の【PubMed検証済み論文リスト】の情報のみをそのまま転記すること。
+   自分でPMIDや論文情報を生成・推測することは絶対に禁止。提供された論文以外の文献を追加しないこと。
+   権威ある組織名（JSOG, WHO等）を安易に列挙する偽りの権威付けも禁止。
+
+【PubMed検証済み論文リスト（この論文のみ引用可能）】
+${referencesBlock}
 3. 【食事・サプリメント推奨の禁止（トーンダウン）】
    「〜を食べて妊活をサポートしましょう」等、食品やサプリが直接生殖能力を向上させるような論理的飛躍と断定は避けること。「一般的な健康維持に役立つ食品ですが、生殖機能への直接的効果は今後の研究課題です」という慎重なスタンスを維持すること。
 4. 【中立性の徹底】

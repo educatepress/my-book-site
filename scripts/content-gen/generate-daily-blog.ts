@@ -3,6 +3,8 @@ import { GoogleGenAI, Type } from '@google/genai';
 import { existsSync } from 'fs';
 import path from 'path';
 import { getThemeSchedule, addQueueItem, updateThemeScheduleStatus } from '../../src/lib/sheets';
+import { researchTheme, formatReferencesForPrompt } from './lib/pubmed-research';
+import { verifyBlogReferences, removeReferencesSection } from './lib/verify-references';
 
 if (!process.env.GEMINI_API_KEY) {
     console.error("❌ Error: GEMINI_API_KEY is missing in .env");
@@ -66,6 +68,18 @@ async function main() {
     postDateObj.setDate(postDateObj.getDate() + 3);
     const postDateStr = postDateObj.toISOString().split('T')[0];
 
+    // ── Agent 1: PubMed Research ──
+    console.log('\n🔬 Agent 1: PubMedで論文を検索中...');
+    const sourceUrls = item.referenceUrl ? [item.referenceUrl] : [];
+    let references: Awaited<ReturnType<typeof researchTheme>> = [];
+    try {
+        references = await researchTheme(item.theme, sourceUrls);
+        console.log(`  📚 ${references.length}件の検証済み論文を取得`);
+    } catch (err) {
+        console.warn('  ⚠️ PubMed検索失敗（Referencesなしで続行）:', err);
+    }
+    const referencesPromptBlock = formatReferencesForPrompt(references);
+
     const prompt = `
 あなたは、生殖医療専門医（産婦人科医）である佐藤琢磨医師の専属AIコンテンツクリエイターです。
 医療情報サイトの編集基準として、「信頼性（E-E-A-T）」と「わかりやすさ」を最優先に記事を作成してください。
@@ -85,8 +99,13 @@ async function main() {
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 1. 【階層別エビデンスの明示（必須）】
    情報のTierが「マウス/細胞実験の段階（ティアC相当）」などヒトでのエビデンスが未確立である場合、必ずリード文の直後（冒頭）に太字で「**この記事で紹介する内容は、細胞・動物実験の段階であり、ヒトでの有効性が確立されたものではありません**」という旨の免責文を挿入すること。これを怠ることは重大な規約違反である。
-2. 【参考文献の厳格化】
-   記事の最後に出力する参考文献は、提供された主論文（PMIDやURL）のみを記載すること。「日本産科婦人科学会 (JSOG) ガイドライン」や「WHO」など、記事内容と直接関係のない権威ある組織名を安易に列挙する（偽りの権威付け）ことは絶対に禁止。
+2. 【参考文献の厳格化（CRITICAL）】
+   参考文献は、以下の【PubMed検証済み論文リスト】の情報のみをそのまま転記すること。
+   自分でPMIDや論文情報を生成・推測することは絶対に禁止。提供された論文以外の文献を追加しないこと。
+   権威ある組織名（JSOG, WHO等）を安易に列挙する偽りの権威付けも禁止。
+
+【PubMed検証済み論文リスト（この論文のみ引用可能）】
+${referencesPromptBlock}
 3. 【食事・サプリメント推奨の禁止（トーンダウン）】
    「〜を食べて妊活をサポートしましょう」等、食品やサプリが直接生殖能力を向上させるような論理的飛躍と断定は避けること。「一般的な健康維持に役立つ食品ですが、生殖機能への直接的効果は今後の研究課題です」という慎重なスタンスを維持すること。
 4. 【中立性の徹底】
