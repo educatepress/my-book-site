@@ -24,9 +24,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Run Reddit Scout
+      - name: Run Reddit Scout + Theme Auto-Generation
         run: npx tsx scripts/content-gen/reddit-scout.ts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}

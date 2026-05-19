@@ -1,0 +1,42 @@
+name: GA4 Weekly Performance Report
+
+on:
+  schedule:
+    # Every Monday 07:00 UTC (16:00 JST) — after Reddit Scout
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+jobs:
+  analytics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run GA4 Weekly Report
+        run: npx tsx scripts/analytics-weekly.ts
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+
+      - name: Save feedback data for next Reddit Scout run
+        run: |
+          if [ -f scripts/content-gen/feedback-latest.json ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add scripts/content-gen/feedback-latest.json
+            git commit -m "chore: update weekly GA4 feedback data" || echo "No changes to commit"
+            git push || echo "Push failed (non-critical)"
+          fi

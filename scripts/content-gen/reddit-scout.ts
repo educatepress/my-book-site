@@ -264,6 +264,17 @@ ${postSummaries}`;
 async function extractPainPointsAndGenerateThemes(posts: RedditPost[]) {
   console.log('\n🧠 Phase 2: ペインポイント抽出 → テーマ生成...');
 
+  // N4: フィードバックデータ読み込み（あれば）
+  let feedbackContext = '';
+  try {
+    const fbPath = require('path').join(process.cwd(), 'scripts', 'content-gen', 'feedback-latest.json');
+    const fb = JSON.parse(require('fs').readFileSync(fbPath, 'utf8'));
+    feedbackContext = `\n【先週のパフォーマンスデータ（テーマ優先度の参考にすること）】\n${fb.summary}\n`;
+    console.log(`   📈 フィードバックデータ読み込み済 (${fb.week})`);
+  } catch {
+    console.log('   📈 フィードバックデータなし（初回実行）');
+  }
+
   const postSummaries = posts.slice(0, 50).map((p, i) => (
     `[${i + 1}] r/${p.subreddit} | Score: ${p.score} | Comments: ${p.num_comments}
 Title: ${p.title}
@@ -308,6 +319,7 @@ Body: ${p.selftext.substring(0, 300)}
 4. 感情的な投稿からも「裏にある知識ニーズ」を読み取る
    例: 「HCGが上がらなくて不安」→ テーマ「HCG値の正常範囲と倍増速度のばらつき」
 
+${feedbackContext}
 【禁止】
 - 以下の既存テーマと重複するテーマは絶対に生成しないでください:
 ${existingThemes.slice(-60).join('\n')}
