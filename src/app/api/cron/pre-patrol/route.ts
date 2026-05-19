@@ -132,46 +132,39 @@ ${contentText}
         mediaLinkText = `\n\n🎬 *完成済みメディアプレビュー:*\n${item.cloudinary_url ? `<${item.cloudinary_url}|Cloudinaryを開く>` : ''} ${item.gdrive_url ? `<${item.gdrive_url}|Google Driveを開く>` : ''}`;
       }
 
+      // ── 自動承認: 品質ゲート通過済みなので承認ボタンなしで自動公開キューに入れる ──
+      const tomorrowJst = new Date(Date.now() + 9 * 3600 * 1000 + 24 * 3600 * 1000)
+        .toISOString().split('T')[0];
+
+      await updateQueueItem(item.rowNumber, {
+        status: 'approved',
+        scheduled_date: tomorrowJst,
+        patrol_pre_result: 'done'
+      });
+      console.log(`✅ [Pre-Patrol] 自動承認: ${item.content_id} → ${tomorrowJst}に公開予定`);
+
+      // Slack事後通知（承認ボタンなし、情報のみ）
       const blocks = [
         {
           type: 'header',
           text: {
             type: 'plain_text',
-            text: `📋 承認待ち: ${item.title} (${item.type})`,
+            text: `✅ 自動承認: ${item.title} (${item.type})`,
             emoji: true
           }
         },
         {
           type: 'context',
           elements: [
-            { type: 'mrkdwn', text: `*配信先:* ${badge}  |  *ID:* \`${item.content_id}\`` }
+            { type: 'mrkdwn', text: `*配信先:* ${badge}  |  *ID:* \`${item.content_id}\`  |  *公開予定:* ${tomorrowJst}` }
           ]
         },
         {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `*📝 プレビュー:* ${previewText.replace(/\n/g, ' ')}\n📍 *本文の全文（カルーセルや動画台本の詳細）は「スレッド」に入っています！タップしてご確認ください。*${mediaLinkText}`
+            text: `*📝 プレビュー:* ${previewText.replace(/\n/g, ' ')}\n*🤖 AI監査:* ${aiFeedback.substring(0, 200)}${mediaLinkText}`
           }
-        },
-        {
-          type: 'actions',
-          elements: [
-            {
-              type: 'button',
-              text: { type: 'plain_text', text: '✅ 承認', emoji: true },
-              style: 'primary',
-              action_id: 'approve_content',
-              value: JSON.stringify({ id: item.content_id })
-            },
-            {
-              type: 'button',
-              text: { type: 'plain_text', text: '❌ 却下（修正指示）', emoji: true },
-              style: 'danger',
-              action_id: 'reject_content',
-              value: JSON.stringify({ id: item.content_id })
-            }
-          ]
         }
       ];
 
@@ -219,12 +212,7 @@ ${contentText}
           }
         }
 
-        // Update Sheet to prevent re-patrolling
-        await updateQueueItem(item.rowNumber, {
-          patrol_pre_result: 'done'
-        });
-
-        console.log(`✅ [Pre-Patrol] Slack notified and updated ${item.content_id}`);
+        console.log(`✅ [Pre-Patrol] Slack事後通知完了: ${item.content_id}`);
       } catch (err) {
         console.error(`❌ [Pre-Patrol] Failed to notify Slack for ${item.content_id}:`, err);
       }
