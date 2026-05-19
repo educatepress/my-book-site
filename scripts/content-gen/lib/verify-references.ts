@@ -6,6 +6,7 @@
  */
 
 import { fetchPubMedSummary, type VerifiedReference } from './pubmed-research';
+import { GoogleGenAI } from '@google/genai';
 
 export interface ReferenceCheck {
     pmid: string;
@@ -211,6 +212,177 @@ export async function verifyBlogReferences(mdxContent: string): Promise<Verifica
         details,
         failures,
     };
+}
+
+// ══════════════════════════════════════════════════════════
+// Checker 1b: 内容整合チェック（AI — 論文abstract vs 記事内引用）
+// ══════════════════════════════════════════════════════════
+
+const EUTILS_BASE = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils';
+
+async function fetchAbstract(pmid: string): Promise<string> {
+    const url = `${EUTILS_BASE}/efetch.fcgi?db=pubmed&id=${pmid}&rettype=abstract&retmode=text`;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    try {
+        const res = await fetch(url, { signal: controller.signal });
+        if (!res.ok) return '';
+        const text = await res.text();
+        return text.substring(0, 2000); // 長すぎる場合はトリム
+    } catch {
+        return '';
+    } finally {
+        clearTimeout(timeoutId);
+    }
+}
+
+function extractCitationContext(mdxContent: string, pmid: string): string {
+    // PMID前後の段落を抽出（記事がこの論文をどう使っているか）
+    const lines = mdxContent.split('\n');
+    const contexts: string[] = [];
+    for (let i = 0; i < lines.length; i++) {
+        if (lines[i].includes(pmid)) {
+            const start = Math.max(0, i - 3);
+            const end = Math.min(lines.length, i + 3);
+            contexts.push(lines.slice(start, end).join('\n'));
+        }
+    }
+    // in-text citationの場合、著者名で検索
+    return contexts.join('\n---\n').substring(0, 1000) || '';
+}
+
+export interface ContentAlignmentResult {
+    passed: boolean;
+    checkedCount: number;
+    failures: string[];
+    warnings: string[];
+}
+
+export async function checkContentAlignment(
+    mdxContent: string,
+    pmids: string[],
+): Promise<ContentAlignmentResult> {
+    if (pmids.length === 0) {
+        return { passed: true, checkedCount: 0, failures: [], warnings: [] };
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+        console.warn('  ⚠️ GEMINI_API_KEY未設定 — Checker 1b スキップ');
+        return { passed: true, checkedCount: 0, failures: [], warnings: [] };
+    }
+
+    const ai = new GoogleGenAI({ apiKey });
+    const failures: string[] = [];
+    const warnings: string[] = [];
+
+    for (const pmid of pmids) {
+        const abstract = await fetchAbstract(pmid);
+        if (!abstract) {
+            warnings.push(`PMID ${pmid}: アブストラクト取得失敗（スキップ）`);
+            continue;
+        }
+
+        const citationContext = extractCitationContext(mdxContent, pmid);
+        if (!citationContext) continue; // in-text引用がない場合はスキップ
+
+        const prompt = `あなたは医学論文の引用整合性チェッカーです。
+
+【論文のアブストラクト（実際の内容）】
+${abstract}
+
+【ブログ記事内でのこの論文の引用のされ方】
+${citationContext}
+
+【チェック項目】
+1. 記事がこの論文の結論を正しく引用しているか？
+2. 論文の結論を逆に書いていないか？（例: 論文は「有意差なし」なのに記事は「有意に改善」と書いている）
+3. 論文のデータ（数値・割合）を正確に引用しているか？
+
+【出力】
+問題がなければ: OK
+問題がある場合: FAIL: [具体的な不一致内容を1文で]
+
+1行で回答してください。`;
+
+        try {
+            const response = await ai.models.generateContent({
+                model: 'gemini-2.5-flash',
+                contents: prompt,
+                config: { temperature: 0.1 },
+            });
+            const result = (response.text || '').trim();
+
+            if (result.startsWith('FAIL')) {
+                failures.push(`PMID ${pmid} 内容不整合: ${result}`);
+                console.error(`  🔴 Checker 1b FAIL — PMID ${pmid}: ${result}`);
+            } else {
+                console.log(`  ✅ Checker 1b OK — PMID ${pmid}`);
+            }
+        } catch (e: any) {
+            warnings.push(`PMID ${pmid}: AI検証エラー (${e.message})`);
+        }
+
+        // PubMed APIのレート制限対策
+        await new Promise(r => setTimeout(r, 500));
+    }
+
+    return {
+        passed: failures.length === 0,
+        checkedCount: pmids.length,
+        failures,
+        warnings,
+    };
+}
+
+// ══════════════════════════════════════════════════════════
+// Checker 1c: 引用の適切性チェック（AI — 主張と根拠の対応）
+// ══════════════════════════════════════════════════════════
+
+export async function checkCitationRelevance(
+    mdxContent: string,
+): Promise<{ warnings: string[] }> {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return { warnings: [] };
+
+    const ai = new GoogleGenAI({ apiKey });
+
+    // 記事本文（References除く）を抽出
+    const bodyOnly = mdxContent.replace(/#{1,4}\s*(?:参考文献?|References)[\s\S]*$/i, '').substring(0, 3000);
+
+    const prompt = `あなたは医療コンテンツの引用監査者です。
+
+以下のブログ記事を読み、引用の適切性をチェックしてください。
+
+【チェック項目】
+1. 記事の主な主張に対して、引用された論文が適切な根拠になっているか？
+2. 背景情報（年齢による低下など）を、あたかも記事の主張の直接的根拠であるかのように使っていないか？
+3. 引用のない大きな主張（「〜が効果的」「〜が推奨」等）がないか？
+
+【出力】
+問題なし: OK
+注意点あり: WARNING: [指摘事項を箇条書きで]
+
+簡潔に回答してください。
+
+【記事本文】
+${bodyOnly}`;
+
+    try {
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: { temperature: 0.1 },
+        });
+        const result = (response.text || '').trim();
+
+        if (result.includes('WARNING')) {
+            return { warnings: [result] };
+        }
+        return { warnings: [] };
+    } catch {
+        return { warnings: [] };
+    }
 }
 
 // ── References セクションを除去（フォールバック用）──

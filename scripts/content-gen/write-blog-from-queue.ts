@@ -8,7 +8,7 @@ import { extractAndVerifySourceUrl } from './url-verifier';
 import { enqueueBlog } from '../patrol/draft-to-queue';
 import { generateInfographic, type InfographicData } from '../generate-infographic';
 import { researchTheme, formatReferencesForPrompt, type VerifiedReference } from './lib/pubmed-research';
-import { verifyBlogReferences, removeReferencesSection } from './lib/verify-references';
+import { verifyBlogReferences, removeReferencesSection, checkContentAlignment, checkCitationRelevance } from './lib/verify-references';
 
 // Configure Gemini API
 if (!process.env.GEMINI_API_KEY) {
@@ -463,26 +463,77 @@ Expected JSON Schema:
             console.warn(`  ⚠️ EN Blog URL issue: ${e.message}`);
         }
 
-        // ── Agent 3: References検証 ──
+        // ══════════════════════════════════════════════════
+        // 3層文献検証パイプライン
+        // ══════════════════════════════════════════════════
         let pmidVerificationFailed = false;
         if (references.length > 0) {
-            console.log('\n🔍 Agent 3: 参考文献を検証中...');
+            const pmidsInArticle = references.map(r => r.pmid);
+
+            // ── Checker 1a: 実在確認（コード — PubMed API照合）──
+            console.log('\n🔍 Checker 1a: PMID実在確認...');
             try {
                 const jpVerification = await verifyBlogReferences(jpBlogContent);
                 const enVerification = await verifyBlogReferences(enBlogContent);
 
                 if (jpVerification.passed && enVerification.passed) {
-                    console.log(`  ✅ 検証合格 (JP: ${jpVerification.checkedCount}件, EN: ${enVerification.checkedCount}件)`);
+                    console.log(`  ✅ Checker 1a 合格 (JP: ${jpVerification.checkedCount}件, EN: ${enVerification.checkedCount}件)`);
                 } else {
                     const failures = [...jpVerification.failures, ...enVerification.failures];
-                    console.error(`  🚨 PMID検証不合格 — .draft化して公開ブロック`);
+                    console.error(`  🚨 Checker 1a 不合格 — .draft化`);
                     failures.forEach(f => console.error(`     🔴 ${f}`));
-                    // References除去ではなく .draft 化で公開を完全ブロック
                     pmidVerificationFailed = true;
                 }
             } catch (verifyErr) {
-                console.error('  🚨 PMID検証エラー — 安全のため .draft化:', verifyErr);
+                console.error('  🚨 Checker 1a エラー — 安全のため .draft化:', verifyErr);
                 pmidVerificationFailed = true;
+            }
+
+            // ── Checker 1b: 内容整合（AI — abstract vs 記事内引用）──
+            if (!pmidVerificationFailed) {
+                console.log('\n🔍 Checker 1b: 内容整合チェック（論文abstract vs 記事の引用）...');
+                try {
+                    const jpAlignment = await checkContentAlignment(jpBlogContent, pmidsInArticle);
+                    if (!jpAlignment.passed) {
+                        console.error(`  🚨 Checker 1b 不合格(JP) — .draft化`);
+                        jpAlignment.failures.forEach(f => console.error(`     🔴 ${f}`));
+                        pmidVerificationFailed = true;
+                    } else {
+                        console.log(`  ✅ Checker 1b 合格(JP)`);
+                        if (jpAlignment.warnings.length > 0) {
+                            jpAlignment.warnings.forEach(w => console.warn(`     🟡 ${w}`));
+                        }
+                    }
+
+                    if (!pmidVerificationFailed) {
+                        const enAlignment = await checkContentAlignment(enBlogContent, pmidsInArticle);
+                        if (!enAlignment.passed) {
+                            console.error(`  🚨 Checker 1b 不合格(EN) — .draft化`);
+                            enAlignment.failures.forEach(f => console.error(`     🔴 ${f}`));
+                            pmidVerificationFailed = true;
+                        } else {
+                            console.log(`  ✅ Checker 1b 合格(EN)`);
+                        }
+                    }
+                } catch (alignErr) {
+                    console.warn('  ⚠️ Checker 1b エラー（続行）:', alignErr);
+                }
+            }
+
+            // ── Checker 1c: 引用の適切性（AI — 警告のみ、公開は止めない）──
+            if (!pmidVerificationFailed) {
+                console.log('\n🔍 Checker 1c: 引用の適切性チェック...');
+                try {
+                    const relevance = await checkCitationRelevance(jpBlogContent);
+                    if (relevance.warnings.length > 0) {
+                        console.warn(`  🟡 Checker 1c 注意点あり:`);
+                        relevance.warnings.forEach(w => console.warn(`     ${w}`));
+                    } else {
+                        console.log(`  ✅ Checker 1c 合格`);
+                    }
+                } catch (relErr) {
+                    console.warn('  ⚠️ Checker 1c エラー（続行）:', relErr);
+                }
             }
         } else {
             console.log('\n📝 PubMed論文なし — Referencesセクションなしで出力');
