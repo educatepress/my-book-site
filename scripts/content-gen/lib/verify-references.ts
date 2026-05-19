@@ -236,19 +236,40 @@ async function fetchAbstract(pmid: string): Promise<string> {
     }
 }
 
-function extractCitationContext(mdxContent: string, pmid: string): string {
-    // PMID前後の段落を抽出（記事がこの論文をどう使っているか）
+function extractCitationContext(mdxContent: string, pmid: string, firstAuthorSurname?: string): string {
     const lines = mdxContent.split('\n');
     const contexts: string[] = [];
+
+    // 1. PMID直接参照の前後を抽出
     for (let i = 0; i < lines.length; i++) {
         if (lines[i].includes(pmid)) {
-            const start = Math.max(0, i - 3);
+            const start = Math.max(0, i - 5);
             const end = Math.min(lines.length, i + 3);
             contexts.push(lines.slice(start, end).join('\n'));
         }
     }
-    // in-text citationの場合、著者名で検索
-    return contexts.join('\n---\n').substring(0, 1000) || '';
+
+    // 2. 著者名（姓）でin-text citationを検索
+    if (firstAuthorSurname && firstAuthorSurname.length > 2) {
+        for (let i = 0; i < lines.length; i++) {
+            if (lines[i].includes(firstAuthorSurname) && !lines[i].includes('PMID')) {
+                const start = Math.max(0, i - 2);
+                const end = Math.min(lines.length, i + 2);
+                contexts.push(lines.slice(start, end).join('\n'));
+            }
+        }
+    }
+
+    // 3. Referencesセクション以外の本文全体も含める（AIが文脈を理解するため）
+    const bodyWithoutRefs = mdxContent.replace(/#{1,4}\s*(?:参考文献?|References)[\s\S]*$/i, '');
+
+    // 引用文脈 + 本文抜粋を返す
+    const citationParts = contexts.length > 0
+        ? `【この論文の引用箇所】\n${contexts.join('\n---\n')}`
+        : '';
+    const bodyExcerpt = `\n\n【記事本文（抜粋）】\n${bodyWithoutRefs.substring(0, 1500)}`;
+
+    return (citationParts + bodyExcerpt).substring(0, 2500);
 }
 
 export interface ContentAlignmentResult {
@@ -283,8 +304,11 @@ export async function checkContentAlignment(
             continue;
         }
 
-        const citationContext = extractCitationContext(mdxContent, pmid);
-        if (!citationContext) continue; // in-text引用がない場合はスキップ
+        // PubMedメタデータから著者姓を取得
+        const pubmedMeta = await fetchPubMedSummary([pmid]);
+        const authorSurname = pubmedMeta[0]?.firstAuthor?.split(/[\s,]/)[0] || '';
+        const citationContext = extractCitationContext(mdxContent, pmid, authorSurname);
+        if (!citationContext || citationContext.length < 50) continue;
 
         const prompt = `あなたは医学論文の引用整合性チェッカーです。
 

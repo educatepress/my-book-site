@@ -10,6 +10,7 @@ export interface QueueItem {
     directionEn: string;
     type: "x" | "blog";
     status: "pending" | "generated" | "posted";
+    searchKeywords?: string;
 }
 
 export interface ContentQueue {

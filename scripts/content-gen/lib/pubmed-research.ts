@@ -121,6 +121,7 @@ export async function researchTheme(
     themeEn: string,
     sourceUrls: string[],
     targetCount = 3,
+    searchKeywords?: string,
 ): Promise<VerifiedReference[]> {
     const collected: VerifiedReference[] = [];
 
@@ -139,12 +140,13 @@ export async function researchTheme(
         const remaining = targetCount - collected.length;
         const usedPmids = new Set(collected.map(r => r.pmid));
 
-        // 検索クエリ構築: テーマ + 論文タイプフィルター
+        // 検索クエリ構築: searchKeywords優先、なければテーマから短縮クエリを生成
+        const searchTerm = searchKeywords || themeEn.split(/[:\-—?？]/).slice(0, 2).join(' ').trim();
         const typeFilter = '(Review[pt] OR Meta-Analysis[pt] OR Systematic Review[pt] OR Guideline[pt] OR Randomized Controlled Trial[pt])';
         const yearFilter = '2015:3000[dp]';
-        const query = `(${themeEn}) AND ${typeFilter} AND ${yearFilter}`;
+        const query = `(${searchTerm}) AND ${typeFilter} AND ${yearFilter}`;
 
-        console.log(`  🔍 PubMed検索: "${themeEn.slice(0, 50)}..." (残${remaining}件)`);
+        console.log(`  🔍 PubMed検索: "${searchTerm.slice(0, 60)}..." (残${remaining}件)`);
         const pmids = await searchPubMed(query, remaining + 5); // 余裕をもって取得
 
         if (pmids.length > 0) {
@@ -162,7 +164,7 @@ export async function researchTheme(
         // Step 3: それでも足りなければフィルターを緩めて再検索
         if (collected.length < targetCount) {
             const remaining2 = targetCount - collected.length;
-            const broaderQuery = `(${themeEn}) AND 2015:3000[dp]`;
+            const broaderQuery = `(${searchTerm}) AND 2015:3000[dp]`;
             console.log(`  🔍 フィルター緩和して再検索 (残${remaining2}件)`);
             const pmids2 = await searchPubMed(broaderQuery, remaining2 + 5);
 

@@ -111,7 +111,7 @@ async function main() {
     console.log('\n🔬 Agent 1: PubMedで論文を検索中...');
     let references: VerifiedReference[] = [];
     try {
-        references = await researchTheme(item.themeEn, item.sourceUrls);
+        references = await researchTheme(item.themeEn, item.sourceUrls, 3, item.searchKeywords);
         console.log(`  📚 ${references.length}件の検証済み論文を取得`);
         for (const r of references) {
             console.log(`    PMID:${r.pmid} | ${r.firstAuthor} | ${r.journal} ${r.year}`);
