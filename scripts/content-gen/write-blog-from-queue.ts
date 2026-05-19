@@ -161,6 +161,13 @@ ${item.sourceUrls.join('\n')}
    - 「後悔する前に」「手遅れ」「医者が教えない秘密」などの恐怖喚起表現は使用禁止。
    - 「知っておくと選択肢が増える事実」というポジティブな文脈で情報を提供する。
 
+5. 誇大表現・断定表現の禁止（薬機法・景表法・YMYL対応）
+   以下のワードは日本語記事・英語記事ともに使用禁止:
+   【日本語禁止ワード】絶対, 必ず, 確実に, 劇的に, 奇跡, 画期的, 革命的, 驚異的, 治る, 完治, 根治, 100%, 飛躍的に, 究極の, 最強の, 万能
+   【英語禁止ワード】guarantee, cure, miracle, dramatic, revolutionary, definitely, certainly, proven to, 100%, ultimate, magic, game-changer, breakthrough
+   - 代替表現: 「〜の可能性が示唆されている」「〜に寄与する可能性がある」「〜をサポートする」
+   - 英語: "may help", "research suggests", "has been associated with", "appears to support"
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【Smart Brevity 2.0（厳守）】
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -488,8 +495,22 @@ Expected JSON Schema:
         const jpWithInfographic = injectInfographic(jpBlogContent, infographicInsertJp);
         const jpSanitized = sanitizeFrontmatter(jpWithInfographic);
         const finalJpBlog = injectXPostFrontmatter(jpSanitized, safeXPost);
-        await fs.writeFile(jpBlogPath, finalJpBlog);
-        console.log(`✅ Saved JP Blog -> ${jpBlogPath}`);
+
+        // ── JP Pre-publish validator ──
+        const jpValidation = validateJapaneseMdx(finalJpBlog, result.slug);
+        if (!jpValidation.ok) {
+            console.error(`❌ JP Blog validation FAILED for ${result.slug}:`);
+            jpValidation.errors.forEach(e => console.error(`   🔴 ${e}`));
+            await fs.writeFile(jpBlogPath + '.draft', finalJpBlog);
+            console.log(`⚠️ Saved as DRAFT (not published) -> ${jpBlogPath}.draft`);
+        } else {
+            if (jpValidation.warnings.length > 0) {
+                console.warn(`⚠️ JP Blog warnings for ${result.slug}:`);
+                jpValidation.warnings.forEach(w => console.warn(`   🟡 ${w}`));
+            }
+            await fs.writeFile(jpBlogPath, finalJpBlog);
+            console.log(`✅ Saved JP Blog -> ${jpBlogPath}`);
+        }
 
         // Save EN Blog MDX (with pre-publish validation)
         const enBlogDir = path.join(process.cwd(), 'src/content/blog/en');
@@ -607,6 +628,90 @@ function validateEnglishMdx(mdx: string, slug: string): ValidationResult {
     // 6. 未置換テンプレ変数
     if (/\$\{[^}]+\}|\{\{[^}]+\}\}/.test(body)) {
         errors.push('未置換のテンプレ変数が残存');
+    }
+
+    // 7. 禁止ワードチェック（英語）
+    const enBannedHits = checkBannedWords(body, 'en');
+    for (const hit of enBannedHits) {
+        errors.push(`禁止ワード検出(EN): 「${hit.word}」 — ${hit.context}`);
+    }
+
+    return { ok: errors.length === 0, errors, warnings };
+}
+
+// ── 禁止ワードチェッカー（JP/EN共通） ──
+
+const BANNED_WORDS_JP = [
+    '絶対に治', '絶対治', '必ず治', '必ず効', '確実に治', '確実に効',
+    '劇的に', '奇跡の', '画期的な', '革命的', '驚異的',
+    '完治', '根治させ', '100%', '飛躍的に',
+    '究極の', '最強の', '万能',
+];
+
+const BANNED_WORDS_EN = [
+    'guarantee', 'cure ', 'cures ', 'cured',
+    'miracle', 'dramatic', 'revolutionary',
+    'definitely', 'certainly', 'proven to',
+    '100%', 'ultimate', 'magic', 'game-changer', 'breakthrough',
+];
+
+interface BannedWordHit {
+    word: string;
+    context: string;
+}
+
+function checkBannedWords(text: string, lang: 'jp' | 'en'): BannedWordHit[] {
+    const hits: BannedWordHit[] = [];
+    const wordList = lang === 'jp' ? BANNED_WORDS_JP : BANNED_WORDS_EN;
+    const lowerText = text.toLowerCase();
+
+    for (const word of wordList) {
+        const idx = lowerText.indexOf(word.toLowerCase());
+        if (idx !== -1) {
+            const start = Math.max(0, idx - 20);
+            const end = Math.min(text.length, idx + word.length + 20);
+            hits.push({
+                word,
+                context: `...${text.slice(start, end)}...`,
+            });
+        }
+    }
+    return hits;
+}
+
+function validateJapaneseMdx(mdx: string, slug: string): ValidationResult {
+    const errors: string[] = [];
+    const warnings: string[] = [];
+
+    // 1. 空ファイルチェック
+    const bodyStartIdx = mdx.indexOf('---', 3);
+    const body = bodyStartIdx > 0 ? mdx.slice(bodyStartIdx + 3).trim() : '';
+    if (body.length < 500) {
+        errors.push(`本文が短すぎる(${body.length}字)。生成失敗の可能性`);
+    }
+
+    // 2. References セクションの有無
+    if (!/^#{1,4}\s*(参考|References)/im.test(body)) {
+        warnings.push('参考文献セクションが見つからない');
+    } else {
+        const refSection = body.split(/^#{1,4}\s*(参考|References)/im)[1] || '';
+        if (/\]\(\s*\)/.test(refSection)) {
+            errors.push('参考文献に空リンク `]()` が混入');
+        }
+        if (/情報が見つかりません|論文が見つかりませんでした|N\/A/i.test(refSection)) {
+            errors.push('参考文献がプレースホルダで埋まっている');
+        }
+    }
+
+    // 3. 未置換テンプレ変数
+    if (/\$\{[^}]+\}|\{\{[^}]+\}\}/.test(body)) {
+        errors.push('未置換のテンプレ変数が残存');
+    }
+
+    // 4. 禁止ワードチェック（日本語）
+    const jpBannedHits = checkBannedWords(body, 'jp');
+    for (const hit of jpBannedHits) {
+        errors.push(`禁止ワード検出(JP): 「${hit.word}」 — ${hit.context}`);
     }
 
     return { ok: errors.length === 0, errors, warnings };

@@ -86,8 +86,12 @@ ${brandContext}
 
 【チェック内容】
 1. トーン＆マナーの逸脱（冷たすぎる、過剰なテンション等）
-2. 医療情報の断定表現（「必ず治る」等のYMYL違反）
+2. 医療情報の断定表現・誇大表現（YMYL違反）
+   以下の禁止ワードが含まれていたら必ず指摘すること:
+   【日本語】絶対, 必ず, 確実に, 劇的に, 奇跡, 画期的, 革命的, 驚異的, 治る, 完治, 根治, 100%, 飛躍的に, 究極の, 最強の, 万能
+   【英語】guarantee, cure, miracle, dramatic, revolutionary, definitely, certainly, proven to, 100%, ultimate, magic, game-changer, breakthrough
 3. 「Just relax」などToxic Positivityフレーズの使用
+4. 参考文献の捏造疑い（存在しない論文名、著者名とPMIDの不一致等）
 
 【出力フォーマット】
 問題がない場合は「✅ 異常なし。トーンも完璧です。」と出力。
