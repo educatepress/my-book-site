@@ -7,7 +7,7 @@ import { getNextPendingItem, markItemStatus } from './queue-manager';
 import { extractAndVerifySourceUrl } from './url-verifier';
 import { enqueueBlog } from '../patrol/draft-to-queue';
 import { generateInfographic, type InfographicData } from '../generate-infographic';
-import { researchTheme, formatReferencesForPrompt, type VerifiedReference } from './lib/pubmed-research';
+import { researchTheme, formatReferencesForPrompt, getEvidenceLevel, type VerifiedReference } from './lib/pubmed-research';
 import { verifyBlogReferences, removeReferencesSection, checkContentAlignment, checkCitationRelevance } from './lib/verify-references';
 
 // Configure Gemini API
@@ -119,6 +119,8 @@ async function main() {
     } catch (err) {
         console.warn(`  ⚠️ PubMed検索失敗（Referencesなしで続行）:`, err);
     }
+    const evidenceLevel = getEvidenceLevel(references);
+    console.log(`  📊 エビデンスレベル: ${evidenceLevel} (${references.length}件)`);
     const referencesBlock = formatReferencesForPrompt(references);
 
     const prompt = `
@@ -467,7 +469,9 @@ Expected JSON Schema:
         // 3層文献検証パイプライン
         // ══════════════════════════════════════════════════
         let pmidVerificationFailed = false;
-        if (references.length > 0) {
+        if (evidenceLevel === 'clinical') {
+            console.log('\n📝 臨床実践ガイド型 — 文献検証スキップ（PubMed論文なし）');
+        } else if (references.length > 0) {
             const pmidsInArticle = references.map(r => r.pmid);
 
             // ── Checker 1a: 実在確認（コード — PubMed API照合）──

@@ -185,10 +185,44 @@ export async function researchTheme(
     return collected.slice(0, targetCount);
 }
 
+// ── エビデンスレベル判定 ──
+export type EvidenceLevel = 'strong' | 'limited' | 'clinical';
+
+export function getEvidenceLevel(refs: VerifiedReference[]): EvidenceLevel {
+    if (refs.length >= 3) return 'strong';
+    if (refs.length >= 1) return 'limited';
+    return 'clinical';
+}
+
 // ── 論文リストをプロンプト用テキストに変換 ──
 export function formatReferencesForPrompt(refs: VerifiedReference[]): string {
-    if (refs.length === 0) return '（論文が見つかりませんでした。Referencesセクションは生成しないでください。）';
-    return refs.map((r, i) =>
+    const level = getEvidenceLevel(refs);
+
+    if (level === 'clinical') {
+        return `（PubMed検索で該当する臨床試験・メタ解析が見つかりませんでした。）
+
+【重要：臨床実践ガイド型で執筆してください】
+- このテーマはPubMed上のエビデンスが限定的ですが、臨床現場では日常的に扱われる話題です。
+- 「参考文献（References）」セクションは生成しないでください。
+- 代わりに「参考情報」セクションとして、関連するガイドライン名（ACOG, ASRM, JSOG等）や教科書的知識の出典元を記載してください。
+- 記事の冒頭近くに「この疑問に対する大規模臨床試験は現時点では限られていますが、臨床現場では一般的に以下のように考えられています」等の正直な前置きを必ず入れてください。
+- 「研究では〜」「データが示す〜」等のエビデンスがあるかのような表現は使わないでください。
+- 代わりに「臨床現場では〜」「一般的に〜とされています」「教科書的には〜」等の表現を使ってください。`;
+    }
+
+    const refList = refs.map((r, i) =>
         `${i + 1}. ${r.firstAuthor}, et al. "${r.title}" ${r.journal}. ${r.year}. PMID: ${r.pmid}`
     ).join('\n');
+
+    if (level === 'limited') {
+        return `${refList}
+
+【注意：限定エビデンス型で執筆してください】
+- 上記の論文は${refs.length}件のみです。エビデンスとして限定的であることを記事内で明示してください。
+- 「この分野の研究はまだ発展途上であり、今後さらなるデータの蓄積が待たれます」等の留保を記事の結論部に含めてください。
+- 論文データの過度な一般化は避け、「〜の可能性が示唆されている」「〜という報告がある」等の慎重な表現を使用してください。`;
+    }
+
+    // strong (3件以上)
+    return refList;
 }
