@@ -252,6 +252,177 @@ ${postSummaries}`;
   } catch (e: any) {
     console.error('❌ Gemini screening failed:', e.message);
   }
+
+  // Phase 2: ペイン抽出 → テーマ自動生成
+  await extractPainPointsAndGenerateThemes(safePosts);
+}
+
+// ═════════════════════════════════════════════
+// Phase 2: ペイン抽出 → テーマ自動生成 → ThemeSchedule追加
+// ═════════════════════════════════════════════
+
+async function extractPainPointsAndGenerateThemes(posts: RedditPost[]) {
+  console.log('\n🧠 Phase 2: ペインポイント抽出 → テーマ生成...');
+
+  const postSummaries = posts.slice(0, 50).map((p, i) => (
+    `[${i + 1}] r/${p.subreddit} | Score: ${p.score} | Comments: ${p.num_comments}
+Title: ${p.title}
+Body: ${p.selftext.substring(0, 300)}
+---`
+  )).join('\n');
+
+  // Step 1: 既存テーマを取得して重複防止
+  let existingThemes: string[] = [];
+  try {
+    const { google } = await import('googleapis');
+    const fs = await import('fs');
+    let credentials;
+    const saJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+    if (saJson && saJson.length > 10) {
+      credentials = JSON.parse(saJson);
+    } else {
+      const keyPath = '/Users/satoutakuma/Desktop/reels-factory/credentials/drive-service-account.json';
+      credentials = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
+    }
+    const auth = new google.auth.GoogleAuth({ credentials, scopes: ['https://www.googleapis.com/auth/spreadsheets'] });
+    const sheets = google.sheets({ version: 'v4', auth });
+    const res = await sheets.spreadsheets.values.get({
+      spreadsheetId: '1HkBDRsLcCyyx59CdgU-H-LoVIAM6KkC9NPqMjtAfpsY',
+      range: 'ThemeSchedule!D:D'
+    });
+    existingThemes = (res.data.values || []).slice(1).map(r => r[0] || '').filter(Boolean);
+    console.log(`   📊 既存テーマ ${existingThemes.length}件を重複チェック対象に`);
+  } catch (e) {
+    console.warn('   ⚠️ 既存テーマ取得失敗（重複チェックなしで続行）');
+  }
+
+  // Step 2: Geminiでペイン抽出 + テーマ生成
+  const painPrompt = `あなたは不妊治療（TTC）コンテンツ戦略の専門家です。
+
+以下はRedditのTTCコミュニティの最新投稿です。これらを分析し、ブログ記事のテーマを3〜5件提案してください。
+
+【分析の視点】
+1. 投稿者が実際に困っている「具体的な小さな疑問」を特定する
+2. 既存の大テーマ記事ではなく、具体的なQ&A記事として書けるテーマにする
+3. 医師の専門知識が価値を発揮する内容を優先する
+4. 感情的な投稿からも「裏にある知識ニーズ」を読み取る
+   例: 「HCGが上がらなくて不安」→ テーマ「HCG値の正常範囲と倍増速度のばらつき」
+
+【禁止】
+- 以下の既存テーマと重複するテーマは絶対に生成しないでください:
+${existingThemes.slice(-60).join('\n')}
+
+【カテゴリ（いずれかに分類）】
+①流産の恐怖・不安  ②治療プロトコルの混乱  ③身体のサイン解読
+④精神的負担・人間関係  ⑤保険・費用・アクセス  ⑥医療者への不信感
+⑦治療の副作用  ⑧サプリ・生活改善  ⑨特定診断のピア体験
+
+【出力JSON】
+[
+  {
+    "themeArea": "①流産の恐怖・不安",
+    "theme": "具体的なQ&A形式のテーマ（40〜60文字）",
+    "searchKeywords": "PubMed検索用の英語キーワード",
+    "evidenceTier": "Tier A or Tier B",
+    "redditSource": "このテーマの元になったReddit投稿のタイトル（1つ）"
+  }
+]
+
+JSONのみを出力してください。
+
+【Reddit投稿】
+${postSummaries}`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: painPrompt,
+      config: { temperature: 0.5, responseMimeType: 'application/json' },
+    });
+
+    const themes = JSON.parse((response.text || '[]').trim());
+    if (!Array.isArray(themes) || themes.length === 0) {
+      console.log('   ⚠️ テーマ生成結果が空');
+      return;
+    }
+
+    console.log(`   ✅ ${themes.length}件のテーマを生成`);
+    themes.forEach((t: any) => console.log(`      📝 [${t.themeArea}] ${t.theme}`));
+
+    // Step 3: ThemeScheduleに追加
+    try {
+      const { google } = await import('googleapis');
+      const fs = await import('fs');
+      let credentials;
+      const saJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+      if (saJson && saJson.length > 10) {
+        credentials = JSON.parse(saJson);
+      } else {
+        const keyPath = '/Users/satoutakuma/Desktop/reels-factory/credentials/drive-service-account.json';
+        credentials = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
+      }
+      const auth = new google.auth.GoogleAuth({ credentials, scopes: ['https://www.googleapis.com/auth/spreadsheets'] });
+      const sheets = google.sheets({ version: 'v4', auth });
+      const spreadsheetId = '1HkBDRsLcCyyx59CdgU-H-LoVIAM6KkC9NPqMjtAfpsY';
+
+      // 最終日付を取得
+      const dateRes = await sheets.spreadsheets.values.get({ spreadsheetId, range: 'ThemeSchedule!A:A' });
+      const allDates = (dateRes.data.values || []).slice(1).map(r => r[0]).filter(Boolean);
+      let nextDate = new Date();
+      if (allDates.length > 0) {
+        const maxDate = new Date(Math.max(...allDates.map(d => new Date(d).getTime()).filter(t => !isNaN(t))));
+        if (maxDate >= nextDate) {
+          nextDate = new Date(maxDate);
+          nextDate.setDate(nextDate.getDate() + 1);
+        }
+      }
+
+      const rows = themes.map((t: any, idx: number) => {
+        const d = new Date(nextDate);
+        d.setDate(d.getDate() + idx);
+        return [
+          d.toISOString().split('T')[0],  // Date
+          'book',                            // Brand
+          t.themeArea,                       // ThemeArea
+          t.theme,                           // Theme
+          t.searchKeywords,                  // SearchKeywords
+          '',                                // ReferenceURL
+          'pending',                         // Status
+          t.evidenceTier || 'Tier B',        // evidenceTier
+          `Reddit: ${(t.redditSource || '').substring(0, 80)}`, // limitations (元ネタ記録)
+        ];
+      });
+
+      await sheets.spreadsheets.values.append({
+        spreadsheetId,
+        range: 'ThemeSchedule!A:I',
+        valueInputOption: 'USER_ENTERED',
+        requestBody: { values: rows },
+      });
+
+      console.log(`   ✅ ${themes.length}件をThemeScheduleに追加`);
+
+      // Slack通知
+      if (process.env.SLACK_BOT_TOKEN && process.env.SLACK_CHANNEL_ID) {
+        const themeList = themes.map((t: any) => `• [${t.themeArea}] ${t.theme}`).join('\n');
+        await fetch('https://slack.com/api/chat.postMessage', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.SLACK_BOT_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            channel: process.env.SLACK_CHANNEL_ID,
+            text: `📊 Reddit Pain → 新テーマ ${themes.length}件を自動追加\n${themeList}`,
+          }),
+        });
+      }
+    } catch (sheetsErr: any) {
+      console.error('   ❌ ThemeSchedule追加失敗:', sheetsErr.message);
+    }
+  } catch (e: any) {
+    console.error('   ❌ ペイン抽出失敗:', e.message);
+  }
 }
 
 main().catch(e => {

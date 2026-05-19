@@ -464,6 +464,7 @@ Expected JSON Schema:
         }
 
         // ── Agent 3: References検証 ──
+        let pmidVerificationFailed = false;
         if (references.length > 0) {
             console.log('\n🔍 Agent 3: 参考文献を検証中...');
             try {
@@ -474,15 +475,14 @@ Expected JSON Schema:
                     console.log(`  ✅ 検証合格 (JP: ${jpVerification.checkedCount}件, EN: ${enVerification.checkedCount}件)`);
                 } else {
                     const failures = [...jpVerification.failures, ...enVerification.failures];
-                    console.warn(`  ⚠️ 検証不合格: ${failures.join('; ')}`);
-                    console.warn('  🚨 Referencesセクションを除去して出力します');
-                    jpBlogContent = removeReferencesSection(jpBlogContent);
-                    enBlogContent = removeReferencesSection(enBlogContent);
+                    console.error(`  🚨 PMID検証不合格 — .draft化して公開ブロック`);
+                    failures.forEach(f => console.error(`     🔴 ${f}`));
+                    // References除去ではなく .draft 化で公開を完全ブロック
+                    pmidVerificationFailed = true;
                 }
             } catch (verifyErr) {
-                console.warn('  ⚠️ 検証中にエラー（Referencesを除去して続行）:', verifyErr);
-                jpBlogContent = removeReferencesSection(jpBlogContent);
-                enBlogContent = removeReferencesSection(enBlogContent);
+                console.error('  🚨 PMID検証エラー — 安全のため .draft化:', verifyErr);
+                pmidVerificationFailed = true;
             }
         } else {
             console.log('\n📝 PubMed論文なし — Referencesセクションなしで出力');
@@ -498,8 +498,10 @@ Expected JSON Schema:
 
         // ── JP Pre-publish validator ──
         const jpValidation = validateJapaneseMdx(finalJpBlog, result.slug);
-        if (!jpValidation.ok) {
-            console.error(`❌ JP Blog validation FAILED for ${result.slug}:`);
+        const jpShouldDraft = !jpValidation.ok || pmidVerificationFailed;
+        if (jpShouldDraft) {
+            console.error(`❌ JP Blog → DRAFT for ${result.slug}:`);
+            if (pmidVerificationFailed) console.error(`   🔴 PMID検証不合格`);
             jpValidation.errors.forEach(e => console.error(`   🔴 ${e}`));
             await fs.writeFile(jpBlogPath + '.draft', finalJpBlog);
             console.log(`⚠️ Saved as DRAFT (not published) -> ${jpBlogPath}.draft`);
@@ -520,12 +522,13 @@ Expected JSON Schema:
         const enSanitized = sanitizeFrontmatter(enWithInfographic);
         const finalEnBlog = injectXPostFrontmatter(enSanitized, safeXPost);
 
-        // ── Pre-publish validator (no prompt changes — code-only quality gate) ──
+        // ── EN Pre-publish validator ──
         const enValidation = validateEnglishMdx(finalEnBlog, result.slug);
-        if (!enValidation.ok) {
-            console.error(`❌ EN Blog validation FAILED for ${result.slug}:`);
+        const enShouldDraft = !enValidation.ok || pmidVerificationFailed;
+        if (enShouldDraft) {
+            console.error(`❌ EN Blog → DRAFT for ${result.slug}:`);
+            if (pmidVerificationFailed) console.error(`   🔴 PMID検証不合格`);
             enValidation.errors.forEach(e => console.error(`   🔴 ${e}`));
-            // Still save but with .draft extension so it doesn't appear on site
             await fs.writeFile(enBlogPath + '.draft', finalEnBlog);
             console.log(`⚠️ Saved as DRAFT (not published) -> ${enBlogPath}.draft`);
         } else {
