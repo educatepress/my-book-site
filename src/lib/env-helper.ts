@@ -6,7 +6,7 @@ import fs from 'fs';
 export function getEnvVar(key: string): string {
   if (process.env[key]) return process.env[key]!;
   // ローカル開発時のフォールバック
-  const envPath = '/Users/satoutakuma/Desktop/reels-factory/.env';
+  const envPath = '/Users/satoutakuma/Desktop/claude/reels-factory/.env';
   if (fs.existsSync(envPath)) {
     const content = fs.readFileSync(envPath, 'utf8');
     const match = content.match(new RegExp(`^${key}=(.*)$`, 'm'));

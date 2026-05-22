@@ -3,7 +3,7 @@ import fs from 'fs';
 
 // Helper to seamlessly load .env from reels-factory in local dev, or fallback to process.env in Vercel.
 export function getReelsFactoryEnv(): Record<string, string> {
-  const envPath = '/Users/satoutakuma/Desktop/reels-factory/.env';
+  const envPath = '/Users/satoutakuma/Desktop/claude/reels-factory/.env';
   if (!fs.existsSync(envPath)) return {};
   const content = fs.readFileSync(envPath, 'utf8');
   const env: Record<string, string> = {};
@@ -28,7 +28,7 @@ export async function getGoogleAuthClient() {
     credentials = JSON.parse(serviceAccountJson);
   } else {
     // ローカル開発環境ではreels-factoryの鍵ファイルを直接参照
-    const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS || '/Users/satoutakuma/Desktop/reels-factory/credentials/drive-service-account.json';
+    const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS || '/Users/satoutakuma/Desktop/claude/reels-factory/credentials/drive-service-account.json';
     if (!fs.existsSync(keyPath)) {
       throw new Error('Google Service Account key not found.');
     }

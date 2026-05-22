@@ -23,7 +23,7 @@ async function getAuthClient() {
   if (saJson && saJson.length > 10) {
     credentials = JSON.parse(saJson);
   } else {
-    const keyPath = '/Users/satoutakuma/Desktop/reels-factory/credentials/drive-service-account.json';
+    const keyPath = '/Users/satoutakuma/Desktop/claude/reels-factory/credentials/drive-service-account.json';
     credentials = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
   }
   return new google.auth.GoogleAuth({

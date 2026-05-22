@@ -4,7 +4,7 @@ import fs from 'fs';
 
 // Helper to extract env vars directly from reels-factory during transition phase
 function getReelsFactoryEnv() {
-  const envPath = '/Users/satoutakuma/Desktop/reels-factory/.env';
+  const envPath = '/Users/satoutakuma/Desktop/claude/reels-factory/.env';
   if (!fs.existsSync(envPath)) return {};
   const content = fs.readFileSync(envPath, 'utf8');
   const env: Record<string, string> = {};
