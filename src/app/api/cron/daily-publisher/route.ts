@@ -150,6 +150,30 @@ export async function GET(req: Request) {
 
             // Sanitize MDX frontmatter to prevent Vercel build failures
             function sanitizeMdx(mdx: string): string {
+              // Handle JSON frontmatter format: ---{"title":"..."}---body
+              const jsonFmMatch = mdx.match(/^---(\{.*?\})---([\s\S]*)$/);
+              if (jsonFmMatch) {
+                try {
+                  const meta = JSON.parse(jsonFmMatch[1]);
+                  const body = jsonFmMatch[2];
+                  const fmLines: string[] = [];
+                  for (const [key, val] of Object.entries(meta)) {
+                    const escaped = String(val).replace(/"/g, '\\"');
+                    fmLines.push(`${key}: "${escaped}"`);
+                  }
+                  // Restore newlines in body (## headers, list items, etc.)
+                  let formatted = body
+                    .replace(/([^#])## /g, '$1\n\n## ')
+                    .replace(/([^#])### /g, '$1\n\n### ')
+                    .replace(/\*   \*\*/g, '\n*   **')
+                    .replace(/📖/g, '\n\n📖');
+                  return `---\n${fmLines.join('\n')}\n---\n\n${formatted.trim()}\n`;
+                } catch (e) {
+                  console.error('Failed to parse JSON frontmatter:', e);
+                }
+              }
+
+              // Standard YAML frontmatter format
               return mdx.replace(/^---\n([\s\S]*?)\n---/, (match, fm) => {
                 const lines = fm.split('\n').map((line: string) => {
                   // Remove leading spaces before keys
