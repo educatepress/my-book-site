@@ -102,11 +102,13 @@ ${pendingTopic.searchKeywords}
    権威ある組織名（JSOG, WHO等）を安易に列挙する偽りの権威付けも禁止。
    本文中で「WHOは〜を推奨」「ASRMによると〜」等と書く場合は、上記【PubMed検証済み論文リスト】に
    その学会の文献が含まれている場合のみ許可する。含まれていなければ「一般的に〜とされている」等の非特定引用に言い換えること。
-   ※ 論文リストが空の場合でも、「参考情報」セクションを省略してはならない。以下の出典を1〜3件記載すること:
-     - 医学教科書（例: Williams Obstetrics, Speroff's Clinical Gynecologic Endocrinology等）
-     - 学会ガイドライン（例: 日本産科婦人科学会, ACOG Practice Bulletin, ESHRE, ASRM Committee Opinion等）
-     - 公的機関の公式文書（例: WHO, 厚生労働省等）
-     必ず「文書名・発行年・発行元」を具体的に明記すること。
+   ※ 論文リストが空の場合でも、「参考情報」セクションを省略してはならない。
+     以下の【承認済み参考文献リスト】から記事内容に関連するものを1〜3件選んで記載すること。
+     このリスト以外の教科書・ガイドラインを自分で生成・推測することは絶対に禁止。
+     【承認済み参考文献リスト】
+     ■ 教科書: Williams Obstetrics 26th Ed (McGraw-Hill 2022) / Speroff's Clinical Gynecologic Endocrinology and Infertility 9th Ed (Wolters Kluwer 2020) / 標準産科婦人科学 第5版 (医学書院 2021)
+     ■ 学会GL: 日本産科婦人科学会「産婦人科診療ガイドライン 産科編2023/婦人科外来編2023」/ 日本生殖医学会「生殖医療ガイドライン2021」/ ACOG Practice Bulletin No.200 (2018) / ACOG Committee Opinion No.762 (2019) / ESHRE Guideline: Recurrent Pregnancy Loss (2023) / ASRM: Optimizing Natural Fertility (2022) / NICE NG126 (2021)
+     ■ 公的機関: WHO Recommendations on Antenatal Care (2016) / 厚生労働省「健やか親子21（第2次）」/ 厚生労働省「不妊に悩む方への特定治療支援事業」
 
 【PubMed検証済み論文リスト（この論文のみ引用可能）】
 ${referencesBlock}

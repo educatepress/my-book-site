@@ -216,11 +216,30 @@ ${referencesBlock}
      ② 本文（見出し付きセクション）
      ③ 参考（References）: 上記【PubMed検証済み論文リスト】の情報をそのまま転記すること。
         形式: Author, et al. Title. Journal. Year. [PMID: XXXXX](https://pubmed.ncbi.nlm.nih.gov/XXXXX/)
-        ※ 論文リストが空の場合でも、Referencesセクションは省略せず「参考情報」として以下の出典を1〜3件記載すること:
-          - 医学教科書（例: Williams Obstetrics, Speroff's Clinical Gynecologic Endocrinology and Infertility 等）
-          - 学会ガイドライン（例: 日本産科婦人科学会, ACOG Practice Bulletin, ESHRE Guideline, ASRM Committee Opinion 等）
-          - 公的機関の公式文書（例: WHO, 厚生労働省 等）
-          必ず「文書名・発行年・発行元」を具体的に明記すること。「WHOによると」等の曖昧な組織帰属は禁止。
+        ※ 論文リストが空の場合でも、Referencesセクションは省略せず「参考情報」として
+          以下の【承認済み参考文献リスト】から記事内容に関連するものを1〜3件選んで記載すること。
+          このリスト以外の教科書・ガイドラインを自分で生成・推測することは絶対に禁止。
+
+          【承認済み参考文献リスト（この中から選択のみ許可）】
+          ■ 教科書
+          - Williams Obstetrics, 26th Edition. Cunningham FG, et al. McGraw-Hill, 2022.
+          - Speroff's Clinical Gynecologic Endocrinology and Infertility, 9th Edition. Taylor HS, et al. Wolters Kluwer, 2020.
+          - Clinical Gynecologic Endocrinology and Infertility (日本語版). 丸善出版.
+          - 標準産科婦人科学 第5版. 医学書院, 2021.
+          ■ 学会ガイドライン・コミッティオピニオン
+          - 日本産科婦人科学会・日本産婦人科医会「産婦人科診療ガイドライン — 産科編 2023」
+          - 日本産科婦人科学会・日本産婦人科医会「産婦人科診療ガイドライン — 婦人科外来編 2023」
+          - 日本生殖医学会「生殖医療ガイドライン 2021」
+          - ACOG Practice Bulletin No. 200: Early Pregnancy Loss. Obstet Gynecol. 2018.
+          - ACOG Committee Opinion No. 762: Prepregnancy Counseling. Obstet Gynecol. 2019.
+          - ESHRE Guideline: Recurrent Pregnancy Loss. Hum Reprod Open. 2023.
+          - ASRM Practice Committee Opinion: Evaluation and Treatment of Recurrent Pregnancy Loss. Fertil Steril. 2012.
+          - ASRM Practice Committee Opinion: Optimizing Natural Fertility. Fertil Steril. 2022.
+          - NICE Guideline [NG126]: Ectopic Pregnancy and Miscarriage. 2021.
+          ■ 公的機関
+          - WHO: WHO Recommendations on Antenatal Care for a Positive Pregnancy Experience. 2016.
+          - 厚生労働省「健やか親子21（第2次）」
+          - 厚生労働省「不妊に悩む方への特定治療支援事業」
      ④ よくある質問（FAQ）: 各回答は20文字以内の結論1文から始め、その後詳細を解説（AEO対策）
      ⑤ 書籍CTA（以下の定型文のみ使用、独自のセールス文は追加禁止）:
         📖 **同じ著者による、妊活・プレコンセプションケアの基礎知識をまとめた書籍はこちら**
