@@ -25,9 +25,6 @@ export default function AuthorProfile() {
                                 <a href="https://instagram.com/dr.sato.fertility" target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm hover:scale-110 transition-transform border border-black/5" title="Instagram">
                                     <img src="/icon-instagram.svg" alt="Instagram" className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
                                 </a>
-                                <a href="https://x.com/entu1201" target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm hover:scale-110 transition-transform border border-black/5" title="X (Twitter)">
-                                    <img src="/icon-x.svg" alt="X" className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
-                                </a>
                             </div>
                         </div>
 
@@ -59,7 +56,7 @@ export default function AuthorProfile() {
                             <p className="text-[0.95rem] text-[var(--color-text-dark)] leading-[1.8]">
                                 日本生殖医学会認定・生殖医療専門医。東京慈恵会医科大学卒。<br className="hidden md:block" />
                                 不妊治療の臨床と研究に従事し、2025年4月より表参道ARTクリニック勤務。<br className="hidden md:block" />
-                                「note」「Instagram」「X」で正確な医療知識をやさしく発信している。
+                                「note」「Instagram」で正確な医療知識をやさしく発信している。
                             </p>
                         </div>
 

@@ -25,9 +25,6 @@ export default function AuthorProfileEn() {
                                 <a href="https://instagram.com/dr.sato.fertility.specialist" target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm hover:scale-110 transition-transform border border-black/5" title="Instagram">
                                     <img src="/icon-instagram.svg" alt="Instagram" className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
                                 </a>
-                                <a href="https://x.com/SatoT1201" target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm hover:scale-110 transition-transform border border-black/5" title="X (Twitter)">
-                                    <img src="/icon-x.svg" alt="X" className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
-                                </a>
                             </div>
                         </div>
 
@@ -64,7 +61,7 @@ export default function AuthorProfileEn() {
                             <p className="text-[0.95rem] text-[var(--color-text-dark)] leading-relaxed">
                                 Board-certified Reproductive Medicine Specialist by the Japan Society for Reproductive Medicine. Graduate of Jikei University School of Medicine.<br />
                                 Dedicated to clinical practice and research in fertility treatments. Starting April 2025, attending physician at Omotesando ART Clinic.<br />
-                                Actively sharing accurate, accessible medical knowledge via "note", "Instagram", and "X".
+                                Actively sharing accurate, accessible medical knowledge via "note" and "Instagram".
                             </p>
                         </div>
 

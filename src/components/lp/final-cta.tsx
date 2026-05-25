@@ -107,14 +107,6 @@ export default function FinalCta() {
                             パートナーにも読んでほしいと思ったら
                         </p>
                         <div className="flex gap-3">
-                            <a
-                                href={currentUrl ? `https://line.me/R/msg/text/?${encodeURIComponent('今の自分を大切にすることが、未来の「選択肢」を増やす。20代・30代の女性とパートナーに、今から知っておくべき24の医学的事実を一冊に。 ' + currentUrl)}` : '#'}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="bg-[#06C755] hover:bg-[#05B34C] text-white text-[0.8rem] font-bold px-4 py-2 rounded-full transition-colors flex items-center gap-1 shadow-sm"
-                            >
-                                LINEで送る
-                            </a>
                             <button
                                 onClick={handleCopy}
                                 className={`border border-white/50 bg-white/10 hover:bg-white/20 text-white text-[0.8rem] px-4 py-2 rounded-full transition-colors flex items-center gap-1 ${copied ? 'text-[var(--color-sage-light)] border-[var(--color-sage-light)]' : ''}`}

@@ -107,14 +107,6 @@ export default function FinalCtaEn() {
                         </p>
                         <div className="flex flex-wrap justify-center gap-3">
                             <a
-                                href={currentUrl ? `https://twitter.com/intent/tweet?text=${encodeURIComponent('24 evidence-based medical facts for fertility planning — by a reproductive medicine specialist')}&url=${encodeURIComponent(currentUrl)}` : '#'}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="bg-[#1DA1F2] hover:bg-[#1a8cd8] text-white text-[0.8rem] font-bold px-4 py-2 rounded-full transition-colors flex items-center gap-1 shadow-sm"
-                            >
-                                Share on X
-                            </a>
-                            <a
                                 href={currentUrl ? `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` : '#'}
                                 target="_blank"
                                 rel="noreferrer"
