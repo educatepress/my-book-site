@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import { Metadata } from "next";
+import TableOfContents from "@/components/blog/table-of-contents";
 
 interface PostProps {
     params: Promise<{
@@ -130,7 +131,9 @@ export default async function BlogPost({ params }: PostProps) {
                     </div>
                 </header>
 
-                {/* 
+                <TableOfContents lang="jp" />
+
+                {/*
                    【修正点3 & 4】
                    - prose-sm を基本にし、sm:prose-base でタブレット以上に対応
                    - prose-ulの左余白をスマホ用に最適化 (pl-4 sm:pl-8)

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import { Metadata } from "next";
+import TableOfContents from "@/components/blog/table-of-contents";
 
 interface PostProps {
     params: Promise<{
@@ -119,6 +120,8 @@ export default async function BlogPostEn({ params }: PostProps) {
                         )}
                     </div>
                 </header>
+
+                <TableOfContents lang="en" />
 
                 <div className="prose prose-sm sm:prose-base prose-sage max-w-none text-left
                         prose-headings:font-['Zen_Kaku_Gothic_New'] prose-headings:font-bold prose-headings:text-[var(--color-text-dark)]

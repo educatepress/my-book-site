@@ -70,10 +70,10 @@ export default function HeroEn() {
                     className="flex-1 w-full order-2 md:order-1 mt-10 md:mt-0 flex flex-col items-center md:items-start text-center md:text-left z-20"
                 >
                     <FadeIn delay={0.2} className="flex flex-col items-center md:items-start gap-3 mb-[var(--spacing-md)] mx-auto md:mx-0">
-                        {/* 🚨 追加：切迫感を煽るプレヘッドライン */}
-                        <div className="inline-block bg-[#FFF5F5] border border-[#FFE0E0] rounded-2xl md:rounded-full px-4 py-2 md:py-1.5 shadow-sm text-center mt-2 max-w-[95%]">
-                            <span className="inline-block text-[0.75rem] font-bold tracking-wider text-[#D9534F] uppercase leading-tight" style={{ textWrap: 'balance' as any }}>
-                                ⚠️ Before you regret saying "I wish I had known sooner..."
+                        {/* プレヘッドライン */}
+                        <div className="inline-block bg-[var(--color-surface)] border border-[var(--color-sage-light)] rounded-2xl md:rounded-full px-4 py-2 md:py-1.5 shadow-sm text-center mt-2 max-w-[95%]">
+                            <span className="inline-block text-[0.75rem] font-bold tracking-wider text-[var(--color-sage)] uppercase leading-tight" style={{ textWrap: 'balance' as any }}>
+                                Knowledge today expands your choices tomorrow.
                             </span>
                         </div>
                         {/* 🚨 追加：権威性と評価のバッジ */}
