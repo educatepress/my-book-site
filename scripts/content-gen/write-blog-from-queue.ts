@@ -216,7 +216,11 @@ ${referencesBlock}
      ② 本文（見出し付きセクション）
      ③ 参考（References）: 上記【PubMed検証済み論文リスト】の情報をそのまま転記すること。
         形式: Author, et al. Title. Journal. Year. [PMID: XXXXX](https://pubmed.ncbi.nlm.nih.gov/XXXXX/)
-        ※ 論文リストが空の場合、Referencesセクションは省略すること
+        ※ 論文リストが空の場合でも、Referencesセクションは省略せず「参考情報」として以下の出典を1〜3件記載すること:
+          - 医学教科書（例: Williams Obstetrics, Speroff's Clinical Gynecologic Endocrinology and Infertility 等）
+          - 学会ガイドライン（例: 日本産科婦人科学会, ACOG Practice Bulletin, ESHRE Guideline, ASRM Committee Opinion 等）
+          - 公的機関の公式文書（例: WHO, 厚生労働省 等）
+          必ず「文書名・発行年・発行元」を具体的に明記すること。「WHOによると」等の曖昧な組織帰属は禁止。
      ④ よくある質問（FAQ）: 各回答は20文字以内の結論1文から始め、その後詳細を解説（AEO対策）
      ⑤ 書籍CTA（以下の定型文のみ使用、独自のセールス文は追加禁止）:
         📖 **同じ著者による、妊活・プレコンセプションケアの基礎知識をまとめた書籍はこちら**
@@ -230,7 +234,8 @@ ${referencesBlock}
    - "date" は「${postDateStr}」を指定すること。
    - ${item.directionEn} に沿った構成にすること。
    - 記事の構成は日本語版と同じ順番（References → FAQ → CTA）。
-   - References は【PubMed検証済み論文リスト】の情報をそのまま転記。形式: Author. "Title." Journal, Year. [PMID: XXXXX](URL)。論文リストが空の場合は省略。
+   - References は【PubMed検証済み論文リスト】の情報をそのまま転記。形式: Author. "Title." Journal, Year. [PMID: XXXXX](URL)。
+     論文リストが空の場合は「References」として教科書・学会ガイドライン・公的機関の公式文書を1〜3件記載（日本語版と同じルール）。
    - FAQ の各回答はAIが引用しやすい簡潔かつ正確な表現で（AEO最適化）。
    - 書籍CTA: 📖 **Want to learn more? Check out the book.**
      [Dr. Sato's Guide to Women's Health (Amazon)](https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enblog-22)

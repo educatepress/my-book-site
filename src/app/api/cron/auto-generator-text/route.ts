@@ -102,6 +102,11 @@ ${pendingTopic.searchKeywords}
    権威ある組織名（JSOG, WHO等）を安易に列挙する偽りの権威付けも禁止。
    本文中で「WHOは〜を推奨」「ASRMによると〜」等と書く場合は、上記【PubMed検証済み論文リスト】に
    その学会の文献が含まれている場合のみ許可する。含まれていなければ「一般的に〜とされている」等の非特定引用に言い換えること。
+   ※ 論文リストが空の場合でも、「参考情報」セクションを省略してはならない。以下の出典を1〜3件記載すること:
+     - 医学教科書（例: Williams Obstetrics, Speroff's Clinical Gynecologic Endocrinology等）
+     - 学会ガイドライン（例: 日本産科婦人科学会, ACOG Practice Bulletin, ESHRE, ASRM Committee Opinion等）
+     - 公的機関の公式文書（例: WHO, 厚生労働省等）
+     必ず「文書名・発行年・発行元」を具体的に明記すること。
 
 【PubMed検証済み論文リスト（この論文のみ引用可能）】
 ${referencesBlock}
