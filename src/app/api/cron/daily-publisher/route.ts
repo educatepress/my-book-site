@@ -150,6 +150,14 @@ export async function GET(req: Request) {
 
             // Sanitize MDX frontmatter to prevent Vercel build failures
             function sanitizeMdx(mdx: string): string {
+              // Normalize a joined opening fence like `---title:` → `---\ntitle:`.
+              // The LLM occasionally drops the newline after the opening ---, which
+              // makes gray-matter treat the first line as an unregistered "engine"
+              // and fails the Vercel build (sitemap prerender). Restricting to a
+              // letter right after --- leaves the JSON branch (---{…}) and the
+              // already-correct ---\n form untouched.
+              mdx = mdx.replace(/^---(?=[A-Za-z])/, '---\n');
+
               // Handle JSON frontmatter format: ---{"title":"..."}---body
               const jsonFmMatch = mdx.match(/^---(\{.*?\})---([\s\S]*)$/);
               if (jsonFmMatch) {
