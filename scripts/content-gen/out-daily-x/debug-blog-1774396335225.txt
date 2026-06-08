@@ -1,3 +1,0 @@
-{
-  "slug": "coq10-egg-quality-data",
-  "jpBlog": "

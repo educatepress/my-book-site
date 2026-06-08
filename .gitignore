@@ -42,3 +42,11 @@ next-env.d.ts
 .git-backup/
 
 _archive/
+
+# KDP ロイヤリティ明細(財務データ。リポにコミットしない)
+KDP_Prior_Month_Royalties-*.xlsx
+
+# ブログ生成ログ / デバッグダンプ / 一時ファイル
+scripts/logs/
+scripts/content-gen/out-daily-x/debug-blog-*.txt
+scripts/_tmp_*.ts
