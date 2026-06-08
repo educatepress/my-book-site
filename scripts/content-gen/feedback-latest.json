@@ -1,26 +1,18 @@
 {
-  "week": "2026-05-25",
+  "week": "2026-06-08",
   "categoryPV": {
-    "分類外": 3,
-    "⑧サプリ・生活改善": 2
+    "⑨特定診断のピア体験": 4,
+    "⑧サプリ・生活改善": 1
   },
   "top10": [
     {
-      "path": "/blog/ultra-processed-food-fertility",
-      "pv": 2
+      "path": "/en/blog/acog-2026-endometriosis-guidelines-no-wait-for-surgery-en",
+      "pv": 4
     },
     {
-      "path": "/blog/coq10-egg-quality-over-35",
-      "pv": 1
-    },
-    {
-      "path": "/blog/male-fertility-diet-processed-food-endocrine-disruptors",
-      "pv": 1
-    },
-    {
-      "path": "/blog/preconception-checkup-guide",
+      "path": "/en/blog/vitamin-d-fertility",
       "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 3 PV (2記事, 平均2 PV/記事)\n⑧サプリ・生活改善: 2 PV (2記事, 平均1 PV/記事)\n\nTOP5記事:\n  2 PV — 超加工食品が妊活の妨げに？食卓に潜む「見えない脅威」がホルモンバランスと生殖機能に与える悪影響 | \n  1 PV — 35歳からの妊活応援！CoQ10が卵子の質を劇的に改善する可能性 | Blog\n  1 PV — 超加工食品が精子を変える？男性不妊と食事の最新知見 | Blog\n  1 PV — 妊娠前の健康チェック：何を調べるべき？ | Blog\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n⑨特定診断のピア体験: 4 PV (1記事, 平均4 PV/記事)\n⑧サプリ・生活改善: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  4 PV — ACOG 2026 Endometriosis Guidelines: The Era of 'Tr\n  1 PV — \"The Sunshine Vitamin\" Key to Fertility? Vitamin D\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
