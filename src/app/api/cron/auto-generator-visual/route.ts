@@ -86,7 +86,7 @@ ${pendingTopic.searchKeywords}
 
 1. "reelScript": English reel script data
    - "hookText": A punchy 3-second hook text for screen center (use behavioral economics triggers).
-   - "englishAudio": A 15-45 second English narration script with good rhythm.
+   - "englishAudio": A 20-30 second English narration script with good rhythm. HARD LIMIT: maximum 70 words. Never exceed — longer scripts overrun the avatar credit budget and clutter subtitles.
    - "englishSubtitles": Array of English subtitle strings for the entire video.
    - CTA must include: "Comment 'GUIDE' below to get my recommended link!"
 
