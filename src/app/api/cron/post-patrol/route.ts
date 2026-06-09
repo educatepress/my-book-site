@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { TwitterApi } from 'twitter-api-v2';
 import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
 
@@ -50,11 +49,6 @@ export async function GET(req: Request) {
   const reelsEnv = getReelsFactoryEnv();
   const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN || reelsEnv.SLACK_BOT_TOKEN || '';
   const ALERT_CHANNEL = '#ttcpreconception_co';
-  
-  const apiKey = process.env.TWITTER_API_KEY || '';
-  const apiSecret = process.env.TWITTER_API_SECRET || '';
-  const accessToken = process.env.TWITTER_ACCESS_TOKEN || '';
-  const accessSecret = process.env.TWITTER_ACCESS_SECRET || '';
 
   // Ensure Cron request authenticity (only allow Vercel or authorized keys)
   const authHeader = req.headers.get('authorization');
@@ -93,49 +87,12 @@ export async function GET(req: Request) {
   }
 
   // ---------------------------------------------------------
-  // 2. Audit Twitter (X) - Check for recent post
+  // 2. Audit Twitter (X) — 監視停止 (2026-06-09)
+  // @entu1201 は永続的に読み取り専用。投稿しないため「最終投稿からの経過」監視は
+  // 無意味で、X API 呼び出しは 401 になり毎回 isHealthy=false の誤警告が出ていた。
+  // X 監視を停止する(isHealthy には影響させない)。X 運用再開時のみ復活させること。
   // ---------------------------------------------------------
-  if (apiKey && accessToken) {
-    try {
-      const client = new TwitterApi({
-        appKey: apiKey,
-        appSecret: apiSecret,
-        accessToken: accessToken,
-        accessSecret: accessSecret
-      });
-      
-      const me = await client.v2.me();
-      if (!me?.data?.id) throw new Error('Twitter Auth failed (No User ID)');
-
-      const timeline = await client.v2.userTimeline(me.data.id, {
-        max_results: 5,
-        'tweet.fields': ['created_at']
-      });
-
-      const tweets = timeline.data.data;
-      if (!tweets || tweets.length === 0) {
-        throw new Error('アカウントに投稿が一件も見つかりません。');
-      }
-
-      // Check if the latest tweet is within the last 28 hours (to be safe with cron jobs)
-      const latestTweet = tweets[0];
-      const tweetDate = new Date(latestTweet.created_at || '');
-      const now = new Date();
-      const diffHours = (now.getTime() - tweetDate.getTime()) / (1000 * 60 * 60);
-
-      if (diffHours > 28) {
-        isHealthy = false;
-        reports.push(`❌ X (Twitter): 最終投稿から ${Math.round(diffHours)} 時間経過しています（投稿失敗の可能性）`);
-      } else {
-        reports.push(`✅ X (Twitter): 稼働中（最新投稿: ${Math.round(diffHours)} 時間前）`);
-      }
-    } catch (error: any) {
-      isHealthy = false;
-      reports.push(`❌ X (Twitter): API取得エラー - ${error.message}`);
-    }
-  } else {
-    reports.push(`⚠️ X (Twitter): API Key未設定のためスキップ`);
-  }
+  reports.push(`⏸️ X (Twitter): 監視停止中（@entu1201 は永続読み取り専用のため）`);
 
   // ---------------------------------------------------------
   // 3. Audit Instagram via Make.com Webhook
