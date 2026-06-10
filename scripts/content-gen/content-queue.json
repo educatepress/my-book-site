@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-20T22:02:45.110481",
+  "lastUpdated": "2026-06-10 (archived legacy pending themes — strategy shifted to ThemeSchedule everyday-relatable themes)",
   "sourceReport": "20260315_monthly_content_research.md",
   "queue": [
     {
@@ -180,7 +180,7 @@
       "direction": "忙しい男性に向け、高額なサプリメントの前に「まず7時間睡眠」が最強の妊活薬であると啓発。",
       "directionEn": "Frame adequate sleep as the ultimate, free fertility supplement for hard-working men.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-1dc201d3",
@@ -192,7 +192,7 @@
       "direction": "エコー検査に抵抗がある人でも、血液検査（AMH）でPCOSの診断補助ができるようになった進歩を紹介。",
       "directionEn": "Explain how high AMH is now an official diagnostic marker for PCOS in adults, replacing ultrasound in some cases.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-268bd330",
@@ -204,7 +204,7 @@
       "direction": "サプリ選びに迷う男性へ、エビデンスレベルが特に高い「CoQ10」をピンポイントで推奨。",
       "directionEn": "Highlight CoQ10 as an evidence-backed supplement for improving sperm motility and concentration.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-dda7f768",
@@ -216,7 +216,7 @@
       "direction": "産後の尿もれは「仕方ない」ものではなく、毎日の継続的なケアで高確率で改善できるエビデンスを発信。",
       "directionEn": "Motivate mothers to perform daily pelvic floor exercises to significantly reduce urinary incontinence.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-7cf90024",
@@ -228,7 +228,7 @@
       "direction": "「産後はとにかく安静に」という旧来の常識をアップデート。メンタルケアとしての段階的な運動を推奨。",
       "directionEn": "Update the \"total rest\" myth; structured exercise effectively reduces postpartum depression.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-72b2b6ce",
@@ -240,7 +240,7 @@
       "direction": "デスクワーク中心の男性に向け、日常的な筋トレや運動が精子形成において重要であることをロジカルに解説。",
       "directionEn": "Encourage desk-bound men to lift weights, citing studies linking physical exertion to higher sperm counts.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-c50b6547",
@@ -252,7 +252,7 @@
       "direction": "「ビタミンDを飲めば必ず妊娠率が上がる」というサプリメント信仰に対し、冷静な最新データを提示。",
       "directionEn": "Provide a nuanced update: Vitamin D is vital, but recent trials show it's not a magic bullet for IVF success.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-195a34ad",
@@ -264,7 +264,7 @@
       "direction": "妊娠に気づいてからでは遅い神経管形成の事実を伝え、避妊をやめる前からの葉酸摂取を強く促す。",
       "directionEn": "Create urgency: Start taking folic acid before stopping birth control to prevent neural tube defects.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-ba0d64eb",
@@ -276,7 +276,7 @@
       "direction": "がん治療と宣告された際の「卵子・精子凍結」の権利について。医療者側から提示されない場合の自衛手段。",
       "directionEn": "Empower cancer patients to proactively ask about fertility preservation before starting chemo/radiation.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-7de98428",
@@ -288,7 +288,7 @@
       "direction": "自力でのケーゲル体操で効果が出ない層に向け、医療機関での専門的な物理療法という解決策を提示。",
       "directionEn": "Inform mothers struggling with Kegels that professional biofeedback therapy yields significantly better results.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-3c786dfe",
@@ -300,7 +300,7 @@
       "direction": "男性不妊治療における高額な自己負担が軽減されるニュース。男性へのメンタル・経済的支援として発信。",
       "directionEn": "Broadcast the financial relief for severe male infertility treatments under new subsidy schemes.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-a2a673dc",
@@ -312,7 +312,7 @@
       "direction": "激しい脱毛にショックを受ける母親に、「ホルモンの正常な働きであり、6-12ヶ月で元に戻る」と安心感を与える。",
       "directionEn": "Reassure new mothers that extreme hair shedding postpartum is physiological, normal, and temporary.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-8eb6bef1",
@@ -324,7 +324,7 @@
       "direction": "企業の人事・当事者双方に向け、不妊治療を理由に退職しなくて済む社会制度が整いつつあることを発信。",
       "directionEn": "Highlight corporate grants to encourage patients to advocate for fertility leave policies at their workplace.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-ecf470e7",
@@ -336,7 +336,7 @@
       "direction": "デザイナーベビー等の最新技術への過度な期待に対し、生殖医学会の慎重な見解をわかりやすく解説。",
       "directionEn": "Break down ASRM's cautious stance on polygenic embryo testing to manage patient expectations realistically.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-f1136ba6",
@@ -348,7 +348,7 @@
       "direction": "神経質になりがちなBBT計測について、日々の変動に一喜一憂せず、大局的なトレンドを見る重要性を解説。",
       "directionEn": "Emphasize looking at BBT trends rather than panicking over a single day's temperature drop.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-425d3159",
@@ -360,7 +360,7 @@
       "direction": "「授乳中だから妊娠しない」という誤解による予期せぬ妊娠（または早期妊活への影響）について正しく啓発。",
       "directionEn": "Correct the misconception that breastfeeding is a foolproof contraceptive; ovulation can occur before periods return.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-0656de3a",
@@ -372,7 +372,7 @@
       "direction": "情報過多で疲弊している層に向け、「医学的根拠のない努力」を手放してリラックスしてよいと伝える。",
       "directionEn": "Reassure couples that specific sex positions or elevating hips post-coitus do not objectively increase conception chances.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-7fb9817c",
@@ -384,7 +384,7 @@
       "direction": "国が「プレコンセプションケア」に本腰を入れ始めた事実をシェアし、社会全体の認識アップデートを促す。",
       "directionEn": "Alert the public and HR professionals that preconception care is now a recognized national policy priority.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "x-5fb89986",
@@ -396,7 +396,7 @@
       "direction": "クリニックへの採精時、「長期間溜めた方が濃い」という誤解で失敗するケースを防ぐための超実践的アドバイス。",
       "directionEn": "Educate on the perfect 2-3 day abstinence window for sperm collection to minimize DNA fragmentation risks.",
       "type": "x",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "blog-93dbf3cf",
@@ -554,7 +554,7 @@
       "direction": "Smart Brevity構成案:\n\nリード文: 最近話題の「若年層のAMH（卵巣年齢）検査」。25歳で自分のベースラインを知ることは将来のライフプラン設計に役立ちますが、検査のタイミングやピルの影響など、知っておくべき「落とし穴」があります。\n\nH2: なぜ今、20代でのAMH検査が注目されているのか？\nH2: AMHの数値は「25歳」でピークを迎える\nH2: 要注意！低用量ピルがAMHの数値を下げる理由\nH2: 数値が低くても「今すぐ妊娠できない」わけではない\nH2: 検査結果をどう受け止め、どう行動するか\n\n═════ FAQ ═════\nQ: 25歳でAMHが平均より低かった場合、卵子凍結をすべきですか？\nA: すぐにする必要はありませんが、将来の選択肢の一つとして専門医と相談する良いきっかけになります。AMHが低くても、20代であれば卵子の「質」は高いため妊娠率は良好です。\n\nQ: AMH検査は生理周期のいつ受けるのがベストですか？\nA: AMHは生理周期による変動が少ないホルモンなので、基本的にいつでも採血検査が可能です。\n\nQ: AMH検査は保険適用になりますか？\nA: 日本では、不妊治療の一環として医師が必要と認めた場合は保険適用となりますが、単なるブライダルチェックや健康診断目的の場合は自費診療となります。\n\n═════ ガイドライン推奨 ═════\nACOG（米国産婦人科学会）およびASRMは、不妊症でない若い女性に対する「不安解消のため」のAMH検査を推奨していません。しかし、将来のキャリアプランや卵子凍結を視野に入れている女性にとって、ベースラインを知るためのプレコンセプションケアとしての価値は認められつつあります。\n\n═════ 実践アドバイス ═════\n25歳でのAMH検査は自分の身体のマップを手に入れるようなものです。ただし、低用量ピル（経口避妊薬）を服用しているとAMHは20〜30%低く出ることがあるため、正確な数値を測るには休薬から2ヶ月後に検査するか、ピル服用中であることを考慮して数値を解釈してください。\n\nSEOキーワード（JP）: AMH検査 20代, 卵巣年齢 25歳, 卵子凍結, ピル AMH 下がる, プレコンセプションケア\nSEOキーワード（EN）: AMH test at 25, proactive fertility testing, birth control AMH levels, egg freezing, ovarian reserve\n\n安全性チェック: 「今すぐ検査しないと手遅れになる」といったFOMO（取り残される恐怖）を利用したマーケティング表現を厳禁。ピルによる一時的な数値低下の事実を記載し、不必要なパニックを防ぐ構成にしている。",
       "directionEn": "This blog article aims to provide a concise, mobile-optimized guide on AMH testing at age 25, following the Smart Brevity principle. The tone should be empowering and informative, not fear-mongering. The article will clarify the benefits of early AMH testing for fertility planning while also emphasizing its limitations and the need for a holistic approach.\n\nKey Principles:\n1.  **Lead with the conclusion:** Start by directly addressing the question \"Should you test AMH at 25?\" and provide the main takeaway upfront (it's valuable as a planning tool, but not the full picture).\n2.  **Section Structure:** Each H2 section (4-5 total) must deliver \"one big thing,\" explain \"why it matters,\" and suggest \"what's next.\" Use clear, concise language.\n3.  **Paragraph Length:** Keep paragraphs extremely short (2-3 sentences max), followed by a line break for easy mobile readability.\n4.  **Evidence-Backed but Hedged:** Incorporate phrases like \"research suggests,\" \"may indicate,\" \"can offer\" to convey informed opinions without overstating certainty.\n5.  **Empowerment Tone:** Frame AMH testing as a tool for proactive health management and future planning, emphasizing agency and informed decision-making rather than creating anxiety.",
       "type": "blog",
-      "status": "pending"
+      "status": "archived"
     },
     {
       "id": "reel-blog-topic-20260317-10",
@@ -568,7 +568,7 @@
       "direction": "Smart Brevity構成案:\n\nリード文: SNSで大流行している「シードサイクリング」。生理周期に合わせて種を食べることでホルモンバランスが整うと言われていますが、科学的な見地から言うと、これが直接的に「妊娠率を劇的に上げる」という証拠はありません。\n\n\n\n\n\n═════ ガイドライン推奨 ═════\n主要な生殖医学会（ASRM, ESHRE）のガイドラインにおいて、シードサイクリングは不妊治療のプロトコルとして一切記載・推奨されていません。あくまで「安全な健康食品の摂取」の範疇に留まります。\n\n═════ 実践アドバイス ═════\nシード（種子）には良質な脂質や亜鉛、ビタミンEが含まれており、健康的な食生活の一部としては優れています。しかし、これに依存して医学的な不妊治療を遅らせてはいけません。ホルモンバランスの乱れがある場合は、まずクリニックで血液検査を受けましょう。\n\nSEOキーワード（JP）: シードサイクリング, ホルモンバランス, PCOS 妊活, 生理不順 食事, 妊活 迷信\nSEOキーワード（EN）: seed cycling fertility, hormone balance diet, PCOS seed cycling, TTC myths, natural fertility\n\n安全性チェック: 「シードサイクリングで必ず妊娠する」「ホルモン異常が治る」といった未承認治療に対する断定・誇大表現を徹底排除。PCOS等に対する一部のポジティブな研究結果は認めつつも、医学的治療の代替にならないことを明記。",
       "directionEn": "This blog post will adopt a Smart Brevity approach, leading with the core conclusion: seed cycling lacks robust scientific evidence for boosting fertility. Each section will present one key idea, explain its significance, and suggest a next step or broader implication, all within short, mobile-friendly paragraphs (2-3 sentences max). The tone will be empowering and evidence-based, using hedging language (e.g., \"research suggests,\" \"may\") where appropriate, rather than fear-mongering.\n\n**Section 1: The Bottom Line Up Front**\n*   **Big Thing:** Directly state that seed cycling lacks strong scientific evidence for fertility benefits.\n*   **Why it Matters:** Readers need accurate, reliable information for their fertility journey.\n*   **What's Next:** Encourage readers to look beyond popular trends to proven methods.\n\n**Section 2: Understanding Seed Cycling and its Claims**\n*   **Big Thing:** Briefly explain what seed cycling involves (flax, pumpkin, sesame, sunflower seeds) and its purported mechanism for hormone balancing.\n*   **Why it Matters:** To address reader familiarity with the trend and set the stage for scientific evaluation.\n*   **What's Next:** Transition to examining the actual scientific support for these claims.\n\n**Section 3: The Scientific Reality: What Research Actually Says**\n*   **Big Thing:** Detail the lack of robust scientific studies, particularly randomized controlled trials (RCTs), supporting seed cycling's impact on fertility or hormone regulation.\n*   **Why it Matters:** To counter popular misconceptions with scientific facts and help readers make informed choices.\n*   **What's Next:** Shift focus to proven strategies for supporting reproductive health.\n\n**Section 4: What Truly Supports Hormone Health and Fertility**\n*   **Big Thing:** Emphasize the proven importance of a balanced diet, healthy lifestyle, and professional medical consultation for hormone health and fertility.\n*   **Why it Matters:** To provide readers with actionable, evidence-backed advice.\n*   **What's Next:** Empower readers to prioritize comprehensive care and consult healthcare professionals for personalized guidance.",
       "type": "blog",
-      "status": "pending"
+      "status": "archived"
     }
   ]
 }
