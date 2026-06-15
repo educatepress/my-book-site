@@ -150,6 +150,12 @@ export async function GET(req: Request) {
 
             // Sanitize MDX frontmatter to prevent Vercel build failures
             function sanitizeMdx(mdx: string): string {
+              // The LLM sometimes wraps the WHOLE document in a ```md … ``` code
+              // fence. That pushes the frontmatter off line 1, so gray-matter sees
+              // no frontmatter (post loses title/date and renders the raw fence).
+              // Strip a leading/trailing markdown fence before any frontmatter work.
+              mdx = mdx.replace(/^\uFEFF?\s*```(?:md|markdown|mdx)?[ \t]*\r?\n/, '').replace(/\r?\n```[ \t]*\s*$/, '');
+
               // Normalize a joined opening fence like `---title:` → `---\ntitle:`.
               // The LLM occasionally drops the newline after the opening ---, which
               // makes gray-matter treat the first line as an unregistered "engine"
@@ -196,6 +202,15 @@ export async function GET(req: Request) {
                       const escaped = val.replace(/'/g, "''");
                       return `${m[1]}: '${escaped}'`;
                     }
+                  }
+                  // Already single-quoted values may still contain a JS-style \'
+                  // which is INVALID YAML (single-quoted strings escape ' by doubling
+                  // it: ''). The LLM produces title/excerpt like 'Don\'t ...', and the
+                  // unquoted branch above skips them because they start with a quote.
+                  // Normalize \' → '' so the sitemap prerender can parse the build.
+                  const sq = line.match(/^(\w+):\s+'(.*)'\s*$/);
+                  if (sq && sq[2].includes("\\'")) {
+                    return `${sq[1]}: '${sq[2].replace(/\\'/g, "''")}'`;
                   }
                   return line;
                 }).filter((l: string | null) => l !== null);
