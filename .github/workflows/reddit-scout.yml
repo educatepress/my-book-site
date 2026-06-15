@@ -1,4 +1,4 @@
-name: Reddit Scout (Weekly Comment Opportunities)
+name: Theme Auto-Generator (Weekly)
 
 on:
   schedule:
@@ -24,7 +24,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Run Reddit Scout + Theme Auto-Generation
+      - name: Run Theme Auto-Generation (Gemini)
         run: npx tsx scripts/content-gen/reddit-scout.ts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

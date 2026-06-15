@@ -1,11 +1,15 @@
 /**
- * Reddit Scout — Find ideal comment opportunities in TTC communities
+ * Theme Auto-Generator (旧 Reddit Scout)
  *
- * Searches target subreddits for posts where a supportive, educational
- * comment from a preconception care perspective would be welcome.
+ * Gemini で TTC/不妊ドメインのブログテーマを生成し、ThemeSchedule(Google Sheets)
+ * に追加する。
  *
- * Does NOT auto-post. Outputs a curated list with draft comment ideas
- * for manual posting.
+ * かつては Reddit のコミュニティ投稿を収集して需要ドリブンにテーマを抽出していたが、
+ * クラウドIP(GitHub Actions)からの Reddit 匿名アクセスが 403 で恒常的にブロックされ、
+ * OAuth も新規/低karmaアカウント制限で取得不能。Reddit 収集は実装不能のため廃止した。
+ * 現在はテーマを Gemini のドメイン知識＋直近パフォーマンス(feedback)＋既存テーマの
+ * 重複回避から生成する（= 通常の Gemini 生成モード）。ファイル名/ワークフロー名は
+ * 互換性のため据え置き。
  *
  * Usage:
  *   npx tsx scripts/content-gen/reddit-scout.ts
@@ -20,249 +24,17 @@ import { GoogleGenAI } from '@google/genai';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
 
-const SUBREDDITS = [
-  'TryingForABaby',
-  'TTC30',
-  'infertility',
-  'IVF',
-  'TTC_PCOS',
-  'PregnancyAfterLoss',
-];
-
-const LOOKBACK_DAYS = 7;
-
-// Grief/sensitive blocklist — skip these posts entirely
-const BLOCKLIST = [
-  'miscarriage', 'loss', 'stillbirth', 'TFMR', 'chemical pregnancy',
-  'ectopic', 'angel baby', 'trigger warning', 'tw:', 'cw:',
-  'suicide', 'self harm', 'giving up', 'done trying',
-  'rant', 'vent', 'angry', 'furious', 'hate my doctor',
-  'malpractice', 'lawsuit', 'worst clinic',
-];
-
-interface RedditPost {
-  title: string;
-  selftext: string;
-  url: string;
-  permalink: string;
-  subreddit: string;
-  score: number;
-  num_comments: number;
-  created_utc: number;
-  author: string;
-}
-
-interface ScoutResult {
-  post: RedditPost;
-  score: number;
-  reason: string;
-  draftComment: string;
-}
-
-async function fetchSubredditPosts(subreddit: string): Promise<RedditPost[]> {
-  const url = `https://www.reddit.com/r/${subreddit}/new.json?limit=25&t=week`;
-  try {
-    const response = await fetch(url, {
-      headers: { 'User-Agent': 'TTCGuide-Scout/1.0' },
-    });
-    if (!response.ok) {
-      console.warn(`   ⚠️ r/${subreddit}: HTTP ${response.status}`);
-      return [];
-    }
-    const data = await response.json();
-    const posts: RedditPost[] = (data.data?.children || []).map((c: any) => ({
-      title: c.data.title,
-      selftext: c.data.selftext || '',
-      url: `https://reddit.com${c.data.permalink}`,
-      permalink: c.data.permalink,
-      subreddit: c.data.subreddit,
-      score: c.data.score,
-      num_comments: c.data.num_comments,
-      created_utc: c.data.created_utc,
-      author: c.data.author,
-    }));
-
-    // Filter: within lookback period
-    const cutoff = Date.now() / 1000 - LOOKBACK_DAYS * 86400;
-    return posts.filter(p => p.created_utc > cutoff);
-  } catch (e: any) {
-    console.warn(`   ⚠️ r/${subreddit} fetch failed: ${e.message}`);
-    return [];
-  }
-}
-
-function containsBlocklisted(text: string): boolean {
-  const lower = text.toLowerCase();
-  return BLOCKLIST.some(kw => lower.includes(kw));
-}
-
 async function main() {
-  console.log('🔍 Reddit Scout — Finding comment opportunities\n');
-
-  // Step 1: Fetch posts from all subreddits
-  let allPosts: RedditPost[] = [];
-  for (const sub of SUBREDDITS) {
-    console.log(`   📡 Fetching r/${sub}...`);
-    const posts = await fetchSubredditPosts(sub);
-    console.log(`      → ${posts.length} posts (last ${LOOKBACK_DAYS} days)`);
-    allPosts = allPosts.concat(posts);
-    await new Promise(r => setTimeout(r, 1000)); // Rate limit
-  }
-
-  // Step 2: Filter out blocklisted content
-  const safePosts = allPosts.filter(p =>
-    !containsBlocklisted(p.title + ' ' + p.selftext)
-  );
-  console.log(`\n   📋 ${allPosts.length} total → ${safePosts.length} after safety filter`);
-
-  if (safePosts.length === 0) {
-    console.log('No safe posts found. Exiting.');
-    return;
-  }
-
-  // Step 3: Prepare post summaries for Gemini
-  const postSummaries = safePosts.slice(0, 40).map((p, i) => (
-    `[${i + 1}] r/${p.subreddit} | Score: ${p.score} | Comments: ${p.num_comments}
-Title: ${p.title}
-Body: ${p.selftext.substring(0, 200)}${p.selftext.length > 200 ? '...' : ''}
-URL: ${p.url}
----`
-  )).join('\n');
-
-  // Step 4: Gemini screening — find the best 3-5 opportunities
-  console.log('\n   🤖 AI screening for ideal comment opportunities...');
-
-  const prompt = `You are a social media strategist for a fertility preconception care book ("A Doctor's Guide to Women's Health & Preconception" on Amazon).
-
-Below are Reddit posts from TTC (Trying To Conceive) communities. Select the TOP 3 posts where a supportive comment would be:
-
-IDEAL CRITERIA:
-1. The poster is seeking EDUCATIONAL information (not emotional support only)
-2. The topic relates to preconception care, fertility basics, nutrition, lifestyle, or understanding test results
-3. The poster seems open-minded and interested in learning
-4. A comment sharing knowledge would be genuinely helpful (not salesy)
-5. The post has moderate engagement (not too hot/controversial, not dead)
-6. NO treatment decision posts (don't influence someone's medical choices)
-7. NO grief/loss/anger posts
-8. The poster might be someone who values education enough to check out a book
-
-EXCLUDE:
-- Posts asking about specific medications, protocols, or doctor recommendations
-- Highly emotional posts where education would feel tone-deaf
-- Posts with very strong opinions where any comment might start an argument
-- Posts already heavily commented (50+) where we'd get buried
-
-For each selected post, provide:
-1. Why this is a good opportunity
-2. A draft comment that:
-   - Opens with genuine empathy or shared experience
-   - Provides 1-2 evidence-based insights (cite PMID if possible)
-   - Does NOT mention the book, a link, or "check out my..."
-   - Sounds like a knowledgeable community member, NOT a doctor or marketer
-   - Ends naturally — no CTA, no forced helpfulness
-   - Max 150 words
-
-OUTPUT FORMAT (JSON):
-{
-  "opportunities": [
-    {
-      "postIndex": 1,
-      "subreddit": "TryingForABaby",
-      "whyGood": "Brief reason",
-      "draftComment": "The actual comment text",
-      "riskLevel": "low" | "medium"
-    }
-  ]
-}
-
-Only output valid JSON.
-
-POSTS:
-${postSummaries}`;
-
-  try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-      config: { responseMimeType: 'application/json' },
-    });
-
-    const result = JSON.parse((response.text || '{}').trim());
-    const opportunities = result.opportunities || [];
-
-    console.log(`\n${'═'.repeat(60)}`);
-    console.log(`📋 REDDIT SCOUT RESULTS — ${opportunities.length} opportunities found`);
-    console.log(`${'═'.repeat(60)}\n`);
-
-    for (const opp of opportunities) {
-      const post = safePosts[opp.postIndex - 1];
-      if (!post) continue;
-
-      console.log(`${'─'.repeat(60)}`);
-      console.log(`📌 r/${post.subreddit} — "${post.title}"`);
-      console.log(`   URL: ${post.url}`);
-      console.log(`   Score: ${post.score} | Comments: ${post.num_comments} | Risk: ${opp.riskLevel}`);
-      console.log(`   Why: ${opp.whyGood}`);
-      console.log(`\n   💬 Draft comment:`);
-      console.log(`   ${opp.draftComment.replace(/\n/g, '\n   ')}`);
-      console.log('');
-    }
-
-    console.log(`${'═'.repeat(60)}`);
-    console.log(`\n⚠️ REMINDER: Post these MANUALLY. Do not auto-post on Reddit.`);
-    console.log(`   Copy the draft, review it, personalize it, then post from your browser.\n`);
-
-    // Send to Slack for easy access
-    if (process.env.SLACK_BOT_TOKEN && process.env.SLACK_CHANNEL_ID) {
-      const slackBlocks: any[] = [
-        {
-          type: 'header',
-          text: { type: 'plain_text', text: `📋 Reddit Scout — ${opportunities.length} comment opportunities` },
-        },
-      ];
-
-      for (const opp of opportunities) {
-        const post = safePosts[opp.postIndex - 1];
-        if (!post) continue;
-        slackBlocks.push({
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: `*<${post.url}|r/${post.subreddit}: ${post.title.substring(0, 60)}>*\nRisk: ${opp.riskLevel} | ${opp.whyGood}\n\n_Draft:_ ${opp.draftComment.substring(0, 200)}...`,
-          },
-        });
-        slackBlocks.push({ type: 'divider' });
-      }
-
-      await fetch('https://slack.com/api/chat.postMessage', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.SLACK_BOT_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          channel: process.env.SLACK_CHANNEL_ID,
-          text: `Reddit Scout: ${opportunities.length} comment opportunities`,
-          blocks: slackBlocks,
-        }),
-      });
-      console.log('📨 Results sent to Slack');
-    }
-
-  } catch (e: any) {
-    console.error('❌ Gemini screening failed:', e.message);
-  }
-
-  // Phase 2: ペイン抽出 → テーマ自動生成
-  await extractPainPointsAndGenerateThemes(safePosts);
+  console.log('🧠 Theme Auto-Generator (Gemini) — ブログテーマ生成\n');
+  await generateThemes();
 }
 
 // ═════════════════════════════════════════════
-// Phase 2: ペイン抽出 → テーマ自動生成 → ThemeSchedule追加
+// テーマ自動生成 → ThemeSchedule追加
 // ═════════════════════════════════════════════
 
-async function extractPainPointsAndGenerateThemes(posts: RedditPost[]) {
-  console.log('\n🧠 Phase 2: ペインポイント抽出 → テーマ生成...');
+async function generateThemes() {
+  console.log('🧠 ペインポイント想定 → テーマ生成...');
 
   // N4: フィードバックデータ読み込み（あれば）
   let feedbackContext = '';
@@ -274,13 +46,6 @@ async function extractPainPointsAndGenerateThemes(posts: RedditPost[]) {
   } catch {
     console.log('   📈 フィードバックデータなし（初回実行）');
   }
-
-  const postSummaries = posts.slice(0, 50).map((p, i) => (
-    `[${i + 1}] r/${p.subreddit} | Score: ${p.score} | Comments: ${p.num_comments}
-Title: ${p.title}
-Body: ${p.selftext.substring(0, 300)}
----`
-  )).join('\n');
 
   // Step 1: 既存テーマを取得して重複防止
   let existingThemes: string[] = [];
@@ -307,16 +72,16 @@ Body: ${p.selftext.substring(0, 300)}
     console.warn('   ⚠️ 既存テーマ取得失敗（重複チェックなしで続行）');
   }
 
-  // Step 2: Geminiでペイン抽出 + テーマ生成
+  // Step 2: Geminiでテーマ生成
   const painPrompt = `あなたは不妊治療（TTC）コンテンツ戦略の専門家です。
 
-以下はRedditのTTCコミュニティの最新投稿です。これらを分析し、ブログ記事のテーマを3〜5件提案してください。
+あなたのドメイン知識と、英語圏TTC層の最新の関心・需要動向をもとに、ブログ記事のテーマを3〜5件提案してください。
 
 【分析の視点】
-1. 投稿者が実際に困っている「具体的な小さな疑問」を特定する
+1. 読者が実際に困っている「具体的な小さな疑問」を特定する
 2. 既存の大テーマ記事ではなく、具体的なQ&A記事として書けるテーマにする
 3. 医師の専門知識が価値を発揮する内容を優先する
-4. 感情的な投稿からも「裏にある知識ニーズ」を読み取る
+4. 感情的なニーズからも「裏にある知識ニーズ」を読み取る
    例: 「HCGが上がらなくて不安」→ テーマ「HCG値の正常範囲と倍増速度のばらつき」
 
 ${feedbackContext}
@@ -335,15 +100,11 @@ ${existingThemes.slice(-60).join('\n')}
     "themeArea": "①流産の恐怖・不安",
     "theme": "具体的なQ&A形式のテーマ（40〜60文字）",
     "searchKeywords": "PubMed検索用の英語キーワード",
-    "evidenceTier": "Tier A or Tier B",
-    "redditSource": "このテーマの元になったReddit投稿のタイトル（1つ）"
+    "evidenceTier": "Tier A or Tier B"
   }
 ]
 
-JSONのみを出力してください。
-
-【Reddit投稿】
-${postSummaries}`;
+JSONのみを出力してください。`;
 
   try {
     const response = await ai.models.generateContent({
@@ -401,7 +162,7 @@ ${postSummaries}`;
           '',                                // ReferenceURL
           'pending',                         // Status
           t.evidenceTier || 'Tier B',        // evidenceTier
-          `Reddit: ${(t.redditSource || '').substring(0, 80)}`, // limitations (元ネタ記録)
+          'Gemini auto',                     // 備考(生成元)
         ];
       });
 
@@ -425,7 +186,7 @@ ${postSummaries}`;
           },
           body: JSON.stringify({
             channel: process.env.SLACK_CHANNEL_ID,
-            text: `📊 Reddit Pain → 新テーマ ${themes.length}件を自動追加\n${themeList}`,
+            text: `📊 新テーマ ${themes.length}件を自動追加(Gemini)\n${themeList}`,
           }),
         });
       }
@@ -433,7 +194,7 @@ ${postSummaries}`;
       console.error('   ❌ ThemeSchedule追加失敗:', sheetsErr.message);
     }
   } catch (e: any) {
-    console.error('   ❌ ペイン抽出失敗:', e.message);
+    console.error('   ❌ テーマ生成失敗:', e.message);
   }
 }
 
