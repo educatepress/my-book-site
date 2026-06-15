@@ -294,6 +294,7 @@ docs/
 | 5 | IG投稿がスキップされる | `MAKE_IG_PUBLISH_WEBHOOK_URL` 未定義（`MAKE_PUBLISH_WEBHOOK_URL` のみ） | fallback チェーン追加 | 04-17 |
 | 6 | Gemini 503 でブログ生成失敗 | API 過負荷（一時的） | 指数バックオフ retry 追加（最大5回） | 04-15 |
 | 7 | 同一キューアイテムで毎日失敗 | 4/7 に生成済みだが status が pending のまま（キュー状態ドリフト） | 手動で status を generated に更新 | 04-15 |
+| 8 | Vercelビルドが落ちる（sitemap prerender） | 自動公開ブログのフロントマターが `title: '…Don\'t…'` のようにJS流の `\'` を含み不正YAML（シングルクォート内のエスケープは `''` が正）。`daily-publisher` の `sanitizeMdx` は値が既に `'` で始まると「引用済み」とみなしスキップしていたため素通り | 該当記事を `\'`→`''` に即時修正。`sanitizeMdx` に①シングルクォート済み値内の `\'`→`''` 正規化 ②先頭/末尾の ```md コードフェンス除去（フロントマター隠れ対策）を追加 | 06-15 |
 
 ---
 
