@@ -1,13 +1,13 @@
 {
-  "week": "2026-06-15",
+  "week": "2026-06-22",
   "categoryPV": {
-    "⑧サプリ・生活改善": 1
+    "⑨特定診断のピア体験": 1
   },
   "top10": [
     {
-      "path": "/en/blog/vitamin-d-fertility",
+      "path": "/en/blog/acog-2026-endometriosis-guidelines-no-wait-for-surgery-en",
       "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n⑧サプリ・生活改善: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — \"The Sunshine Vitamin\" Key to Fertility? Vitamin D\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n⑨特定診断のピア体験: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — ACOG 2026 Endometriosis Guidelines: The Era of 'Tr\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
