@@ -1,6 +1,6 @@
 # KDP 書籍販売マーケティング事業 — 完全引き継ぎ書
 
-**最終更新:** 2026-04-17
+**最終更新:** 2026-07-04（Slack承認フロー廃止→投稿完了通知に一本化を反映）
 **対象:** webpage.new (my-book-site) + reels-factory の2リポ（book ブランドのみ）
 **除外:** hiroo-open（美容皮膚科。分離済み、別プロジェクトとして独立運用）
 
@@ -42,8 +42,8 @@
   - リール動画生成（Remotion + Google Cloud TTS + Whisper）
   - Instagram カルーセル生成（10枚スライド PNG）
   - Google Drive アップロード + Cloudinary CDN
-  - Slack 承認メッセージ送信
-  - Make.com webhook でIG投稿トリガー
+  - Vision AI QA → 自動承認（Slack承認フローは2026-07-04廃止）
+  - Make.com webhook でIG投稿トリガー ＋ Slackへ投稿完了通知
 
 ---
 
@@ -62,24 +62,27 @@
     ├─ generate-voice.ts         Blog + X + Reel + Carousel を生成
     ├─ render (Remotion)             │
     ├─ upload-to-drive.ts        Google Sheets Queue に pending 追加
-    └─ Cloudinary upload             │
-         │                      pre-patrol cron (15:15 JST)
-         │                       AI 監査 → Slack 承認メッセージ
-         │                           │
-         └──── Slack ────────────────┘
-                  │
-           取締役「承認」クリック
-                  │
-         /api/slack/interactive
-          ├─ status = 'approved'
-          ├─ scheduled_date = 翌日 JST
-          └─ reels-factory 系: 即 Make.com → IG 投稿
-                  │
+    ├─ Cloudinary upload             │
+    │                           pre-patrol cron (15:15 JST)
+    ├─ Vision QA (send-slack-     AI 監査 → 自動承認
+    │   approval.ts) → 自動承認    (approved + scheduled_date=翌日)
+    │   (approved+scheduled_date)     │
+    │                                 │
+    └─ trigger-make-all.ts            │
+        Make.com → IG 即時投稿         │
+        status='posted'               │
+        Slack「📱投稿されました」通知    │
+        （失敗分は approved のまま残る）  │
+                  │                   │
          daily-publisher cron (10:00 JST)
           ├─ X: Twitter API v2 で投稿
           ├─ Blog: GitHub API で my-book-site にコミット → Vercel 自動デプロイ
-          └─ IG: Make.com webhook 発射
+          └─ IG: trigger-make-all 失敗分のフォールバック
+                 （Make.com webhook 発射＋Slack完了通知）
 ```
+
+※ 2026-07-04 取締役指示で人手承認を全廃。Slackは「投稿完了の簡素テキスト」と
+   エラー通知のみ。`/api/slack/interactive` はコードとしては残るが実質休眠。
 
 ---
 
@@ -92,7 +95,7 @@
 | `/api/cron/x-monitor` | 03:00 | 12:00 | X 投稿のパフォーマンス監視 |
 | `/api/cron/auto-generator-text` | 06:00 | 15:00 | Blog + X テキスト生成 |
 | `/api/cron/auto-generator-visual` | 06:05 | 15:05 | Reel + Carousel 生成 |
-| `/api/cron/pre-patrol` | 06:15 | 15:15 | AI 監査 → Slack 承認送信 |
+| `/api/cron/pre-patrol` | 06:15 | 15:15 | AI 監査 → 自動承認（Slack通知なし・監査結果はログのみ） |
 
 ### GitHub Actions（webpage.new）
 | ワークフロー | スケジュール | 役割 |
@@ -102,7 +105,7 @@
 ### GitHub Actions（reels-factory）
 | ワークフロー | スケジュール | 役割 |
 |---|---|---|
-| 本体の cron | 20:00 UTC (05:00 JST) | research → script → render → upload → Slack |
+| 本体の cron | 20:00 UTC (05:00 JST) | research → script → render → upload → Vision QA(自動承認) → Make即時投稿＋Slack完了通知 |
 
 ### macOS launchd（ローカル fallback）
 | plist | 役割 |
@@ -128,11 +131,18 @@ generation_recipe, status, patrol_pre_result, scheduled_date, post_url,
 posted_at, patrol_post_result, cloudinary_deleted, slack_ts, error_detail, ymyl_evidence
 ```
 
-### ステータスフロー
+### ステータスフロー（2026-07-04 人手承認廃止後）
 ```
-pending → (pre-patrol) → pending (patrol_pre_result='done')
-  → (Slack承認) → approved (scheduled_date=翌日JST)
-  → (daily-publisher) → posted
+blog / x:
+  pending → (pre-patrol AI監査・自動承認) → approved (scheduled_date=翌日JST)
+    → (daily-publisher) → posted
+
+reel / carousel:
+  waiting_for_render → (reels-factory render+upload) → pending
+    → (Vision QA 合格) → approved (scheduled_date=翌日JST)  ※不合格は review
+    → (trigger-make-all 即時投稿) → posted
+  ※trigger-make-all 失敗時は approved のまま残り、daily-publisher が翌日
+    フォールバック投稿する（Vision QA の Sheets 書き込みはこの生命線なので止めない）
 ```
 
 ---
@@ -190,11 +200,12 @@ pending → (pre-patrol) → pending (patrol_pre_result='done')
 - **Interactive URL:** `https://www.ttcguide.co/api/slack/interactive`
 - **Interactivity:** ON
 - **チャンネル:** `#ttcpreconception_co`
-- **用途:** 承認ボタン（approve/reject）、AI 監査結果スレッド、エラー通知
+- **用途:** 投稿完了の簡素テキスト通知（「📱 インスタが投稿されました」）＋エラー通知のみ。
+  承認ボタン・AI監査スレッドは 2026-07-04 廃止（interactive ハンドラは残置だが実質休眠）
 - **注意:** atelier 用は別 App（`hiroo-open.com` 宛）に分離済み
 
 ### Make.com
-- **用途:** Slack 承認後に Instagram へカルーセル/リールを自動投稿
+- **用途:** Instagram へカルーセル/リールを自動投稿（trigger-make-all が即時発射、daily-publisher がフォールバック）
 - **フロー:** Node.js → webhook POST → Make scenario → IG Business API
 - **webhook ペイロード:**
   ```json
@@ -231,9 +242,9 @@ src/lib/
 └── env-helper.ts       ← 環境変数 fallback
 
 src/app/api/
-├── slack/interactive/route.ts  ← Slack 承認ハンドラ（scheduled_date=翌日JST）
-├── cron/daily-publisher/       ← 日次投稿（X/Blog/IG）
-├── cron/pre-patrol/            ← AI 監査 + Slack 承認送信
+├── slack/interactive/route.ts  ← 旧Slack承認ハンドラ（2026-07-04承認廃止で休眠・残置）
+├── cron/daily-publisher/       ← 日次投稿（X/Blog/IG）＋IG投稿完了のSlack通知
+├── cron/pre-patrol/            ← AI 監査 + 自動承認（Slack通知なし）
 ├── cron/auto-generator-text/   ← Blog + X テキスト生成
 ├── cron/auto-generator-visual/ ← Reel + Carousel 生成
 ├── cron/post-patrol/           ← 投稿後監査
@@ -255,7 +266,7 @@ scripts/daily-blog-publish.sh   ← launchd 用シェル（ブログ生成 + git
 ### reels-factory
 ```
 scripts/
-├── pipeline.ts          ← 全工程一気通貫（research→script→voice→render→upload→slack）
+├── pipeline.ts          ← 全工程一気通貫（research→script→voice→render→upload→QA→Make投稿）
 ├── research-auto.ts     ← PubMed + Gemini で日次2トピック生成
 ├── generate-script.ts   ← リール台本（5幕構造）
 ├── generate-voice.ts    ← Google Cloud TTS (WaveNet)
@@ -264,7 +275,8 @@ scripts/
 ├── render-auto.ts       ← 自動レンダリング
 ├── batch-generate.ts    ← バッチ動画生成
 ├── upload-to-drive.ts   ← Drive + Cloudinary アップロード
-├── send-slack-approval.ts ← Slack 承認メッセージ
+├── send-slack-approval.ts ← Vision QA + 自動承認のSheets書き込み（Slack送信はしない）
+├── trigger-make-all.ts  ← Make webhook 即時投稿 + Slack投稿完了通知
 ├── fetch-pexels-video.ts  ← 背景動画取得
 └── plan-10day-themes.ts   ← 10日分テーマ計画
 
