@@ -189,7 +189,22 @@ Expected JSON Schema:
                     body: { type: "STRING", nullable: true },
                     points: { type: "ARRAY", items: { type: "STRING" }, nullable: true },
                     highlightKeyword: { type: "STRING", nullable: true },
-                    summaryItems: { type: "ARRAY", items: { type: "STRING" }, nullable: true }
+                    summaryItems: { type: "ARRAY", items: { type: "STRING" }, nullable: true },
+                    // Infographic スライド用（プロンプトが要求する chart フィールド。
+                    // schema に無いと structured output が剥ぎ取り、下流の
+                    // validateInfographicSlide がスライドごと落とす）
+                    chartType: { type: "STRING", nullable: true },
+                    title: { type: "STRING", nullable: true },
+                    source: { type: "STRING", nullable: true },
+                    metricLabel: { type: "STRING", nullable: true },
+                    group1Label: { type: "STRING", nullable: true },
+                    group1Value: { type: "NUMBER", nullable: true },
+                    group2Label: { type: "STRING", nullable: true },
+                    group2Value: { type: "NUMBER", nullable: true },
+                    unit: { type: "STRING", nullable: true },
+                    // CTA スライド用
+                    actionText: { type: "STRING", nullable: true },
+                    commentTrigger: { type: "STRING", nullable: true }
                   },
                   required: ["slideNumber", "type", "headline"]
                 }
