@@ -70,6 +70,30 @@ export async function withRetry<T>(
 }
 
 /**
+ * Send a simple informational Slack message (plain text, no blocks/buttons).
+ */
+export async function sendSlackInfo(
+  slackToken: string,
+  channel: string,
+  text: string
+): Promise<void> {
+  if (!slackToken || !channel) return;
+
+  try {
+    await fetch('https://slack.com/api/chat.postMessage', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${slackToken}`,
+      },
+      body: JSON.stringify({ channel, text }),
+    });
+  } catch {
+    console.error('❌ Failed to send Slack info message');
+  }
+}
+
+/**
  * Send a Slack error alert when a cron job fails after all retries.
  */
 export async function sendSlackErrorAlert(

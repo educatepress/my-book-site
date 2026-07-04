@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getQueueItems, updateQueueItem, QueueItem, getReelsFactoryEnv } from '@/lib/sheets';
 import { TwitterApi } from 'twitter-api-v2';
-import { withRetry, sendSlackErrorAlert } from '@/lib/retry';
+import { withRetry, sendSlackErrorAlert, sendSlackInfo } from '@/lib/retry';
 
 export const maxDuration = 300;
 
@@ -304,6 +304,14 @@ export async function GET(req: Request) {
           });
           processedResults.push({ id: item.content_id, status: 'success', url: postUrl });
           console.log(`✅ Passed [${item.type}] ${item.title}`);
+
+          // IG投稿の完了通知(簡素テキストのみ・2026-07-04 承認フロー廃止に伴い新設)
+          if (item.type === 'carousel' || item.type === 'reel') {
+            const slackToken = process.env.SLACK_BOT_TOKEN || reelsEnv.SLACK_BOT_TOKEN || '';
+            const slackChannel = process.env.SLACK_CHANNEL_ID || reelsEnv.SLACK_CHANNEL_ID || '';
+            await sendSlackInfo(slackToken, slackChannel,
+              `📱 インスタが投稿されました\n• ${item.type === 'carousel' ? 'カルーセル' : 'リール'}: ${item.title}`);
+          }
         }
 
       } catch (e: any) {

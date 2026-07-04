@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getQueueItems, updateQueueItem, getReelsFactoryEnv } from '@/lib/sheets';
-import { brandBadge } from '@/lib/brand';
 import Anthropic from '@anthropic-ai/sdk';
-import { withRetry, sendSlackErrorAlert } from '@/lib/retry';
+import { withRetry } from '@/lib/retry';
 
 export const maxDuration = 300;
 
@@ -20,13 +19,6 @@ export async function GET(req: Request) {
   const anthropicKey = process.env.ANTHROPIC_API_KEY || reelsEnv.ANTHROPIC_API_KEY;
   if (!anthropicKey) {
     return NextResponse.json({ error: 'ANTHROPIC_API_KEY is missing' }, { status: 500 });
-  }
-
-  const slackToken = process.env.SLACK_BOT_TOKEN || reelsEnv.SLACK_BOT_TOKEN;
-  const slackChannel = process.env.SLACK_CHANNEL_ID || reelsEnv.SLACK_CHANNEL_ID || '#ttcpreconception_co';
-
-  if (!slackToken) {
-    return NextResponse.json({ error: 'SLACK_BOT_TOKEN is missing' }, { status: 500 });
   }
 
   try {
@@ -121,17 +113,6 @@ ${contentText}
       }
 
 
-      // ── Slack Notification via Webhook ──
-      // Sending Block Kit to the standard Webhook URL (Usually chat.postMessage is better for buttons, but webhook supports block actions if configured properly in Slack app)
-      const badge = brandBadge(item.brand);
-
-      const previewText = contentText.length > 80 ? contentText.substring(0, 80) + '...' : contentText;
-
-      let mediaLinkText = '';
-      if (item.cloudinary_url || item.gdrive_url) {
-        mediaLinkText = `\n\n🎬 *完成済みメディアプレビュー:*\n${item.cloudinary_url ? `<${item.cloudinary_url}|Cloudinaryを開く>` : ''} ${item.gdrive_url ? `<${item.gdrive_url}|Google Driveを開く>` : ''}`;
-      }
-
       // ── 自動承認: 品質ゲート通過済みなので承認ボタンなしで自動公開キューに入れる ──
       const tomorrowJst = new Date(Date.now() + 9 * 3600 * 1000 + 24 * 3600 * 1000)
         .toISOString().split('T')[0];
@@ -142,80 +123,9 @@ ${contentText}
         patrol_pre_result: 'done'
       });
       console.log(`✅ [Pre-Patrol] 自動承認: ${item.content_id} → ${tomorrowJst}に公開予定`);
-
-      // Slack事後通知（承認ボタンなし、情報のみ）
-      const blocks = [
-        {
-          type: 'header',
-          text: {
-            type: 'plain_text',
-            text: `✅ 自動承認: ${item.title} (${item.type})`,
-            emoji: true
-          }
-        },
-        {
-          type: 'context',
-          elements: [
-            { type: 'mrkdwn', text: `*配信先:* ${badge}  |  *ID:* \`${item.content_id}\`  |  *公開予定:* ${tomorrowJst}` }
-          ]
-        },
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: `*📝 プレビュー:* ${previewText.replace(/\n/g, ' ')}\n*🤖 AI監査:* ${aiFeedback.substring(0, 200)}${mediaLinkText}`
-          }
-        }
-      ];
-
-      try {
-        const slackData = await withRetry(
-          async () => {
-            const slackRes = await fetch('https://slack.com/api/chat.postMessage', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${slackToken}`
-              },
-              body: JSON.stringify({ channel: slackChannel, text: `新しい原稿の承認待ち: ${item.title}`, blocks })
-            });
-            const data = await slackRes.json();
-            if (!data.ok) {
-              const err: any = new Error(data.error || 'Slack API Error');
-              if (data.error === 'ratelimited') err.status = 429;
-              throw err;
-            }
-            return data;
-          },
-          `pre-patrol/Slack/${item.content_id}`,
-          { maxAttempts: 3, baseDelayMs: 3000 }
-        );
-
-        // Send full text in thread
-        if (slackData.ts) {
-          const threadRes = await fetch('https://slack.com/api/chat.postMessage', {
-            method: 'POST',
-            headers: { 
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${slackToken}`
-            },
-            body: JSON.stringify({ 
-              channel: slackChannel, 
-              thread_ts: slackData.ts,
-              text: `*🤖 AI監査結果:*\n${aiFeedback}\n\n---\n*📝 全テキスト内容:*\n\n${contentText}`
-            })
-          });
-          const threadData = await threadRes.json();
-          if (!threadData.ok) {
-            console.error(`❌ [Pre-Patrol] Thread failed for ${item.content_id}:`, threadData.error);
-            // If the thread fails, we should NOT consider the patrol fully done, but we proceed anyway or log it.
-          }
-        }
-
-        console.log(`✅ [Pre-Patrol] Slack事後通知完了: ${item.content_id}`);
-      } catch (err) {
-        console.error(`❌ [Pre-Patrol] Failed to notify Slack for ${item.content_id}:`, err);
-      }
+      console.log(`🤖 [Pre-Patrol] AI監査結果 (${item.content_id}): ${aiFeedback.substring(0, 300)}`);
+      // 2026-07-04 取締役指示: Slackへのレビュー/自動承認通知は全廃。
+      // 監査結果はVercelログのみに残す。投稿完了時の簡素通知はdaily-publisher/trigger-make-allが送る。
     }
 
     return NextResponse.json({ success: true, processedCount: pendingItems.length });
