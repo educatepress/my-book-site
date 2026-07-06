@@ -6,6 +6,46 @@ import { withRetry, sendSlackErrorAlert } from '@/lib/retry';
 export const maxDuration = 300;
 
 /**
+ * カルーセル原案の内容検品。プロンプトが要求する完成条件(8枚以上・数値入り
+ * Infographic・末尾CTA)を満たすかコードで確認する。
+ *
+ * responseSchema での強制は不可能: minItems/maxItems や anyOf を足すと Gemini API が
+ * "too many states for serving" (400) で拒否する(2026-07-06実測)。nullable フィールドは
+ * Gemini が平気で省略するため、検品せずに通すと4〜5枚の尻切れカルーセル
+ * (Infographic数値なし・CTAなし)がそのまま投稿される(2026-07-06 IG実機で発生)。
+ * 不合格なら呼び出し側が再生成する。
+ */
+function auditCarouselRecipe(slides: any): string[] {
+  const issues: string[] = [];
+  if (!Array.isArray(slides) || slides.length < 8) {
+    issues.push(`スライドが${Array.isArray(slides) ? slides.length : 0}枚 (最低8枚)`);
+    return issues;
+  }
+  // reels-factory 側 validateInfographicSlide の comparison 判定と同じ基準。
+  // これを満たさない Infographic は下流でドロップされ枚数が減る
+  const toNum = (v: any): number => {
+    if (typeof v === 'number') return Number.isFinite(v) ? v : NaN;
+    if (typeof v !== 'string') return NaN;
+    const m = v.replace(/,/g, '').match(/-?\d+(\.\d+)?/);
+    return m ? parseFloat(m[0]) : NaN;
+  };
+  const hasValidChart = slides.some((s: any) => {
+    if (s?.type !== 'Infographic') return false;
+    const g1 = toNum(s.group1Value);
+    const g2 = toNum(s.group2Value);
+    return Number.isFinite(g1) && Number.isFinite(g2) && Math.max(g1, g2) > 0;
+  });
+  if (!hasValidChart) issues.push('有効な数値入りInfographicが無い');
+  const last = slides[slides.length - 1];
+  if (last?.type !== 'CTA') {
+    issues.push(`末尾スライドがCTAでない (${last?.type})`);
+  } else if (!last.actionText || !last.commentTrigger) {
+    issues.push('CTAにactionText/commentTriggerが無い');
+  }
+  return issues;
+}
+
+/**
  * 毎日未明（04:00 JST）に起動する自動原案作成エンドポイント
  * Architecture v4.0: ThemeSchedule連携 日次自動コンテンツジェネレーター
  */
@@ -155,76 +195,51 @@ Expected JSON Schema:
 
     console.log('🤖 Firing Gemini API with retry for visual generation...');
 
-    const visualResponse = await withRetry(
+    const generateVisualOnce = () => withRetry(
       () => ai.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: visualPrompt,
         config: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: "OBJECT",
-            properties: {
-              slug: { type: "STRING" },
-              reelScript: {
-                type: "OBJECT",
-                properties: {
-                  hookText: { type: "STRING" },
-                  englishAudio: { type: "STRING" },
-                  englishSubtitles: {
-                    type: "ARRAY",
-                    items: { type: "STRING" }
-                  }
-                },
-                required: ["hookText", "englishAudio", "englishSubtitles"]
-              },
-              carouselJson: {
-                type: "ARRAY",
-                items: {
-                  type: "OBJECT",
-                  properties: {
-                    slideNumber: { type: "INTEGER" },
-                    type: { type: "STRING" },
-                    headline: { type: "STRING" },
-                    subheadline: { type: "STRING", nullable: true },
-                    body: { type: "STRING", nullable: true },
-                    points: { type: "ARRAY", items: { type: "STRING" }, nullable: true },
-                    highlightKeyword: { type: "STRING", nullable: true },
-                    summaryItems: { type: "ARRAY", items: { type: "STRING" }, nullable: true },
-                    // Infographic スライド用（プロンプトが要求する chart フィールド。
-                    // schema に無いと structured output が剥ぎ取り、下流の
-                    // validateInfographicSlide がスライドごと落とす）
-                    chartType: { type: "STRING", nullable: true },
-                    title: { type: "STRING", nullable: true },
-                    source: { type: "STRING", nullable: true },
-                    metricLabel: { type: "STRING", nullable: true },
-                    group1Label: { type: "STRING", nullable: true },
-                    group1Value: { type: "NUMBER", nullable: true },
-                    group2Label: { type: "STRING", nullable: true },
-                    group2Value: { type: "NUMBER", nullable: true },
-                    unit: { type: "STRING", nullable: true },
-                    // CTA スライド用
-                    actionText: { type: "STRING", nullable: true },
-                    commentTrigger: { type: "STRING", nullable: true }
-                  },
-                  required: ["slideNumber", "type", "headline"]
-                }
-              }
-            },
-            required: ["slug", "reelScript", "carouselJson"]
-          }
+          // responseMimeType のみ指定し、responseSchema は意図的に付けない。
+          // スキーマを付けると Gemini が NUMBER 型フィールド(group1Value等)を系統的に
+          // 省略し、Infographic の数値が常に欠落する(2026-07-06実測: schema有り0/3、
+          // schema無し3/3合格)。minItems/anyOf での枚数・必須強制も "too many states"
+          // (400)で不可。JSON形状はプロンプト内の仕様＋下記の検品ループで担保する。
+          responseMimeType: "application/json"
         }
       }),
       'auto-generator-visual/Gemini',
       { maxAttempts: 3, baseDelayMs: 10000 }
     );
 
-    // JSONパース処理
-    const rawVisual = visualResponse.text || '{}';
-    let visualResult: any;
-    try {
-        visualResult = JSON.parse(rawVisual.replace(/^```json?\n?/i, '').replace(/\n?```s*$/i, '').trim());
-    } catch(e) {
-        throw new Error('Invalid JSON format from AI response');
+    // 生成 → JSONパース → 内容検品。不合格なら再生成(最大3回)。
+    // 3回とも不合格なら throw → 外側の catch が Slack にエラー通知
+    const QA_MAX_ATTEMPTS = 3;
+    let visualResult: any = null;
+    let lastIssues: string[] = [];
+    for (let qaAttempt = 1; qaAttempt <= QA_MAX_ATTEMPTS; qaAttempt++) {
+      const visualResponse = await generateVisualOnce();
+      const rawVisual = visualResponse.text || '{}';
+      let parsed: any = null;
+      try {
+        parsed = JSON.parse(rawVisual.replace(/^```json?\n?/i, '').replace(/\n?```s*$/i, '').trim());
+        lastIssues = auditCarouselRecipe(parsed.carouselJson);
+        // responseSchema を外したので reelScript の形状もここで担保する
+        const rs = parsed.reelScript;
+        if (!rs?.hookText || !rs?.englishAudio || !Array.isArray(rs?.englishSubtitles) || rs.englishSubtitles.length === 0) {
+          lastIssues.push('reelScriptが不完全 (hookText/englishAudio/englishSubtitles)');
+        }
+      } catch (e) {
+        lastIssues = ['Invalid JSON format from AI response'];
+      }
+      if (parsed && lastIssues.length === 0) {
+        visualResult = parsed;
+        break;
+      }
+      console.warn(`⚠️ カルーセル原案の検品NG (${qaAttempt}/${QA_MAX_ATTEMPTS}): ${lastIssues.join(' / ')}`);
+    }
+    if (!visualResult) {
+      throw new Error(`Carousel recipe QA failed after ${QA_MAX_ATTEMPTS} attempts: ${lastIssues.join(' / ')}`);
     }
     const { slug, reelScript, carouselJson } = visualResult;
     
