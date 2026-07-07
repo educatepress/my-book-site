@@ -42,6 +42,49 @@ function auditCarouselRecipe(slides: any): string[] {
   } else if (!last.actionText || !last.commentTrigger) {
     issues.push('CTAにactionText/commentTriggerが無い');
   }
+
+  // ── 各スライドの本文完全性（2026-07-07 追加） ──
+  // Gemini は headline だけ返して body を省略することがあり、そのまま通すと
+  // 「タイトルだけで本文が白紙のスライド」が投稿される(2026-07-04 IG実機で発生)。
+  // 基準は reels-factory 側 carousel-recipe-audit.ts と揃えること(レンダラーが
+  // 実際に描画するフィールドが埋まっているかだけを見る)。
+  const isFilled = (v: any): boolean => typeof v === 'string' && v.trim().length > 0;
+  const hasFilledItem = (arr: any): boolean =>
+    Array.isArray(arr) && arr.some((x: any) => isFilled(x));
+  slides.forEach((s: any, i: number) => {
+    const n = s?.slideNumber ?? i + 1;
+    switch (s?.type) {
+      case 'Cover':
+      case 'CTA':
+        if (!isFilled(s.headline)) issues.push(`slide${n}(${s.type}): headlineが空`);
+        break;
+      case 'Agitation':
+      case 'Message':
+        if (!isFilled(s.body)) issues.push(`slide${n}(${s.type}): bodyが空(本文白紙になる)`);
+        break;
+      case 'Content':
+      case 'Intro':
+        if (!isFilled(s.headline)) issues.push(`slide${n}(${s.type}): headlineが空`);
+        if (!isFilled(s.body) && !hasFilledItem(s.points)) {
+          issues.push(`slide${n}(${s.type}): body/pointsが両方空(本文白紙になる)`);
+        }
+        break;
+      case 'Summary':
+        if (!Array.isArray(s.summaryItems) || s.summaryItems.filter((x: any) => isFilled(x)).length < 2) {
+          issues.push(`slide${n}(Summary): summaryItemsが2件未満`);
+        }
+        break;
+      case 'Evidence':
+        if (!isFilled(s.keyStat) && !isFilled(s.body)) {
+          issues.push(`slide${n}(Evidence): keyStat/bodyが両方空`);
+        }
+        break;
+      case 'Infographic':
+        break; // 数値妥当性は上の hasValidChart 判定と reels-factory 側の検証が担当
+      default:
+        issues.push(`slide${n}: 未知のtype "${s?.type}"(レンダラーが描画できない)`);
+    }
+  });
   return issues;
 }
 
