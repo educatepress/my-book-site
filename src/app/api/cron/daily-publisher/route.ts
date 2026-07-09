@@ -5,6 +5,43 @@ import { withRetry, sendSlackErrorAlert, sendSlackInfo } from '@/lib/retry';
 
 export const maxDuration = 300;
 
+// Instagram Graph API のキャプション上限。超過すると Make シナリオが
+// (36004, OAuthException) "The caption was too long" でエラー停止する(2026-07-10 実事故)。
+// 末尾のハッシュタグ・ブロックを温存しつつ本文を境界で切り詰めて必ず上限内に収める。
+const IG_CAPTION_LIMIT = 2200;
+function clampIgCaption(text: string, limit: number = IG_CAPTION_LIMIT): string {
+  const original = (text || '').trim();
+  if (original.length <= limit) return original;
+
+  const lines = original.split('\n');
+  let tagStart = lines.length;
+  while (tagStart > 0) {
+    const line = lines[tagStart - 1].trim();
+    if (line === '' || /^(#[^\s#]+\s*)+$/.test(line)) tagStart--;
+    else break;
+  }
+  const tagBlock = lines.slice(tagStart).join('\n').trim();
+  let body = lines.slice(0, tagStart).join('\n').trim();
+  const budget = limit - (tagBlock ? tagBlock.length + 2 : 0);
+
+  if (body.length > budget) {
+    const slice = body.slice(0, budget);
+    const paraCut = slice.lastIndexOf('\n\n');
+    const sentCut = Math.max(
+      slice.lastIndexOf('. '), slice.lastIndexOf('! '), slice.lastIndexOf('? '),
+      slice.lastIndexOf('.\n'), slice.lastIndexOf('!\n'), slice.lastIndexOf('?\n'),
+      slice.lastIndexOf('。'), slice.lastIndexOf('！'), slice.lastIndexOf('？'),
+    );
+    if (paraCut > budget * 0.6) body = slice.slice(0, paraCut).trim();
+    else if (sentCut > budget * 0.5) body = slice.slice(0, sentCut + 1).trim();
+    else {
+      const wordCut = slice.lastIndexOf(' ');
+      body = (wordCut > 0 ? slice.slice(0, wordCut) : slice).trim();
+    }
+  }
+  return tagBlock ? `${body}\n\n${tagBlock}` : body;
+}
+
 /**
  * GitHub APIを用いて指定リポジトリのパスにファイルをコミット（作成・更新）する
  */
@@ -264,6 +301,11 @@ export async function GET(req: Request) {
               captionText = recipe.captionText || recipe.text || item.title;
             } catch (e) {
               captionText = item.title;
+            }
+            const beforeClamp = captionText.length;
+            captionText = clampIgCaption(captionText);
+            if (captionText.length !== beforeClamp) {
+              console.warn(`✂️ Caption exceeded IG limit (${beforeClamp}/${IG_CAPTION_LIMIT}) → clamped to ${captionText.length} chars: ${item.title}`);
             }
 
             const payload = {
