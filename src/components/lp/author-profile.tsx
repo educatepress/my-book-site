@@ -22,7 +22,7 @@ export default function AuthorProfile() {
                                 <a href="https://note.com/famous_cosmos408" target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm hover:scale-110 transition-transform border border-black/5" title="note">
                                     <img src="/icon-note.svg" alt="note" className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
                                 </a>
-                                <a href="https://instagram.com/dr.sato.fertility" target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm hover:scale-110 transition-transform border border-black/5" title="Instagram">
+                                <a href="https://instagram.com/dr.sato.fertility.specialist" target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm hover:scale-110 transition-transform border border-black/5" title="Instagram">
                                     <img src="/icon-instagram.svg" alt="Instagram" className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
                                 </a>
                             </div>
