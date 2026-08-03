@@ -1,18 +1,13 @@
 {
-  "week": "2026-07-27",
+  "week": "2026-08-03",
   "categoryPV": {
-    "③身体のサイン解読": 1,
-    "⑧サプリ・生活改善": 1
+    "分類外": 2
   },
   "top10": [
     {
-      "path": "/blog/amh-afc-discordance-which-to-trust",
-      "pv": 1
-    },
-    {
-      "path": "/blog/coq10-egg-quality-fertilization-rate",
-      "pv": 1
+      "path": "/en/blog/fertility-sex-position-myth-science",
+      "pv": 2
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n③身体のサイン解読: 1 PV (1記事, 平均1 PV/記事)\n⑧サプリ・生活改善: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — AMHとAFCの数値が合わない時に信じるべきは？不一致が起きる理由と対策 | Blog\n  1 PV — 404: This page could not be found.\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 2 PV (1記事, 平均2 PV/記事)\n\nTOP5記事:\n  2 PV — Fertility and Sexual Positions: Myth or Science? T\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
