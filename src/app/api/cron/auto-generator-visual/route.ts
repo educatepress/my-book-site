@@ -21,21 +21,44 @@ function auditCarouselRecipe(slides: any): string[] {
     issues.push(`スライドが${Array.isArray(slides) ? slides.length : 0}枚 (最低8枚)`);
     return issues;
   }
-  // reels-factory 側 validateInfographicSlide の comparison 判定と同じ基準。
-  // これを満たさない Infographic は下流でドロップされ枚数が減る
+  // reels-factory 側 validateInfographicSlide と同じ基準。
+  // これを満たさない Infographic は下流でドロップされ枚数が減る。
+  // 2026-08-06 取締役指示: Infographic は必須ではない（論文に実数値が無ければ作らない）。
+  // ただし「作るなら」chartType別の数値妥当性＋source(短い実引用)を必須とする。
   const toNum = (v: any): number => {
     if (typeof v === 'number') return Number.isFinite(v) ? v : NaN;
     if (typeof v !== 'string') return NaN;
     const m = v.replace(/,/g, '').match(/-?\d+(\.\d+)?/);
     return m ? parseFloat(m[0]) : NaN;
   };
-  const hasValidChart = slides.some((s: any) => {
-    if (s?.type !== 'Infographic') return false;
-    const g1 = toNum(s.group1Value);
-    const g2 = toNum(s.group2Value);
-    return Number.isFinite(g1) && Number.isFinite(g2) && Math.max(g1, g2) > 0;
+  slides.forEach((s: any, i: number) => {
+    if (s?.type !== 'Infographic') return;
+    const n = s?.slideNumber ?? i + 1;
+    const ct = s.chartType || 'comparison';
+    if (ct === 'comparison') {
+      const g1 = toNum(s.group1Value);
+      const g2 = toNum(s.group2Value);
+      if (!(Number.isFinite(g1) && Number.isFinite(g2) && Math.max(g1, g2) > 0)) {
+        issues.push(`slide${n}(Infographic/comparison): group1/2Valueが無効`);
+      }
+    } else if (ct === 'single_value') {
+      const mv = toNum(s.mainValue);
+      if (!(Number.isFinite(mv) && mv > 0)) issues.push(`slide${n}(Infographic/single_value): mainValueが無効`);
+    } else if (ct === 'donut') {
+      const segs = (Array.isArray(s.segments) ? s.segments : [])
+        .filter((x: any) => Number.isFinite(toNum(x?.value)) && toNum(x?.value) > 0);
+      if (segs.length < 2) issues.push(`slide${n}(Infographic/donut): 有効なsegmentが2件未満`);
+    } else if (ct === 'trend') {
+      const pts = (Array.isArray(s.points) ? s.points : [])
+        .filter((x: any) => Number.isFinite(toNum(x?.value)));
+      if (pts.length < 3) issues.push(`slide${n}(Infographic/trend): 有効なpointが3点未満`);
+    } else {
+      issues.push(`slide${n}(Infographic): 未知のchartType "${ct}"`);
+    }
+    if (typeof s.source !== 'string' || !s.source.trim()) {
+      issues.push(`slide${n}(Infographic): source(短い引用)が空 — 引用無しのグラフは出荷しない`);
+    }
   });
-  if (!hasValidChart) issues.push('有効な数値入りInfographicが無い');
   const last = slides[slides.length - 1];
   if (last?.type !== 'CTA') {
     issues.push(`末尾スライドがCTAでない (${last?.type})`);
@@ -183,29 +206,47 @@ ${pendingTopic.searchKeywords}
    2. Agitation / Intro / Content (multiple explanation slides)
      { "slideNumber": 2, "type": "Content", "headline": "Section Heading", "body": "Body text in English", "highlightKeyword": "keyword to emphasize" }
 
-   3. Infographic (1-2 data comparison slides in the middle)
-     Use actual numeric data from the referenced paper/guideline.
+   3. Infographic (0-2 data slides in the middle — ONLY when the paper reports concrete numbers)
 
      ★★★ ABSOLUTE RULES ★★★
-     - group1Value and group2Value MUST have concrete numbers (e.g. 55.4, 32.1). Never 0 or null.
-     - Numbers must be based on real data from the cited paper. If unavailable, estimate reasonable values from the paper's conclusions.
-     - title: clearly state what is being compared (e.g. "Pregnancy Rate: CoQ10 vs Control")
-     - metricLabel: specify the metric (e.g. "Live Birth Rate", "Sperm Motility")
-     - source: cite the paper or organization
+     - Use ONLY actual numbers reported in the referenced paper/guideline. NEVER estimate,
+       extrapolate, or invent values. If the paper does not report concrete usable numbers,
+       DO NOT create an Infographic slide at all — write a Content slide that explains the
+       finding qualitatively instead. A missing chart is always better than a made-up chart.
+     - "source" is REQUIRED and must be a short real citation of the referenced paper:
+       "FirstAuthor et al., Journal abbrev., Year" (e.g. "Vitagliano et al., Fertil Steril, 2023").
+       Do NOT cite any paper/organization other than the provided reference. No PMIDs.
+     - title: clearly state what the chart shows. metricLabel: the metric (e.g. "Live Birth Rate").
 
-     {
-       "slideNumber": 5,
-       "type": "Infographic",
-       "chartType": "comparison",
-       "title": "Pregnancy Rate: Treatment vs Control",
-       "source": "BMJ 2026 / ASRM Guideline",
-       "metricLabel": "Pregnancy Rate",
-       "group1Label": "Natural FET",
-       "group1Value": 55.4,
-       "group2Label": "Programmed FET",
-       "group2Value": 32.1,
-       "unit": "%"
-     }
+     ★★★ CHOOSE chartType BY DATA SHAPE — do NOT default everything to a bar comparison ★★★
+     - "comparison": ONLY for two comparable groups measured on the same metric (treatment vs control).
+     - "single_value": one striking standalone number (a prevalence, a risk, an odds ratio).
+     - "donut": parts of a whole for ONE population (2-4 segments that sum to ~100%).
+     - "trend": change across 3+ ordered points (age groups, weeks, years).
+
+     Examples (pick the ONE shape that matches the paper's data):
+
+     { "slideNumber": 5, "type": "Infographic", "chartType": "comparison",
+       "title": "Pregnancy Rate: Treatment vs Control", "source": "Vitagliano et al., Fertil Steril, 2023",
+       "metricLabel": "Pregnancy Rate", "group1Label": "Natural FET", "group1Value": 55.4,
+       "group2Label": "Programmed FET", "group2Value": 32.1, "unit": "%" }
+
+     { "slideNumber": 5, "type": "Infographic", "chartType": "single_value",
+       "title": "How Common Is It?", "source": "Bozdag et al., Hum Reprod, 2016",
+       "metricLabel": "Prevalence", "mainValue": 10, "unit": "%",
+       "subText": "of reproductive-age women are affected" }
+
+     { "slideNumber": 5, "type": "Infographic", "chartType": "donut",
+       "title": "Causes of Infertility", "source": "ASRM Committee Opinion, 2020",
+       "metricLabel": "Share of Cases",
+       "segments": [ { "label": "Female factor", "value": 35 }, { "label": "Male factor", "value": 30 },
+                     { "label": "Combined / Unexplained", "value": 35 } ], "unit": "%" }
+
+     { "slideNumber": 5, "type": "Infographic", "chartType": "trend",
+       "title": "Live Birth Rate by Age", "source": "SART National Report, 2022",
+       "metricLabel": "Live Birth Rate",
+       "points": [ { "label": "<35", "value": 51 }, { "label": "35-37", "value": 38 },
+                   { "label": "38-40", "value": 25 }, { "label": ">40", "value": 8 } ], "unit": "%" }
 
    4. Summary (near the end)
      { "slideNumber": 9, "type": "Summary", "headline": "Key Takeaways", "summaryItems": ["Point 1", "Point 2", "Pro Tip: A specialist perspective"] }
