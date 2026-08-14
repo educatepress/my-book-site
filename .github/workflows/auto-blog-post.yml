@@ -49,7 +49,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "feat(blog): auto-generated blog post [skip ci]"
+          # [skip ci] を外した(2026-08-14): Vercel は [skip ci] 付きコミットのデプロイを
+          # スキップするため、記事を生成できてもサイトに反映されない事故になる。
+          # このリポに push トリガーのワークフローは無く、自己ループの心配もない。
+          git commit -m "feat(blog): auto-generated blog post"
           git push origin main
 
       - name: Trigger Vercel Deploy

@@ -3,6 +3,7 @@ import { GoogleGenAI } from '@google/genai';
 import fs from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
+import { getOldestPendingTheme, updateThemeScheduleStatus, type ThemeScheduleItem } from '../../src/lib/sheets';
 
 // Configure Gemini API
 if (!process.env.GEMINI_API_KEY) {
@@ -11,48 +12,25 @@ if (!process.env.GEMINI_API_KEY) {
 }
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-async function getNextReelsTheme(): Promise<string> {
-    const calendarPath = '/Users/satoutakuma/Library/CloudStorage/GoogleDrive-gana.pati1201@gmail.com/マイドライブ/Instagram_Auto_Post/Reels_Content_Calendar.md';
-    try {
-        if (!existsSync(calendarPath)) {
-             console.warn(`⚠️ Warning: Reels calendar not found at ${calendarPath}. Using default themes.`);
-             return "プレコンセプションケア、不妊予防、ライフプランニングについて";
-        }
-        const content = await fs.readFile(calendarPath, 'utf8');
-        const lines = content.split('\n');
-        
-        let foundUnchecked = false;
-        let themeText = "";
-        
-        for (let i = 0; i < lines.length; i++) {
-            const line = lines[i].trim();
-            // Look for the first unchecked item like "- [ ] **2. 2026/03/14..."
-            if (line.match(/^- \[\s\]/)) {
-                foundUnchecked = true;
-                // Grab the next few lines for context
-                for (let j = i + 1; j < i + 4; j++) {
-                    if (lines[j] && (lines[j].includes('**テーマ**:') || lines[j].includes('**狙い**:'))) {
-                        themeText += lines[j].trim() + "\n";
-                    } else if (lines[j] && lines[j].match(/^- \[/)) {
-                        break; // hit next item
-                    }
-                }
-                break;
-            }
-        }
-        
-        if (foundUnchecked && themeText) {
-             console.log("✅ Synced with Reels Calendar Theme:\n" + themeText);
-             return themeText;
-        } else {
-             console.log("⚠️ No unchecked themes found in Reels calendar. Using default theme.");
-             return "プレコンセプションケア、不妊予防、ライフプランニングについて";
-        }
-        
-    } catch (e) {
-        console.error("❌ Error reading Reels calendar:", e);
-        return "プレコンセプションケア、不妊予防、ライフプランニングについて";
-    }
+// ── テーマ供給 ──
+// 旧実装は佐藤PCのGoogle Driveローカルパス(Reels_Content_Calendar.md)を読んでいたが、
+// CI(ubuntu)にそのパスは存在せず、常に既定テーマへフォールバック→「No new content」で
+// 緑のまま何も生成しない状態が続いていた(2026-08-14判明)。ThemeSchedule(Sheets)から
+// 「期日超過のpending」を拾う方式に変更。テーマが尽きることはない(2027-08まで補充済み)。
+async function getNextTheme(todayStr: string): Promise<ThemeScheduleItem | null> {
+    const item = await getOldestPendingTheme('book', todayStr);
+    if (!item) return null;
+    console.log(`✅ ThemeSchedule row ${item.rowNumber} (${item.date}): ${item.theme}`);
+    return item;
+}
+
+function formatTheme(item: ThemeScheduleItem): string {
+    let t = `**テーマ**: ${item.theme}`;
+    if (item.themeArea) t += `\n**分野**: ${item.themeArea}`;
+    if (item.searchKeywords) t += `\n**関連キーワード**: ${item.searchKeywords}`;
+    if (item.evidenceTier) t += `\n**エビデンス層**: ${item.evidenceTier}`;
+    if (item.limitations) t += `\n**エビデンス上の限界(記事内で正直に言及すること)**: ${item.limitations}`;
+    return t;
 }
 
 // Helper to inject x_post into MDX frontmatter safely
@@ -89,13 +67,11 @@ function sanitizeFrontmatter(mdx: string): string {
 
 async function main() {
     console.log("🚀 Starting Automatic Blog Generation with Gemini AI...");
+    const todayStr = new Date().toISOString().split('T')[0];
 
-    // 0. Sync Theme with Reels Calendar
-    const synchronizedTheme = await getNextReelsTheme();
-
-    // 1. Calculate the next publishing date
+    // 1. Calculate the next publishing date (先に既存記事の最新日付を得る=鮮度ゲートにも使う)
     const jpBlogDir = path.join(process.cwd(), 'src/content/blog/jp');
-    let maxDateStr = new Date().toISOString().split('T')[0];
+    let maxDateStr = '2000-01-01';
 
     if (existsSync(jpBlogDir)) {
         const files = await fs.readdir(jpBlogDir);
@@ -113,13 +89,31 @@ async function main() {
         }
     }
 
-    const maxDateObj = new Date(maxDateStr);
+    // 0. テーマ取得(ThemeSchedule)。取れない場合の扱いが重要:
+    //  - Sheets接続エラー → 生成せず exit 1(既定テーマで捏造気味の記事を出すより止まって赤くする)
+    //  - pending無し(=Vercel経路が追いついている・正常) → 鮮度ゲートだけ確認してexit 0
+    //  - pending無し かつ 最新記事が7日以上古い → パイプライン全体が止まっている → exit 1
+    //    (従来は「緑なのに何も生成しない」が常態化し、23日間の停止に誰も気づけなかった)
+    const themeItem = await getNextTheme(todayStr);
+    if (!themeItem) {
+        const staleDays = Math.floor((Date.parse(todayStr) - Date.parse(maxDateStr)) / 86400000);
+        if (staleDays > 7) {
+            console.error(`❌ pendingテーマ無し、かつ最新記事が${staleDays}日前(${maxDateStr})。`);
+            console.error('   Vercel経路(auto-generator-text/daily-publisher)が停止している可能性が高い。要調査。');
+            process.exit(1);
+        }
+        console.log(`🟢 期日超過のpendingテーマ無し(最新記事${maxDateStr})。Vercel経路が正常に消化している。`);
+        return;
+    }
+    const synchronizedTheme = formatTheme(themeItem);
+
+    const maxDateObj = new Date(maxDateStr < todayStr ? maxDateStr : todayStr);
     // Add 3 days to the latest date found (or today)
     maxDateObj.setDate(maxDateObj.getDate() + 3);
-    const postDateStr = maxDateObj.toISOString().split('T')[0];
+    const basePost = maxDateObj.toISOString().split('T')[0];
+    const postDateStr = basePost > todayStr ? basePost : todayStr;
 
     console.log(`📅 Target Post Date calculated as: ${postDateStr}`);
-    const today = new Date().toISOString().split('T')[0];
 
     const prompt = `
 あなたは、生殖医療専門医（産婦人科医）である佐藤琢磨医師の専属AIコンテンツクリエイター兼、Webマーケティング/SEOの達人です。
@@ -247,6 +241,14 @@ Expected JSON Schema:
         console.log(`✅ Saved EN Blog -> ${enBlogPath}`);
 
         console.log(`📝 Generated xPost Tip: ${safeXPost}`);
+
+        // ThemeSchedule を done に更新(二重生成防止)。DRY_RUN=1 なら触らない(ローカル検証用)
+        if (process.env.DRY_RUN === '1') {
+            console.log('🧪 DRY_RUN=1: ThemeSchedule status は更新しません');
+        } else {
+            await updateThemeScheduleStatus(themeItem.rowNumber, 'done');
+            console.log(`📮 ThemeSchedule row ${themeItem.rowNumber} → done`);
+        }
         console.log("🎉 Automated content generated successfully!");
 
     } catch (err: any) {

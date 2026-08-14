@@ -309,6 +309,51 @@ export async function getThemeSchedule(dateStr: string, brandFilter: string): Pr
   }
 }
 
+/**
+ * ThemeSchedule から「期日を過ぎたのに未処理(pending)」の最古テーマを1件取得する。
+ *
+ * 2026-08-14 追加: GitHub Actions の auto-blog-post が佐藤PCのGoogle Driveローカル
+ * パス(CI上に存在しない)からテーマを読んでいたため、ワークフローは緑のまま一度も
+ * 記事を生成していなかった。この関数で Vercel 経路(auto-generator-text: 翌日分を
+ * 先取り)が取りこぼした過去日の pending を拾う=フォールバックとして働き、
+ * 二重生成しない(Vercel経路が処理済みの行は status が pending でなくなるため)。
+ */
+export async function getOldestPendingTheme(brandFilter: string, maxDateStr: string): Promise<ThemeScheduleItem | null> {
+  const auth = await getGoogleAuthClient();
+  const sheets = google.sheets({ version: 'v4', auth: auth as any });
+
+  try {
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: QUEUE_SPREADSHEET_ID,
+      range: `${THEME_SCHEDULE_SHEET_NAME}!A:I`,
+    });
+
+    const rows = response.data.values;
+    if (!rows || rows.length <= 1) return null;
+
+    let best: ThemeScheduleItem | null = null;
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      const dateVal = String(row[0] || '');
+      const brandVal = String(row[1] || '');
+      const statusVal = String(row[6] || '');
+      if (brandVal !== brandFilter) continue;
+      if (statusVal !== 'pending') continue;
+      if (!dateVal || dateVal > maxDateStr) continue;
+      if (best && best.date <= dateVal) continue;
+      const item: any = { rowNumber: i + 1 };
+      THEME_SCHEDULE_HEADERS.forEach((header, index) => {
+        item[header] = row[index] || '';
+      });
+      best = item as ThemeScheduleItem;
+    }
+    return best;
+  } catch (error) {
+    console.error(`Failed to fetch oldest pending theme:`, error);
+    return null;
+  }
+}
+
 export async function updateThemeScheduleStatus(rowNumber: number, newStatus: string): Promise<void> {
   const auth = await getGoogleAuthClient();
   const sheets = google.sheets({ version: 'v4', auth: auth as any });

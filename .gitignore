@@ -50,3 +50,6 @@ KDP_Prior_Month_Royalties-*.xlsx
 scripts/logs/
 scripts/content-gen/out-daily-x/debug-blog-*.txt
 scripts/_tmp_*.ts
+
+# 下書き(.draft)は公開物ではないのでコミットしない(2026-08-14)
+*.draft
