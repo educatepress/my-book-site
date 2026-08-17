@@ -1,28 +1,51 @@
 {
-  "week": "2026-08-10",
+  "week": "2026-08-17",
   "categoryPV": {
-    "⑨特定診断のピア体験": 1,
-    "分類外": 1,
-    "①流産の恐怖・不安": 1,
-    "⑤保険・費用・アクセス": 0
+    "分類外": 9,
+    "④精神的負担・人間関係": 1,
+    "①流産の恐怖・不安": 1
   },
   "top10": [
     {
-      "path": "/en/blog/acog-2026-endometriosis-guidelines-no-wait-for-surgery-en",
+      "path": "/en/blog/chemical-pregnancy-future-fertility",
       "pv": 1
     },
     {
-      "path": "/en/blog/early-embryo-transfer-blastocyst-failure",
+      "path": "/en/blog/family-pressure-fertility-boundaries",
       "pv": 1
     },
     {
-      "path": "/en/blog/first-trimester-bleeding-spotting",
+      "path": "/en/blog/fertility-detox-scientific-basis",
       "pv": 1
     },
     {
-      "path": "/en/blog/tokyo-fertility-subsidy-2026-updates-en",
-      "pv": 0
+      "path": "/en/blog/fertility-partner-communication-gap",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/fertility-sex-position-myth-science",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/hydration-female-fertility-egg-quality",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/preconception-checkup-guide-en",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/single-vs-double-embryo-transfer-success-twin-risk",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/sperm-dna-fragmentation-infertility-hidden-cause",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/stopping-fertility-treatment",
+      "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n⑨特定診断のピア体験: 1 PV (1記事, 平均1 PV/記事)\n分類外: 1 PV (1記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n⑤保険・費用・アクセス: 0 PV (1記事, 平均0 PV/記事)\n\nTOP5記事:\n  1 PV — ACOG 2026 Endometriosis Guidelines: The Era of 'Tr\n  1 PV — When Embryos Don't Reach Blastocyst Stage: Is Earl\n  1 PV — First Trimester Bleeding — A Sign of Miscarriage o\n  0 PV — 2026 Tokyo Fertility Subsidy Updates: A Path Towar\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 9 PV (9記事, 平均1 PV/記事)\n④精神的負担・人間関係: 1 PV (1記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — To You Who Experienced a Chemical Pregnancy — Impa\n  1 PV — Navigating \"When Are You Having Kids?\": Expert Str\n  1 PV — Fertility Detox: Is There Scientific Evidence? An \n  1 PV — Bridging the Gap: Communication Strategies for Par\n  1 PV — Fertility and Sexual Positions: Myth or Science? T\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
