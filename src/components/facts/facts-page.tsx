@@ -15,7 +15,7 @@ export default function FactsPage({ lang }: { lang: 'ja' | 'en' }) {
             blog: '記事一覧', blogHref: '/blog',
             appendix: '付録',
             bookCta: '24項目を図解つきで、順序立てて読む',
-            bookLink: 'https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-blog-22',
+            bookLink: 'https://www.amazon.co.jp/dp/B0DV8Z3XZR?tag=ttcguide-blog-22',
             bookLabel: '書籍を見る（Amazon）',
             disclaimer: '一般的な情報提供であり、医学的助言ではありません。個別の判断は主治医・専門医にご相談ください。',
         }
@@ -30,7 +30,7 @@ export default function FactsPage({ lang }: { lang: 'ja' | 'en' }) {
             blog: 'All articles', blogHref: '/en/blog',
             appendix: 'Appendices',
             bookCta: 'Read all 24 in order, with illustrations',
-            bookLink: 'https://www.amazon.com/dp/4991427827?tag=ttcguide-enblog-22',
+            bookLink: 'https://www.amazon.com/dp/B0F771VNV5?tag=ttcguide-enblog-22',
             bookLabel: 'View the book (Amazon)',
             disclaimer: 'General information, not medical advice. Please discuss your own situation with your specialist.',
         };

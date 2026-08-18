@@ -49,7 +49,7 @@ const bookJsonLdEn = {
     "identifier": {
         "@type": "PropertyValue",
         "propertyID": "ASIN",
-        "value": "B0F7XTWJ3X"
+        "value": "B0F771VNV5"
     },
     "numberOfPages": 180,
     "inLanguage": "en",

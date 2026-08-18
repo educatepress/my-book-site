@@ -204,7 +204,7 @@ export default async function BlogPost({ params }: PostProps) {
                             </p>
 
                             <a
-                                href="https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-blog-22"
+                                href="https://www.amazon.co.jp/dp/B0DV8Z3XZR?tag=ttcguide-blog-22"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center bg-[var(--color-sage)] hover:bg-[#5a7a5f] text-white text-[0.85rem] font-bold px-6 py-3 rounded-full transition-colors shadow-sm w-full sm:w-auto"

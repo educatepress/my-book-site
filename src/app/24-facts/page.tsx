@@ -25,7 +25,7 @@ function jsonLd() {
         name: '20代で考える 将来妊娠で困らないための選択',
         inLanguage: 'ja',
         author: authorLd('ja'),
-        identifier: { '@type': 'PropertyValue', propertyID: 'ASIN', value: 'B0F7XTWJ3X' },
+        identifier: { '@type': 'PropertyValue', propertyID: 'ASIN', value: 'B0DV8Z3XZR' },
         about: ['不妊予防', 'プレコンセプションケア', '月経', '卵巣予備能', '不妊治療'],
         hasPart: { '@type': 'ItemList', numberOfItems: items.length, itemListElement: items },
     };

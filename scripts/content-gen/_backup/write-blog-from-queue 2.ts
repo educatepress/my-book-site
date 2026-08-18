@@ -1,3 +1,4 @@
+// ⚠️ 旧版バックアップ。使用されていません。書籍ASINも旧(誤)のままです。正は _backup 外のファイル。
 import 'dotenv/config';
 import { GoogleGenAI } from '@google/genai';
 import fs from 'fs/promises';

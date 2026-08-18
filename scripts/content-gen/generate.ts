@@ -51,12 +51,12 @@ Assets to generate:
 2. "jpBlog": A complete Japanese MDX blog post.
    - Must start with Markdown frontmatter. Wrap title string in double quotes to avoid YAML colon errors (title: "...", date as YYYY-MM-DD, excerpt, author: "佐藤 琢磨").
    - Formal but approachable medical tone. Use markdown headings and lists. Includes a CTA to the book at the end.
-   - The book CTA MUST use this exact URL: https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-blog-22
+   - The book CTA MUST use this exact URL: https://www.amazon.co.jp/dp/B0DV8Z3XZR?tag=ttcguide-blog-22
    - Use slug in english format (e.g. why-egg-freezing) under "slug" key in JSON.
 3. "enBlog": An English translated and localized MDX blog post.
    - The English version MUST sound natural to Western audiences (focus on Empowerment and Evidence-based choices).
    - Must have English frontmatter. Wrap title string in double quotes (title: "...", date, excerpt: "...", author: "Takuma Sato, MD, PhD").
-   - The book CTA MUST use this exact URL: https://www.amazon.com/dp/4991427827?tag=ttcguide-enblog-22
+   - The book CTA MUST use this exact URL: https://www.amazon.com/dp/B0F771VNV5?tag=ttcguide-enblog-22
 
 ### User Draft:
 ${rawDraft}

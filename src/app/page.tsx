@@ -24,7 +24,7 @@ const bookJsonLd = {
     "identifier": {
         "@type": "PropertyValue",
         "propertyID": "ASIN",
-        "value": "B0F7XTWJ3X"
+        "value": "B0DV8Z3XZR"
     },
     "numberOfPages": 180,
     "inLanguage": "ja",
@@ -39,7 +39,7 @@ const bookJsonLd = {
             "price": "1250",
             "priceCurrency": "JPY",
             "availability": "https://schema.org/InStock",
-            "url": "https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-lp-22",
+            "url": "https://www.amazon.co.jp/dp/B0DV8Z3XZR?tag=ttcguide-lp-22",
             "description": "Kindle版"
         },
         {
@@ -47,7 +47,7 @@ const bookJsonLd = {
             "price": "1500",
             "priceCurrency": "JPY",
             "availability": "https://schema.org/InStock",
-            "url": "https://amazon.co.jp/dp/B0F7XTWJ3X?tag=ttcguide-lp-22",
+            "url": "https://www.amazon.co.jp/dp/B0DV8Z3XZR?tag=ttcguide-lp-22",
             "description": "ペーパーバック版"
         }
     ]
