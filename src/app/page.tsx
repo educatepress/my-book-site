@@ -9,6 +9,7 @@ import Reviews from '@/components/lp/reviews';
 import FaqSection from '@/components/lp/faq-section';
 import FinalCta from '@/components/lp/final-cta';
 import StickyCta from '@/components/common/sticky-cta';
+import PassItOn from '@/components/lp/pass-it-on';
 
 const bookJsonLd = {
     "@context": "https://schema.org",
@@ -101,6 +102,7 @@ export default function Home() {
             <BeforeAfter />
             <BookDetail />
             <AuthorProfile />
+            <PassItOn />
             <SimulatorCta />
             <Reviews />
             <FaqSection />
