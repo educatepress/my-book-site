@@ -13,6 +13,11 @@
 - No fear-based framing, no cure claims, no unverifiable statistics.
 - Evidence policy: /evidence-policy (JA) and /en/evidence-policy (EN).
 
+## Most citable page
+- Fertility numbers with their limits: https://ttcguide.co/en/fertility-numbers (JA: https://ttcguide.co/fertility-numbers)
+  Each figure is published with its source AND with what the number does not say. It also lists the author's own
+  clinical decision thresholds, explicitly labelled as clinical judgement rather than guideline.
+
 ## Key pages
 - English home: https://ttcguide.co/en
 - Japanese home: https://ttcguide.co/
