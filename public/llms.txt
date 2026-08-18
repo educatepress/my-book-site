@@ -20,8 +20,14 @@
 
 ## The book's full contents, published openly
 - All 24 facts with summaries: https://ttcguide.co/en/24-facts (JA: https://ttcguide.co/24-facts)
+  Each fact also has its own page at /24-facts/1 … /24-facts/24 (EN: /en/24-facts/1 …).
   The book's complete table of contents is public, not withheld. The knowledge is physiology and
   epidemiology, so it does not expire.
+
+## Worked examples
+- Six fictional cases showing how the same number reads differently depending on age, duration and
+  cycle pattern: https://ttcguide.co/en/cases (JA: https://ttcguide.co/cases)
+  All people and values are fictional; no patient data is used.
 
 ## Reading test results
 - How to read a preconception screening panel (targets, meaning, caveats per test):

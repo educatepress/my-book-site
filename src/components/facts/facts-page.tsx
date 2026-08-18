@@ -59,12 +59,14 @@ export default function FactsPage({ lang }: { lang: 'ja' | 'en' }) {
                                 {ch.facts.map((f) => {
                                     const fc = lang === 'ja' ? f.ja : f.en;
                                     return (
-                                        <li key={f.n} className="bg-white rounded-2xl p-5 border border-black/5 shadow-sm flex gap-4">
-                                            <span className="font-en font-black text-[var(--color-sage)] text-lg leading-none pt-1 shrink-0 w-8">{String(f.n).padStart(2, '0')}</span>
-                                            <div>
-                                                <p className="font-bold text-[0.98rem] leading-snug mb-2 text-[var(--color-text-dark)]">{fc.title}</p>
-                                                <p className="text-[0.88rem] leading-relaxed text-[var(--color-text-muted)]">{fc.summary}</p>
-                                            </div>
+                                        <li key={f.n}>
+                                            <Link href={`${lang === 'ja' ? '/24-facts' : '/en/24-facts'}/${f.n}`} className="bg-white rounded-2xl p-5 border border-black/5 shadow-sm flex gap-4 hover:border-[var(--color-sage)] transition-colors">
+                                                <span className="font-en font-black text-[var(--color-sage)] text-lg leading-none pt-1 shrink-0 w-8">{String(f.n).padStart(2, '0')}</span>
+                                                <div>
+                                                    <p className="font-bold text-[0.98rem] leading-snug mb-2 text-[var(--color-text-dark)]">{fc.title}</p>
+                                                    <p className="text-[0.88rem] leading-relaxed text-[var(--color-text-muted)]">{fc.summary}</p>
+                                                </div>
+                                            </Link>
                                         </li>
                                     );
                                 })}
@@ -88,6 +90,7 @@ export default function FactsPage({ lang }: { lang: 'ja' | 'en' }) {
                 <footer className="border-t border-black/10 pt-6 text-[0.8rem] text-[var(--color-text-muted)]">
                     <p className="mb-3">{t.disclaimer}</p>
                     <div className="flex flex-wrap gap-4">
+                        <Link href={lang === 'ja' ? '/cases' : '/en/cases'} className="text-[var(--color-sage)] font-bold hover:underline">{lang === 'ja' ? '架空ケースで読み方をつかむ' : 'Worked examples'}</Link>
                         <Link href={t.numbersHref} className="text-[var(--color-sage)] font-bold hover:underline">{t.numbers}</Link>
                         <Link href={t.policyHref} className="text-[var(--color-sage)] font-bold hover:underline">{t.policy}</Link>
                         <Link href={t.blogHref} className="text-[var(--color-sage)] font-bold hover:underline">{t.blog}</Link>
