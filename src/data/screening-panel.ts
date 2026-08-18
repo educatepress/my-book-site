@@ -85,7 +85,7 @@ export const PANEL_GROUPS: PanelGroup[] = [
         items: [
             {
                 id: 'vitd',
-                ja: { name: '25-OH ビタミンD', target: '30 μg/dL以上', means: '欠乏していると診断されたら1日25〜50μg（1000〜2000単位）で補充。月経周期が整うこと、着床環境が改善することが報告されています。', note: '脂溶性で体内に蓄積するため過剰摂取に注意。補充開始から1〜2ヶ月で再検査を。' },
+                ja: { name: '25-OH ビタミンD', target: '30 μg/dL以上', means: '欠乏と診断された場合は1日25〜50μg（1000〜2000単位）を補います。周期の安定や着床環境への好影響が報告されている栄養素です。', note: '脂溶性で体内に蓄積するため過剰摂取に注意。補充開始から1〜2ヶ月で再検査を。' },
                 en: { name: '25-OH vitamin D', target: '30 µg/dL or above', means: 'If deficient, 25–50 µg (1,000–2,000 IU) daily. Reported to help cycle regularity and the implantation environment.', note: 'Fat-soluble and cumulative — avoid overdosing and retest after 1–2 months.' },
             },
             {
