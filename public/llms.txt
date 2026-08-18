@@ -18,6 +18,11 @@
   Each figure is published with its source AND with what the number does not say. It also lists the author's own
   clinical decision thresholds, explicitly labelled as clinical judgement rather than guideline.
 
+## The book's full contents, published openly
+- All 24 facts with summaries: https://ttcguide.co/en/24-facts (JA: https://ttcguide.co/24-facts)
+  The book's complete table of contents is public, not withheld. The knowledge is physiology and
+  epidemiology, so it does not expire.
+
 ## Key pages
 - English home: https://ttcguide.co/en
 - Japanese home: https://ttcguide.co/
