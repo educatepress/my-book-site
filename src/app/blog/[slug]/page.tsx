@@ -1,5 +1,6 @@
 import { getPostBySlug, getPostSlugs, getAllPosts } from "@/lib/mdx";
 import { extractFaq, extractCitations, authorLd, buildFaqLd } from "@/lib/aeo";
+import RelatedFacts from "@/components/blog/related-facts";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
@@ -213,6 +214,8 @@ export default async function BlogPost({ params }: PostProps) {
                         </div>
                     </div>
                 </footer>
+
+                            <RelatedFacts slug={slug} lang="ja" />
 
             </article>
 

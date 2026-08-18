@@ -53,6 +53,7 @@ export const metadata: Metadata = {
 };
 
 import { headers } from 'next/headers';
+import AiReferralTracker from '@/components/common/ai-referral-tracker';
 
 export default async function RootLayout({
   children,
@@ -68,6 +69,7 @@ export default async function RootLayout({
       <body className="overflow-x-hidden w-full relative">
         {children}
         <GoogleAnalytics gaId="G-576MQ3QBDX" />
+        <AiReferralTracker />
         <Script
           defer
           data-domain="ttcguide.co"

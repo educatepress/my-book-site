@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { FACT_CHAPTERS } from '@/data/twenty-four-facts';
 import { FACT_DETAILS } from '@/data/fact-details';
+import { FACT_ARTICLES } from '@/data/fact-articles';
 
 export function findFact(n: number) {
     for (const ch of FACT_CHAPTERS) {
@@ -22,8 +23,8 @@ export default function FactDetail({ n, lang }: { n: number; lang: 'ja' | 'en' }
     const base = lang === 'ja' ? '/24-facts' : '/en/24-facts';
 
     const t = lang === 'ja'
-        ? { fact: '事実', action: 'いま、できること', related: '関連', all: '24の事実に戻る', prev: '前の事実', next: '次の事実', disclaimer: '一般的な情報提供であり、医学的助言ではありません。個別の判断は主治医・専門医にご相談ください。' }
-        : { fact: 'Fact', action: 'What you can do now', related: 'Related', all: 'Back to all 24 facts', prev: 'Previous', next: 'Next', disclaimer: 'General information, not medical advice. Please discuss your own situation with your specialist.' };
+        ? { fact: '事実', action: 'いま、できること', related: '関連', articles: 'この事実をさらに詳しく', all: '24の事実に戻る', prev: '前の事実', next: '次の事実', disclaimer: '一般的な情報提供であり、医学的助言ではありません。個別の判断は主治医・専門医にご相談ください。' }
+        : { fact: 'Fact', action: 'What you can do now', related: 'Related', articles: 'Go deeper on this fact', all: 'Back to all 24 facts', prev: 'Previous', next: 'Next', disclaimer: 'General information, not medical advice. Please discuss your own situation with your specialist.' };
 
     return (
         <div className="min-h-screen bg-[var(--color-cream)] py-12 md:py-20 px-4 sm:px-6">
@@ -58,6 +59,21 @@ export default function FactDetail({ n, lang }: { n: number; lang: 'ja' | 'en' }
                                 </Link>
                             ))}
                         </div>
+                    </div>
+                )}
+
+                {(FACT_ARTICLES[n] || []).length > 0 && (
+                    <div className="mb-8">
+                        <p className="font-black text-[0.9rem] mb-3 text-[var(--color-text-dark)]">{t.articles}</p>
+                        <ul className="space-y-2">
+                            {FACT_ARTICLES[n].map((a) => (
+                                <li key={a.jp}>
+                                    <Link href={`${lang === 'ja' ? '/blog/' : '/en/blog/'}${lang === 'ja' ? a.jp : a.en}`} className="block bg-white rounded-xl px-4 py-3 border border-black/5 text-[0.9rem] leading-snug hover:border-[var(--color-sage)] transition-colors">
+                                        {lang === 'ja' ? a.jaTitle : a.enTitle}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 )}
 
