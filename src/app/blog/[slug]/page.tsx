@@ -1,4 +1,5 @@
 import { getPostBySlug, getPostSlugs, getAllPosts } from "@/lib/mdx";
+import { extractFaq, extractCitations, authorLd, buildFaqLd } from "@/lib/aeo";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
@@ -66,12 +67,7 @@ export default async function BlogPost({ params }: PostProps) {
         headline: post.frontmatter.title,
         description: post.frontmatter.excerpt,
         datePublished: post.frontmatter.date,
-        author: {
-            '@type': 'Person',
-            name: post.frontmatter.author || 'Takuma Sato, MD',
-            url: 'https://ttcguide.co',
-            jobTitle: 'Reproductive Medicine Specialist'
-        },
+        author: authorLd('ja'),
         publisher: {
             '@type': 'MedicalOrganization',
             name: 'Dr. Takuma Sato',
@@ -79,8 +75,16 @@ export default async function BlogPost({ params }: PostProps) {
                 '@type': 'ImageObject',
                 url: 'https://ttcguide.co/og-image.jpg'
             }
-        }
+        },
+        inLanguage: 'ja',
+        isAccessibleForFree: true,
+        // 参考文献(学会GL/教科書)を機械可読に(TRUSTのReport。取れない記事では空配列)
+        citation: extractCitations(post.content || '').map((c) => ({ '@type': 'CreativeWork', name: c })),
     };
+
+    // 記事内FAQをFAQPageとして構造化(TRUSTのTranslation。既存75本に遡って効く)
+    const faqLd = buildFaqLd(extractFaq(post.content || ''), `https://ttcguide.co/blog/${slug}`);
+
 
     return (
         /* 
@@ -98,6 +102,12 @@ export default async function BlogPost({ params }: PostProps) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
+            {faqLd && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+                />
+            )}
 
             {/* 
                【修正点2】
