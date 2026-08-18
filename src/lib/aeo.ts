@@ -62,7 +62,7 @@ export function authorLd(lang: 'ja' | 'en') {
         sameAs: [
             'https://www.instagram.com/dr.sato.fertility.specialist/',
             'https://amazon.co.jp/dp/B0F7XTWJ3X',
-            'https://amazon.com/dp/B0F7XTWJ3X',
+            'https://www.amazon.com/dp/4991427827',
         ],
     };
 }

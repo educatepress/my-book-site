@@ -257,7 +257,7 @@ ${referencesBlock}
      論文リストが空の場合は「References」として教科書・学会ガイドライン・公的機関の公式文書を1〜3件記載（日本語版と同じルール）。
    - FAQ の各回答はAIが引用しやすい簡潔かつ正確な表現で（AEO最適化）。
    - 書籍CTA: 📖 **Want to learn more? Check out the book.**
-     [Dr. Sato's Guide to Women's Health (Amazon)](https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enblog-22)
+     [Dr. Sato's Guide to Women's Health (Amazon)](https://www.amazon.com/dp/4991427827?tag=ttcguide-enblog-22)
 
 3. "xPost": Blog投稿に紐づくX用の告知テキスト（100〜120文字程度）。
    - 記事の内容から有益なファクトを1つ抽出。

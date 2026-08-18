@@ -30,7 +30,7 @@ export default function FactsPage({ lang }: { lang: 'ja' | 'en' }) {
             blog: 'All articles', blogHref: '/en/blog',
             appendix: 'Appendices',
             bookCta: 'Read all 24 in order, with illustrations',
-            bookLink: 'https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enblog-22',
+            bookLink: 'https://www.amazon.com/dp/4991427827?tag=ttcguide-enblog-22',
             bookLabel: 'View the book (Amazon)',
             disclaimer: 'General information, not medical advice. Please discuss your own situation with your specialist.',
         };

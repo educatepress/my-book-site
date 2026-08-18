@@ -34,9 +34,9 @@ const EN_REVIEWS = [
 ];
 
 const EN_TEMPLATES = [
-  (r: typeof EN_REVIEWS[0]) => `★★★★★\n\n"${r.quote}"\n— ${r.reviewer}, Amazon Review\n\n📖 24 evidence-based facts from a fertility specialist:\nhttps://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enlp-22\n\n#TTC #TTCcommunity`,
-  (r: typeof EN_REVIEWS[0]) => `What readers are saying:\n\n"${r.quote}"\n\nWritten by a board-certified fertility specialist.\n\nhttps://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enlp-22\n\n#fertility #TTCcommunity`,
-  (r: typeof EN_REVIEWS[0]) => `This review made my day 🙏\n\n"${r.quote}"\n\nIf one person feels more prepared after reading, that's everything.\n\nhttps://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enlp-22\n\n#TTC #babydust ✨`,
+  (r: typeof EN_REVIEWS[0]) => `★★★★★\n\n"${r.quote}"\n— ${r.reviewer}, Amazon Review\n\n📖 24 evidence-based facts from a fertility specialist:\nhttps://www.amazon.com/dp/4991427827?tag=ttcguide-enlp-22\n\n#TTC #TTCcommunity`,
+  (r: typeof EN_REVIEWS[0]) => `What readers are saying:\n\n"${r.quote}"\n\nWritten by a board-certified fertility specialist.\n\nhttps://www.amazon.com/dp/4991427827?tag=ttcguide-enlp-22\n\n#fertility #TTCcommunity`,
+  (r: typeof EN_REVIEWS[0]) => `This review made my day 🙏\n\n"${r.quote}"\n\nIf one person feels more prepared after reading, that's everything.\n\nhttps://www.amazon.com/dp/4991427827?tag=ttcguide-enlp-22\n\n#TTC #babydust ✨`,
 ];
 
 async function main() {

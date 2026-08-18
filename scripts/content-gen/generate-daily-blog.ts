@@ -136,7 +136,7 @@ ${referencesBlock}
    - フロントマターには英語で title, date, excerpt, author("Takuma Sato, MD")を含める。date は "${postDateStr}" を指定。
    - 記事の最後（CTA）には必ず **Amazon.comの書籍リンク** を以下のように挿入すること。
      📖 **Want to learn more? Check out the book.**
-     [Dr. Sato's Guide to Women's Health (Amazon US)](https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enblog-22)
+     [Dr. Sato's Guide to Women's Health (Amazon US)](https://www.amazon.com/dp/4991427827?tag=ttcguide-enblog-22)
 
 3. "noteBlog": Note.com用の日本語ブログ原稿（Markdown不要プレーンテキスト寄りのフォーマット）。
 

@@ -24,7 +24,7 @@ function jsonLd() {
         name: 'What to Consider in Your 20s: Choices So Fertility Never Catches You Out',
         inLanguage: 'en',
         author: authorLd('en'),
-        identifier: { '@type': 'PropertyValue', propertyID: 'ASIN', value: 'B0F7XTWJ3X' },
+        identifier: { '@type': 'PropertyValue', propertyID: 'ASIN', value: '4991427827' },
         about: ['fertility prevention', 'preconception care', 'menstrual health', 'ovarian reserve', 'fertility treatment'],
         hasPart: { '@type': 'ItemList', numberOfItems: items.length, itemListElement: items },
     };

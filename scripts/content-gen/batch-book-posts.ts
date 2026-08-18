@@ -128,7 +128,7 @@ ${fullText}
 2. "enBlog": 日本語版と同内容の、英語に翻訳・ローカライズされたMDXブログ記事。
    - 英語圏の読者にとって自然で響く表現にすること。
    - 英語のフロントマターを含めること。"date" の値には「${postDateStr}」を指定すること。
-   - 記事の最後には必ず以下のURLで英語版書籍へのCTAを含めること: https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enblog-22
+   - 記事の最後には必ず以下のURLで英語版書籍へのCTAを含めること: https://www.amazon.com/dp/4991427827?tag=ttcguide-enblog-22
 
 ---
 CRITICAL: ONLY OUTPUT RAW VALID JSON. DO NOT INCLUDE MARKDOWN CODE BLOCKS. DO NOT INCLUDE ANY OTHER TEXT.

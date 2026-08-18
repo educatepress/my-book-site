@@ -154,7 +154,7 @@ ${referencesBlock}
    - 上記 jpBlog で指定した「FAQ」「参考文献」「関連記事」「CTA」の構成をそのまま英語で再現すること。
    - 関連記事のURLは /en/blog/ プレフィックスに変更し、スラッグ末尾に -en を付けること（例: /en/blog/preconception-care-today-en）。
    - TTCのLingo（2WW, DPO, BFP, AF, Baby dust等）を活用すること。
-   - 最後のCTAは「Written by the same author — a general guide to preconception care and fertility planning:」という文言で英語版書籍リンク（ https://amazon.com/dp/B0F7XTWJ3X?tag=ttcguide-enblog-22 ）を明記。ブログ記事のテーマと書籍内容が直結しているかのような表現は禁止。
+   - 最後のCTAは「Written by the same author — a general guide to preconception care and fertility planning:」という文言で英語版書籍リンク（ https://www.amazon.com/dp/4991427827?tag=ttcguide-enblog-22 ）を明記。ブログ記事のテーマと書籍内容が直結しているかのような表現は禁止。
 
 3. "xPost": X（旧Twitter）向けの英語圏TTCコミュニティ用ポスト。
    - 【役割】不妊治療専門医による妊活ガイドの温かいAIサポーター。
