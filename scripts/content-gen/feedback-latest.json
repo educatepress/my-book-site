@@ -1,51 +1,28 @@
 {
-  "week": "2026-08-17",
+  "week": "2026-08-24",
   "categoryPV": {
-    "分類外": 9,
-    "④精神的負担・人間関係": 1,
-    "①流産の恐怖・不安": 1
+    "②治療プロトコルの混乱": 1,
+    "③身体のサイン解読": 1,
+    "分類外": 1,
+    "⑧サプリ・生活改善": 1
   },
   "top10": [
+    {
+      "path": "/blog/iui-timing-meta-analysis",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/amh-afc-discordance-which-to-trust",
+      "pv": 1
+    },
     {
       "path": "/en/blog/chemical-pregnancy-future-fertility",
       "pv": 1
     },
     {
-      "path": "/en/blog/family-pressure-fertility-boundaries",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/fertility-detox-scientific-basis",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/fertility-partner-communication-gap",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/fertility-sex-position-myth-science",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/hydration-female-fertility-egg-quality",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/preconception-checkup-guide-en",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/single-vs-double-embryo-transfer-success-twin-risk",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/sperm-dna-fragmentation-infertility-hidden-cause",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/stopping-fertility-treatment",
+      "path": "/en/blog/vitamin-d-fertility",
       "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 9 PV (9記事, 平均1 PV/記事)\n④精神的負担・人間関係: 1 PV (1記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — To You Who Experienced a Chemical Pregnancy — Impa\n  1 PV — Navigating \"When Are You Having Kids?\": Expert Str\n  1 PV — Fertility Detox: Is There Scientific Evidence? An \n  1 PV — Bridging the Gap: Communication Strategies for Par\n  1 PV — Fertility and Sexual Positions: Myth or Science? T\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n②治療プロトコルの混乱: 1 PV (1記事, 平均1 PV/記事)\n③身体のサイン解読: 1 PV (1記事, 平均1 PV/記事)\n分類外: 1 PV (1記事, 平均1 PV/記事)\n⑧サプリ・生活改善: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — 人工授精（IUI）のタイミング — 排卵前と排卵後、どちらが有効？最新メタ解析 | Blog\n  1 PV — AMH and AFC Discordance: Which to Trust When Numbe\n  1 PV — To You Who Experienced a Chemical Pregnancy — Impa\n  1 PV — \"The Sunshine Vitamin\" Key to Fertility? Vitamin D\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
