@@ -4,6 +4,7 @@ import fs from 'fs';
 
 import { getReelsFactoryEnv, getQueueItems, updateQueueItem } from '@/lib/sheets';
 import { withRetry } from '@/lib/retry';
+import { SLACK_REPORTS_ENABLED } from '@/lib/slack-switch';
 
 // --- Helpers ---
 
@@ -21,6 +22,7 @@ function extractPublicId(url: string) {
 }
 
 async function sendSlackAlert(message: string, SLACK_BOT_TOKEN: string, ALERT_CHANNEL: string) {
+  if (!SLACK_REPORTS_ENABLED) return;   // Slack報告は停止中（src/lib/slack-switch.ts）
   if (!SLACK_BOT_TOKEN) {
     console.error('[Patrol] Slack Token missing. Alert:', message);
     return;

@@ -1,3 +1,5 @@
+import { SLACK_REPORTS_ENABLED } from './slack-switch';
+
 /**
  * Shared retry utility for all cron endpoints.
  * Exponential backoff with jitter for Gemini 503 / Sheets quota / Slack rate limits.
@@ -77,6 +79,7 @@ export async function sendSlackInfo(
   channel: string,
   text: string
 ): Promise<void> {
+  if (!SLACK_REPORTS_ENABLED) return;   // Slack報告は停止中（src/lib/slack-switch.ts）
   if (!slackToken || !channel) return;
 
   try {
@@ -102,6 +105,7 @@ export async function sendSlackErrorAlert(
   cronName: string,
   errorMessage: string
 ): Promise<void> {
+  if (!SLACK_REPORTS_ENABLED) return;   // Slack報告は停止中（src/lib/slack-switch.ts）
   if (!slackToken || !channel) return;
 
   try {

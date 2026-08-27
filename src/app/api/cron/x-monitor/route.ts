@@ -3,8 +3,10 @@ import { TwitterApi } from 'twitter-api-v2';
 import { GoogleGenAI } from '@google/genai';
 import { getReelsFactoryEnv } from '@/lib/sheets';
 import { withRetry } from '@/lib/retry';
+import { SLACK_REPORTS_ENABLED } from '@/lib/slack-switch';
 
 async function sendSlackAlert(blocks: any[], threadedText: string, SLACK_BOT_TOKEN: string, ALERT_CHANNEL: string) {
+  if (!SLACK_REPORTS_ENABLED) return;   // Slack報告は停止中（src/lib/slack-switch.ts）
   if (!SLACK_BOT_TOKEN) return;
   try {
     const res = await fetch('https://slack.com/api/chat.postMessage', {

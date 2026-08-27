@@ -188,6 +188,11 @@ async function notifySlack() {
        });
     }
 
+    // Slack報告は停止中（2026-08-27 取締役指示）。巡回自体は動き、結果はActionsログに残る。
+    // 再開する場合はこのブロックを削除する。
+    console.log('ℹ️ Slack通知はスキップ（報告停止中）');
+    return;
+
     try {
         const response = await fetch('https://slack.com/api/chat.postMessage', {
             method: 'POST',

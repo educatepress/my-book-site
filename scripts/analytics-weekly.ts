@@ -214,7 +214,8 @@ async function main() {
   console.log('\n' + summary);
 
   // Slack通知
-  if (process.env.SLACK_BOT_TOKEN && process.env.SLACK_CHANNEL_ID) {
+  // Slack報告は停止中（2026-08-27 取締役指示）。要約は上のログとリポのGA4データに残る。再開は false を外す
+  if (false && process.env.SLACK_BOT_TOKEN && process.env.SLACK_CHANNEL_ID) {
     await fetch('https://slack.com/api/chat.postMessage', {
       method: 'POST',
       headers: {
