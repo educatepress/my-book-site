@@ -1,28 +1,54 @@
 {
-  "week": "2026-08-24",
+  "week": "2026-08-31",
   "categoryPV": {
-    "②治療プロトコルの混乱": 1,
-    "③身体のサイン解読": 1,
-    "分類外": 1,
-    "⑧サプリ・生活改善": 1
+    "⑧サプリ・生活改善": 8,
+    "②治療プロトコルの混乱": 3,
+    "③身体のサイン解読": 2,
+    "①流産の恐怖・不安": 2,
+    "⑨特定診断のピア体験": 1,
+    "分類外": 1
   },
   "top10": [
     {
-      "path": "/blog/iui-timing-meta-analysis",
+      "path": "/blog/folic-acid-the-critical-timing-for-pregnancy-preparation",
+      "pv": 7
+    },
+    {
+      "path": "/blog/amh-does-not-predict-natural-conception",
       "pv": 1
     },
     {
-      "path": "/en/blog/amh-afc-discordance-which-to-trust",
+      "path": "/blog/amh-egg-freezing-reality",
       "pv": 1
     },
     {
-      "path": "/en/blog/chemical-pregnancy-future-fertility",
+      "path": "/blog/coq10-egg-quality-fertilization-rate",
       "pv": 1
     },
     {
-      "path": "/en/blog/vitamin-d-fertility",
+      "path": "/blog/ivf-low-egg-retrieval-protocol-change",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/acog-2026-endometriosis-guidelines-no-wait-for-surgery-en",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/decoding-sperm-morphology-teratozoospermia",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/iui-timing-meta-analysis",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/low-hcg-not-always-miscarriage-en",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/time-lapse-embryo-imaging-fertility",
       "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n②治療プロトコルの混乱: 1 PV (1記事, 平均1 PV/記事)\n③身体のサイン解読: 1 PV (1記事, 平均1 PV/記事)\n分類外: 1 PV (1記事, 平均1 PV/記事)\n⑧サプリ・生活改善: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — 人工授精（IUI）のタイミング — 排卵前と排卵後、どちらが有効？最新メタ解析 | Blog\n  1 PV — AMH and AFC Discordance: Which to Trust When Numbe\n  1 PV — To You Who Experienced a Chemical Pregnancy — Impa\n  1 PV — \"The Sunshine Vitamin\" Key to Fertility? Vitamin D\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n⑧サプリ・生活改善: 8 PV (2記事, 平均4 PV/記事)\n②治療プロトコルの混乱: 3 PV (3記事, 平均1 PV/記事)\n③身体のサイン解読: 2 PV (2記事, 平均1 PV/記事)\n①流産の恐怖・不安: 2 PV (2記事, 平均1 PV/記事)\n⑨特定診断のピア体験: 1 PV (1記事, 平均1 PV/記事)\n分類外: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  7 PV — 葉酸はいつから？妊娠準備の最も大切な一歩 | Blog\n  1 PV — AMH値は自然妊娠の予知子ではない？2.8万人のデータが示す新常識 | Blog\n  1 PV — 卵子凍結は「保険」ではない：AMHデータが示す現実 | Blog\n  1 PV — 卵子の質を向上？CoQ10のデータが示す事実 | Blog\n  1 PV — 採卵数が少なかったときに考えること：次周期の刺激法は変えるべき？プロトコル変更の根拠 | Blog\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
