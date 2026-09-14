@@ -1,53 +1,55 @@
 {
-  "week": "2026-09-07",
+  "week": "2026-09-14",
   "categoryPV": {
-    "②治療プロトコルの混乱": 4,
-    "⑨特定診断のピア体験": 4,
     "分類外": 3,
-    "④精神的負担・人間関係": 3,
-    "①流産の恐怖・不安": 1
+    "①流産の恐怖・不安": 2,
+    "④精神的負担・人間関係": 2,
+    "②治療プロトコルの混乱": 1,
+    "⑨特定診断のピア体験": 1,
+    "③身体のサイン解読": 1,
+    "⑤保険・費用・アクセス": 1
   },
   "top10": [
     {
-      "path": "/en/blog/natural-vs-programmed-fet-outcomes-en",
-      "pv": 3
-    },
-    {
-      "path": "/blog/acog-2026-endometriosis-guidelines-no-wait-for-surgery",
+      "path": "/blog/ivf-low-egg-retrieval-protocol-change",
       "pv": 1
     },
     {
-      "path": "/en/blog/acog-2026-endometriosis-guidelines-no-wait-for-surgery-en",
+      "path": "/en/blog/fertility-sex-position-myth-science",
       "pv": 1
     },
     {
-      "path": "/en/blog/acupuncture-infertility-evidence-placebo",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/era-implantation-window-evidence",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/friend-pregnancy-announcement-cope",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/gestational-sac-no-heartbeat-waiting-criteria",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/ivf-over-40-cumulative-success-rate",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/just-relax-get-pregnant-myth-scientific-response",
+      "path": "/en/blog/miscarriage-not-your-fault",
       "pv": 1
     },
     {
       "path": "/en/blog/myo-inositol-pcos-ovulation-pregnancy",
       "pv": 1
+    },
+    {
+      "path": "/en/blog/opk-bbt-accuracy-conception",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/postpartum-guidelines-exercise-pfmt-en",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/preconception-care-today-en",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/progesterone-early-pregnancy-miscarriage",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/the-power-of-two-partner-support-fertility-treatment-stress",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/tokyo-fertility-subsidy-2026-updates-en",
+      "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n②治療プロトコルの混乱: 4 PV (2記事, 平均2 PV/記事)\n⑨特定診断のピア体験: 4 PV (4記事, 平均1 PV/記事)\n分類外: 3 PV (3記事, 平均1 PV/記事)\n④精神的負担・人間関係: 3 PV (3記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  3 PV — Natural vs. Programmed FET: What the Latest Lancet\n  1 PV — 子宮内膜症、手術を待たない時代へ：ACOG 2026改訂 | Blog\n  1 PV — ACOG 2026 Endometriosis Guidelines: The Era of 'Tr\n  1 PV — Is Acupuncture a \"Fertility Booster\"? The Latest E\n  1 PV — Does the Implantation Window Truly Exist? Latest E\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 3 PV (4記事, 平均1 PV/記事)\n①流産の恐怖・不安: 2 PV (2記事, 平均1 PV/記事)\n④精神的負担・人間関係: 2 PV (2記事, 平均1 PV/記事)\n②治療プロトコルの混乱: 1 PV (1記事, 平均1 PV/記事)\n⑨特定診断のピア体験: 1 PV (1記事, 平均1 PV/記事)\n③身体のサイン解読: 1 PV (2記事, 平均1 PV/記事)\n⑤保険・費用・アクセス: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — 採卵数が少なかったときに考えること：次周期の刺激法は変えるべき？プロトコル変更の根拠 | Blog\n  1 PV — Fertility and Sexual Positions: Myth or Science? T\n  1 PV — Miscarriage is Not Your Fault — The Truth About Ex\n  1 PV — Myo-inositol for PCOS: Does it Improve Ovulation a\n  1 PV — Ovulation Predictor Kits (OPKs) vs. Basal Body Tem\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
