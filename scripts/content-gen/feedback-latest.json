@@ -1,17 +1,23 @@
 {
-  "week": "2026-09-14",
+  "week": "2026-09-21",
   "categoryPV": {
-    "分類外": 3,
+    "分類外": 7,
+    "⑧サプリ・生活改善": 2,
+    "③身体のサイン解読": 2,
     "①流産の恐怖・不安": 2,
-    "④精神的負担・人間関係": 2,
-    "②治療プロトコルの混乱": 1,
-    "⑨特定診断のピア体験": 1,
-    "③身体のサイン解読": 1,
-    "⑤保険・費用・アクセス": 1
+    "④精神的負担・人間関係": 1
   },
   "top10": [
     {
-      "path": "/blog/ivf-low-egg-retrieval-protocol-change",
+      "path": "/en/blog/advanced-paternal-age-fertility-impact",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/early-embryo-transfer-blastocyst-failure",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/environmental-hormones-fertility-threat",
       "pv": 1
     },
     {
@@ -19,11 +25,19 @@
       "pv": 1
     },
     {
-      "path": "/en/blog/miscarriage-not-your-fault",
+      "path": "/en/blog/folic-acid-preconception-care-en",
       "pv": 1
     },
     {
-      "path": "/en/blog/myo-inositol-pcos-ovulation-pregnancy",
+      "path": "/en/blog/high-fsh-amh-comparison-pregnancy-potential",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/irregular-cycle-fertility-timing",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/miscarriage-next-pregnancy-wait-time-evidence",
       "pv": 1
     },
     {
@@ -31,25 +45,9 @@
       "pv": 1
     },
     {
-      "path": "/en/blog/postpartum-guidelines-exercise-pfmt-en",
-      "pv": 1
-    },
-    {
       "path": "/en/blog/preconception-care-today-en",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/progesterone-early-pregnancy-miscarriage",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/the-power-of-two-partner-support-fertility-treatment-stress",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/tokyo-fertility-subsidy-2026-updates-en",
       "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 3 PV (4記事, 平均1 PV/記事)\n①流産の恐怖・不安: 2 PV (2記事, 平均1 PV/記事)\n④精神的負担・人間関係: 2 PV (2記事, 平均1 PV/記事)\n②治療プロトコルの混乱: 1 PV (1記事, 平均1 PV/記事)\n⑨特定診断のピア体験: 1 PV (1記事, 平均1 PV/記事)\n③身体のサイン解読: 1 PV (2記事, 平均1 PV/記事)\n⑤保険・費用・アクセス: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — 採卵数が少なかったときに考えること：次周期の刺激法は変えるべき？プロトコル変更の根拠 | Blog\n  1 PV — Fertility and Sexual Positions: Myth or Science? T\n  1 PV — Miscarriage is Not Your Fault — The Truth About Ex\n  1 PV — Myo-inositol for PCOS: Does it Improve Ovulation a\n  1 PV — Ovulation Predictor Kits (OPKs) vs. Basal Body Tem\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 7 PV (7記事, 平均1 PV/記事)\n⑧サプリ・生活改善: 2 PV (2記事, 平均1 PV/記事)\n③身体のサイン解読: 2 PV (2記事, 平均1 PV/記事)\n①流産の恐怖・不安: 2 PV (2記事, 平均1 PV/記事)\n④精神的負担・人間関係: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — Advanced Paternal Age and Fertility: Understanding\n  1 PV — When Embryos Don't Reach Blastocyst Stage: Is Earl\n  1 PV — \"Invisible Enemy\" Environmental Hormones Threateni\n  1 PV — Fertility and Sexual Positions: Myth or Science? T\n  1 PV — The Importance of Folic Acid and Intake Timing: A \n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
