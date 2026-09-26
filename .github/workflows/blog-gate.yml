@@ -1,0 +1,18 @@
+name: Blog Gate (facts & citations)
+on:
+  push:
+    paths: ['src/content/blog/**', 'scripts/compliance/**']
+  pull_request:
+    paths: ['src/content/blog/**', 'scripts/compliance/**']
+  workflow_dispatch:
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: 門そのものの回帰テスト
+        run: python3 scripts/compliance/regression.py
+      - name: 全記事を門にかける
+        run: python3 scripts/compliance/check_blog.py
