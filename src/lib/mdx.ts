@@ -48,14 +48,6 @@ export async function getPostSlugs(lang: 'jp' | 'en' = 'jp'): Promise<string[]> 
 }
 
 // 日本語混入を表示時に吸収するサニタイザー
-const CATEGORY_JP_TO_EN: Record<string, string> = {
-    '女性の健康': 'Women\'s Health',
-    '不妊治療・生殖医療': 'Fertility & Reproductive Medicine',
-    'プレコンセプションケア': 'Preconception Care',
-    '男性不妊': 'Male Fertility',
-    '体外受精': 'IVF',
-};
-
 const containsCJK = (s: unknown): boolean =>
     typeof s === 'string' && /[\u3000-\u9fff\uff00-\uffef]/.test(s);
 
@@ -66,12 +58,8 @@ const sanitizeFrontmatter = (
     if (lang !== 'en') return data;
     const out = { ...data };
 
-    // category 日本語残留を英語に変換
-    if (typeof out.category === 'string' && CATEGORY_JP_TO_EN[out.category]) {
-        out.category = CATEGORY_JP_TO_EN[out.category];
-    } else if (containsCJK(out.category)) {
-        out.category = 'Fertility';
-    }
+    // category は JP/EN 共通のキー(日本語)のまま通す。英語表示は blog-list-client の EN_CATEGORIES が担う。
+    // (2026-09-26 まで、ここで英語化していたためフィルタのキーが一致せず EN 一覧の絞り込みが「All」しか出なかった)
 
     // 著者名を一律 Takuma Sato, MD に統一（漢字・英語表記揺れ問わず）
     const KNOWN_AUTHOR_VARIANTS = [

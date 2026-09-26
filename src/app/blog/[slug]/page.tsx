@@ -25,6 +25,11 @@ export async function generateMetadata({ params }: PostProps): Promise<Metadata>
         description: post.frontmatter.excerpt,
         alternates: {
             canonical: `/blog/${slug}`,
+            languages: {
+                'ja': `/blog/${slug}`,
+                'en-US': `/en/blog/${slug}`,
+                'x-default': `/blog/${slug}`,
+            },
         },
         openGraph: {
             title: post.frontmatter.title,
