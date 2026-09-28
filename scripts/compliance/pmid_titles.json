@@ -480,6 +480,25 @@
     ],
     "year": "2019"
   },
+  "31821640": {
+    "authors": [
+      "Cavalcante",
+      "Sarno",
+      "da Silva",
+      "Barini"
+    ],
+    "caution": "症例対照研究7件の統合(反復流産群1,400名・対照1,080名)。ANA陽性 20.6% vs 6.7%、OR 3.30(95%CI 1.41-7.73)。★異質性が非常に高い(I2=87%)。症例対照研究であり因果は示していない。どの蛍光パターンが多いかは結論できないと著者が明記。",
+    "first_author": "Cavalcante",
+    "journal": "Am J Reprod Immunol",
+    "pubyear": "2019",
+    "title": "Antinuclear antibodies and recurrent miscarriage: Systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2020"
+  },
   "31910279": {
     "authors": [
       "Schisterman",
@@ -584,6 +603,26 @@
       "Journal Article",
       "Practice Guideline",
       "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2020"
+  },
+  "32358607": {
+    "authors": [
+      "du Fossé",
+      "van der Hoorn",
+      "van Lith",
+      "le Cessie",
+      "Lashley"
+    ],
+    "caution": "観察研究9件の統合。25-29歳を基準に、40-44歳 RR 1.23(1.06-1.43)、45歳以上 1.43(1.13-1.81)。30-34歳・35-39歳では有意差なし。★母体年齢による残余交絡を除外できないと著者が明記。ARTのみを扱った研究は除外されている。",
+    "first_author": "du Fossé",
+    "journal": "Hum Reprod Update",
+    "pubyear": "2020",
+    "title": "Advanced paternal age is associated with an increased risk of spontaneous miscarriage: a systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
     ],
     "year": "2020"
   },
@@ -919,6 +958,34 @@
     ],
     "year": "2023"
   },
+  "37580037": {
+    "authors": [
+      "Teede",
+      "Tay",
+      "Laven",
+      "Dokras",
+      "Moran",
+      "Piltonen",
+      "Costello",
+      "Boivin",
+      "Redman",
+      "Boyle",
+      "Norman",
+      "Mousa",
+      "Joham"
+    ],
+    "caution": "★AMHを超音波の代替とできるのは『成人のみ(in adults only)』。抄録では具体的なカットオフ値(3.0 ng/mL 等)は示されていないため、数値を書く場合はガイドライン本文の確認が必要。エビデンスの質は全体に low to moderate と本文が明記。",
+    "coi": "ガイドライン著者のうち複数名(Laven, Piltonen, Costello, Boivin, Norman, Joham)が Ferring / Roche Diagnostics / Gedeon Richter / Merck / Organon / Novo Nordisk 等から助成・講演料・顧問料を受けていると開示。AMH測定は検査会社の製品に関わるため、引用時は留意。",
+    "first_author": "Teede",
+    "journal": "Hum Reprod",
+    "pubyear": "2023",
+    "title": "Recommendations from the 2023 International Evidence-based Guideline for the Assessment and Management of Polycystic Ovary Syndrome.",
+    "types": [
+      "Journal Article",
+      "Practice Guideline"
+    ],
+    "year": "2023"
+  },
   "37745696": {
     "authors": [
       "Gao",
@@ -1161,6 +1228,7 @@
       "Hathaway",
       "Ramsey"
     ],
+    "caution": "★結論は『効果はほとんどない』。9試験1,426名。流産率 RR 0.91(95%CI 0.76-1.07)、生児獲得率 RR 1.04(0.96-1.12)、いずれも中等度の確実性で差なし。★過去版には後に撤回された2試験が含まれていた。『プロゲステロンが流産予防に寄与する』の根拠として引いてはいけない。",
     "first_author": "Haas",
     "journal": "Cochrane Database Syst Rev",
     "pubyear": "2025",
@@ -1169,6 +1237,23 @@
       "Journal Article",
       "Systematic Review",
       "Meta-Analysis"
+    ],
+    "year": "2025"
+  },
+  "40652184": {
+    "authors": [
+      "Xi",
+      "Yang",
+      "Shang",
+      "Xue"
+    ],
+    "caution": "★対象は卵巣予備能低下(DOR)の343名・996採卵周期の後ろ向きコホート(単施設)。★『複数回で累積生児獲得率が上がる』だけを引くと誤り。40歳以上では6周期後でも保守的推定14.7%/楽観的推定26.0%にとどまり、著者らは『40歳以上では4周期を超える治療の利益は限定的』と結論している。保守的推定=中断者を非生児として数える/楽観的推定=中断者が継続したと仮定する推定。",
+    "first_author": "Xi",
+    "journal": "BMC Pregnancy Childbirth",
+    "pubyear": "2025",
+    "title": "Retrospective cohort study on cumulative live birth rate of in vitro fertilization/intracytoplasmic sperm injection after multiple complete cycles in patients with diminished ovarian reserve.",
+    "types": [
+      "Journal Article"
     ],
     "year": "2025"
   },

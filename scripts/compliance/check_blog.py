@@ -67,17 +67,24 @@ def check(path):
     # ② インライン引用の照合
     known = {p: LEDGER[p] for p in pmids if p in LEDGER}
     PUBLISHERS = ('Wolters Kluwer', 'McGraw-Hill', 'Elsevier', 'Springer', 'Cambridge', 'Oxford', 'Wiley', 'Lippincott', 'Medscape')
+    # (誌名, 年) は著者引用ではないので照合しない。台帳の journal + 代表的な略称
+    JOURNALS = {j.lower() for j in (L.get('journal') or '' for L in LEDGER.values()) if j}
+    JOURNALS |= {'lancet', 'bmj', 'jama', 'nejm', 'bjsm', 'bjog', 'acog', 'asrm', 'eshre', 'who', 'cdc',
+                 'bmj open', 'fertil steril', 'hum reprod', 'cochrane', 'nice', 'nature', 'science'}
     main_text = body.replace(rb, '') if rb else body
     for m in re.finditer(r'[（(]([^（）()]{2,80}?)[）)]', main_text):
         inner = m.group(1)
         if any(pub in inner for pub in PUBLISHERS): continue
-        for cm in re.finditer(r'([A-Z][A-Za-z\'\-]+(?:\s+[A-Z][A-Za-z\'\-]+)?)\s*(?:[A-Z]{1,3}\b)?,?\s*(?:et\s+al\.?,?\s*)?(?:[^;,]*?,\s*)?((?:19|20)\d{2})', inner):
+        # 姓に非ASCII(Nuñez-Calonge, du Fossé 等)が入ることがあるのでラテン拡張まで許す
+        for cm in re.finditer(r'([A-Z][A-Za-zÀ-ÖØ-öø-ÿ\'\-]+(?:\s+[A-Z][A-Za-zÀ-ÖØ-öø-ÿ\'\-]+)?)\s*(?:[A-Z]{1,3}\b)?,?\s*(?:et\s+al\.?,?\s*)?(?:[^;,]*?,\s*)?((?:19|20)\d{2})', inner):
             name, year = cm.group(1), cm.group(2)
             toks = name.split()
             # 「Rotimi DE」「Smith CA」のようにイニシャルが姓側に吸われることがあるので落とす
             while len(toks) > 1 and re.fullmatch(r'[A-Z]{1,3}', toks[-1]):
                 toks.pop()
-            surname = name if re.match(r'^(van|de|von|del|da)\s', name, re.I) else toks[-1]
+            surname = name if re.match(r'^(van|de|von|del|da|du|di|le|la)\s', name, re.I) else toks[-1]
+            if name.lower() in JOURNALS or surname.lower() in JOURNALS:
+                continue
             ok = any(surname.lower() in [a.lower() for a in L.get('authors', [])] and year in (L.get('year'), L.get('pubyear')) for L in known.values())
             if not ok: blocking.append(f'インライン引用 ({inner[:50]}) が参考文献のPMID(著者・年)と合わない')
     # ⑥⑦ 型B
