@@ -566,6 +566,7 @@
       "Regan",
       "Gallos"
     ],
+    "caution": "★PROMISE試験(836名・原因不明の反復流産)は生児獲得率が3%高いが統計的に不確実。PRISM試験(4,153名・早期妊娠出血)も3%高いが p=0.08 で有意ではない。★有意だったのは部分集団『流産既往1回以上＋現在の妊娠で出血』75% vs 70%(RR 1.09, 1.03-1.15)と『3回以上＋出血』72% vs 57%(RR 1.28, 1.08-1.51)。★『原因不明の反復流産に経腟プロゲステロンが有効』の根拠には使えない(PROMISEは有意差なし)。",
     "first_author": "Coomarasamy",
     "journal": "Am J Obstet Gynecol",
     "pubyear": "2020",
@@ -759,13 +760,13 @@
       "Coomarasamy",
       "Gallos"
     ],
+    "caution": "★7試験5,682名。結論は『プロゲステロンは概して生児獲得率にほとんど差をもたらさない』。切迫流産 RR 1.03(1.00-1.07)、反復流産 RR 1.04(0.95-1.15)、いずれも高確実性で差なし。★例外は『流産既往1回以上 かつ 早期妊娠出血あり』で RR 1.08(1.02-1.15)。この『出血あり』の条件を落として『反復流産に有効』と書かない。",
     "first_author": "Devall",
     "journal": "Cochrane Database Syst Rev",
     "pubyear": "2021",
     "title": "Progestogens for preventing miscarriage: a network meta-analysis.",
     "types": [
       "Journal Article",
-      "Research Support, Non-U.S. Gov't",
       "Systematic Review",
       "Network Meta-Analysis"
     ],

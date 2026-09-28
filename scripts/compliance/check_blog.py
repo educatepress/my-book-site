@@ -9,9 +9,14 @@
   ③ 参考文献欄に DOI / PMC番号 / 巻号ページ  … 書誌は「題名 + PMID」だけ(書くほど捏造の面積が増える)
   ④ MDX が 500 になる生記法 (<Link> / ::: / {.class} / import)
   ⑤ frontmatter の必須キー欠落 (title/date/excerpt/author/category) と不正カテゴリ
+  ⑥ 台帳の unusable / coi / caution に触れずに引用している
+     (the-skin-atelier の src/lib/compliance.ts + unapproved_check.py から移植 2026-09-28)
+     - unusable … その文献は根拠にならない。引用ごと外す
+     - coi      … 利益相反のある文献を使いながら、本文でそれに触れていない
+     - caution  … 証拠の弱い文献を使いながら、人数・研究の型・限界を書いていない
 警告(exit 0)のもの:
-  ⑥ 「臨床試験で」「研究で示され」「メタ解析」等の枕詞があるのに、記事に PMID が1つも無い(型B)
-  ⑦ title / excerpt に % や倍の数値があるのに PMID が無い(型B・逆相関)
+  ⑦ 「臨床試験で」「研究で示され」「メタ解析」等の枕詞があるのに、記事に PMID が1つも無い(型B)
+  ⑧ title / excerpt に % や倍の数値があるのに PMID が無い(型B・逆相関)
 """
 import json, os, re, sys, glob
 
@@ -42,6 +47,9 @@ def check(path):
         return ['frontmatter が無い'], []
     for k in ('title', 'date', 'excerpt', 'author', 'category'):
         if not fm.get(k): blocking.append(f'frontmatter に {k} が無い')
+    # ★下書きは公開されないので門の対象外(the-skin-atelier の check_all.ts と同じ扱い)
+    if str(fm.get('draft', '')).lower() == 'true':
+        return [], []
     if fm.get('category') and fm['category'] not in CATS:
         blocking.append(f'category が規定外: {fm["category"]}')
     # ④ MDX 生記法
@@ -59,6 +67,29 @@ def check(path):
     pmids = set(a or b for a, b in re.findall(r'PMID[:\s]*(\d{5,8})|pubmed\.ncbi\.nlm\.nih\.gov/(\d{5,8})', text))
     unknown = sorted(p for p in pmids if p not in LEDGER)
     for p in unknown: blocking.append(f'台帳に無い PMID {p} (PubMedで確認して pmid_titles.json に登録)')
+    # ⑥ ★台帳の unusable / coi / caution
+    #   記録してあっても門が読まなければ意味がない。the-skin-atelier では
+    #   「証拠が弱い文献は、その弱さを本文で述べていれば通す」という形で運用されている。
+    is_en = '/en/' in path.replace(os.sep, '/')
+    COI_WORDS = (r'company|manufacturer|conflict of interest|industry|funded|disclos'
+                 if is_en else r'企業|製造元|利益相反|開発した会社|メーカー|社員|所属|開示')
+    CAUTION_WORDS = (r'\d+\s*(?:participants|women|men|patients|trials|studies|cycles)|preliminary|'
+                     r'not (?:statistically )?significant|no difference|small|limited|observational|'
+                     r'cohort|in mice|underpowered|heterogeneit'
+                     if is_en else
+                     r'\d+\s*(?:名|例|件|研究|試験|周期|本)|予備的|決定的ではない|限られ|小規模|'
+                     r'有意差|差はあり|差がありま|観察研究|コホート|マウス|動物モデル|ばらつき|限界|範囲外|限った|限られ|のみ|だけ|確実性|不確実|前提|条件')
+    for p in sorted(pmids):
+        info = LEDGER.get(p)
+        if not isinstance(info, dict):
+            continue
+        if info.get('unusable'):
+            blocking.append(f'この文献は根拠にならない ({p}): {info["unusable"][:70]}')
+        if info.get('coi') and not re.search(COI_WORDS, body, re.I):
+            blocking.append(f'利益相反に触れていない ({p}): {info["coi"][:70]}')
+        if info.get('caution') and not re.search(CAUTION_WORDS, body, re.I):
+            blocking.append(f'証拠の水準を書いていない ({p}): {info["caution"][:70]}')
+
     # ③ 書誌の余計な情報
     rb = refs_block(body)
     if re.search(r'10\.\d{4,9}/', rb): blocking.append('参考文献に DOI がある(題名+PMID だけにする)')
