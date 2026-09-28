@@ -72,7 +72,12 @@ def check(path):
         inner = m.group(1)
         if any(pub in inner for pub in PUBLISHERS): continue
         for cm in re.finditer(r'([A-Z][A-Za-z\'\-]+(?:\s+[A-Z][A-Za-z\'\-]+)?)\s*(?:[A-Z]{1,3}\b)?,?\s*(?:et\s+al\.?,?\s*)?(?:[^;,]*?,\s*)?((?:19|20)\d{2})', inner):
-            surname, year = cm.group(1).split()[-1] if not re.match(r'^(van|de|von|del|da)\s', cm.group(1)) else cm.group(1), cm.group(2)
+            name, year = cm.group(1), cm.group(2)
+            toks = name.split()
+            # 「Rotimi DE」「Smith CA」のようにイニシャルが姓側に吸われることがあるので落とす
+            while len(toks) > 1 and re.fullmatch(r'[A-Z]{1,3}', toks[-1]):
+                toks.pop()
+            surname = name if re.match(r'^(van|de|von|del|da)\s', name, re.I) else toks[-1]
             ok = any(surname.lower() in [a.lower() for a in L.get('authors', [])] and year in (L.get('year'), L.get('pubyear')) for L in known.values())
             if not ok: blocking.append(f'インライン引用 ({inner[:50]}) が参考文献のPMID(著者・年)と合わない')
     # ⑥⑦ 型B

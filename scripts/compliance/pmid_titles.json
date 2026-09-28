@@ -1,879 +1,1225 @@
 {
- "24987272": {
-  "title": "Coenzyme Q10 Supplementation and Oocyte Aneuploidy in Women Undergoing IVF-ICSI Treatment.",
-  "year": "2014",
-  "journal": "Clin Med Insights Reprod Health",
-  "first_author": "Bentov",
-  "authors": [
-   "Bentov",
-   "Hannam",
-   "Jurisicova",
-   "Esfandiari",
-   "Casper"
-  ],
-  "pubyear": "2014",
-  "types": [
-   "Journal Article"
-  ]
- },
- "25530036": {
-  "title": "The effect of sperm DNA fragmentation on live birth rate after IVF or ICSI: a systematic review and meta-analysis.",
-  "year": "2015",
-  "journal": "Reprod Biomed Online",
-  "first_author": "Osman",
-  "authors": [
-   "Osman",
-   "Alsomait",
-   "Seshadri",
-   "El-Toukhy",
-   "Khalaf"
-  ],
-  "pubyear": "2014",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Systematic Review"
-  ]
- },
- "27132058": {
-  "title": "Blood biomarkers for the non-invasive diagnosis of endometriosis.",
-  "year": "2016",
-  "journal": "Cochrane Database Syst Rev",
-  "first_author": "Nisenblat",
-  "authors": [
-   "Nisenblat",
-   "Bossuyt",
-   "Shaikh",
-   "Farquhar",
-   "Jordan",
-   "Scheffers",
-   "Mol",
-   "Johnson",
-   "Hull"
-  ],
-  "pubyear": "2016",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Research Support, Non-U.S. Gov't",
-   "Systematic Review"
-  ]
- },
- "27405583": {
-  "title": "Combination of the non-invasive tests for the diagnosis of endometriosis.",
-  "year": "2016",
-  "journal": "Cochrane Database Syst Rev",
-  "first_author": "Nisenblat",
-  "authors": [
-   "Nisenblat",
-   "Prentice",
-   "Bossuyt",
-   "Farquhar",
-   "Hull",
-   "Johnson"
-  ],
-  "pubyear": "2016",
-  "types": [
-   "Journal Article",
-   "Research Support, Non-U.S. Gov't",
-   "Systematic Review"
-  ]
- },
- "27827818": {
-  "title": "Oocyte, embryo and blastocyst cryopreservation in ART: systematic review and meta-analysis comparing slow-freezing versus vitrification to produce evidence for the development of global guidance.",
-  "year": "2017",
-  "journal": "Hum Reprod Update",
-  "first_author": "Rienzi",
-  "authors": [
-   "Rienzi",
-   "Gracia",
-   "Maggiulli",
-   "LaBarbera",
-   "Kaser",
-   "Ubaldi",
-   "Vanderpoel",
-   "Racowsky"
-  ],
-  "pubyear": "2016",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Systematic Review"
-  ]
- },
- "27864302": {
-  "title": "Interpregnancy interval following miscarriage and adverse pregnancy outcomes: systematic review and meta-analysis.",
-  "year": "2017",
-  "journal": "Hum Reprod Update",
-  "first_author": "Kangatharan",
-  "authors": [
-   "Kangatharan",
-   "Labram",
-   "Bhattacharya"
-  ],
-  "pubyear": "2016",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Systematic Review"
-  ]
- },
- "28333357": {
-  "title": "Dietary patterns, foods and nutrients in male fertility parameters and fecundability: a systematic review of observational studies.",
-  "year": "2017",
-  "journal": "Hum Reprod Update",
-  "first_author": "Salas-Huetos",
-  "authors": [
-   "Salas-Huetos",
-   "Bulló",
-   "Salas-Salvadó"
-  ],
-  "pubyear": "2017",
-  "types": [
-   "Journal Article",
-   "Systematic Review"
-  ]
- },
- "28675921": {
-  "title": "Cycle regimens for frozen-thawed embryo transfer.",
-  "year": "2017",
-  "journal": "Cochrane Database Syst Rev",
-  "first_author": "Ghobara",
-  "authors": [
-   "Ghobara",
-   "Gelbaya",
-   "Ayeleke"
-  ],
-  "pubyear": "2017",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Research Support, Non-U.S. Gov't",
-   "Systematic Review"
-  ]
- },
- "28692759": {
-  "title": "Sperm morphology: assessment, pathophysiology, clinical relevance, and state of the art in 2017.",
-  "year": "2017",
-  "journal": "Andrology",
-  "first_author": "Gatimel",
-  "authors": [
-   "Gatimel",
-   "Moreau",
-   "Parinaud",
-   "Léandri"
-  ],
-  "pubyear": "2017",
-  "types": [
-   "Journal Article",
-   "Review"
-  ]
- },
- "29049585": {
-  "title": "Association Between Biomarkers of Ovarian Reserve and Infertility Among Older Women of Reproductive Age.",
-  "year": "2017",
-  "journal": "JAMA",
-  "first_author": "Steiner",
-  "authors": [
-   "Steiner",
-   "Pritchard",
-   "Stanczyk",
-   "Kesner",
-   "Meadows",
-   "Herring",
-   "Baird"
-  ],
-  "pubyear": "2017",
-  "types": [
-   "Journal Article",
-   "Research Support, N.I.H., Extramural",
-   "Research Support, N.I.H., Intramural"
-  ]
- },
- "29183107": {
-  "title": "Insulin-sensitising drugs (metformin, rosiglitazone, pioglitazone, D-chiro-inositol) for women with polycystic ovary syndrome, oligo amenorrhoea and subfertility.",
-  "year": "2017",
-  "journal": "Cochrane Database Syst Rev",
-  "first_author": "Morley",
-  "authors": [
-   "Morley",
-   "Tang",
-   "Yasmin",
-   "Norman",
-   "Balen"
-  ],
-  "pubyear": "2017",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Research Support, Non-U.S. Gov't",
-   "Systematic Review"
-  ]
- },
- "29452361": {
-  "title": "IUI: review and systematic assessment of the evidence that supports global recommendations.",
-  "year": "2018",
-  "journal": "Hum Reprod Update",
-  "first_author": "Cohlen",
-  "authors": [
-   "Cohlen",
-   "Bijkerk",
-   "Van der Poel",
-   "Ombelet"
-  ],
-  "pubyear": "2018",
-  "types": [
-   "Journal Article",
-   "Research Support, Non-U.S. Gov't",
-   "Review"
-  ]
- },
- "29540081": {
-  "title": "Testing for genetic contributions to infertility: potential clinical impact.",
-  "year": "2018",
-  "journal": "Expert Rev Mol Diagn",
-  "first_author": "Krausz",
-  "authors": [
-   "Krausz",
-   "Cioppi",
-   "Riera-Escamilla"
-  ],
-  "pubyear": "2018",
-  "types": [
-   "Journal Article",
-   "Research Support, Non-U.S. Gov't",
-   "Review"
-  ]
- },
- "29945889": {
-  "title": "Chromosomal analysis in IVF: just how useful is it?",
-  "year": "2018",
-  "journal": "Reproduction",
-  "first_author": "Griffin",
-  "authors": [
-   "Griffin",
-   "Ogur"
-  ],
-  "pubyear": "2018",
-  "types": [
-   "Journal Article",
-   "Review"
-  ]
- },
- "30416089": {
-  "title": "Attentional bias modification treatment for depression: Study protocol for a randomized controlled trial.",
-  "year": "2018",
-  "journal": "Contemp Clin Trials",
-  "first_author": "Hsu",
-  "authors": [
-   "Hsu",
-   "Caffey",
-   "Pisner",
-   "Shumake",
-   "Risom",
-   "Ray",
-   "Smits",
-   "Schnyer",
-   "Beevers"
-  ],
-  "pubyear": "2018",
-  "types": [
-   "Clinical Trial Protocol",
-   "Journal Article",
-   "Research Support, N.I.H., Extramural"
-  ]
- },
- "30977288": {
-  "title": "lptG contributes to changes in membrane permeability and the emergence of multidrug hypersusceptibility in a cystic fibrosis isolate of Pseudomonas aeruginosa.",
-  "year": "2019",
-  "journal": "Microbiologyopen",
-  "first_author": "Harrison",
-  "authors": [
-   "Harrison",
-   "Fowler",
-   "Abdalhamid",
-   "Selmecki",
-   "Hanson"
-  ],
-  "pubyear": "2019",
-  "types": [
-   "Journal Article",
-   "Research Support, Non-U.S. Gov't"
-  ]
- },
- "31056315": {
-  "title": "Sperm DNA fragmentation and recurrent pregnancy loss: a systematic review and meta-analysis.",
-  "year": "2019",
-  "journal": "Fertil Steril",
-  "first_author": "McQueen",
-  "authors": [
-   "McQueen",
-   "Zhang",
-   "Robins"
-  ],
-  "pubyear": "2019",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Systematic Review"
-  ]
- },
- "31203470": {
-  "title": "Sperm Morphology: History, Challenges, and Impact on Natural and Assisted Fertility.",
-  "year": "2019",
-  "journal": "Curr Urol Rep",
-  "first_author": "Danis",
-  "authors": [
-   "Danis",
-   "Samplaski"
-  ],
-  "pubyear": "2019",
-  "types": [
-   "Journal Article",
-   "Review"
-  ]
- },
- "31272468": {
-  "title": "Discordance between antral follicle counts and anti-Müllerian hormone levels in women undergoing in vitro fertilization.",
-  "year": "2019",
-  "journal": "Reprod Biol Endocrinol",
-  "first_author": "Zhang",
-  "authors": [
-   "Zhang",
-   "Xu",
-   "Xue",
-   "Shang",
-   "Yang",
-   "Shan",
-   "Kuai",
-   "Wang",
-   "Zeng"
-  ],
-  "pubyear": "2019",
-  "types": [
-   "Journal Article"
-  ]
- },
- "32008730": {
-  "title": "Micronized vaginal progesterone to prevent miscarriage: a critical evaluation of randomized evidence.",
-  "year": "2020",
-  "journal": "Am J Obstet Gynecol",
-  "first_author": "Coomarasamy",
-  "authors": [
-   "Coomarasamy",
-   "Devall",
-   "Brosens",
-   "Quenby",
-   "Stephenson",
-   "Sierra",
-   "Christiansen",
-   "Small",
-   "Brewin",
-   "Roberts",
-   "Dhillon-Smith",
-   "Harb",
-   "Noordali",
-   "Papadopoulou",
-   "Eapen",
-   "Prior",
-   "Di Renzo",
-   "Hinshaw",
-   "Mol",
-   "Lumsden",
-   "Khalaf",
-   "Shennan",
-   "Goddijn",
-   "van Wely",
-   "Al-Memar",
-   "Bennett",
-   "Bourne",
-   "Rai",
-   "Regan",
-   "Gallos"
-  ],
-  "pubyear": "2020",
-  "types": [
-   "Journal Article",
-   "Review"
-  ]
- },
- "32019326": {
-  "title": "Challenges in uncovering non-invasive biomarkers of endometriosis.",
-  "year": "2020",
-  "journal": "Exp Biol Med (Maywood)",
-  "first_author": "Hudson",
-  "authors": [
-   "Hudson",
-   "Perricos",
-   "Wenzl",
-   "Yotova"
-  ],
-  "pubyear": "2020",
-  "types": [
-   "Journal Article",
-   "Review"
-  ]
- },
- "32106976": {
-  "title": "Evidence-based treatments for couples with unexplained infertility: a guideline.",
-  "year": "2020",
-  "journal": "Fertil Steril",
-  "first_author": "",
-  "authors": [],
-  "pubyear": "2020",
-  "types": [
-   "Journal Article",
-   "Practice Guideline",
-   "Research Support, Non-U.S. Gov't"
-  ]
- },
- "32767206": {
-  "title": "Does coenzyme Q10 supplementation improve fertility outcomes in women undergoing assisted reproductive technology procedures? A systematic review and meta-analysis of randomized-controlled trials.",
-  "year": "2020",
-  "journal": "J Assist Reprod Genet",
-  "first_author": "Florou",
-  "authors": [
-   "Florou",
-   "Anagnostis",
-   "Theocharis",
-   "Chourdakis",
-   "Goulis"
-  ],
-  "pubyear": "2020",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Systematic Review"
-  ]
- },
- "32777871": {
-  "title": "Sperm DNA Fragmentation: A New Guideline for Clinicians.",
-  "year": "2020",
-  "journal": "World J Mens Health",
-  "first_author": "Agarwal",
-  "authors": [
-   "Agarwal",
-   "Majzoub",
-   "Baskaran",
-   "Panner Selvam",
-   "Cho",
-   "Henkel",
-   "Finelli",
-   "Leisegang",
-   "Sengupta",
-   "Barbarosie",
-   "Parekh",
-   "Alves",
-   "Ko",
-   "Arafa",
-   "Tadros",
-   "Ramasamy",
-   "Kavoussi",
-   "Ambar",
-   "Kuchakulla",
-   "Robert",
-   "Iovine",
-   "Durairajanayagam",
-   "Jindal",
-   "Shah"
-  ],
-  "pubyear": "2020",
-  "types": [
-   "Journal Article",
-   "Review"
-  ]
- },
- "33303348": {
-  "title": "Strengthening the Clinical Learning Environment by Mandate-Implementing the ACGME Common Program Requirements.",
-  "year": "2022",
-  "journal": "Acad Radiol",
-  "first_author": "Oliveira",
-  "authors": [
-   "Oliveira",
-   "Slanetz",
-   "Catanzano",
-   "Sarkany",
-   "Siddall",
-   "Johnson",
-   "Jordan"
-  ],
-  "pubyear": "2020",
-  "types": [
-   "Journal Article"
-  ]
- },
- "33872382": {
-  "title": "Progestogens for preventing miscarriage: a network meta-analysis.",
-  "year": "2021",
-  "journal": "Cochrane Database Syst Rev",
-  "first_author": "Devall",
-  "authors": [
-   "Devall",
-   "Papadopoulou",
-   "Podesek",
-   "Haas",
-   "Price",
-   "Coomarasamy",
-   "Gallos"
-  ],
-  "pubyear": "2021",
-  "types": [
-   "Journal Article",
-   "Research Support, Non-U.S. Gov't",
-   "Systematic Review",
-   "Network Meta-Analysis"
-  ]
- },
- "34333014": {
-  "title": "Effects of mobile phone usage on sperm quality - No time-dependent relationship on usage: A systematic review and updated meta-analysis.",
-  "year": "2021",
-  "journal": "Environ Res",
-  "first_author": "Kim",
-  "authors": [
-   "Kim",
-   "Han",
-   "Ryu",
-   "Kim",
-   "Kim"
-  ],
-  "pubyear": "2021",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Research Support, Non-U.S. Gov't",
-   "Systematic Review"
-  ]
- },
- "35269682": {
-  "title": "Diet and Male Fertility: The Impact of Nutrients and Antioxidants on Sperm Energetic Metabolism.",
-  "year": "2022",
-  "journal": "Int J Mol Sci",
-  "first_author": "Ferramosca",
-  "authors": [
-   "Ferramosca",
-   "Zara"
-  ],
-  "pubyear": "2022",
-  "types": [
-   "Journal Article",
-   "Review"
-  ]
- },
- "35690546": {
-  "title": "Does advanced paternal age affect outcomes following assisted reproductive technology? A systematic review and meta-analysis.",
-  "year": "2022",
-  "journal": "Reprod Biomed Online",
-  "first_author": "Murugesu",
-  "authors": [
-   "Murugesu",
-   "Kasaven",
-   "Petrie",
-   "Vaseekaran",
-   "Jones",
-   "Bracewell-Milnes",
-   "Barcroft",
-   "Grewal",
-   "Getreu",
-   "Galazis",
-   "Sorbi",
-   "Saso",
-   "Ben-Nagi"
-  ],
-  "pubyear": "2022",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Systematic Review"
-  ]
- },
- "36071533": {
-  "title": "The impact of workplace psychosocial factors on menstrual disorders and infertility: a protocol for a systematic review and meta-analysis.",
-  "year": "2022",
-  "journal": "Syst Rev",
-  "first_author": "Sasaki",
-  "authors": [
-   "Sasaki",
-   "Imamura",
-   "Watanabe",
-   "Hidaka",
-   "Ando",
-   "Eguchi",
-   "Inoue",
-   "Tsuno",
-   "Komase",
-   "Iida",
-   "Otsuka",
-   "Sakuraya",
-   "Asai",
-   "Iwanaga",
-   "Kobayashi",
-   "Inoue",
-   "Shimazu",
-   "Tsutsumi",
-   "Kawakami"
-  ],
-  "pubyear": "2022",
-  "types": [
-   "Journal Article",
-   "Research Support, Non-U.S. Gov't"
-  ]
- },
- "37192834": {
-  "title": "Opening the black box: why do euploid blastocysts fail to implant? A systematic review and meta-analysis.",
-  "year": "2023",
-  "journal": "Hum Reprod Update",
-  "first_author": "Cimadomo",
-  "authors": [
-   "Cimadomo",
-   "Rienzi",
-   "Conforti",
-   "Forman",
-   "Canosa",
-   "Innocenti",
-   "Poli",
-   "Hynes",
-   "Gemmell",
-   "Vaiarelli",
-   "Alviggi",
-   "Ubaldi",
-   "Capalbo"
-  ],
-  "pubyear": "2023",
-  "types": [
-   "Meta-Analysis",
-   "Systematic Review",
-   "Journal Article"
-  ]
- },
- "37745696": {
-  "title": "Sequential embryo transfer versus double cleavage-stage embryo or double blastocyst transfer in patients with recurrent implantation failure with frozen-thawed embryo transfer cycles: a cohort study.",
-  "year": "2023",
-  "journal": "Front Endocrinol (Lausanne)",
-  "first_author": "Gao",
-  "authors": [
-   "Gao",
-   "Yuan",
-   "Li",
-   "Tian",
-   "Lian",
-   "Liu",
-   "Li",
-   "Qiao",
-   "Long",
-   "Wang"
-  ],
-  "pubyear": "2023",
-  "types": [
-   "Journal Article",
-   "Research Support, Non-U.S. Gov't"
-  ]
- },
- "37921737": {
-  "title": "Association between self-reported mobile phone use and the semen quality of young men.",
-  "year": "2023",
-  "journal": "Fertil Steril",
-  "first_author": "Rahban",
-  "authors": [
-   "Rahban",
-   "Senn",
-   "Nef",
-   "Rӧӧsli"
-  ],
-  "pubyear": "2023",
-  "types": [
-   "Journal Article",
-   "Research Support, Non-U.S. Gov't"
-  ]
- },
- "38289202": {
-  "title": "Implications of lifestyle factors on male reproductive health.",
-  "year": "2024",
-  "journal": "JBRA Assist Reprod",
-  "first_author": "Rotimi",
-  "authors": [
-   "Rotimi",
-   "Singh"
-  ],
-  "pubyear": "2024",
-  "types": [
-   "Journal Article",
-   "Review"
-  ]
- },
- "38944045": {
-  "title": "Livebirth rate after one frozen embryo transfer in ovulatory women starting with natural, modified natural, or artificial endometrial preparation in Viet Nam: an open-label randomised controlled trial.",
-  "year": "2024",
-  "journal": "Lancet",
-  "first_author": "Ho",
-  "authors": [
-   "Ho",
-   "Pham",
-   "Nguyen",
-   "Wang",
-   "Norman",
-   "Mol",
-   "Ho",
-   "Vuong"
-  ],
-  "pubyear": "2024",
-  "types": [
-   "Journal Article",
-   "Randomized Controlled Trial"
-  ]
- },
- "39191078": {
-  "title": "Making and Selecting the Best Embryo in In vitro Fertilization.",
-  "year": "2024",
-  "journal": "Arch Med Res",
-  "first_author": "Nuñez-Calonge",
-  "authors": [
-   "Nuñez-Calonge",
-   "Santamaria",
-   "Rubio",
-   "Manuel Moreno"
-  ],
-  "pubyear": "2024",
-  "types": [
-   "Journal Article",
-   "Review"
-  ]
- },
- "39537384": {
-  "title": "The Association Between Male Viral Infections and Infertility: A Systematic Review and Meta-Analysis.",
-  "year": "2024",
-  "journal": "Rev Med Virol",
-  "first_author": "Guo",
-  "authors": [
-   "Guo",
-   "Zhou",
-   "Feng",
-   "Zhang",
-   "Liu",
-   "Yang",
-   "Liu",
-   "Feng",
-   "Xia"
-  ],
-  "pubyear": "2024",
-  "types": [
-   "Systematic Review",
-   "Meta-Analysis",
-   "Journal Article",
-   "Research Support, Non-U.S. Gov't"
-  ]
- },
- "39702393": {
-  "title": "Comparative efficacy and safety of metformin, anti-obesity agents, and myoinositol in improving IVF/ICSI outcomes and reducing ovarian hyperstimulation syndrome in women with polycystic ovary syndrome: a systematic review and network meta-analysis.",
-  "year": "2024",
-  "journal": "J Ovarian Res",
-  "first_author": "Lin",
-  "authors": [
-   "Lin",
-   "Chen",
-   "Qiao",
-   "Chen",
-   "Deng",
-   "Xu"
-  ],
-  "pubyear": "2024",
-  "types": [
-   "Journal Article",
-   "Network Meta-Analysis",
-   "Systematic Review"
-  ]
- },
- "40117219": {
-  "title": "Overview of infertility.",
-  "year": "2025",
-  "journal": "Syst Biol Reprod Med",
-  "first_author": "Awonuga",
-  "authors": [
-   "Awonuga",
-   "Camp",
-   "Biernat",
-   "Abu-Soud"
-  ],
-  "pubyear": "2025",
-  "types": [
-   "Journal Article",
-   "Review"
-  ]
- },
- "40431450": {
-  "title": "The Effect of Dietary Supplements on Male Infertility in Terms of Pregnancy, Live Birth, and Sperm Parameters: A Systematic Review and Meta-Analysis.",
-  "year": "2025",
-  "journal": "Nutrients",
-  "first_author": "Michaelsen",
-  "authors": [
-   "Michaelsen",
-   "Poulsen",
-   "Bjerregaard",
-   "Borgstrøm",
-   "Poulsen",
-   "Chortsen",
-   "Henriksen",
-   "Kesmodel"
-  ],
-  "pubyear": "2025",
-  "types": [
-   "Journal Article",
-   "Meta-Analysis",
-   "Systematic Review"
-  ]
- },
- "40497447": {
-  "title": "Progestogen for preventing miscarriage in women with recurrent miscarriage of unclear etiology.",
-  "year": "2025",
-  "journal": "Cochrane Database Syst Rev",
-  "first_author": "Haas",
-  "authors": [
-   "Haas",
-   "Bofill Rodriguez",
-   "Hathaway",
-   "Ramsey"
-  ],
-  "pubyear": "2025",
-  "types": [
-   "Journal Article",
-   "Systematic Review",
-   "Meta-Analysis"
-  ]
- },
- "41227336": {
-  "title": "Impact of Tobacco Smoke Exposure on Male Fertility: An In Vivo Study Using Drosophila melanogaster.",
-  "year": "2025",
-  "journal": "Cells",
-  "first_author": "Miranda",
-  "authors": [
-   "Miranda",
-   "Gajeiro",
-   "Martins-Bessa",
-   "Gaivão"
-  ],
-  "pubyear": "2025",
-  "types": [
-   "Journal Article",
-   "Research Support, Non-U.S. Gov't"
-  ]
- },
- "41757236": {
-  "title": "Effects of inositol in women with polycystic ovary syndrome: an umbrella review of meta-analyses from randomized controlled trials.",
-  "year": "2026",
-  "journal": "Front Endocrinol (Lausanne)",
-  "first_author": "Duan",
-  "authors": [
-   "Duan",
-   "Yang",
-   "Li",
-   "Wu",
-   "Yin",
-   "Zhu"
-  ],
-  "pubyear": "2026",
-  "types": [
-   "Journal Article",
-   "Systematic Review",
-   "Meta-Analysis"
-  ]
- }
+  "21345903": {
+    "authors": [
+      "Boivin",
+      "Griffiths",
+      "Venetis"
+    ],
+    "caution": "前向き研究14件・3,583名の統合。治療前の不安・抑うつとART後の妊娠成立に関連なし(標準化平均差 -0.04, 95%CI -0.11〜0.03)。★『ストレスのせいで妊娠しない』を否定する出典として使う。中等度の出版バイアスありと著者が明記。",
+    "first_author": "Boivin",
+    "journal": "BMJ",
+    "pubyear": "2011",
+    "title": "Emotional distress in infertile women and failure of assisted reproductive technologies: meta-analysis of prospective psychosocial studies.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Review"
+    ],
+    "year": "2011"
+  },
+  "24987272": {
+    "authors": [
+      "Bentov",
+      "Hannam",
+      "Jurisicova",
+      "Esfandiari",
+      "Casper"
+    ],
+    "first_author": "Bentov",
+    "journal": "Clin Med Insights Reprod Health",
+    "pubyear": "2014",
+    "title": "Coenzyme Q10 Supplementation and Oocyte Aneuploidy in Women Undergoing IVF-ICSI Treatment.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2014"
+  },
+  "25530036": {
+    "authors": [
+      "Osman",
+      "Alsomait",
+      "Seshadri",
+      "El-Toukhy",
+      "Khalaf"
+    ],
+    "first_author": "Osman",
+    "journal": "Reprod Biomed Online",
+    "pubyear": "2014",
+    "title": "The effect of sperm DNA fragmentation on live birth rate after IVF or ICSI: a systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2015"
+  },
+  "26111777": {
+    "authors": [
+      "Ben-Meir",
+      "Burstein",
+      "Borrego-Alvarez",
+      "Chong",
+      "Wong",
+      "Yavorska",
+      "Naranian",
+      "Chi",
+      "Wang",
+      "Bentov",
+      "Alexis",
+      "Meriano",
+      "Sung",
+      "Gasser",
+      "Moley",
+      "Hekimi",
+      "Casper",
+      "Jurisicova"
+    ],
+    "caution": "★マウスの研究(mesh: Animals, Mice)。ヒトの卵子でミトコンドリア機能の改善を示したものではないので、引用時は必ず『動物モデルでの研究』と明記する。",
+    "first_author": "Ben-Meir",
+    "journal": "Aging Cell",
+    "pubyear": "2015",
+    "title": "Coenzyme Q10 restores oocyte mitochondrial function and fertility during reproductive aging.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2015"
+  },
+  "27132058": {
+    "authors": [
+      "Nisenblat",
+      "Bossuyt",
+      "Shaikh",
+      "Farquhar",
+      "Jordan",
+      "Scheffers",
+      "Mol",
+      "Johnson",
+      "Hull"
+    ],
+    "first_author": "Nisenblat",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2016",
+    "title": "Blood biomarkers for the non-invasive diagnosis of endometriosis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Research Support, Non-U.S. Gov't",
+      "Systematic Review"
+    ],
+    "year": "2016"
+  },
+  "27405583": {
+    "authors": [
+      "Nisenblat",
+      "Prentice",
+      "Bossuyt",
+      "Farquhar",
+      "Hull",
+      "Johnson"
+    ],
+    "first_author": "Nisenblat",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2016",
+    "title": "Combination of the non-invasive tests for the diagnosis of endometriosis.",
+    "types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't",
+      "Systematic Review"
+    ],
+    "year": "2016"
+  },
+  "27827818": {
+    "authors": [
+      "Rienzi",
+      "Gracia",
+      "Maggiulli",
+      "LaBarbera",
+      "Kaser",
+      "Ubaldi",
+      "Vanderpoel",
+      "Racowsky"
+    ],
+    "first_author": "Rienzi",
+    "journal": "Hum Reprod Update",
+    "pubyear": "2016",
+    "title": "Oocyte, embryo and blastocyst cryopreservation in ART: systematic review and meta-analysis comparing slow-freezing versus vitrification to produce evidence for the development of global guidance.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2017"
+  },
+  "27864302": {
+    "authors": [
+      "Kangatharan",
+      "Labram",
+      "Bhattacharya"
+    ],
+    "first_author": "Kangatharan",
+    "journal": "Hum Reprod Update",
+    "pubyear": "2016",
+    "title": "Interpregnancy interval following miscarriage and adverse pregnancy outcomes: systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2017"
+  },
+  "28333357": {
+    "authors": [
+      "Salas-Huetos",
+      "Bulló",
+      "Salas-Salvadó"
+    ],
+    "first_author": "Salas-Huetos",
+    "journal": "Hum Reprod Update",
+    "pubyear": "2017",
+    "title": "Dietary patterns, foods and nutrients in male fertility parameters and fecundability: a systematic review of observational studies.",
+    "types": [
+      "Journal Article",
+      "Systematic Review"
+    ],
+    "year": "2017"
+  },
+  "28675921": {
+    "authors": [
+      "Ghobara",
+      "Gelbaya",
+      "Ayeleke"
+    ],
+    "first_author": "Ghobara",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2017",
+    "title": "Cycle regimens for frozen-thawed embryo transfer.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Research Support, Non-U.S. Gov't",
+      "Systematic Review"
+    ],
+    "year": "2017"
+  },
+  "28692759": {
+    "authors": [
+      "Gatimel",
+      "Moreau",
+      "Parinaud",
+      "Léandri"
+    ],
+    "first_author": "Gatimel",
+    "journal": "Andrology",
+    "pubyear": "2017",
+    "title": "Sperm morphology: assessment, pathophysiology, clinical relevance, and state of the art in 2017.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2017"
+  },
+  "29049585": {
+    "authors": [
+      "Steiner",
+      "Pritchard",
+      "Stanczyk",
+      "Kesner",
+      "Meadows",
+      "Herring",
+      "Baird"
+    ],
+    "first_author": "Steiner",
+    "journal": "JAMA",
+    "pubyear": "2017",
+    "title": "Association Between Biomarkers of Ovarian Reserve and Infertility Among Older Women of Reproductive Age.",
+    "types": [
+      "Journal Article",
+      "Research Support, N.I.H., Extramural",
+      "Research Support, N.I.H., Intramural"
+    ],
+    "year": "2017"
+  },
+  "29183107": {
+    "authors": [
+      "Morley",
+      "Tang",
+      "Yasmin",
+      "Norman",
+      "Balen"
+    ],
+    "first_author": "Morley",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2017",
+    "title": "Insulin-sensitising drugs (metformin, rosiglitazone, pioglitazone, D-chiro-inositol) for women with polycystic ovary syndrome, oligo amenorrhoea and subfertility.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Research Support, Non-U.S. Gov't",
+      "Systematic Review"
+    ],
+    "year": "2017"
+  },
+  "29426322": {
+    "authors": [
+      "Zhao",
+      "Huang",
+      "Xu",
+      "Yan",
+      "Zhang",
+      "Li"
+    ],
+    "caution": "★コホート研究の統合(臨床妊娠9件、生児獲得3件)。欠乏群で生児獲得率が低い(RR 0.74, 95%CI 0.58-0.90)という関連。臨床妊娠率には有意差なし。抄録の結論は補充を勧める書き方だが、根拠は観察研究であり介入試験ではない。",
+    "first_author": "Zhao",
+    "journal": "Reprod Biol Endocrinol",
+    "pubyear": "2018",
+    "title": "Whether vitamin D was associated with clinical outcome after IVF/ICSI: a systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2018"
+  },
+  "29452361": {
+    "authors": [
+      "Cohlen",
+      "Bijkerk",
+      "Van der Poel",
+      "Ombelet"
+    ],
+    "first_author": "Cohlen",
+    "journal": "Hum Reprod Update",
+    "pubyear": "2018",
+    "title": "IUI: review and systematic assessment of the evidence that supports global recommendations.",
+    "types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't",
+      "Review"
+    ],
+    "year": "2018"
+  },
+  "29540081": {
+    "authors": [
+      "Krausz",
+      "Cioppi",
+      "Riera-Escamilla"
+    ],
+    "first_author": "Krausz",
+    "journal": "Expert Rev Mol Diagn",
+    "pubyear": "2018",
+    "title": "Testing for genetic contributions to infertility: potential clinical impact.",
+    "types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't",
+      "Review"
+    ],
+    "year": "2018"
+  },
+  "29800212": {
+    "authors": [
+      "Smith",
+      "de Lacey",
+      "Chapman",
+      "Ratcliffe",
+      "Norman",
+      "Johnson",
+      "Boothroyd",
+      "Fahey"
+    ],
+    "caution": "848名・16施設の単盲検RCT。本物の鍼とシャム鍼で出生率に差なし(18.3% vs 17.8%, RR 1.02, 95%CI 0.76-1.38)。著者らは『IVFの出生率改善のための鍼治療の使用を支持しない』と明記。",
+    "first_author": "Smith",
+    "journal": "JAMA",
+    "pubyear": "2018",
+    "title": "Effect of Acupuncture vs Sham Acupuncture on Live Births Among Women Undergoing In Vitro Fertilization: A Randomized Clinical Trial.",
+    "types": [
+      "Journal Article",
+      "Multicenter Study",
+      "Randomized Controlled Trial"
+    ],
+    "year": "2018"
+  },
+  "29945889": {
+    "authors": [
+      "Griffin",
+      "Ogur"
+    ],
+    "first_author": "Griffin",
+    "journal": "Reproduction",
+    "pubyear": "2018",
+    "title": "Chromosomal analysis in IVF: just how useful is it?",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2018"
+  },
+  "30416089": {
+    "authors": [
+      "Hsu",
+      "Caffey",
+      "Pisner",
+      "Shumake",
+      "Risom",
+      "Ray",
+      "Smits",
+      "Schnyer",
+      "Beevers"
+    ],
+    "first_author": "Hsu",
+    "journal": "Contemp Clin Trials",
+    "pubyear": "2018",
+    "title": "Attentional bias modification treatment for depression: Study protocol for a randomized controlled trial.",
+    "types": [
+      "Clinical Trial Protocol",
+      "Journal Article",
+      "Research Support, N.I.H., Extramural"
+    ],
+    "year": "2018"
+  },
+  "30575679": {
+    "authors": [],
+    "caution": "題名は『Prepregnancy Counseling』。妊娠前カウンセリング全般の文書で、パートナー間のコミュニケーションや心理支援を主題にしたものではない。No.762に別題(例『Addressing Mental Health...Perinipartum』)を付けた引用は誤り。",
+    "first_author": "",
+    "journal": "Obstet Gynecol",
+    "pubyear": "2019",
+    "title": "ACOG Committee Opinion No. 762: Prepregnancy Counseling.",
+    "types": [
+      "Journal Article",
+      "Practice Guideline"
+    ],
+    "year": "2019"
+  },
+  "30977288": {
+    "authors": [
+      "Harrison",
+      "Fowler",
+      "Abdalhamid",
+      "Selmecki",
+      "Hanson"
+    ],
+    "first_author": "Harrison",
+    "journal": "Microbiologyopen",
+    "pubyear": "2019",
+    "title": "lptG contributes to changes in membrane permeability and the emergence of multidrug hypersusceptibility in a cystic fibrosis isolate of Pseudomonas aeruginosa.",
+    "types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2019"
+  },
+  "31056315": {
+    "authors": [
+      "McQueen",
+      "Zhang",
+      "Robins"
+    ],
+    "first_author": "McQueen",
+    "journal": "Fertil Steril",
+    "pubyear": "2019",
+    "title": "Sperm DNA fragmentation and recurrent pregnancy loss: a systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2019"
+  },
+  "31203470": {
+    "authors": [
+      "Danis",
+      "Samplaski"
+    ],
+    "first_author": "Danis",
+    "journal": "Curr Urol Rep",
+    "pubyear": "2019",
+    "title": "Sperm Morphology: History, Challenges, and Impact on Natural and Assisted Fertility.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2019"
+  },
+  "31272468": {
+    "authors": [
+      "Zhang",
+      "Xu",
+      "Xue",
+      "Shang",
+      "Yang",
+      "Shan",
+      "Kuai",
+      "Wang",
+      "Zeng"
+    ],
+    "first_author": "Zhang",
+    "journal": "Reprod Biol Endocrinol",
+    "pubyear": "2019",
+    "title": "Discordance between antral follicle counts and anti-Müllerian hormone levels in women undergoing in vitro fertilization.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2019"
+  },
+  "31561004": {
+    "authors": [
+      "Arab",
+      "Hadi",
+      "Moosavian",
+      "Askari",
+      "Nasirian"
+    ],
+    "caution": "★観察研究18件の統合。血中25(OH)Dと精子運動率の関連を示したもので、因果は示していない。著者ら自身が試験間の異質性が大きく解釈に注意が要ると明記。",
+    "first_author": "Arab",
+    "journal": "Int J Surg",
+    "pubyear": "2019",
+    "title": "The association between serum vitamin D, fertility and semen quality: A systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2019"
+  },
+  "31910279": {
+    "authors": [
+      "Schisterman",
+      "Sjaarda",
+      "Clemons",
+      "Carrell",
+      "Perkins",
+      "Johnstone",
+      "Lamb",
+      "Chaney",
+      "Van Voorhis",
+      "Ryan",
+      "Summers",
+      "Hotaling",
+      "Robins",
+      "Mills",
+      "Mendola",
+      "Chen",
+      "DeVilbiss",
+      "Peterson",
+      "Mumford"
+    ],
+    "caution": "FAZST試験。男性2,370名に葉酸5mg+亜鉛30mgを6か月投与。出生率34% vs 35%(リスク差 -0.9%)で差なし、精液所見もほぼ改善なし。DNA断片化はむしろ有意に増加(29.7% vs 27.2%)、消化器症状も多い。著者らは『男性パートナーの葉酸・亜鉛補充を支持しない』と明記。★『夫婦で葉酸を』という誘導の根拠に使わない。",
+    "first_author": "Schisterman",
+    "journal": "JAMA",
+    "pubyear": "2020",
+    "title": "Effect of Folic Acid and Zinc Supplementation in Men on Semen Quality and Live Birth Among Couples Undergoing Infertility Treatment: A Randomized Clinical Trial.",
+    "types": [
+      "Journal Article",
+      "Multicenter Study",
+      "Randomized Controlled Trial"
+    ],
+    "year": "2020"
+  },
+  "32008730": {
+    "authors": [
+      "Coomarasamy",
+      "Devall",
+      "Brosens",
+      "Quenby",
+      "Stephenson",
+      "Sierra",
+      "Christiansen",
+      "Small",
+      "Brewin",
+      "Roberts",
+      "Dhillon-Smith",
+      "Harb",
+      "Noordali",
+      "Papadopoulou",
+      "Eapen",
+      "Prior",
+      "Di Renzo",
+      "Hinshaw",
+      "Mol",
+      "Lumsden",
+      "Khalaf",
+      "Shennan",
+      "Goddijn",
+      "van Wely",
+      "Al-Memar",
+      "Bennett",
+      "Bourne",
+      "Rai",
+      "Regan",
+      "Gallos"
+    ],
+    "first_author": "Coomarasamy",
+    "journal": "Am J Obstet Gynecol",
+    "pubyear": "2020",
+    "title": "Micronized vaginal progesterone to prevent miscarriage: a critical evaluation of randomized evidence.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2020"
+  },
+  "32019326": {
+    "authors": [
+      "Hudson",
+      "Perricos",
+      "Wenzl",
+      "Yotova"
+    ],
+    "first_author": "Hudson",
+    "journal": "Exp Biol Med (Maywood)",
+    "pubyear": "2020",
+    "title": "Challenges in uncovering non-invasive biomarkers of endometriosis.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2020"
+  },
+  "32106976": {
+    "authors": [],
+    "first_author": "",
+    "journal": "Fertil Steril",
+    "pubyear": "2020",
+    "title": "Evidence-based treatments for couples with unexplained infertility: a guideline.",
+    "types": [
+      "Journal Article",
+      "Practice Guideline",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2020"
+  },
+  "32767206": {
+    "authors": [
+      "Florou",
+      "Anagnostis",
+      "Theocharis",
+      "Chourdakis",
+      "Goulis"
+    ],
+    "first_author": "Florou",
+    "journal": "J Assist Reprod Genet",
+    "pubyear": "2020",
+    "title": "Does coenzyme Q10 supplementation improve fertility outcomes in women undergoing assisted reproductive technology procedures? A systematic review and meta-analysis of randomized-controlled trials.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2020"
+  },
+  "32777871": {
+    "authors": [
+      "Agarwal",
+      "Majzoub",
+      "Baskaran",
+      "Panner Selvam",
+      "Cho",
+      "Henkel",
+      "Finelli",
+      "Leisegang",
+      "Sengupta",
+      "Barbarosie",
+      "Parekh",
+      "Alves",
+      "Ko",
+      "Arafa",
+      "Tadros",
+      "Ramasamy",
+      "Kavoussi",
+      "Ambar",
+      "Kuchakulla",
+      "Robert",
+      "Iovine",
+      "Durairajanayagam",
+      "Jindal",
+      "Shah"
+    ],
+    "first_author": "Agarwal",
+    "journal": "World J Mens Health",
+    "pubyear": "2020",
+    "title": "Sperm DNA Fragmentation: A New Guideline for Clinicians.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2020"
+  },
+  "32791871": {
+    "authors": [
+      "Iliuta",
+      "Pijoan",
+      "Lainz",
+      "Exposito",
+      "Matorras"
+    ],
+    "caution": "★コホート研究15件・3,711名の統合であって介入試験ではない。『濃度が充分な人は成績が良い』という関連であり、『サプリを飲めば成績が上がる』ことは示していない。著者ら自身が、ビタミンD以外の人口統計的・地理的・臨床的要因が関与しうると述べている。",
+    "first_author": "Iliuta",
+    "journal": "Hum Fertil (Camb)",
+    "pubyear": "2020",
+    "title": "Women's vitamin D levels and IVF results: a systematic review of the literature and meta-analysis, considering three categories of vitamin status (replete, insufficient and deficient).",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2022"
+  },
+  "33303348": {
+    "authors": [
+      "Oliveira",
+      "Slanetz",
+      "Catanzano",
+      "Sarkany",
+      "Siddall",
+      "Johnson",
+      "Jordan"
+    ],
+    "first_author": "Oliveira",
+    "journal": "Acad Radiol",
+    "pubyear": "2020",
+    "title": "Strengthening the Clinical Learning Environment by Mandate-Implementing the ACGME Common Program Requirements.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2022"
+  },
+  "33395930": {
+    "authors": [
+      "Ragusa",
+      "Svelato",
+      "Santacroce",
+      "Catalano",
+      "Notarstefano",
+      "Carnevali",
+      "Papa",
+      "Rongioletti",
+      "Baiocco",
+      "Draghi",
+      "D'Amore",
+      "Rinaldo",
+      "Matta",
+      "Giorgini"
+    ],
+    "caution": "★極めて小規模。胎盤6例を調べ、4例から計12個の断片(5-10μm)を検出したという報告。検出の事実のみで、妊娠経過や生殖機能への影響は一切調べていない。",
+    "first_author": "Ragusa",
+    "journal": "Environ Int",
+    "pubyear": "2020",
+    "title": "Plasticenta: First evidence of microplastics in human placenta.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2021"
+  },
+  "33872382": {
+    "authors": [
+      "Devall",
+      "Papadopoulou",
+      "Podesek",
+      "Haas",
+      "Price",
+      "Coomarasamy",
+      "Gallos"
+    ],
+    "first_author": "Devall",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2021",
+    "title": "Progestogens for preventing miscarriage: a network meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't",
+      "Systematic Review",
+      "Network Meta-Analysis"
+    ],
+    "year": "2021"
+  },
+  "34333014": {
+    "authors": [
+      "Kim",
+      "Han",
+      "Ryu",
+      "Kim",
+      "Kim"
+    ],
+    "first_author": "Kim",
+    "journal": "Environ Res",
+    "pubyear": "2021",
+    "title": "Effects of mobile phone usage on sperm quality - No time-dependent relationship on usage: A systematic review and updated meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Research Support, Non-U.S. Gov't",
+      "Systematic Review"
+    ],
+    "year": "2021"
+  },
+  "34815068": {
+    "authors": [
+      "Penzias",
+      "Azziz",
+      "Bendikson",
+      "Falcone",
+      "Hansen",
+      "Hill",
+      "Jindal",
+      "Kalra",
+      "Mersereau",
+      "Reindollar",
+      "Shannon",
+      "Steiner",
+      "Tanrikut",
+      "Taylor",
+      "Yauger"
+    ],
+    "caution": "ASRM委員会意見。主題は体重・運動・喫煙・性交頻度など自然妊娠の最適化。電子公開2021年11月/誌面2022年1月号(117(1):53-63)。2013年版を置き換えた版で、2021年版という版は存在しない。",
+    "first_author": "Penzias",
+    "journal": "Fertil Steril",
+    "pubyear": "2021",
+    "title": "Optimizing natural fertility: a committee opinion.",
+    "types": [
+      "Journal Article",
+      "Practice Guideline"
+    ],
+    "year": "2022"
+  },
+  "35269682": {
+    "authors": [
+      "Ferramosca",
+      "Zara"
+    ],
+    "first_author": "Ferramosca",
+    "journal": "Int J Mol Sci",
+    "pubyear": "2022",
+    "title": "Diet and Male Fertility: The Impact of Nutrients and Antioxidants on Sperm Energetic Metabolism.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2022"
+  },
+  "35367073": {
+    "authors": [
+      "Leslie",
+      "van Velzen",
+      "Brandsma",
+      "Vethaak",
+      "Garcia-Vallejo",
+      "Lamoree"
+    ],
+    "caution": "★健常ボランティア22名の血液を測定した小規模研究。検出・定量の報告であり、健康影響は示していない。著者ら自身が『公衆衛生上のリスクかどうかを判断するには曝露とハザードの理解が必要』と述べている。",
+    "first_author": "Leslie",
+    "journal": "Environ Int",
+    "pubyear": "2022",
+    "title": "Discovery and quantification of plastic particle pollution in human blood.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2022"
+  },
+  "35690546": {
+    "authors": [
+      "Murugesu",
+      "Kasaven",
+      "Petrie",
+      "Vaseekaran",
+      "Jones",
+      "Bracewell-Milnes",
+      "Barcroft",
+      "Grewal",
+      "Getreu",
+      "Galazis",
+      "Sorbi",
+      "Saso",
+      "Ben-Nagi"
+    ],
+    "first_author": "Murugesu",
+    "journal": "Reprod Biomed Online",
+    "pubyear": "2022",
+    "title": "Does advanced paternal age affect outcomes following assisted reproductive technology? A systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2022"
+  },
+  "36071533": {
+    "authors": [
+      "Sasaki",
+      "Imamura",
+      "Watanabe",
+      "Hidaka",
+      "Ando",
+      "Eguchi",
+      "Inoue",
+      "Tsuno",
+      "Komase",
+      "Iida",
+      "Otsuka",
+      "Sakuraya",
+      "Asai",
+      "Iwanaga",
+      "Kobayashi",
+      "Inoue",
+      "Shimazu",
+      "Tsutsumi",
+      "Kawakami"
+    ],
+    "first_author": "Sasaki",
+    "journal": "Syst Rev",
+    "pubyear": "2022",
+    "title": "The impact of workplace psychosocial factors on menstrual disorders and infertility: a protocol for a systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2022"
+  },
+  "37192834": {
+    "authors": [
+      "Cimadomo",
+      "Rienzi",
+      "Conforti",
+      "Forman",
+      "Canosa",
+      "Innocenti",
+      "Poli",
+      "Hynes",
+      "Gemmell",
+      "Vaiarelli",
+      "Alviggi",
+      "Ubaldi",
+      "Capalbo"
+    ],
+    "first_author": "Cimadomo",
+    "journal": "Hum Reprod Update",
+    "pubyear": "2023",
+    "title": "Opening the black box: why do euploid blastocysts fail to implant? A systematic review and meta-analysis.",
+    "types": [
+      "Meta-Analysis",
+      "Systematic Review",
+      "Journal Article"
+    ],
+    "year": "2023"
+  },
+  "37436463": {
+    "authors": [
+      "Xu",
+      "Zhu",
+      "Zheng"
+    ],
+    "caution": "25試験・4,757名。鍼群でCPR 43.6% vs 33.2%、LBR 38.0% vs 28.7%と有意に高いと報告。ただし対照群の取り方が試験ごとにばらつき(無治療対照を含む)、著者ら自身がプラセボ鍼を対照にすべきと述べている。シャム対照に限った最大のRCT(PMID 29800212)では差が出ていないため、単独で『鍼は有効』と書かない。",
+    "first_author": "Xu",
+    "journal": "Arch Gynecol Obstet",
+    "pubyear": "2023",
+    "title": "Effects of acupuncture on pregnancy outcomes in women undergoing in vitro fertilization: an updated systematic review and meta-analysis.",
+    "types": [
+      "Meta-Analysis",
+      "Systematic Review",
+      "Journal Article"
+    ],
+    "year": "2023"
+  },
+  "37745696": {
+    "authors": [
+      "Gao",
+      "Yuan",
+      "Li",
+      "Tian",
+      "Lian",
+      "Liu",
+      "Li",
+      "Qiao",
+      "Long",
+      "Wang"
+    ],
+    "first_author": "Gao",
+    "journal": "Front Endocrinol (Lausanne)",
+    "pubyear": "2023",
+    "title": "Sequential embryo transfer versus double cleavage-stage embryo or double blastocyst transfer in patients with recurrent implantation failure with frozen-thawed embryo transfer cycles: a cohort study.",
+    "types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2023"
+  },
+  "37921737": {
+    "authors": [
+      "Rahban",
+      "Senn",
+      "Nef",
+      "Rӧӧsli"
+    ],
+    "first_author": "Rahban",
+    "journal": "Fertil Steril",
+    "pubyear": "2023",
+    "title": "Association between self-reported mobile phone use and the semen quality of young men.",
+    "types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2023"
+  },
+  "38289202": {
+    "authors": [
+      "Rotimi",
+      "Singh"
+    ],
+    "first_author": "Rotimi",
+    "journal": "JBRA Assist Reprod",
+    "pubyear": "2024",
+    "title": "Implications of lifestyle factors on male reproductive health.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2024"
+  },
+  "38761430": {
+    "authors": [
+      "V L Leonard",
+      "Leonard",
+      "Liddle",
+      "Atherall",
+      "Chapman",
+      "Watkins",
+      "D J Calaminus",
+      "Calaminus",
+      "Rotchell"
+    ],
+    "caution": "★健常者20名中18名の血液から24種のポリマーを検出した小規模研究。検出の報告であり、健康影響は示していない。",
+    "first_author": "V L Leonard",
+    "journal": "Environ Int",
+    "pubyear": "2024",
+    "title": "Microplastics in human blood: Polymer types, concentrations and characterisation using μFTIR.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2024"
+  },
+  "38944045": {
+    "authors": [
+      "Ho",
+      "Pham",
+      "Nguyen",
+      "Wang",
+      "Norman",
+      "Mol",
+      "Ho",
+      "Vuong"
+    ],
+    "first_author": "Ho",
+    "journal": "Lancet",
+    "pubyear": "2024",
+    "title": "Livebirth rate after one frozen embryo transfer in ovulatory women starting with natural, modified natural, or artificial endometrial preparation in Viet Nam: an open-label randomised controlled trial.",
+    "types": [
+      "Journal Article",
+      "Randomized Controlled Trial"
+    ],
+    "year": "2024"
+  },
+  "39043203": {
+    "authors": [
+      "Moutzouri",
+      "Sarantaki",
+      "Koulierakis",
+      "Gourounti"
+    ],
+    "caution": "★最終的に組み入れられたのは5研究のみのナラティブな統合。メタ解析ではなく、効果量も出していない。『メタアナリシスで示された』の根拠には使えない。",
+    "first_author": "Moutzouri",
+    "journal": "J Mother Child",
+    "pubyear": "2024",
+    "title": "Coping Strategies Associated with Emotional Adjustment during the Dyadic Experience of Infertility and Its Treatment: A Systematic Review.",
+    "types": [
+      "Journal Article",
+      "Systematic Review"
+    ],
+    "year": "2024"
+  },
+  "39129455": {
+    "authors": [
+      "Lin",
+      "Li",
+      "Jin Yie",
+      "Xu"
+    ],
+    "caution": "組み入れ6RCT・1,529名。著者自身が『標本数が小さく方法の記述が乏しい』ことを限界として明記。出産率(生児獲得率)は主要アウトカムに含まれない。",
+    "first_author": "Lin",
+    "journal": "Ann Med",
+    "pubyear": "2024",
+    "title": "Clinical evidence of coenzyme Q10 pretreatment for women with diminished ovarian reserve undergoing IVF/ICSI: a systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Systematic Review",
+      "Meta-Analysis"
+    ],
+    "year": "2024"
+  },
+  "39191078": {
+    "authors": [
+      "Nuñez-Calonge",
+      "Santamaria",
+      "Rubio",
+      "Manuel Moreno"
+    ],
+    "first_author": "Nuñez-Calonge",
+    "journal": "Arch Med Res",
+    "pubyear": "2024",
+    "title": "Making and Selecting the Best Embryo in In vitro Fertilization.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2024"
+  },
+  "39537384": {
+    "authors": [
+      "Guo",
+      "Zhou",
+      "Feng",
+      "Zhang",
+      "Liu",
+      "Yang",
+      "Liu",
+      "Feng",
+      "Xia"
+    ],
+    "first_author": "Guo",
+    "journal": "Rev Med Virol",
+    "pubyear": "2024",
+    "title": "The Association Between Male Viral Infections and Infertility: A Systematic Review and Meta-Analysis.",
+    "types": [
+      "Systematic Review",
+      "Meta-Analysis",
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2024"
+  },
+  "39702393": {
+    "authors": [
+      "Lin",
+      "Chen",
+      "Qiao",
+      "Chen",
+      "Deng",
+      "Xu"
+    ],
+    "first_author": "Lin",
+    "journal": "J Ovarian Res",
+    "pubyear": "2024",
+    "title": "Comparative efficacy and safety of metformin, anti-obesity agents, and myoinositol in improving IVF/ICSI outcomes and reducing ovarian hyperstimulation syndrome in women with polycystic ovary syndrome: a systematic review and network meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Network Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2024"
+  },
+  "40117219": {
+    "authors": [
+      "Awonuga",
+      "Camp",
+      "Biernat",
+      "Abu-Soud"
+    ],
+    "first_author": "Awonuga",
+    "journal": "Syst Biol Reprod Med",
+    "pubyear": "2025",
+    "title": "Overview of infertility.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2025"
+  },
+  "40431450": {
+    "authors": [
+      "Michaelsen",
+      "Poulsen",
+      "Bjerregaard",
+      "Borgstrøm",
+      "Poulsen",
+      "Chortsen",
+      "Henriksen",
+      "Kesmodel"
+    ],
+    "first_author": "Michaelsen",
+    "journal": "Nutrients",
+    "pubyear": "2025",
+    "title": "The Effect of Dietary Supplements on Male Infertility in Terms of Pregnancy, Live Birth, and Sperm Parameters: A Systematic Review and Meta-Analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2025"
+  },
+  "40497447": {
+    "authors": [
+      "Haas",
+      "Bofill Rodriguez",
+      "Hathaway",
+      "Ramsey"
+    ],
+    "first_author": "Haas",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2025",
+    "title": "Progestogen for preventing miscarriage in women with recurrent miscarriage of unclear etiology.",
+    "types": [
+      "Journal Article",
+      "Systematic Review",
+      "Meta-Analysis"
+    ],
+    "year": "2025"
+  },
+  "41227336": {
+    "authors": [
+      "Miranda",
+      "Gajeiro",
+      "Martins-Bessa",
+      "Gaivão"
+    ],
+    "first_author": "Miranda",
+    "journal": "Cells",
+    "pubyear": "2025",
+    "title": "Impact of Tobacco Smoke Exposure on Male Fertility: An In Vivo Study Using Drosophila melanogaster.",
+    "types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2025"
+  },
+  "41712950": {
+    "authors": [],
+    "caution": "ACOG臨床実践ガイドライン。適用範囲は『診断』のみ(clinical, imaging, and surgical evaluation and diagnosis)。治療の推奨は範囲外なので、治療方針をこの文書に帰属させない。",
+    "first_author": "",
+    "journal": "Obstet Gynecol",
+    "pubyear": "2026",
+    "title": "Diagnosis of Endometriosis.",
+    "types": [
+      "Journal Article",
+      "Practice Guideline"
+    ],
+    "year": "2026"
+  },
+  "41757236": {
+    "authors": [
+      "Duan",
+      "Yang",
+      "Li",
+      "Wu",
+      "Yin",
+      "Zhu"
+    ],
+    "first_author": "Duan",
+    "journal": "Front Endocrinol (Lausanne)",
+    "pubyear": "2026",
+    "title": "Effects of inositol in women with polycystic ovary syndrome: an umbrella review of meta-analyses from randomized controlled trials.",
+    "types": [
+      "Journal Article",
+      "Systematic Review",
+      "Meta-Analysis"
+    ],
+    "year": "2026"
+  }
 }
