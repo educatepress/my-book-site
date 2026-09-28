@@ -9,6 +9,9 @@
   ③ 参考文献欄に DOI / PMC番号 / 巻号ページ  … 書誌は「題名 + PMID」だけ(書くほど捏造の面積が増える)
   ④ MDX が 500 になる生記法 (<Link> / ::: / {.class} / import)
   ⑤ frontmatter の必須キー欠落 (title/date/excerpt/author/category) と不正カテゴリ
+     ★frontmatter が YAML として壊れていないか(2026-09-28 追加)
+       自前パーサーは緩いので、クォートの閉じ忘れを通してしまい Next.js のビルドで初めて
+       落ちた。門が公開前に捕まえられるようにする。
   ⑥ 台帳の unusable / coi / caution に触れずに引用している
      (the-skin-atelier の src/lib/compliance.ts + unapproved_check.py から移植 2026-09-28)
      - unusable … その文献は根拠にならない。引用ごと外す
@@ -45,6 +48,21 @@ def check(path):
     blocking, warn = [], []
     if fm is None:
         return ['frontmatter が無い'], []
+    # ★frontmatter が YAML として妥当か(自前パーサーは緩く、クォート閉じ忘れを通してしまう)
+    fm_raw = re.match(r'^---\n(.*?)\n---\n', text, re.S)
+    if fm_raw:
+        try:
+            import yaml
+            try:
+                yaml.safe_load(fm_raw.group(1))
+            except Exception as e:
+                blocking.append(f'frontmatter が YAML として壊れている: {str(e).splitlines()[0][:70]}')
+        except ImportError:
+            for line in fm_raw.group(1).split('\n'):
+                v = line.partition(':')[2].strip()
+                for q in ("'", '"'):
+                    if v.startswith(q) and not v.endswith(q):
+                        blocking.append(f'frontmatter のクォートが閉じていない: {line[:40]}')
     for k in ('title', 'date', 'excerpt', 'author', 'category'):
         if not fm.get(k): blocking.append(f'frontmatter に {k} が無い')
     # ★下書きは公開されないので門の対象外(the-skin-atelier の check_all.ts と同じ扱い)
