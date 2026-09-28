@@ -1,53 +1,37 @@
 {
-  "week": "2026-09-21",
+  "week": "2026-09-28",
   "categoryPV": {
-    "分類外": 7,
-    "⑧サプリ・生活改善": 2,
-    "③身体のサイン解読": 2,
-    "①流産の恐怖・不安": 2,
-    "④精神的負担・人間関係": 1
+    "分類外": 2,
+    "①流産の恐怖・不安": 1,
+    "③身体のサイン解読": 1,
+    "⑨特定診断のピア体験": 1,
+    "⑧サプリ・生活改善": 1
   },
   "top10": [
     {
-      "path": "/en/blog/advanced-paternal-age-fertility-impact",
+      "path": "/blog/miscarriage-next-pregnancy-wait-time-evidence",
       "pv": 1
     },
     {
-      "path": "/en/blog/early-embryo-transfer-blastocyst-failure",
+      "path": "/blog/opk-never-positive-other-reasons",
       "pv": 1
     },
     {
-      "path": "/en/blog/environmental-hormones-fertility-threat",
+      "path": "/blog/sperm-dna-fragmentation-infertility-hidden-cause",
       "pv": 1
     },
     {
-      "path": "/en/blog/fertility-sex-position-myth-science",
+      "path": "/en/blog/acog-2026-endometriosis-guidelines-no-wait-for-surgery",
       "pv": 1
     },
     {
-      "path": "/en/blog/folic-acid-preconception-care-en",
+      "path": "/en/blog/preconception-care-today",
       "pv": 1
     },
     {
-      "path": "/en/blog/high-fsh-amh-comparison-pregnancy-potential",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/irregular-cycle-fertility-timing",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/miscarriage-next-pregnancy-wait-time-evidence",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/opk-bbt-accuracy-conception",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/preconception-care-today-en",
+      "path": "/en/blog/vitamin-d-fertility",
       "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 7 PV (7記事, 平均1 PV/記事)\n⑧サプリ・生活改善: 2 PV (2記事, 平均1 PV/記事)\n③身体のサイン解読: 2 PV (2記事, 平均1 PV/記事)\n①流産の恐怖・不安: 2 PV (2記事, 平均1 PV/記事)\n④精神的負担・人間関係: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — Advanced Paternal Age and Fertility: Understanding\n  1 PV — When Embryos Don't Reach Blastocyst Stage: Is Earl\n  1 PV — \"Invisible Enemy\" Environmental Hormones Threateni\n  1 PV — Fertility and Sexual Positions: Myth or Science? T\n  1 PV — The Importance of Folic Acid and Intake Timing: A \n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 2 PV (2記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n③身体のサイン解読: 1 PV (1記事, 平均1 PV/記事)\n⑨特定診断のピア体験: 1 PV (1記事, 平均1 PV/記事)\n⑧サプリ・生活改善: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — 流産後、次の妊娠はいつから可能？「3ヶ月待つべき」は最新エビデンスで否定的 | Blog\n  1 PV — 排卵検査薬（OPK）が2本線にならない？PCOS以外に考えられる5つの理由 | Blog\n  1 PV — 精子DNA断片化（DFI）：何が分かっていて、検査は誰に必要か | Blog\n  1 PV — ACOG 2026 Endometriosis Guidelines: The Era of 'Tr\n  1 PV — What is Preconception Care? Health Investment for \n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
