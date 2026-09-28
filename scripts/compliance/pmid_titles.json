@@ -792,6 +792,28 @@
     ],
     "year": "2021"
   },
+  "34532803": {
+    "authors": [
+      "Qian",
+      "Xu",
+      "Yan",
+      "Fan",
+      "Li",
+      "Tao",
+      "Zhang",
+      "Lu"
+    ],
+    "caution": "★効果量は小さい。精子濃度 SMD -0.17(-0.20,-0.13)、精子数 -0.05(-0.08,-0.02)、総運動率 -0.33(-0.54,-0.11)。前進運動率には関連なし(SMD 0.00)。組み入れ研究が10件未満のため出版バイアスは評価していないと著者が明記。観察研究の統合で因果は示していない。",
+    "first_author": "Qian",
+    "journal": "Environ Sci Pollut Res Int",
+    "pubyear": "2021",
+    "title": "Association between exposure to ambient air pollution and semen quality in adults: a meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis"
+    ],
+    "year": "2022"
+  },
   "34815068": {
     "authors": [
       "Penzias",
@@ -914,6 +936,35 @@
     ],
     "year": "2022"
   },
+  "36801327": {
+    "authors": [
+      "Cohen",
+      "Yao",
+      "Midya",
+      "India-Aldana",
+      "Mouzica",
+      "Andra",
+      "Narasimhan",
+      "Meher",
+      "Arora",
+      "Chan",
+      "Chan",
+      "Loy",
+      "Minguez-Alarcon",
+      "Oulhote",
+      "Huang",
+      "Valvi"
+    ],
+    "caution": "★シンガポールの妊娠前コホート内の症例対照研究(382名)。四分位上昇あたり妊孕力が5-10%低下。有意だったのはPFDA(FR 0.90, 0.82-0.98)とPFOS(0.88, 0.79-0.99)で、PFOA(0.95, 0.86-1.06)とPFHpA(0.92, 0.84-1.00)は有意でない。臨床妊娠・生児のオッズ比は多くが信頼区間に1を含む。PFHxS・PFNA・PFHpSでは関連なし。単一集団の観察研究で因果は示していない。",
+    "first_author": "Cohen",
+    "journal": "Sci Total Environ",
+    "pubyear": "2023",
+    "title": "Exposure to perfluoroalkyl substances and women's fertility outcomes in a Singaporean population-based preconception cohort.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2023"
+  },
   "37192834": {
     "authors": [
       "Cimadomo",
@@ -987,6 +1038,27 @@
     ],
     "year": "2023"
   },
+  "37601219": {
+    "authors": [
+      "Liu",
+      "Dai",
+      "Li",
+      "Yuan",
+      "Wang",
+      "Wang"
+    ],
+    "caution": "★対象は中国人男性93,996名に限られ、他地域にそのまま当てはまるかは不明。関連が見られた曝露窓(射精前0-9日/10-14日/70-90日)は汚染物質ごとに異なり、一貫していない。観察研究の統合で因果は示していない。",
+    "first_author": "Liu",
+    "journal": "Front Public Health",
+    "pubyear": "2023",
+    "title": "Does air pollution exposure affect semen quality? Evidence from a systematic review and meta-analysis of 93,996 Chinese men.",
+    "types": [
+      "Meta-Analysis",
+      "Systematic Review",
+      "Journal Article"
+    ],
+    "year": "2023"
+  },
   "37745696": {
     "authors": [
       "Gao",
@@ -1024,6 +1096,30 @@
     "types": [
       "Journal Article",
       "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2023"
+  },
+  "38068847": {
+    "authors": [
+      "Petre",
+      "Francini-Pesenti",
+      "Di Nisio",
+      "De Toni",
+      "Grande",
+      "Mingardi",
+      "Cusmano",
+      "Spinella",
+      "Ferlin",
+      "Garolla"
+    ],
+    "caution": "★同一グループによる前身の横断研究(300名)。地中海食の遵守度と精液所見の相関を示したもので、因果は示していない。UPFは主題ではない。",
+    "first_author": "Petre",
+    "journal": "Nutrients",
+    "pubyear": "2023",
+    "title": "Observational Cross-Sectional Study on Mediterranean Diet and Sperm Parameters.",
+    "types": [
+      "Observational Study",
+      "Journal Article"
     ],
     "year": "2023"
   },
@@ -1183,6 +1279,30 @@
     ],
     "year": "2024"
   },
+  "39767456": {
+    "authors": [
+      "Haimbaugh",
+      "Meyer",
+      "Connell",
+      "Blount-Pacheco",
+      "Tolofari",
+      "Gonzalez",
+      "Banerjee",
+      "Norton",
+      "Miller",
+      "Baker"
+    ],
+    "caution": "★30研究・27,901名の系統的レビュー(2017-2022)。『一般集団の背景レベルのPFASでは妊孕性への影響は認めなかった』と明記。一方でPFOSと早産、PFOAと流産に弱〜中等度の関連、PCOS・子宮内膜症関連の不妊に中等度の関連、精子運動率とDNAに中等度の障害を報告。メタ解析ではなく質的統合で、効果量は統合されていない。資金提供に水道事業体(Great Lakes Water Authority)が含まれる。",
+    "first_author": "Haimbaugh",
+    "journal": "Int J Environ Res Public Health",
+    "pubyear": "2024",
+    "title": "Environmental Exposure to Per- and Polyfluorylalkyl Substances (PFASs) and Reproductive Outcomes in the General Population: A Systematic Review of Epidemiological Studies.",
+    "types": [
+      "Systematic Review",
+      "Journal Article"
+    ],
+    "year": "2024"
+  },
   "40117219": {
     "authors": [
       "Awonuga",
@@ -1238,6 +1358,29 @@
       "Journal Article",
       "Systematic Review",
       "Meta-Analysis"
+    ],
+    "year": "2025"
+  },
+  "40647172": {
+    "authors": [
+      "Petre",
+      "Francini-Pesenti",
+      "De Toni",
+      "Di Nisio",
+      "Mingardi",
+      "Cosci",
+      "Passerin",
+      "Ferlin",
+      "Garolla"
+    ],
+    "caution": "★単施設の横断研究(358名・平均34.6歳)。食事は自己申告の質問票(MEDAS / NOVA分類)。UPF摂取と精液所見の『相関』を示したもので、因果は示していない。ホルモン値との関連は認めていない。対象は生殖医療センターに自ら来院した男性で、一般集団ではない。",
+    "first_author": "Petre",
+    "journal": "Nutrients",
+    "pubyear": "2025",
+    "title": "Role of Mediterranean Diet and Ultra-Processed Foods on Sperm Parameters: Data from a Cross-Sectional Study.",
+    "types": [
+      "Journal Article",
+      "Observational Study"
     ],
     "year": "2025"
   },
