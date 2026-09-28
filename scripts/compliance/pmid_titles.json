@@ -53,6 +53,25 @@
     ],
     "year": "2015"
   },
+  "25564410": {
+    "authors": [
+      "Singh",
+      "Arora",
+      "Lal",
+      "Strand",
+      "Makharia"
+    ],
+    "caution": "★オッズ比は大きいが信頼区間が広い(不妊全体 OR 3.5, 95%CI 1.3-9／原因不明不妊 OR 6, 95%CI 2.4-14.6)。オッズ比の算出に使えたのは5研究のみ。★絶対的な有病率は低く、不妊女性884名中20名(2.3%)。つまり97%以上はセリアック病ではない。",
+    "first_author": "Singh",
+    "journal": "J Clin Gastroenterol",
+    "pubyear": "2016",
+    "title": "Celiac Disease in Women With Infertility: A Meta-Analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis"
+    ],
+    "year": "2016"
+  },
   "26111777": {
     "authors": [
       "Ben-Meir",
@@ -457,6 +476,25 @@
     "title": "Discordance between antral follicle counts and anti-Müllerian hormone levels in women undergoing in vitro fertilization.",
     "types": [
       "Journal Article"
+    ],
+    "year": "2019"
+  },
+  "31434238": {
+    "authors": [
+      "Castaño",
+      "Gómez-Gordo",
+      "Cuevas",
+      "Núñez"
+    ],
+    "caution": "★23研究の統合。血清有病率は全不妊・原因不明不妊とも約1.3-1.6%で、対照と比べたオッズは約3倍。ただし★『標本が小さく正確な有病率は算出できなかった』『スクリーニングの具体的な推奨を出すにはさらなる研究が必要』と著者が明記している。不妊女性全員への一律スクリーニングの根拠には使えない。",
+    "first_author": "Castaño",
+    "journal": "Nutrients",
+    "pubyear": "2019",
+    "title": "Systematic Review and Meta-Analysis of Prevalence of Coeliac Disease in Women with Infertility.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
     ],
     "year": "2019"
   },
@@ -877,6 +915,29 @@
     ],
     "year": "2022"
   },
+  "35469763": {
+    "authors": [
+      "Yakovlev",
+      "Vyatkina",
+      "Polyakov",
+      "Pavlova",
+      "Volkomorov",
+      "Yakovlev",
+      "Filimonov",
+      "Kazaryn",
+      "Aizikovich",
+      "Kornilov"
+    ],
+    "caution": "★後ろ向きコホート(正倍数体513・モザイク118)。モザイクの定義は異常細胞20-80%で、施設や検査法によって基準が異なる点に注意。部分(segmental)モザイクは40例、複合モザイクは6例と少数。新生児の転帰に差はなかったが、出生後の遺伝学的検査が行われたのは34例中13例のみ。",
+    "first_author": "Yakovlev",
+    "journal": "Reprod Biomed Online",
+    "pubyear": "2022",
+    "title": "Neonatal and clinical outcomes after transfer of a mosaic embryo identified by preimplantation genetic testing for aneuploidies.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2022"
+  },
   "35690546": {
     "authors": [
       "Murugesu",
@@ -1122,6 +1183,23 @@
       "Journal Article"
     ],
     "year": "2023"
+  },
+  "38231287": {
+    "authors": [
+      "Khorshid",
+      "Bavan",
+      "Chung",
+      "Lathi"
+    ],
+    "caution": "★実際の患者を追跡した研究ではなく、既存の確率と費用を組み合わせた意思決定モデル。費用は2023年の米国の医療制度を前提としており、日本の自己負担額には当てはまらない。対象は『非正倍数体胚しか残っていない』状況に限られる。",
+    "first_author": "Khorshid",
+    "journal": "J Assist Reprod Genet",
+    "pubyear": "2024",
+    "title": "Mosaic embryo transfer versus additional IVF with PGT-A Cycle: a decision model comparing live birth rate and cost.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2024"
   },
   "38289202": {
     "authors": [
