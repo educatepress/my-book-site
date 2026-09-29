@@ -78,7 +78,7 @@ def check(path):
         (r'提供された参考文献はありません|論文が見つかりませんでした|参考URL/PMID|Tier A/B|Tier B|Please insert specific PMID|PMID: N/A', '生成テンプレの残骸が本文に残っている'),
         (r'デモ用|demo-(?:jp|en)\.png', 'ダミーデータの図(デモ用)を参照している'),
         (r'当院|当クリニック|ご来院', '存在しない診療施設(当院)を示す語がある(ttcguide.co は書籍・情報サイト)'),
-        (r'^TW:|Your feelings are valid|感情は有効', '生成プロンプト由来の定型句(TW:/Your feelings are valid)が残っている'),
+        (r'^TW:|Your feelings are valid|感情は有効|気持ちは有効|感情は、?どれも有効|感情は全て有効|どんな感情も有効', '生成プロンプト由来の定型句(TW:/Your feelings are valid の直訳)が残っている'),
     ):
         if re.search(pat, body, re.M): blocking.append(msg)
     # ① PMID 台帳
