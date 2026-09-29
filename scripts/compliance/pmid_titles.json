@@ -818,6 +818,28 @@
     ],
     "year": "2020"
   },
+  "32378735": {
+    "authors": [
+      "Woodley",
+      "Lawrenson",
+      "Boyle",
+      "Cody",
+      "Morkved",
+      "Kernohan",
+      "Hay-Smith"
+    ],
+    "caution": "RCT46件・10,832名。★『予防』と『治療』で結論が違う。妊娠中に始める予防(尿失禁のない人)は妊娠後期RR 0.38(95%CI 0.20-0.72, 中)・産後3〜6ヶ月RR 0.71(95%CI 0.54-0.95, 高)。一方、産後にすでにある尿失禁の治療としては産後6〜12ヶ月でRR 0.55(95%CI 0.29-1.07, 低)＝不確実。『予防にも治療にも効果的』と書かない。",
+    "first_author": "Woodley",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2020",
+    "title": "Pelvic floor muscle training for preventing and treating urinary and faecal incontinence in antenatal and postnatal women.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2020"
+  },
   "32767206": {
     "authors": [
       "Florou",
@@ -1747,6 +1769,33 @@
     "types": [
       "Journal Article",
       "Review"
+    ],
+    "year": "2025"
+  },
+  "40139673": {
+    "authors": [
+      "Davenport",
+      "Ruchat",
+      "Jaramillo Garcia",
+      "Ali",
+      "Forte",
+      "Beamish",
+      "Fleming",
+      "Adamo",
+      "Brunet-Page",
+      "Chari",
+      "Lane",
+      "Mottola",
+      "Neil-Sztramko"
+    ],
+    "caution": "GRADE。★推奨量は『週120分以上のMVPAを週4日以上に分けて、有酸素と筋トレを組み合わせる』『PFMTは毎日』(CSEP公開版で確認)。★成人一般の『週150分・筋トレ週2回』と混同しない。効果は中等度の確実性(心理的well-being・骨盤/運動器/心血管代謝の改善、疲労軽減、有害事象なし)。",
+    "first_author": "Davenport",
+    "journal": "Br J Sports Med",
+    "pubyear": "2025",
+    "title": "2025 Canadian guideline for physical activity, sedentary behaviour and sleep throughout the first year post partum.",
+    "types": [
+      "Journal Article",
+      "Guideline"
     ],
     "year": "2025"
   },
