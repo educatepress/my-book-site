@@ -34,6 +34,29 @@
     ],
     "year": "2013"
   },
+  "24798072": {
+    "authors": [
+      "López-Regalado",
+      "Clavero",
+      "Gonzalvo",
+      "Serrano",
+      "Martínez",
+      "Mozas",
+      "Rodríguez-Serrano",
+      "Fontes",
+      "Castilla"
+    ],
+    "caution": "194組のRCT(スペイン単施設)。対象は38歳未満で初回IVF。累積生児分娩率 45.2%(eSET+凍結単一胚移植)対 41.8%(DET)で有意差なし、多胎率 0%対26.4%。★38歳未満・予後良好例に限った結果で、高年齢には当てはめられない。",
+    "first_author": "López-Regalado",
+    "journal": "Eur J Obstet Gynecol Reprod Biol",
+    "pubyear": "2014",
+    "title": "Randomised clinical trial comparing elective single-embryo transfer followed by single-embryo cryotransfer versus double embryo transfer.",
+    "types": [
+      "Journal Article",
+      "Randomized Controlled Trial"
+    ],
+    "year": "2014"
+  },
   "24987272": {
     "authors": [
       "Bentov",
@@ -924,6 +947,22 @@
     ],
     "year": "2022"
   },
+  "34925238": {
+    "authors": [
+      "Wu",
+      "Liu",
+      "Liu"
+    ],
+    "caution": "★対象がかなり限定的。Poseidon group 3(35歳未満で卵巣予備能が低下)かつ原因不明不妊に限った単施設の後ろ向き研究(傾向スコアマッチング後168例ずつ)。IVF/ICSI 1周期の生児率22.6%対IUIの累積生児率11.3%(RR 2.00)。★365日で打ち切ると差があるが、180日で打ち切ると有意差なし(p=0.05)。総費用は両群でほぼ同等。一般の不妊患者に当てはめない。",
+    "first_author": "Wu",
+    "journal": "Front Endocrinol (Lausanne)",
+    "pubyear": "2021",
+    "title": "The Livebirth Rate Per Fertilization Cycle Is Higher Than The Cumulative Live Birth Rates of Intrauterine Insemination for Patients of Poseidon Group 3 With Unexplained Infertility.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2021"
+  },
   "35269682": {
     "authors": [
       "Ferramosca",
@@ -1023,6 +1062,29 @@
     "pubyear": "2022",
     "title": "Live birth after transfer of a single euploid vitrified-warmed blastocyst according to standard timing vs. timing as recommended by endometrial receptivity analysis.",
     "types": [
+      "Journal Article"
+    ],
+    "year": "2022"
+  },
+  "35846284": {
+    "authors": [
+      "Peng",
+      "Ma",
+      "Hu",
+      "Wang",
+      "Xiong",
+      "Yao",
+      "Tan",
+      "Gong"
+    ],
+    "caution": "12研究。★比較しているのは『単一胚移植を2周期連続』対『2個移植を1周期』であって、1回ずつの比較ではない。累積生児獲得率は48.24%対48.91%でほぼ同じ(OR 0.97)、累積多胎率は0.87%対17.72%(OR 0.05)。RCTと観察研究を混ぜたベイズモデルで統合しており、観察研究が多い。胚盤胞での2回連続SETに限ると累積生児率はむしろ高い(OR 1.33)。",
+    "first_author": "Peng",
+    "journal": "Front Endocrinol (Lausanne)",
+    "pubyear": "2022",
+    "title": "Effectiveness and Safety of Two Consecutive Cycles of Single Embryo Transfer Compared With One Cycle of Double Embryo Transfer: A Systematic Review and Meta-Analysis.",
+    "types": [
+      "Meta-Analysis",
+      "Systematic Review",
       "Journal Article"
     ],
     "year": "2022"
