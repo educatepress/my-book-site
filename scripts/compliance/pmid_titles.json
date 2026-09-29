@@ -74,6 +74,28 @@
     ],
     "year": "2014"
   },
+  "25179792": {
+    "authors": [
+      "Greenwood",
+      "Thatcher",
+      "Ye",
+      "Garrard",
+      "Keogh",
+      "King",
+      "Cade"
+    ],
+    "caution": "★60文献・53のコホート/症例対照研究の用量反応メタ解析。カフェイン100mg増ごとに自然流産14%、死産19%、低出生体重7%、SGA 10%の増加。早産とは関連なし。★著者は『関連が見えなくなる明確な閾値は特定できない』と明記しており、『200mg以下なら安全』という閾値はこのデータからは引けない。一方で『現行の上限をさらに下げる根拠も不十分で、現行推奨の維持が賢明』とも述べている。異質性が大きく、出版バイアスの兆候もあると著者が認めている。観察研究の統合で因果は示していない。",
+    "first_author": "Greenwood",
+    "journal": "Eur J Epidemiol",
+    "pubyear": "2014",
+    "title": "Caffeine intake during pregnancy and adverse birth outcomes: a systematic review and dose-response meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2014"
+  },
   "25530036": {
     "authors": [
       "Osman",
@@ -142,6 +164,27 @@
       "Journal Article"
     ],
     "year": "2015"
+  },
+  "26329421": {
+    "authors": [
+      "Chen",
+      "Wu",
+      "Neelakantan",
+      "Chong",
+      "Pan",
+      "van Dam"
+    ],
+    "caution": "★前向き研究14件・130,456名。流産の相対リスクは低摂取(50-149mg/日)1.02(0.85-1.24)、中等度(150-349mg/日)1.16(0.94-1.41)でいずれも有意でない。高摂取(350-699mg/日)1.40(1.16-1.68)、超高摂取(700mg/日以上)1.72(1.40-2.13)で有意。100mg増ごとに7%増。★著者は出版バイアスの影響と、喫煙・妊娠症状の調整が不完全な可能性(残余交絡)を認め、結論は『決定的ではない(inconclusive)』としている。",
+    "first_author": "Chen",
+    "journal": "Public Health Nutr",
+    "pubyear": "2015",
+    "title": "Maternal caffeine intake during pregnancy and risk of pregnancy loss: a categorical and dose-response meta-analysis of prospective studies.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2016"
   },
   "27132058": {
     "authors": [
@@ -850,6 +893,20 @@
     "title": "Plasticenta: First evidence of microplastics in human placenta.",
     "types": [
       "Journal Article",
+      "Review"
+    ],
+    "year": "2021"
+  },
+  "33827766": {
+    "authors": [],
+    "caution": "ASRMの委員会意見。黄体機能不全(LPD)は黄体期10日以下という臨床診断だが、★『不妊や反復流産を引き起こす独立した病態であることは証明されていない』と明記。正常に月経のある妊孕性のある女性にも見られる。診断法についても議論があり、仮に診断できたとして治療で結果が改善するかも議論があるとしている。旧版の題名は『Current clinical irrelevance of luteal phase deficiency』(2015)。",
+    "first_author": "",
+    "journal": "Fertil Steril",
+    "pubyear": "2021",
+    "title": "Diagnosis and treatment of luteal phase deficiency: a committee opinion.",
+    "types": [
+      "Journal Article",
+      "Practice Guideline",
       "Review"
     ],
     "year": "2021"
