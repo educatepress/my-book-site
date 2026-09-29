@@ -615,6 +615,32 @@
     ],
     "year": "2020"
   },
+  "32018045": {
+    "authors": [
+      "Abbas",
+      "Hussein",
+      "Elsenity",
+      "Samaha",
+      "El Etriby",
+      "Abd El-Ghany",
+      "Khalifa",
+      "Abdelrheem",
+      "Ahmed",
+      "Khodry"
+    ],
+    "caution": "★RCT 20件の統合。生児獲得率は差なし(RR 1.08, 95%CI 0.79-1.49, p=0.62)、受精率も差なし(RR 0.94, p=0.34)、着床率も差なし(RR 1.25, p=0.15)。★臨床妊娠率は通常のIVFの方が有意に高い(RR 1.28, 95%CI 1.11-1.49, p=0.001)。ただし著者らは、IVFの方が『完全受精失敗(total fertilization failure)のリスクが高い』ことも同時に述べている。この両面を書かずに一方だけ引かない。",
+    "first_author": "Abbas",
+    "journal": "J Gynecol Obstet Hum Reprod",
+    "pubyear": "2020",
+    "title": "Higher clinical pregnancy rate with in-vitro fertilization versus intracytoplasmic sperm injection in treatment of non-male factor infertility: Systematic review and meta-analysis.",
+    "types": [
+      "Comparative Study",
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2020"
+  },
   "32019326": {
     "authors": [
       "Hudson",
@@ -965,6 +991,25 @@
     ],
     "year": "2022"
   },
+  "35710597": {
+    "authors": [
+      "Doyle",
+      "Combs",
+      "Jahandideh",
+      "Wilkinson",
+      "Devine",
+      "O'Brien"
+    ],
+    "caution": "★後ろ向きコホート(ERA 307 vs 標準 2,284)。ERA受容性あり/なしで生児率に差なし(48.8% vs 41.7%、調整OR 1.17, 95%CI 0.97-1.40)。ERA実施の有無でも差なし(44.6% vs 51.3%、調整OR 0.87, 95%CI 0.73-1.04)。★『過去のFET失敗回数が増えても着床の窓のずれのリスクは上がらない』と報告している点が重要。後ろ向きで選択バイアスがありうる。",
+    "first_author": "Doyle",
+    "journal": "Fertil Steril",
+    "pubyear": "2022",
+    "title": "Live birth after transfer of a single euploid vitrified-warmed blastocyst according to standard timing vs. timing as recommended by endometrial receptivity analysis.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2022"
+  },
   "36071533": {
     "authors": [
       "Sasaki",
@@ -994,6 +1039,28 @@
     "types": [
       "Journal Article",
       "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2022"
+  },
+  "36472596": {
+    "authors": [
+      "Doyle",
+      "Jahandideh",
+      "Hill",
+      "Widra",
+      "Levy",
+      "Devine"
+    ],
+    "caution": "★二重盲検RCT・30施設・767名。生児獲得率 58.5%(ERA) vs 61.9%(標準)で有意差なし(差 -3.4%, 95%CI -10.3〜3.5, P=0.38)。生化学的妊娠率・臨床妊娠率も差なし。著者らは『胚移植のタイミング決定に着床能検査を日常的に用いることを支持しない』と明記。★ただし反復流産・反復着床不全・提供卵・未修復の子宮腔異常は除外されているため、これらの集団については答えを出していない。",
+    "first_author": "Doyle",
+    "journal": "JAMA",
+    "pubyear": "2022",
+    "title": "Effect of Timing by Endometrial Receptivity Testing vs Standard Timing of Frozen Embryo Transfer on Live Birth in Patients Undergoing In Vitro Fertilization: A Randomized Clinical Trial.",
+    "types": [
+      "Comparative Study",
+      "Journal Article",
+      "Multicenter Study",
+      "Randomized Controlled Trial"
     ],
     "year": "2022"
   },
@@ -1201,6 +1268,25 @@
     ],
     "year": "2024"
   },
+  "38280991": {
+    "authors": [
+      "Maged",
+      "Mohsen",
+      "Salah",
+      "Ragab"
+    ],
+    "caution": "★14研究1,632名。AMHは改善していない(平均差 0.09, 95%CI -0.06〜0.24, P=0.25)。有意だったのはAFC(+1.73)と採卵数(+1.21)のみ。★妊娠率・生児獲得率は主要アウトカムとして報告されていない。組み入れ研究の多くは対照のない研究で、PRPの調製法も統一されていない。『PRPでAMHが上がる』の根拠には使えない。",
+    "first_author": "Maged",
+    "journal": "BMC Pregnancy Childbirth",
+    "pubyear": "2024",
+    "title": "The value of intraovarian autologous platelet rich plasma in women with poor ovarian reserve or ovarian insufficiency: a systematic review and meta-analysis.",
+    "types": [
+      "Meta-Analysis",
+      "Systematic Review",
+      "Journal Article"
+    ],
+    "year": "2024"
+  },
   "38289202": {
     "authors": [
       "Rotimi",
@@ -1392,6 +1478,29 @@
     "journal": "Syst Biol Reprod Med",
     "pubyear": "2025",
     "title": "Overview of infertility.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2025"
+  },
+  "40427083": {
+    "authors": [
+      "Moustakli",
+      "Potiris",
+      "Zikopoulos",
+      "Zachariou",
+      "Topis",
+      "Panagopoulos",
+      "Domali",
+      "Drakakis",
+      "Stavros"
+    ],
+    "caution": "★ナラティブレビュー(系統的レビューではない)。根拠は症例集積とパイロット研究に限られる。著者ら自身が『プロトコルが定まっておらず、対照試験も長期安全性データも無く、実験的(experimental)な段階』と明記。調製法・患者選択・アウトカム指標のばらつきが一般化を妨げるとも述べている。",
+    "first_author": "Moustakli",
+    "journal": "Biomedicines",
+    "pubyear": "2025",
+    "title": "Platelet-Rich Plasma (PRP) in Reproductive Medicine: A Critical Review of PRP Therapy in Low-Reserve and Premature Ovarian Insufficiency.",
     "types": [
       "Journal Article",
       "Review"
