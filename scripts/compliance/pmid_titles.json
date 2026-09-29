@@ -601,6 +601,28 @@
     ],
     "year": "2019"
   },
+  "31782947": {
+    "authors": [
+      "Jamaludin",
+      "Ahmad",
+      "Park",
+      "Zain",
+      "Yoon",
+      "Lee",
+      "Koong",
+      "Lee"
+    ],
+    "caution": "★規模が小さい。組み入れは6研究(RCT3件、後ろ向き/症例対照3件)・計624周期のみ。低刺激は採卵数が有意に少なくゴナドトロピン使用量も少ないが、★生児獲得率は低刺激の方が有意に高いと報告。臨床妊娠率・キャンセル率・受精卵数・移植胚数には有意差なし。観察研究が半数を占め、対象はBologna基準のpoor responderに限られる。単一のメタ解析であり、これだけで刺激法を決める根拠にはならない。",
+    "first_author": "Jamaludin",
+    "journal": "Horm Mol Biol Clin Investig",
+    "pubyear": "2019",
+    "title": "The stimulation protocol in poor responder IVF; a minimal or high-dose stimulation? - A meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis"
+    ],
+    "year": "2019"
+  },
   "31821640": {
     "authors": [
       "Cavalcante",
@@ -738,6 +760,28 @@
     "types": [
       "Journal Article",
       "Review"
+    ],
+    "year": "2020"
+  },
+  "32083321": {
+    "authors": [
+      "Teixeira",
+      "Hadyme Miyague",
+      "Barbosa",
+      "Navarro",
+      "Raine-Fenning",
+      "Nastri",
+      "Martins"
+    ],
+    "caution": "★Cochraneレビュー。13のRCT・2,775組。生児獲得率 RR 1.11(95%CI 0.89-1.39、5研究929組)で不確実。流産率も差なし。臨床妊娠率は RR 1.23(1.11-1.37)だが★証拠の質は『very low(非常に低い)』で、著者は『実際の差があるかどうかは依然として非常に不確実』としている。バイアスリスク・結果の不一致・強い出版バイアスの兆候により質を格下げ。先天異常を報告した試験は1件もない。結論は『IMSIの臨床使用を支持も否定もしない』。",
+    "first_author": "Teixeira",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2020",
+    "title": "Regular (ICSI) versus ultra-high magnification (IMSI) sperm selection for assisted reproduction.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
     ],
     "year": "2020"
   },
