@@ -17,6 +17,23 @@
     ],
     "year": "2011"
   },
+  "23288205": {
+    "authors": [
+      "Hickey",
+      "Curry",
+      "Toriello"
+    ],
+    "caution": "米国医学遺伝学会(ACMG)の実践ガイドライン。『MTHFR多型検査は臨床的有用性がきわめて小さく、血栓性素因の定型的な評価として実施すべきでない』と明記。ホモシステイン高値と冠動脈疾患の関連、MTHFR多型と静脈血栓塞栓症の関連は、近年のメタ解析で否定されたとしている。2020年に訂正(PMID 32587351)が出ている点にも留意。",
+    "first_author": "Hickey",
+    "journal": "Genet Med",
+    "pubyear": "2013",
+    "title": "ACMG Practice Guideline: lack of evidence for MTHFR polymorphism testing.",
+    "types": [
+      "Journal Article",
+      "Practice Guideline"
+    ],
+    "year": "2013"
+  },
   "24987272": {
     "authors": [
       "Bentov",
@@ -1068,6 +1085,25 @@
     "types": [
       "Randomized Controlled Trial",
       "Multicenter Study",
+      "Journal Article"
+    ],
+    "year": "2022"
+  },
+  "36405621": {
+    "authors": [
+      "Liu",
+      "Liu",
+      "Liu",
+      "Cheng",
+      "Yan"
+    ],
+    "caution": "12研究2,154名。★『抗生剤で治療した群 対 未治療の対照群』では継続妊娠率/生児率に有意差なし(p=0.09)、臨床妊娠率も差なし(p=0.36)。有意だったのは流産率の低下のみ(p=0.03)。★一方『治癒した群 対 持続した群』ではOR 6.82と大きな差が出るが、これは治る人と治らない人の元々の差を反映しうる比較で、治療の効果とは別物。著者らは『生殖への影響を評価するにはより良い前向き研究が必要』と明記。",
+    "first_author": "Liu",
+    "journal": "Front Med (Lausanne)",
+    "pubyear": "2022",
+    "title": "Impact of antibiotic treatment for chronic endometritis on pregnancy outcomes in women with reproductive failures (RIF and RPL): A systematic review and meta-analysis.",
+    "types": [
+      "Systematic Review",
       "Journal Article"
     ],
     "year": "2022"
