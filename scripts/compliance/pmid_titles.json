@@ -1042,6 +1042,36 @@
     ],
     "year": "2022"
   },
+  "36210273": {
+    "authors": [
+      "Zhang",
+      "Han",
+      "Liu",
+      "Shen",
+      "Yao",
+      "Shi",
+      "Hu",
+      "Wang",
+      "Zhou",
+      "Kang",
+      "Luo",
+      "Yu",
+      "Sun",
+      "Quan",
+      "Huang"
+    ],
+    "caution": "1,224名の多施設単盲検RCT。初回移植の着床率は有意に高い(52.35%対47.11%、調整後RR 1.11, 95%CI 1.02-1.20)。しかし累積着床率・初回移植の生児率・累積生児率のいずれにも有意差なし。著者ら自身が結果は若年患者にのみ適用できると明記。着床率だけを引いて有効と書かない。",
+    "first_author": "Zhang",
+    "journal": "Reprod Biomed Online",
+    "pubyear": "2022",
+    "title": "Comparison of embryo implantation potential between time-lapse incubators and standard incubators: a randomized controlled study.",
+    "types": [
+      "Randomized Controlled Trial",
+      "Multicenter Study",
+      "Journal Article"
+    ],
+    "year": "2022"
+  },
   "36472596": {
     "authors": [
       "Doyle",
@@ -1341,6 +1371,43 @@
     "title": "Livebirth rate after one frozen embryo transfer in ovulatory women starting with natural, modified natural, or artificial endometrial preparation in Viet Nam: an open-label randomised controlled trial.",
     "types": [
       "Journal Article",
+      "Randomized Controlled Trial"
+    ],
+    "year": "2024"
+  },
+  "39033010": {
+    "authors": [
+      "Bhide",
+      "Chan",
+      "Lanz",
+      "Alqawasmeh",
+      "Barry",
+      "Baxter",
+      "Gonzalez Carreras",
+      "Choudhury",
+      "Cheong",
+      "Chung",
+      "Collins",
+      "Cong",
+      "Doidge",
+      "Heighway",
+      "Patel",
+      "Pardo",
+      "Rattos",
+      "Wright",
+      "Dodds",
+      "Perez",
+      "Khan",
+      "Thangaratinam"
+    ],
+    "caution": "TILT試験。英国・香港の7施設1,575名を3群に無作為化した二重盲検RCT。生児獲得率はタイムラプス33.7%、非撹乱培養のみ36.6%、標準ケア33.0%。調整オッズ比はタイムラプス対対照 1.04(97.5%CI 0.73-1.47)で有意差なし。著者らは標準ケアと比べて生児のオッズを有意に増やさないと結論。対象は1〜3回目のIVF/ICSIで、提供配偶子の周期は除外。",
+    "first_author": "Bhide",
+    "journal": "Lancet",
+    "pubyear": "2024",
+    "title": "Clinical effectiveness and safety of time-lapse imaging systems for embryo incubation and selection in in-vitro fertilisation treatment (TILT): a multicentre, three-parallel-group, double-blind, randomised controlled trial.",
+    "types": [
+      "Journal Article",
+      "Multicenter Study",
       "Randomized Controlled Trial"
     ],
     "year": "2024"
