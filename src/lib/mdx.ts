@@ -14,6 +14,10 @@ export interface BlogPostMetadata {
     author?: string;
     tags?: string[];
     category?: string;
+    /** true の記事は一覧・sitemap から除外する（2026-09-29 追加）。
+     *  読者が取れる行動がない記事を、削除せずに下書きへ戻すための仕組み。
+     *  門(scripts/compliance/check_blog.py)も draft を対象外にしている。 */
+    draft?: boolean;
 }
 
 export async function getPostSlugs(lang: 'jp' | 'en' = 'jp'): Promise<string[]> {
@@ -94,6 +98,7 @@ export async function getPostBySlug(slug: string, lang: 'jp' | 'en' = 'jp') {
             content,
             frontmatter: {
                 ...sanitized,
+                draft: data.draft === true || String(data.draft).toLowerCase() === 'true',
                 title: (sanitized.title as string) || '',
                 date: sanitized.date ? (sanitized.date instanceof Date ? (sanitized.date as Date).toISOString().split('T')[0] : String(sanitized.date)) : '',
                 excerpt: (sanitized.excerpt as string) || '',
@@ -125,6 +130,7 @@ export async function getPostBySlug(slug: string, lang: 'jp' | 'en' = 'jp') {
                     content,
                     frontmatter: {
                         ...sanitized,
+                        draft: data.draft === true || String(data.draft).toLowerCase() === 'true',
                         title: (sanitized.title as string) || '',
                         date: sanitized.date ? (sanitized.date instanceof Date ? (sanitized.date as Date).toISOString().split('T')[0] : String(sanitized.date)) : '',
                         excerpt: (sanitized.excerpt as string) || '',
@@ -149,6 +155,8 @@ export async function getAllPosts(lang: 'jp' | 'en' = 'jp') {
 
     const posts = resolvedPosts
         .filter((post) => post !== null)
+        // ★下書き(draft: true)は一覧・sitemap に出さない
+        .filter((post) => post!.frontmatter.draft !== true)
         // Filter out posts with a date in the future (Auto-Publishing feature)
         .filter((post) => {
             const postDate = post!.frontmatter.date || '1970-01-01';

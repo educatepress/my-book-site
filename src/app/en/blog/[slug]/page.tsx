@@ -22,6 +22,8 @@ export async function generateMetadata({ params }: PostProps): Promise<Metadata>
     return {
         title: `${post.frontmatter.title} | Blog`,
         description: post.frontmatter.excerpt,
+        // ★下書き(draft: true)は検索結果に出さない。一覧からは mdx.ts で除外済み。
+        robots: post.frontmatter.draft === true ? { index: false, follow: false } : undefined,
         alternates: {
             canonical: `/en/blog/${slug}`,
             languages: {
