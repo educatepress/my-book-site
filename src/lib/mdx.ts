@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { redirectedSlugs } from './redirects';
 import { getQueueItems } from '@/lib/sheets';
 
 const contentDirectory = path.join(process.cwd(), 'src/content/blog');
@@ -48,7 +49,11 @@ export async function getPostSlugs(lang: 'jp' | 'en' = 'jp'): Promise<string[]> 
     }
 
     // Deduplicate
-    return Array.from(new Set(localSlugs));
+    // ★301 を張った旧スラッグは一覧に出さない（2026-09-29）。
+    //   ファイルを削除しても Google Sheets のキュー(status='posted')から拾われるため、
+    //   統合済みの旧記事が一覧に復活していた。next.config.ts と同じ定義を唯一の正にする。
+    const redirected = redirectedSlugs[lang];
+    return Array.from(new Set(localSlugs)).filter((slug) => !redirected.has(slug));
 }
 
 // 日本語混入を表示時に吸収するサニタイザー
