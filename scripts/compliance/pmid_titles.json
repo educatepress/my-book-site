@@ -16,6 +16,25 @@
     ],
     "year": "2003"
   },
+  "15229000": {
+    "authors": [
+      "Barnhart",
+      "Sammel",
+      "Rinaudo",
+      "Zhou",
+      "Hummel",
+      "Guo"
+    ],
+    "caution": "287名・861測定のモデル研究。★対象は『痛みまたは出血があり、超音波で診断がつかなかった』妊婦で、最終的に生存子宮内妊娠と確認された人に限られる。無症状の妊娠一般にそのまま当てはめられない。検証済みの数値: 中央値は1日で1.50倍(50%増)、2日で2.24倍(124%増)、4日で5.00倍。★正常な生存子宮内妊娠で最も遅い上昇は1日で24%増、2日で53%増。著者らは『最小の上昇はこれまでの報告より遅く、異常妊娠の診断と治療への介入はより保守的であるべき』と結論。後ろ向きのモデル化であり、2016年の追試(PMID: 27063601)は時間精度を上げると1パーセンタイルの2日上昇がやや速く出る(1.68倍対1.56倍)としつつ、★最小閾値の変更は推奨していない。",
+    "first_author": "Barnhart",
+    "journal": "Obstet Gynecol",
+    "pubyear": "2004",
+    "title": "Symptomatic patients with an early viable intrauterine pregnancy: HCG curves redefined.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2004"
+  },
   "21345903": {
     "authors": [
       "Boivin",
@@ -200,6 +219,24 @@
       "Journal Article",
       "Meta-Analysis",
       "Systematic Review"
+    ],
+    "year": "2016"
+  },
+  "27063601": {
+    "authors": [
+      "Fisher",
+      "Sammel",
+      "Senapati",
+      "Singer",
+      "Barnhart"
+    ],
+    "caution": "後ろ向きコホート。検証を通ったのは118名・327測定。時間精度を上げると1パーセンタイルの2日上昇はやや速く出た(1.68倍対1.56倍)が、★著者らは『生存可能性の最小閾値を変更することは推奨しない』と明記している。対象は初期妊娠で痛みや出血があった人に限られる。",
+    "first_author": "Fisher",
+    "journal": "Fertil Steril",
+    "pubyear": "2016",
+    "title": "Temporal refinement does not affect predicted human chorionic gonadotropin rise in early pregnancy.",
+    "types": [
+      "Journal Article"
     ],
     "year": "2016"
   },
@@ -525,6 +562,27 @@
     "types": [
       "Journal Article",
       "Review"
+    ],
+    "year": "2018"
+  },
+  "30337460": {
+    "authors": [
+      "Mottola",
+      "Davenport",
+      "Ruchat",
+      "Davies",
+      "Poitras",
+      "Adamo",
+      "Barakat"
+    ],
+    "caution": "GRADEによる実践ガイドライン。★『妊娠中の身体活動の利益は中等度(moderate)で、害は認められなかった』というのが結論。『科学的に証明されている』と強く書かない。評価された転帰は母体・胎児・新生児の合併症と胎児死亡で、★胎児の脳の発達は評価対象に入っていない。推奨量は『週150分以上の中強度の身体活動を、週3日以上に分けて。毎日動くことが望ましい』『有酸素運動と筋トレを組み合わせる。ヨガや軽いストレッチも有益な場合がある』『骨盤底筋トレーニングは尿失禁のリスクを下げるため毎日行ってよい』『仰臥位で気分が悪くなる人は体位を変える』(CSEP公開版で確認)。",
+    "first_author": "Mottola",
+    "journal": "Br J Sports Med",
+    "pubyear": "2018",
+    "title": "2019 Canadian guideline for physical activity throughout pregnancy.",
+    "types": [
+      "Journal Article",
+      "Practice Guideline"
     ],
     "year": "2018"
   },
