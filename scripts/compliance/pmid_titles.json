@@ -70,6 +70,28 @@
     ],
     "year": "2013"
   },
+  "24106937": {
+    "authors": [
+      "Doubilet",
+      "Benson",
+      "Bourne",
+      "Blaivas",
+      "Barnhart",
+      "Benacerraf",
+      "Brown",
+      "Filly"
+    ],
+    "caution": "米国放射線超音波学会(SRU)の多専門領域コンセンサスパネルによる基準。★試験ではなく専門家の合意文書。検証済み(PMID: 25154939 の記述で独立に確認): 診断基準は★頭殿長(CRL)≥7mmで心拍なし、★平均胎嚢径(MSD)≥25mmで胎芽なし。★従来はCRL 5mm・MSD 16mmだったものを、早すぎる診断を避けるために引き上げたもの。CRL 5-7mm / MSD 16-25mm は『疑わしいが診断ではない』ゾーンで、再検査が必要。日数による基準もあるが、要旨からは検証できていないため記事には書かない。",
+    "first_author": "Doubilet",
+    "journal": "N Engl J Med",
+    "pubyear": "2013",
+    "title": "Diagnostic criteria for nonviable pregnancy early in the first trimester.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2013"
+  },
   "24798072": {
     "authors": [
       "López-Regalado",
@@ -105,6 +127,22 @@
     "journal": "Clin Med Insights Reprod Health",
     "pubyear": "2014",
     "title": "Coenzyme Q10 Supplementation and Oocyte Aneuploidy in Women Undergoing IVF-ICSI Treatment.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2014"
+  },
+  "25154939": {
+    "authors": [
+      "Hu",
+      "Poder",
+      "Filly"
+    ],
+    "caution": "後ろ向き研究1,013名(初期に出血のあった方)。SRUの新基準がCRLを5→7mm、MSDを16→25mmに引き上げたことを明記している。★新基準で『様子見』に回るのは1,013名中126名(12%)にとどまり、再検査の負担は過大ではないと結論。単一施設の後ろ向き研究。",
+    "first_author": "Hu",
+    "journal": "J Ultrasound Med",
+    "pubyear": "2014",
+    "title": "Impact of new society of radiologists in ultrasound early first-trimester diagnostic criteria for nonviable pregnancy.",
     "types": [
       "Journal Article"
     ],
@@ -526,6 +564,24 @@
       "Journal Article",
       "Research Support, Non-U.S. Gov't",
       "Review"
+    ],
+    "year": "2018"
+  },
+  "29728143": {
+    "authors": [
+      "Ali",
+      "Byanyima",
+      "Ononge",
+      "Ictho",
+      "Karamagi"
+    ],
+    "caution": "横断研究56名・単一施設(ウガンダ)。★測定者間の95%一致限界はCRLで±2.35mm、MSDで±4.87mm。MSDは測る人によって5mm近く違いうるという意味で、25mmという線の近くでは特に一度の計測で決めない理由になる。著者らは『他国への外挿は慎重に』と明記している。",
+    "first_author": "Ali",
+    "journal": "BMC Pregnancy Childbirth",
+    "pubyear": "2018",
+    "title": "Measurement error of mean sac diameter and crown-rump length among pregnant women at Mulago hospital, Uganda.",
+    "types": [
+      "Journal Article"
     ],
     "year": "2018"
   },
