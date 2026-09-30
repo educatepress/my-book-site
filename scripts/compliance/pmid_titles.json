@@ -1,4 +1,21 @@
 {
+  "12923154": {
+    "authors": [
+      "Harville",
+      "Wilcox",
+      "Baird",
+      "Weinberg"
+    ],
+    "caution": "前向き研究。221名が毎日の日誌と尿を提供し、尿中ホルモンで排卵日と着床日を同定。うち151名が臨床的妊娠に至り、★妊娠8週までに1日以上の出血を記録したのは14名(9%)、そのうち12名は生児出産。出血は生理の予定時期に起こる傾向があり、★着床日に起こることは稀。性交とも関連なし。★著者らは『着床が出血を起こしうるという仮説を支持する結果は得られなかった』と明記。出血があった人はほぼ全員が妊娠を継続している。★出血を記録したのは14名のみで小規模。2003年の研究。",
+    "first_author": "Harville",
+    "journal": "Hum Reprod",
+    "pubyear": "2003",
+    "title": "Vaginal bleeding in very early pregnancy.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2003"
+  },
   "21345903": {
     "authors": [
       "Boivin",
@@ -433,6 +450,23 @@
       "Journal Article",
       "Research Support, Non-U.S. Gov't",
       "Review"
+    ],
+    "year": "2018"
+  },
+  "29749274": {
+    "authors": [
+      "Johnson",
+      "Marriott",
+      "Zinaman"
+    ],
+    "caution": "949名が1周期ぶんの尿を採取しLHサージ日を判定した研究。★アプリの排卵日予測の正確度は『21%を超えない』。28日周期で最も起こりやすい排卵日は16日目で、その確率も21%。★standard days法・rhythm法は『排卵日を当てに行く率』が70%・89%だが、著者らは正確度は非常に低いと明記している。この70%/89%を『精度70〜80%』と読み替えてはいけない。★28日周期だと思っていた人は34%だが、実際に28日だったのは15%。結論は『周期の長さだけを使う方法では排卵日を正確に予測できない』。",
+    "coi": "★著者2名の所属は SPD Development Company(排卵検査薬 Clearblue の開発企業)。アプリの精度が低いという結論は、同社製品にとって有利な方向であることを明示して引用すること。",
+    "first_author": "Johnson",
+    "journal": "Curr Med Res Opin",
+    "pubyear": "2018",
+    "title": "Can apps and calendar methods predict ovulation with accuracy?",
+    "types": [
+      "Journal Article"
     ],
     "year": "2018"
   },
