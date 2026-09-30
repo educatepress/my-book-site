@@ -378,6 +378,25 @@
     ],
     "year": "2017"
   },
+  "28605006": {
+    "authors": [
+      "Iheozor-Ejiofor",
+      "Middleton",
+      "Esposito",
+      "Glenny"
+    ],
+    "caution": "RCT15件・7,161名。★組み入れられた研究はすべてバイアスのリスクが高いと評価されている(盲検化の欠如、ベースラインの不均衡)。★歯周病の治療 対 無治療で、早産(37週未満)に明らかな差はない(RR 0.87, 95%CI 0.70-1.10、11研究5,671名、証拠の質は低い)。低出生体重(2500g未満)は減る可能性(9.70%対12.60%、RR 0.67, 0.48-0.95、7研究3,470名、質は低い)。早産35週未満・32週未満、1500g未満、周産期死亡、妊娠高血圧腎症はいずれも不明。SGAには差なし。★『歯周病を治せば妊娠成績が良くなる』と書いてはいけない。",
+    "first_author": "Iheozor-Ejiofor",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2017",
+    "title": "Treating periodontal disease for preventing adverse birth outcomes in pregnant women.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2017"
+  },
   "28675921": {
     "authors": [
       "Ghobara",
@@ -1237,6 +1256,26 @@
     ],
     "year": "2021"
   },
+  "34930157": {
+    "authors": [
+      "Huo",
+      "Zhang",
+      "Huang",
+      "Ye",
+      "Yang",
+      "Zhang",
+      "Zhang"
+    ],
+    "caution": "上海の前向きコホート3,915名。★曝露は『自己申告の口臭』で、歯周病の臨床診断ではない。口腔衛生の代理指標にすぎない。該当したのは8.7%。調整後の妊孕力比は12か月で0.82(95%CI 0.72-0.94)、24か月で0.84(0.74-0.96)。★観察研究で因果は示していない。単一地域(上海)のコホートである。",
+    "first_author": "Huo",
+    "journal": "BMC Pregnancy Childbirth",
+    "pubyear": "2021",
+    "title": "Association between halitosis and female fecundability in China: a prospective cohort study.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2021"
+  },
   "35269682": {
     "authors": [
       "Ferramosca",
@@ -1724,6 +1763,26 @@
     "types": [
       "Journal Article",
       "Review"
+    ],
+    "year": "2024"
+  },
+  "38664680": {
+    "authors": [
+      "Arabzadeh",
+      "Doosti-Irani",
+      "Kamkari",
+      "Farhadian",
+      "Elyasi",
+      "Mohammadi"
+    ],
+    "caution": "アンブレラレビュー(13の系統的レビュー・15のメタ解析を統合)。低出生体重のリスク要因を整理したもの。★歯周病はオッズ比2.41(95%CI 1.67-3.47)。ただしこれは★関連であって、治療で低出生体重が減ることを示したものではない(その問いはPMID: 28605006を参照)。元が観察研究のメタ解析であり、因果は示していない。",
+    "first_author": "Arabzadeh",
+    "journal": "BMC Pregnancy Childbirth",
+    "pubyear": "2024",
+    "title": "The maternal factors associated with infant low birth weight: an umbrella review.",
+    "types": [
+      "Journal Article",
+      "Systematic Review"
     ],
     "year": "2024"
   },

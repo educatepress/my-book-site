@@ -86,7 +86,10 @@ def check(path):
          r'|your feelings are valid|feelings are valid'
          r'|(?:your|all of your) (?:feelings|emotions)[^.]{0,80}are (?:always |completely |absolutely )?valid)'
          r'|#TTCjourney'
-         r'|感情は有効|気持ちは有効|感情は、?どれも有効|感情は全て有効|どんな感情も有効',
+         # ★門のバグ(2026-09-30): JP側の『Your feelings are valid』の訳が
+         #   「感情は有効」以外に何通りもあり、37箇所を見逃していた。
+         #   「あなたの感情は正当なものです」「〜は尊重されるべき」「〜は無駄ではありません」など。
+         r'|(?:感情|気持ち)(?:は|も)[、。]?[^。]{0,40}?(?:正当|有効|価値があ|尊重されるべき|無駄ではありません)',
          '生成プロンプト由来の定型句(Your feelings are valid / whatever you are feeling is a natural response 系)が残っている'),
     ):
         if re.search(pat, body, re.M): blocking.append(msg)
