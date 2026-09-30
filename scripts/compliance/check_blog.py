@@ -78,7 +78,16 @@ def check(path):
         (r'提供された参考文献はありません|論文が見つかりませんでした|参考URL/PMID|Tier A/B|Tier B|Please insert specific PMID|PMID: N/A', '生成テンプレの残骸が本文に残っている'),
         (r'デモ用|demo-(?:jp|en)\.png', 'ダミーデータの図(デモ用)を参照している'),
         (r'当院|当クリニック|ご来院', '存在しない診療施設(当院)を示す語がある(ttcguide.co は書籍・情報サイト)'),
-        (r'^TW:|Your feelings are valid|感情は有効|気持ちは有効|感情は、?どれも有効|感情は全て有効|どんな感情も有効', '生成プロンプト由来の定型句(TW:/Your feelings are valid の直訳)が残っている'),
+        # ★門のバグ(2026-09-30): ^TW: だけでは (TW: / （TW: / {/* TW: / ## TW: を拾えていなかった。
+        #   JP 6本・EN 6本が通り抜けていた。行頭の括弧・JSXコメント・見出しを許す形に直した。
+        (r'^(?:\{/\*\s*)?[(（#\s]*TW:|。?TW: 妊娠', '生成プロンプト由来の TW:(コンテンツ警告)が残っている'),
+        # ★EN側の定型句。JPの「感情は有効」に当たる直訳前の原文が、EN記事に90箇所以上残っていた。
+        (r'(?i:whatever you (?:are feeling|feel|\'re feeling) is a natural response'
+         r'|your feelings are valid|feelings are valid'
+         r'|(?:your|all of your) (?:feelings|emotions)[^.]{0,80}are (?:always |completely |absolutely )?valid)'
+         r'|#TTCjourney'
+         r'|感情は有効|気持ちは有効|感情は、?どれも有効|感情は全て有効|どんな感情も有効',
+         '生成プロンプト由来の定型句(Your feelings are valid / whatever you are feeling is a natural response 系)が残っている'),
     ):
         if re.search(pat, body, re.M): blocking.append(msg)
     # ① PMID 台帳
