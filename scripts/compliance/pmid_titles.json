@@ -2241,5 +2241,24 @@
       "Meta-Analysis"
     ],
     "year": "2026"
+  },
+  "41876931": {
+    "authors": [
+      "Hu",
+      "Huang",
+      "Meng",
+      "Lin",
+      "He",
+      "Shen"
+    ],
+    "caution": "★単一施設の後ろ向き解析。著者ら自身が『補助的なツールとしての可能性を示唆する』『高度な画像システムが日常的に使われていない施設において』と限定して書いている。ランダムフォレストで胚質の予測は分割期RMSE 1.26・胚盤胞RMSE 1.11-1.13、妊娠予測は5日目の感度0.99-1.00、6日目の正確度93%。★これは既存のNEQsi(Gardner分類を数値化する指数)との比較で、タイムラプスやAI画像解析より優れていることを示したものではない。★外部検証はされていない。★注意: 記事がこの論文を『Human Reproduction 2024, Fan J ら』として引用していた誤りがあった。正しくは J Assist Reprod Genet 2026;43(5):1411-1426、Hu G ら。",
+    "first_author": "Hu",
+    "journal": "J Assist Reprod Genet",
+    "pubyear": "2026",
+    "title": "A multiday machine learning framework based on improved-NEQsi for predicting embryo quality and pregnancy outcomes in IVF.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2026"
   }
 }

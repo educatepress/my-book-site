@@ -14,9 +14,22 @@ Artificial intelligence (AI) is gaining traction across various medical fields, 
 
 ### The Forefront of AI in IVF Prediction
 
-A recent study published in *Human Reproduction* introduced an AI model titled, "**A multiday machine learning framework based on improved-NEQsi for predicting embryo quality and pregnancy outcomes in IVF.**" This research proposes a machine learning-based framework designed to predict both embryo quality and the likelihood of a successful pregnancy (a BFP) in IVF cycles.
+One study used machine learning to predict embryo quality and pregnancy (PMID: 41876931). It improved an existing index that converts Gardner grades into numbers (NEQsi) and combined it with clinical variables in a random forest model.
 
-Specifically, this AI analyzes various data points throughout the embryo's development to predict its quality and its potential to lead to a pregnancy. Traditionally, embryo assessment has relied significantly on the experience and subjective judgment of skilled embryologists. By leveraging AI, there's a possibility for more objective and quantitative data-driven evaluations of an embryo's potential.
+The reported performance:
+
+*   Embryo quality — RMSE 1.26 at the cleavage stage, 1.11–1.13 at the blastocyst stage
+*   Pregnancy — sensitivity 0.99–1.00 on Day 5, 93% accuracy on Day 6
+
+The numbers look good, but **there are three things to hold onto when reading them.**
+
+★**1. It is a single-centre retrospective analysis with no external validation.** Performance measured on the same centre's data that built the model will not necessarily reproduce elsewhere.
+
+★**2. The comparator is the existing NEQsi index**, not time-lapse imaging or image-based AI. This does not show it outperforms those.
+
+★**3. The authors themselves limit the use case.** Their wording is that it suggests "potential as a supplementary tool in IVF decision-making where advanced imaging systems are not routinely used." It is a lightweight alternative for settings without image-based AI, not a replacement for it.
+
+Traditionally, embryo assessment has relied significantly on the experience and judgment of skilled embryologists, and bringing in more quantitative measures is worthwhile in itself. But the three points above are the frame for reading it.
 
 ### Potential Implications of This Research
 
@@ -40,7 +53,7 @@ To explore more about fertility treatment options and your own body, please [che
 
 ### References
 
-*   Fan, J., Li, Z., Sun, Y., Wang, M., Han, J., Shi, S., ... & Chen, X. (2024). A multiday machine learning framework based on improved-NEQsi for predicting embryo quality and pregnancy outcomes in IVF. Human Reproduction, 39(2), 358-370.
+*   A multiday machine learning framework based on improved-NEQsi for predicting embryo quality and pregnancy outcomes in IVF. *J Assist Reprod Genet.* 2026. PMID: 41876931 (★a single-centre retrospective analysis with no external validation; the authors limit the claim to "a supplementary tool in IVF decision-making where advanced imaging systems are not routinely used")
 
 ### To learn more about your fertility journey in general
 
