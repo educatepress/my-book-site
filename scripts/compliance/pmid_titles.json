@@ -203,6 +203,26 @@
     ],
     "year": "2016"
   },
+  "27125230": {
+    "authors": [
+      "McKinnon",
+      "Hatch",
+      "Rothman",
+      "Mikkelsen",
+      "Wesselink",
+      "Hahn",
+      "Wise"
+    ],
+    "caution": "前向きコホート2,062名(米国・カナダの妊娠希望者)。妊娠は自己申告、身体活動も自己申告。★中強度の活動は妊孕力比1.26(95%CI 0.96-1.65)で、信頼区間が1をまたいでおり有意ではない。著者らは用量反応関係もなかったと明記。★高強度の活動が妊孕力を高めたのは BMI 25以上の群に限られる(27%高い、95%CI 1.02-1.57)。『高強度は妊活に悪い/中強度は良い』と一般化して書いてはいけない。BMIによって向きが変わる。低体重の人での高強度運動については、このコホートは答えを出していない。",
+    "first_author": "McKinnon",
+    "journal": "Fertil Steril",
+    "pubyear": "2016",
+    "title": "Body mass index, physical activity and fecundability in a North American preconception cohort study.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2016"
+  },
   "27132058": {
     "authors": [
       "Nisenblat",
@@ -1459,6 +1479,28 @@
     "types": [
       "Meta-Analysis",
       "Systematic Review",
+      "Journal Article"
+    ],
+    "year": "2023"
+  },
+  "37468438": {
+    "authors": [
+      "Pathare",
+      "Loid",
+      "Saare",
+      "Gidlof",
+      "Zamani Esteki",
+      "Acharya",
+      "Peters",
+      "Salumets"
+    ],
+    "caution": "★ナラティブレビュー(メタ解析ではない)。題名が『underrated factor』で、著者らの立場が題名に出ている。分子・細胞・組織レベルの変化から、加齢が子宮内膜の受容能を損なう『可能性』を述べたもの。★著者ら自身が『この領域の論文は少なく、探索が不十分(under-explored)』と明記。★最も重要な点: 子宮側の影響だけを切り分けられる提供卵周期の研究について、着床率・臨床妊娠率・流産率・生児率のいずれも『矛盾した結論(contradictory inferences)』であり、今後の研究が必要だと著者らが書いている。『高年齢では子宮の受容能も原因である』と確定した形で書いてはいけない。",
+    "first_author": "Pathare",
+    "journal": "Hum Reprod Update",
+    "pubyear": "2023",
+    "title": "Endometrial receptivity in women of advanced age: an underrated factor in infertility.",
+    "types": [
+      "Review",
       "Journal Article"
     ],
     "year": "2023"
