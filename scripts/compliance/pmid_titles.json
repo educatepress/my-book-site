@@ -269,6 +269,25 @@
     ],
     "year": "2017"
   },
+  "28166330": {
+    "authors": [
+      "Goldman",
+      "Racowsky",
+      "Farland",
+      "Munne",
+      "Ribustello",
+      "Fox"
+    ],
+    "caution": "★これは『モデルの予測値』で、凍結卵子を実際に使った人の成績ではない。元データはICSI周期520件(男性因子・卵管因子のみ＋提供卵)の後ろ向き解析＝代理集団。融解生存率95%(36歳未満)/85%(36歳以上)、正倍数体胚1個あたり生児60%という仮定を置いている。正倍数体の割合は外部検査機関のPGS 14,500件から推定。★著者らは仮定が研究・施設ごとに変わるとし、各施設が自前の成績で計算すべきと明記。検証済みの数値: 成熟卵子20個で少なくとも1人の生児の確率は34歳90%・37歳75%・42歳37%。75%に達するのに必要な数は34歳10個・37歳20個・42歳61個。★2人以上なら20個で34歳66%・37歳39%・42歳7%。",
+    "first_author": "Goldman",
+    "journal": "Hum Reprod",
+    "pubyear": "2017",
+    "title": "Predicting the likelihood of live birth for elective oocyte cryopreservation: a counseling tool for physicians and patients.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2017"
+  },
   "28333357": {
     "authors": [
       "Salas-Huetos",
@@ -996,6 +1015,26 @@
       "Journal Article",
       "Systematic Review",
       "Network Meta-Analysis"
+    ],
+    "year": "2021"
+  },
+  "33915094": {
+    "authors": [
+      "Quenby",
+      "Gallos",
+      "Dhillon-Smith",
+      "Podesek",
+      "Stephenson",
+      "Coomarasamy"
+    ],
+    "caution": "Lancetのレビュー。統合された流産リスクは認識された妊娠の15.3%(95%CI 12.5-18.7)。1回経験した人の人口有病率10.8%、2回1.9%、3回以上0.7%。★このレビューが挙げるリスク要因には、喫煙・飲酒・夜勤・大気汚染に加えて『ストレス』も含まれる。『ストレスは流産の原因ではない』と断定する根拠にこの文献を使ってはいけない。集団レベルの関連であって、個人の流産の原因を特定するものではない、という区別が必要。",
+    "first_author": "Quenby",
+    "journal": "Lancet",
+    "pubyear": "2021",
+    "title": "Miscarriage matters: the epidemiological, physical, psychological, and economic costs of early pregnancy loss.",
+    "types": [
+      "Journal Article",
+      "Review"
     ],
     "year": "2021"
   },

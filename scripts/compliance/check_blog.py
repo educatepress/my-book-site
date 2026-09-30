@@ -100,9 +100,9 @@ def check(path):
     is_en = '/en/' in path.replace(os.sep, '/')
     COI_WORDS = (r'company|manufacturer|conflict of interest|industry|funded|disclos'
                  if is_en else r'企業|製造元|利益相反|開発した会社|メーカー|社員|所属|開示')
-    CAUTION_WORDS = (r'\d+\s*(?:participants|women|men|patients|trials|studies|cycles)|preliminary|'
+    CAUTION_WORDS = (r'\d+\s*(?:\w+\s+)?(?:participants|women|men|patients|trials|studies|cycles)|preliminary|'
                      r'not (?:statistically )?significant|no difference|small|limited|observational|'
-                     r'cohort|in mice|underpowered|heterogeneit'
+                     r'cohort|in mice|underpowered|heterogeneit|retrospective|assum(?:es|ption)|model|review|committee opinion|cross-sectional'
                      if is_en else
                      r'\d+\s*(?:名|例|件|研究|試験|周期|本)|予備的|決定的ではない|限られ|小規模|'
                      r'有意差|差はあり|差がありま|観察研究|コホート|マウス|動物モデル|ばらつき|限界|範囲外|限った|限られ|のみ|だけ|確実性|不確実|前提|条件')
