@@ -9,20 +9,37 @@
 set -u
 cd "$(dirname "$0")/../.."
 
+# ★変数の直後に日本語が続く箇所は ${VAR} と書くこと。
+#   $VAR「...」のように書くと bash が「」を変数名の一部と解釈して unbound variable になる。
+
 # 1) 直近コミットで追加された本文行から、十分に特徴的な文字列を目印に選ぶ
-read -r MARK_FILE MARK_TEXT < <(
-  git show --format= --unified=0 HEAD -- 'src/content/blog/**/*.mdx' \
-  | awk '/^\+\+\+ b\//{f=substr($2,3)} /^\+[^+]/{t=substr($0,2); if (length(t)>25 && t !~ /^[#*|>-]/) {print f, t; exit}}'
+# ★目印はマークダウン記法を含まない行から選ぶこと。
+#   「**強調**」を含む行を目印にすると、HTML では <strong> になるため永遠に一致しない。
+MARK=$(python3 - <<'PYEOF'
+import re, subprocess
+out = subprocess.run(['git','show','--format=','--unified=0','HEAD','--','src/content/blog'],
+                     capture_output=True, text=True).stdout
+f = None
+for line in out.split('\n'):
+    if line.startswith('+++ b/'):
+        f = line[6:]
+    elif line.startswith('+') and not line.startswith('+++') and f:
+        t = line[1:].strip()
+        # マークダウン記法・リンク・表・見出し・箇条書きを含む行は目印にしない
+        if len(t) > 30 and not re.search(r'[*_`\[\]()|#>★]', t):
+            print(f + '\t' + t[:60])
+            break
+PYEOF
 )
-if [ -z "${MARK_TEXT:-}" ]; then
-  echo "⚠ 直近コミットに記事の追加行が無い。目印を自動決定できないので手動で確認すること。"; exit 2
-fi
+MARK_FILE=${MARK%%$'\t'*}
+MARK_TEXT=${MARK#*$'\t'}
+
 SLUG=$(basename "$MARK_FILE" .mdx)
 case "$MARK_FILE" in */en/*) URL="https://www.ttcguide.co/en/blog/$SLUG";; *) URL="https://www.ttcguide.co/blog/$SLUG";; esac
-SNIP=$(printf '%s' "$MARK_TEXT" | cut -c1-40)
+SNIP="$MARK_TEXT"
 
 echo "目印: $URL"
-echo "      「$SNIP」"
+echo "      「${SNIP}」"
 
 # 2) 反映を待つ
 for i in $(seq 1 30); do
