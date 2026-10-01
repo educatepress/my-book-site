@@ -122,6 +122,25 @@ def check(path):
 
     # ③ 書誌の余計な情報
     rb = refs_block(body)
+    # ★門の穴(2026-10-01): 本文中のPMIDは台帳で照合できるが、PMIDを書かずに
+    #   著者名・雑誌名・年だけで書かれた参考文献は検証できず素通りしていた。
+    #   実際に ai-ivf-prediction で、論文名だけ正しく著者・雑誌・年がすべて誤っている
+    #   引用が見つかった(正: Hu G, J Assist Reprod Genet 2026 / 記事: Fan J, Hum Reprod 2024)。
+    #   教科書・ガイドライン・学会文書は別枠なので除外する。
+    _BOOKS = re.compile(r'Speroff|Williams Obstetrics|ガイドライン|Guidelines|ACOG|ASRM|ESHRE|NICE|'
+                        r'Mayo Clinic|学会|Practice Bulletin|Committee Opinion|WHO |FAQ\d', re.I)
+    _CITE = re.compile(r'^\s*[*\-]\s+(?!.*PMID)(?P<l>.*(?:'
+                       r'[A-Z][a-z]+,?\s+[A-Z]\.(?:\s*[A-Z]\.)?'
+                       r'|[A-Z][a-z]+\s+[A-Z]{1,3},'
+                       r'|\(\s*(?:19|20)\d\d\s*\)'
+                       r'|\d+\s*\(\s*\d+\s*\)\s*[,:]\s*\d'
+                       r').*)$', re.M)
+    for m in _CITE.finditer(rb):
+        line = m.group('l').strip()
+        if _BOOKS.search(line):
+            continue
+        blocking.append(f'参考文献に PMID の無い学術引用がある(実在を確認して PMID を付けるか削除する): {line[:60]}')
+
     if re.search(r'10\.\d{4,9}/', rb): blocking.append('参考文献に DOI がある(題名+PMID だけにする)')
     if re.search(r'PMC\d{5,}', rb): blocking.append('参考文献に PMC 番号がある(題名+PMID だけにする)')
     if re.search(r'\d+\(\d+\):\s*[\dA-Za-z]+', rb): blocking.append('参考文献に 巻(号):頁 がある(題名+PMID だけにする)')
