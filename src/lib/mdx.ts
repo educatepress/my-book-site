@@ -4,6 +4,31 @@ import matter from 'gray-matter';
 import { redirectedSlugs } from './redirects';
 import { getQueueItems } from '@/lib/sheets';
 
+// ★2026-10-02: 1回のビルドで Google Sheets を187回叩いていたのを1回に束ねる。
+//   全ページを静的化して181本をプリレンダリングするようになった結果、記事ページごとに
+//   getPostSlugs() が呼ばれ、そのたびに Sheets を読んでいた(= ビルドが遅く、
+//   Sheets API のレート制限にも近づく)。1回のビルド中に Sheets の内容は変わらない。
+//   ★TTLを長くしないこと: 一覧と sitemap は revalidate=3600 の ISR で動くので、
+//   ここを長く持たせると「Sheets に記事を足したのに一覧へ出てこない」原因になる。
+//   ★失敗したらキャッシュを捨てて次回やり直す(Sheets が一時的に落ちたときに
+//   「空の結果」を5分間使い続けないため)。
+const QUEUE_TTL_MS = 5 * 60 * 1000;
+type QueueResult = Awaited<ReturnType<typeof getQueueItems>>;
+let queueCache: { at: number; promise: Promise<QueueResult> } | null = null;
+
+function getQueueItemsCached(): Promise<QueueResult> {
+    const now = Date.now();
+    if (queueCache && now - queueCache.at < QUEUE_TTL_MS) {
+        return queueCache.promise;
+    }
+    const promise = getQueueItems();
+    queueCache = { at: now, promise };
+    promise.catch(() => {
+        if (queueCache?.promise === promise) queueCache = null;
+    });
+    return promise;
+}
+
 const contentDirectory = path.join(process.cwd(), 'src/content/blog');
 
 export interface BlogPostMetadata {
@@ -33,7 +58,7 @@ export async function getPostSlugs(lang: 'jp' | 'en' = 'jp'): Promise<string[]> 
 
     // Remote (Google Sheets)
     try {
-        const queue = await getQueueItems();
+        const queue = await getQueueItemsCached();
         const postedBlogs = queue.filter(q => q.type === 'blog' && q.status === 'posted');
         postedBlogs.forEach(q => {
             try {
@@ -113,7 +138,7 @@ export async function getPostBySlug(slug: string, lang: 'jp' | 'en' = 'jp') {
 
     // 2. Try Remote (Google Sheets)
     try {
-        const queue = await getQueueItems();
+        const queue = await getQueueItemsCached();
         // Find row that matches the slug
         const postRow = queue.find(q => {
             if (q.type !== 'blog' || q.status !== 'posted') return false;
