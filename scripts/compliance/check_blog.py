@@ -73,6 +73,14 @@ def check(path):
     # ④ MDX 生記法
     if re.search(r'<[A-Za-z]+[\s>]', body) or re.search(r'^:::', body, re.M) or re.search(r'\)\{\.', body) or re.search(r'^import\s', body, re.M):
         blocking.append('MDX が落ちる記法(<タグ>/:::/{.class}/import)が本文にある')
+    # ④-1 ★本番で500になった型(2026-10-01): 不等号の直後に数字が来ると
+    #   MDX が JSX の開始と解釈して Unexpected character `0` before name で落ちる。
+    #   「<0.7 ng/mL」「P<0.001」「(<37 weeks)」などが該当。6本が本番500になった。
+    #   ビルドは通る(ページがサーバーレンダリングのため)ので、門で止める必要がある。
+    for m in re.finditer(r'<\d', body):
+        ctx = body[max(0, m.start()-40):m.start()+30].replace('\n', ' ')
+        blocking.append(f'不等号の直後に数字があり MDX が落ちる(「0.7未満」「P < 0.001」のように書く): …{ctx}…')
+        break
     # ④-2 生成の残骸・存在しない診療施設(2026-09-27 全件監査で見つかった型)
     for pat, msg in (
         (r'提供された参考文献はありません|論文が見つかりませんでした|参考URL/PMID|Tier A/B|Tier B|Please insert specific PMID|PMID: N/A', '生成テンプレの残骸が本文に残っている'),
