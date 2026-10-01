@@ -1754,8 +1754,8 @@
       "Mousa",
       "Joham"
     ],
-    "caution": "★AMHを超音波の代替とできるのは『成人のみ(in adults only)』。抄録では具体的なカットオフ値(3.0 ng/mL 等)は示されていないため、数値を書く場合はガイドライン本文の確認が必要。エビデンスの質は全体に low to moderate と本文が明記。",
-    "coi": "ガイドライン著者のうち複数名(Laven, Piltonen, Costello, Boivin, Norman, Joham)が Ferring / Roche Diagnostics / Gedeon Richter / Merck / Organon / Novo Nordisk 等から助成・講演料・顧問料を受けていると開示。AMH測定は検査会社の製品に関わるため、引用時は留意。",
+    "caution": "2023年国際エビデンスガイドライン。★全文(PMC10477934)を確認したところ、★AMHの数値のカットオフは一切示されていない(ng/mL も pmol/L も本文に出てこない)。1.5.7 PP は『AMH測定を行う検査室は、集団ごと・測定法ごとのカットオフを用いるべき』としている。★特定の数値(3.0 ng/mL など)をガイドラインの基準値として書いてはいけない。正確な推奨: 1.5.1 血清AMHは成人で★PCOM(多嚢胞性卵巣形態)の定義に使える(PCOSの診断そのものではない)。1.5.3 ★AMHを単独でPCOSの診断に用いるべきでない。1.5.4 思春期ではまだ用いるべきでない。1.5.5 ★AMHと超音波の両方を行うべきでない(過剰診断を避けるため)。1.4.9/1.5.2 ★月経不順と高アンドロゲン血症が揃っていれば、超音波もAMHも診断に不要。超音波の数値基準は FNPO≧20、卵巣容積≧10mL、FNPS≧10。",
+    "coi": "★AMH測定キットの企業との関係がある著者が含まれる。Joop Laven は Roche Diagnostics と Ansh Labs の無償コンサルタントで、両社の諮問委員。Terhi Piltonen は Roche から助成を受け、Roche Diagnostics の無償コンサルタント・諮問委員。★AMHを診断に使う推奨は、AMH測定キットの販売に有利に働く方向である。",
     "first_author": "Teede",
     "journal": "Hum Reprod",
     "pubyear": "2023",
@@ -2291,7 +2291,7 @@
   },
   "41712950": {
     "authors": [],
-    "caution": "ACOG臨床実践ガイドライン。適用範囲は『診断』のみ(clinical, imaging, and surgical evaluation and diagnosis)。治療の推奨は範囲外なので、治療方針をこの文書に帰属させない。",
+    "caution": "ACOG臨床実践ガイドライン(2026年3月)。扱っているのは★診断のみで、治療の推奨は含まない。修正GRADEの evidence-to-decision 枠組みを使用。★NICEの子宮内膜症エビデンスレビューが、多くの臨床的考慮の根拠になっている。★『十分なエビデンスが無い、または存在しない場合に、格付けのない Good Practice Point を置く』と明記されており、推奨のすべてがエビデンスに基づくわけではない。思春期にも適用される(特記がない限り)。★本文は有料で、個々の推奨内容(腹腔鏡をどう位置づけるか等)は要旨からは確認できない。要旨から確認できない推奨内容を、この文献を根拠として書いてはいけない。",
     "first_author": "",
     "journal": "Obstet Gynecol",
     "pubyear": "2026",
