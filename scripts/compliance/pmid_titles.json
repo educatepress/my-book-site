@@ -328,6 +328,7 @@
       "Johnson",
       "Hull"
     ],
+    "caution": "★Cochrane DTA。141研究・15,141人・122バイオマーカーを検討したが、著者自身が『全studiesが方法論的に質が低い(poor methodological quality)』と記す。対象は内膜症の頻度が10〜85%と高い選択された集団で、一般外来の事前確率とは違う。メタ解析できたのはCA-125など4種のみ。★結論は『置換検査・トリアージ検査の基準を満たすものは一つもない／研究設定の外で臨床使用できるだけの精度を持つものはない』。CA-125の感度は cutoff 35U/ml で 0.40 しかない=陰性でも除外できない。『血液検査で内膜症が分かる』の根拠には使えない。",
     "first_author": "Nisenblat",
     "journal": "Cochrane Database Syst Rev",
     "pubyear": "2016",
@@ -349,6 +350,7 @@
       "Hull",
       "Johnson"
     ],
+    "caution": "★Cochrane DTA(組み合わせ検査)。11研究・1,339人のみ、全研究が方法論的に質が低い。15通りの組み合わせを各1研究が評価しただけで統合(メタ解析)していない。信頼区間は広い。★基準を満たした組み合わせ(IL-6+PGP9.5、内診+経膣超音波など)はあるが、著者の総括は『いずれも意味のある形で評価できず、証拠は不十分または質が低い。腹腔鏡が今も診断のgold standardで、非侵襲検査は研究設定に限るべき』。個々の高い感度・特異度の数字だけ引くと型Aになる。",
     "first_author": "Nisenblat",
     "journal": "Cochrane Database Syst Rev",
     "pubyear": "2016",
@@ -426,6 +428,7 @@
       "Bulló",
       "Salas-Salvadó"
     ],
+    "caution": "系統的レビューだが★観察研究のみ(横断・症例対照・前向き・後向き)。RCTは除外。1,944件から35件を採用。★著者自身が『観察研究は関連を示すが因果は示さない。ここでまとめた関連は大規模前向きコホートと、とくに適切に設計されたRCTで確認する必要がある』と明記。文献検索は2016年11月まで。『この食事で精子が良くなる』という因果の主張には使えない。個々の食品(魚・鶏・乳製品など)の結果は『一部の研究で』という水準。",
     "first_author": "Salas-Huetos",
     "journal": "Hum Reprod Update",
     "pubyear": "2017",
@@ -563,6 +566,7 @@
       "Van der Poel",
       "Ombelet"
     ],
+    "caution": "★WHOの依頼でまとめられた系統的レビューであって、メタ解析ではない(PubMedのtypeもReview)。13の臨床疑問に20の推奨＋2つのbest practice point。★文献検索は2015年5月まで(手作業の追加検索2017年1月)で、2026年時点では『最新』ではない。★レビュー自身が『証拠の質はとても低い〜高いまで幅がある』『重要な研究の空白が残る』と明記。タイミングの時間帯比較を『このメタ解析で有意差なし』と書くのは誤り(タイミングのメタ解析はCochrane 40985294)。",
     "first_author": "Cohlen",
     "journal": "Hum Reprod Update",
     "pubyear": "2018",
@@ -1027,6 +1031,7 @@
       "Wenzl",
       "Yotova"
     ],
+    "caution": "総説(narrative review)。新しいデータはない。★要点は『臨床で承認されたバイオマーカーは存在しない』『研究間の設計・コホート選択・解析のばらつきで独立した検証ができていない』『標準化した多施設大規模研究が必要』。将来は複数マーカーのパネルが必要になる可能性を述べているだけで、特定の検査を推奨していない。数値の出典には使えない。",
     "first_author": "Hudson",
     "journal": "Exp Biol Med (Maywood)",
     "pubyear": "2020",
@@ -1061,6 +1066,7 @@
   },
   "32106976": {
     "authors": [],
+    "caution": "★学会ガイドライン(ASRM)。1968〜2019年の88件に基づくが、作成方法は『入手可能な証拠＋非公式の合意(informal consensus)』と明記。★ガイドライン自身が『原因不明不妊の治療は必然的に経験的(empiric)』と述べている。中心の推奨は『まず経口薬による排卵誘発＋IUIを通常3〜4周期、その後に体外受精』。『3〜6回』はガイドラインの記述ではない。IUIのタイミングも項目にあるが、時間帯の優劣を数値で決めた文献ではない。",
     "first_author": "",
     "journal": "Fertil Steril",
     "pubyear": "2020",
@@ -1408,6 +1414,7 @@
       "Ferramosca",
       "Zara"
     ],
+    "caution": "総説。★主題はヒトの妊娠率ではなく精子のエネルギー代謝・ミトコンドリア機能という生化学的機序。『西洋型食事はリスク、地中海式は保護的とみられる』『菜食の位置づけは議論がある』と程度を限定して書いている。多くのポリフェノールは濃度によって作用が逆になるとも述べる。★妊娠率・生児獲得率のデータではないので、『妊娠しやすくなる』の根拠にはならない。",
     "first_author": "Ferramosca",
     "journal": "Int J Mol Sci",
     "pubyear": "2022",
@@ -1457,6 +1464,49 @@
     "title": "Neonatal and clinical outcomes after transfer of a mosaic embryo identified by preimplantation genetic testing for aneuploidies.",
     "types": [
       "Journal Article"
+    ],
+    "year": "2022"
+  },
+  "35553678": {
+    "authors": [
+      "Busnelli",
+      "Schirripa",
+      "Fedele",
+      "Bulfoni",
+      "Levi-Setti"
+    ],
+    "caution": "★観察研究(コホート・症例対照)を集めたメタ解析で、関連であって因果ではない。証拠の質はGRADEで『低』〜『とても低い』。ホルモン補充周期 vs 自然周期で 妊娠高血圧症候群 OR 1.90(1.64-2.20、12研究、とても低い)、PE 2.11(1.87-2.39、8研究、低い)、産後出血 2.53(2.19-2.93、低い)、帝王切開 1.62(とても低い)、前置胎盤 1.27(1.05-1.54)、早産 1.19(1.09-1.29)。★交絡を調整したORだけを集め直すと有意なまま残ったのは妊娠高血圧症候群・PE・産後出血・帝王切開のみで、★前置胎盤と早産は残らなかった。★著者自身が『方法論的な弱さがあるため臨床実践への推奨は行えない』と明記。異質性の主因はHRTの時期と用量、移植時の胚のステージ、PGT周期の混在。",
+    "coi": "資金提供なし(None)と明記。著者は大学病院・民間の生殖医療センターに所属。ホルモン剤メーカーの関与は開示されていない。",
+    "first_author": "Busnelli",
+    "journal": "Hum Reprod",
+    "pubyear": "2022",
+    "title": "Obstetric and perinatal outcomes following programmed compared to natural frozen-thawed embryo transfer cycles: a systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2022"
+  },
+  "35588094": {
+    "authors": [
+      "Glujovsky",
+      "Quinteiro Retamar",
+      "Alvarez Sedo",
+      "Ciapponi",
+      "Cornelisse",
+      "Blake"
+    ],
+    "caution": "RCT32件・5,821組。★有利なのは『新鮮胚移植1回あたり』だけ。生児獲得率 OR 1.27(1.06-1.51／15件・2,219人)は証拠の質『低』、臨床妊娠率 OR 1.25(1.12-1.39)は『中』。★累積臨床妊娠率を改善するかは不確実とレビュー自身が明記。★代償: 移植できる胚がゼロになる割合は胚盤胞群で高い OR 2.50(1.76-3.55、『中』、1%→2〜4%)、凍結できた割合は低い OR 0.48(0.40-0.57)。★多胎 OR 1.05(0.83-1.33)・流産 OR 1.12(0.90-1.38)はいずれも不確実で、移植数をそろえた低リスク研究の感度分析では胚盤胞移植のほうが多胎を増やす可能性。『初期胚のほうが多胎が多い』と書くのは誤り。★主な限界は深刻な不精確さと、無作為化方法の記載不備による深刻なバイアスのリスク。予後の良くない女性の評価は今後の課題とレビューが明記しており、胚盤胞到達不良例には当てはめられない。",
+    "coi": "著者は民間の生殖医療施設(CEGYR, Repromed等)に所属。培養液メーカー・機器企業の関与は開示されていない。",
+    "first_author": "Glujovsky",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2022",
+    "title": "Cleavage-stage versus blastocyst-stage embryo transfer in assisted reproductive technology.",
+    "types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't",
+      "Systematic Review"
     ],
     "year": "2022"
   },
@@ -1552,6 +1602,7 @@
       "Tsutsumi",
       "Kawakami"
     ],
+    "caution": "★これは『系統的レビューとメタ解析のプロトコル(研究計画)』であり、結果が出ている論文ではない。職場の心理社会的要因と月経障害・不妊の関連を評価しようとする計画。★何らかの関連を示した根拠として引いてはいけない。シフト勤務と妊孕力の実際の結果は PMID: 30987736(関連なし)と 36586812(関連なし)を参照。",
     "first_author": "Sasaki",
     "journal": "Syst Rev",
     "pubyear": "2022",
@@ -1817,6 +1868,7 @@
       "Long",
       "Wang"
     ],
+    "caution": "★後向きコホート(RCTではない)。単施設(北京大学第三医院)・反復着床不全(RIF)患者の凍結融解胚移植1,774周期のみで、一般の体外受精患者には当てはまらない。★この研究の主題は『sequential ET(3日目胚＋その後に胚盤胞を同一周期で二段階移植)』の評価で、『初期胚移植 vs 胚盤胞移植』の一般論ではない。胚盤胞群の早期流産率は分割期胚群より高い(17.2% vs 8.1%)が子宮外妊娠は低い(0.4% vs 3.0%)。群の割り付けは無作為でないため選択バイアスがあり、因果として読めない。",
     "first_author": "Gao",
     "journal": "Front Endocrinol (Lausanne)",
     "pubyear": "2023",
@@ -1910,6 +1962,7 @@
       "Rotimi",
       "Singh"
     ],
+    "caution": "総説(lifestyle factors全般)。新しいデータはない。肥満・食事・心理的ストレス・放射線・喫煙・飲酒を概説。★記述は『adversely affected』『can help』という可能性の水準で、介入の効果量は示していない。抗酸化サプリに触れているが効果の大きさや確実性の評価はない。数値や効果量の出典には使えない。",
     "first_author": "Rotimi",
     "journal": "JBRA Assist Reprod",
     "pubyear": "2024",
@@ -1973,6 +2026,7 @@
       "Ho",
       "Vuong"
     ],
+    "caution": "ベトナムで行われた非盲検ランダム化比較試験(Lancet 2024)。排卵のある女性で、凍結胚移植の内膜調整を自然周期・修正自然周期・人工周期で比較したもの。★非盲検である点、単一国での実施である点に注意。周期の作り方については、コクランレビュー(PMID: 28675921)が『ある方法を他方より優先して用いることを支持する十分な根拠は見つからなかった』としている。",
     "first_author": "Ho",
     "journal": "Lancet",
     "pubyear": "2024",
@@ -2152,6 +2206,7 @@
       "Biernat",
       "Abu-Soud"
     ],
+    "caution": "総説(概説)。新しいデータはなく、不妊の定義・原因・検査・治療を広く概説しているだけ。★著者自身が primary/secondary の定義は controversial、subfertility は loosely used term と書いている。特定の数値・効果量・推奨の出典には使えない。記事本文で使っていないなら参考文献から外すべき種類の文献。",
     "first_author": "Awonuga",
     "journal": "Syst Biol Reprod Med",
     "pubyear": "2025",
@@ -2294,6 +2349,27 @@
     ],
     "year": "2025"
   },
+  "40985294": {
+    "authors": [
+      "Adesina",
+      "Cantineau",
+      "Showell",
+      "Vail",
+      "Wilkinson"
+    ],
+    "caution": "★RCT42件・6,603組を集めたが、主要解析に入ったのは7件・1,917組。タイミング間隔の比較は各1件(374組/107組)のみ。確実性は大半で「低」、最大の限界は深刻な不精確さ。★結論は『差がない』ではなく『too imprecise to be informative(不精確すぎて判断材料にならない)』=分かっていない。『有意差なし』と書くと型Aの誤読になる。hCG単独 vs hCG+FSH の OR 0.35(0.13-0.95)も1件・108組・低確実性。",
+    "coi": "資金提供なし(no dedicated funding)と明記。",
+    "first_author": "Adesina",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2025",
+    "title": "Synchronised approach for intrauterine insemination in subfertile couples.",
+    "types": [
+      "Journal Article",
+      "Meta-Analysis",
+      "Systematic Review"
+    ],
+    "year": "2025"
+  },
   "41227336": {
     "authors": [
       "Miranda",
@@ -2301,6 +2377,7 @@
       "Martins-Bessa",
       "Gaivão"
     ],
+    "caution": "★ショウジョウバエ(Drosophila melanogaster)を用いた in vivo 研究。タバコ煙の成分が精子の質と運動性に影響したという報告。★ヒトの妊孕性については何も言っていない。機序の手がかりとしてのみ扱うこと。大気汚染とヒトの精液所見については PMID: 37601219 / 34532803 を参照。",
     "first_author": "Miranda",
     "journal": "Cells",
     "pubyear": "2025",
@@ -2361,6 +2438,66 @@
     "title": "A multiday machine learning framework based on improved-NEQsi for predicting embryo quality and pregnancy outcomes in IVF.",
     "types": [
       "Journal Article"
+    ],
+    "year": "2026"
+  },
+  "42138348": {
+    "authors": [
+      "Perera",
+      "Gan",
+      "Afroz",
+      "Armstrong",
+      "Raine-Fenning",
+      "Martins",
+      "Lensen"
+    ],
+    "caution": "★子宮内膜スクラッチング。RCT22件・7,194人だが、主要解析は偏りの小さい8件・4,402人に限定。生児獲得率 OR 1.12(0.98-1.28、確実性『中』)は『増える』『変わらない』『わずかに減る』のどれとも矛盾しない=効果は不明。臨床妊娠率 OR 1.08(0.95-1.23)も同様。流産 OR 1.00(0.76-1.31、『低』)。★軽度〜中等度の痛みを伴うことは確からしい。前版(2021, PMID 34110001)の結論『ルーチンの使用を支持しない』は変わっていない。『着床率を上げる処置』として紹介してはいけない。",
+    "coi": "特定の資金提供を受けていない(no specific funding)と明記。",
+    "first_author": "Perera",
+    "journal": "Cochrane Database Syst Rev",
+    "pubyear": "2026",
+    "title": "Endometrial injury in women undergoing in vitro fertilisation (IVF).",
+    "types": [
+      "Journal Article",
+      "Systematic Review",
+      "Meta-Analysis"
+    ],
+    "year": "2026"
+  },
+  "42431250": {
+    "authors": [
+      "Busnelli",
+      "Fauque",
+      "Cirillo",
+      "Fernández-Shaw",
+      "Levi-Setti"
+    ],
+    "caution": "★確実性はすべて『とても低い(very low)』。RCT4件・2,432人で累積生児獲得率 RR 1.10(1.00-1.22)はぎりぎり有意だが、感度分析(Knapp-Hartung)では有意でなくなる(0.95-1.28)。観察研究7件・151,530周期では OR 1.03(0.95-1.12)で差なし。★結論は『両方式はおおむね同等』。★RCTは予後の良い患者(good-prognosis)に限られており、胚盤胞到達不良例には当てはまらない。移植回数が2回未満の部分集団の RR 1.14(1.06-1.23)は事後の部分集団解析。",
+    "coi": "著者は大学病院・民間生殖医療施設に所属。企業の関与は抄録では開示されていないため原著で確認が必要。",
+    "first_author": "Busnelli",
+    "journal": "Fertil Steril",
+    "pubyear": "2026",
+    "title": "Effect of blastocyst-stage versus cleavage-stage strategy on cumulative live birth rate in assisted reproductive technology: a systematic review and meta-analysis.",
+    "types": [
+      "Journal Article",
+      "Review"
+    ],
+    "year": "2026"
+  },
+  "42640814": {
+    "authors": [
+      "Martins",
+      "Nastri"
+    ],
+    "caution": "RCT17件・10,611人。★確実性が『高』なのは2つだけ: 流産 RR 0.75(0.65-0.86／排卵を伴う調整のほうが少ない)と臨床妊娠率の同等性 RR 1.02(0.98-1.06)。生児出産率は全体では同等 RR 1.07(0.95-1.22、『中』)で、偏りの高い研究とキャンセル率の差が極端な1件を除くと RR 1.15(1.01-1.31)=事後の感度分析。★妊娠高血圧症候群は RR 0.77(0.55-1.07、『中』)で有意ではなく『保護的な傾向』まで。『自然周期は妊娠高血圧症候群を防ぐ』と書くのは型Aの誤読。その他の転帰は『低』〜『とても低い』。結論は『キャンセル率を低く抑えながら排卵を伴う調整を優先』で、キャンセル率の条件が外せない。",
+    "coi": "著者は民間の生殖医療施設(SEMEAR Fertilidade)に所属。企業の関与は抄録では開示されていないため原著で確認が必要。",
+    "first_author": "Martins",
+    "journal": "Ultrasound Obstet Gynecol",
+    "pubyear": "2026",
+    "title": "Endometrial preparation with vs without ovulation for frozen-embryo transfer: systematic review and meta-analysis of randomized controlled trials.",
+    "types": [
+      "Journal Article",
+      "Review"
     ],
     "year": "2026"
   },

@@ -34,6 +34,14 @@ PYEOF
 MARK_FILE=${MARK%%$'\t'*}
 MARK_TEXT=${MARK#*$'\t'}
 
+# ★目印が空のまま進むと、grep が必ず当たって「反映済み」と誤判定する。
+#   直近コミットが記事本文を変えていない場合(ドキュメントのみ等)はここで止める。
+if [ -z "${MARK_TEXT// /}" ] || [ "${#MARK_TEXT}" -lt 20 ]; then
+  echo "⚠ 直近コミットに記事本文の追加行が無いため、反映確認は行えない。"
+  echo "  本番ステータスの点検だけ実行する。"
+  SKIP_WAIT=1
+fi
+
 SLUG=$(basename "$MARK_FILE" .mdx)
 case "$MARK_FILE" in */en/*) URL="https://www.ttcguide.co/en/blog/$SLUG";; *) URL="https://www.ttcguide.co/blog/$SLUG";; esac
 SNIP="$MARK_TEXT"
@@ -42,11 +50,13 @@ echo "目印: $URL"
 echo "      「${SNIP}」"
 
 # 2) 反映を待つ
+if [ -z "${SKIP_WAIT:-}" ]; then
 for i in $(seq 1 30); do
   if curl -s "$URL" | grep -qF "$SNIP"; then echo "✅ 反映済み ($((i*15))秒後)"; break; fi
   if [ "$i" = 30 ]; then echo "✗ 7分半待っても反映されない。Vercel のデプロイを確認すること。"; exit 1; fi
   sleep 15
 done
+fi
 
 # 3) 公開記事すべての HTTP ステータスを点検
 #    ★ビルドが通ることと、ページが開けることは別(MDXはリクエスト時にコンパイルされる)
