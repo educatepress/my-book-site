@@ -149,6 +149,24 @@ def check(path):
             continue
         blocking.append(f'参考文献に PMID の無い学術引用がある(実在を確認して PMID を付けるか削除する): {line[:60]}')
 
+    # ★2026-10-01 追加: 「参考文献にあるだけで本文が触れていない文献」を警告する。
+    #   32本の監査で、この型に当てはまった文献は10件すべてで、出典の最重要の所見が
+    #   本文から落ちていた(PGT-Aの陽性的中率50〜60%、精子形態の予測能の低さ、
+    #   胚盤胞まで待つと移植胚ゼロが2〜4倍、CA-125の感度0.40 など)。
+    #   ★落とすのではなく警告にする。参考文献として挙げるだけが妥当な場合もある。
+    body_wo_refs = body[:body.find(rb)] if rb and rb in body else body
+    for p_ in sorted(pmids):
+        info = LEDGER.get(p_)
+        if not isinstance(info, dict):
+            continue
+        fa = (info.get('first_author') or '').strip()
+        # 学会・委員会名義の文献は第一著者名が無いので対象外
+        if len(fa) < 3:
+            continue
+        if fa.lower() not in body_wo_refs.lower() and f'PMID: {p_}' not in body_wo_refs:
+            warn.append(f'参考文献にあるだけで本文が引用していない ({p_} {fa}): '
+                        f'出典の要点が本文から落ちていないか確かめる')
+
     if re.search(r'10\.\d{4,9}/', rb): blocking.append('参考文献に DOI がある(題名+PMID だけにする)')
     if re.search(r'PMC\d{5,}', rb): blocking.append('参考文献に PMC 番号がある(題名+PMID だけにする)')
     if re.search(r'\d+\(\d+\):\s*[\dA-Za-z]+', rb): blocking.append('参考文献に 巻(号):頁 がある(題名+PMID だけにする)')
