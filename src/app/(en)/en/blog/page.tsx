@@ -3,6 +3,14 @@ import Link from "next/link";
 import BlogListClient from "@/components/blog/blog-list-client";
 import type { Metadata } from "next";
 
+// ★一覧だけは1時間ごとに再生成する(ISR)。
+//   理由: getAllPosts() が「日付が今日以前の記事」だけを出す自動公開の仕組みを持っており、
+//   完全な静的化だとデプロイまで日付の切り替わりに気づけない。
+//   記事ページ本体は revalidate を付けない(内容が変わるのはデプロイ時だけなので、
+//   181本を毎時再生成させると逆に Active CPU を使う)。
+export const revalidate = 3600;
+
+
 export const metadata: Metadata = {
     title: "Blog & News | Fertility & Life Planning",
     description: "Latest medical insights and news from Dr. Takuma Sato, Reproductive Medicine Specialist.",
