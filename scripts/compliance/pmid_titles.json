@@ -1,4 +1,20 @@
 {
+  "11082086": {
+    "authors": [
+      "Wilcox",
+      "Dunson",
+      "Baird"
+    ],
+    "caution": "前向きコホート221名・696周期。★妊娠可能な6日間が周期のどこに来るかは大きくばらつく。★周期6日目から21日目までのどの日でも、妊娠可能期間に入っている確率が最低10%ある。★臨床のガイドラインが示す10〜17日目の中に妊娠可能期間が完全に収まるのは、女性の約30%だけ。月経が再開していない女性の4〜6%は周期5週目にも妊娠可能だった。著者らは『周期が普段は規則的であっても、妊娠可能期間のタイミングは非常に予測しにくいと伝えるべき』と明記。カレンダー計算による排卵予測の限界を示す出典として使う。",
+    "first_author": "Wilcox",
+    "journal": "BMJ",
+    "pubyear": "2000",
+    "title": "The timing of the \"fertile window\" in the menstrual cycle: day specific estimates from a prospective study.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2000"
+  },
   "12923154": {
     "authors": [
       "Harville",
@@ -2260,5 +2276,21 @@
       "Journal Article"
     ],
     "year": "2026"
+  },
+  "7477165": {
+    "authors": [
+      "Wilcox",
+      "Weinberg",
+      "Baird"
+    ],
+    "caution": "前向き研究221名・625周期・192妊娠。排卵日は尿中のエストロゲン/プロゲステロン代謝物から推定。★妊娠が成立したのは『排卵日に終わる6日間』に性交があった場合に限られた。確率は排卵5日前で0.10、★排卵当日で0.33。★排卵日より後の性交による妊娠は観察されていない。『排卵後も2日間が有効』と書いてはいけない。3日以上前の精子に帰せる妊娠は6%のみ。1995年の研究で、排卵日は推定値である。",
+    "first_author": "Wilcox",
+    "journal": "N Engl J Med",
+    "pubyear": "1995",
+    "title": "Timing of sexual intercourse in relation to ovulation. Effects on the probability of conception, survival of the pregnancy, and sex of the baby.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "1995"
   }
 }
