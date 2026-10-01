@@ -584,6 +584,26 @@
     ],
     "year": "2018"
   },
+  "29566862": {
+    "authors": [
+      "Wise",
+      "Rothman",
+      "Wesselink",
+      "Mikkelsen",
+      "Sorensen",
+      "McKinnon",
+      "Hatch"
+    ],
+    "caution": "前向きコホート1,176組。睡眠は男性の自己申告。★8時間を基準に、6時間未満の妊孕力比0.62(95%CI 0.45-0.87)で有意に低い。6時間1.06、7時間0.97、9時間以上0.73(0.46-1.15)はいずれも有意でない。夜勤・交代勤務のない男性でも同様(0.60)、不妊歴のない男性でも同様(0.62)、既に子のいる男性でより強い(0.46)。★観察研究で因果は示していない。精液所見は測定されていない。",
+    "first_author": "Wise",
+    "journal": "Fertil Steril",
+    "pubyear": "2018",
+    "title": "Male sleep duration and fecundability in a North American preconception cohort study.",
+    "types": [
+      "Journal Article"
+    ],
+    "year": "2018"
+  },
   "29728143": {
     "authors": [
       "Ali",
@@ -729,6 +749,25 @@
     "types": [
       "Journal Article",
       "Research Support, Non-U.S. Gov't"
+    ],
+    "year": "2019"
+  },
+  "30987736": {
+    "authors": [
+      "Willis",
+      "Hatch",
+      "Wesselink",
+      "Rothman",
+      "Mikkelsen",
+      "Wise"
+    ],
+    "caution": "前向きコホート6,873名(北米・妊娠を試み始めて6か月以内)。睡眠もシフト勤務も自己申告。★睡眠時間と妊孕力の関連は有意でない: 8時間を基準に、6時間未満0.89(0.75-1.06)、6時間0.95、7時間0.99、9時間以上0.96。★有意だったのは『寝つきの悪さ』で、半分超の頻度で困っている群が0.87(0.79-0.95)。半分未満では0.93(0.88-1.00)。★シフト勤務と妊孕力には関連がなかった。著者らの結論は『夜間の睡眠困難は妊孕力をわずかに下げることと関連。睡眠時間が短いこととの関連はより弱い』。★『睡眠不足が卵子の質を下げる』の根拠には使えない。卵子の質は測定されていない。",
+    "first_author": "Willis",
+    "journal": "Fertil Steril",
+    "pubyear": "2019",
+    "title": "Female sleep patterns, shift work, and fecundability in a North American preconception cohort study.",
+    "types": [
+      "Journal Article"
     ],
     "year": "2019"
   },
@@ -1576,6 +1615,30 @@
       "Journal Article",
       "Multicenter Study",
       "Randomized Controlled Trial"
+    ],
+    "year": "2022"
+  },
+  "36586812": {
+    "authors": [
+      "Freeman",
+      "Whitcomb",
+      "Bertone-Johnson",
+      "Balzer",
+      "OBrien",
+      "Dunietz",
+      "Purdue-Smithe",
+      "Kim",
+      "Silver",
+      "Schisterman",
+      "Mumford"
+    ],
+    "caution": "EAGER試験の二次解析1,228名。★対象は18〜40歳で流産歴が1〜2回ある女性に限られる。睡眠時間・睡眠中央時刻・ソーシャルジェットラグ・夜勤のいずれも妊孕力との有意な関連なし。★『妊娠前の睡眠は生児出産と関連していなかった』。著者らの結論は『睡眠の特徴と妊孕力・生児出産の間に強い関連は見られない』。★著者ら自身が、睡眠が極端な集団でのより大きなコホートでの検証が必要と明記している。",
+    "first_author": "Freeman",
+    "journal": "Fertil Steril",
+    "pubyear": "2022",
+    "title": "Preconception sleep duration, sleep timing, and shift work in association with fecundability and live birth among women with a history of pregnancy loss.",
+    "types": [
+      "Journal Article"
     ],
     "year": "2022"
   },
