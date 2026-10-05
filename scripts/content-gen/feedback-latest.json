@@ -1,19 +1,17 @@
 {
-  "week": "2026-09-28",
+  "week": "2026-10-05",
   "categoryPV": {
-    "分類外": 2,
-    "①流産の恐怖・不安": 1,
+    "分類外": 3,
     "③身体のサイン解読": 1,
-    "⑨特定診断のピア体験": 1,
-    "⑧サプリ・生活改善": 1
+    "⑤保険・費用・アクセス": 1
   },
   "top10": [
     {
-      "path": "/blog/miscarriage-next-pregnancy-wait-time-evidence",
+      "path": "/blog/advanced-maternal-age-uterine-receptivity",
       "pv": 1
     },
     {
-      "path": "/blog/opk-never-positive-other-reasons",
+      "path": "/blog/amh-egg-freezing-reality",
       "pv": 1
     },
     {
@@ -21,17 +19,13 @@
       "pv": 1
     },
     {
-      "path": "/en/blog/acog-2026-endometriosis-guidelines-no-wait-for-surgery",
+      "path": "/en/blog/tokyo-fertility-subsidy-2026-updates",
       "pv": 1
     },
     {
-      "path": "/en/blog/preconception-care-today",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/vitamin-d-fertility",
+      "path": "/en/blog/uterine-microbiome-implantation-failure-new-frontier",
       "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 2 PV (2記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n③身体のサイン解読: 1 PV (1記事, 平均1 PV/記事)\n⑨特定診断のピア体験: 1 PV (1記事, 平均1 PV/記事)\n⑧サプリ・生活改善: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — 流産後、次の妊娠はいつから可能？「3ヶ月待つべき」は最新エビデンスで否定的 | Blog\n  1 PV — 排卵検査薬（OPK）が2本線にならない？PCOS以外に考えられる5つの理由 | Blog\n  1 PV — 精子DNA断片化（DFI）：何が分かっていて、検査は誰に必要か | Blog\n  1 PV — ACOG 2026 Endometriosis Guidelines: The Era of 'Tr\n  1 PV — What is Preconception Care? Health Investment for \n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 3 PV (3記事, 平均1 PV/記事)\n③身体のサイン解読: 1 PV (1記事, 平均1 PV/記事)\n⑤保険・費用・アクセス: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — 卵子の質だけではない？高年妊娠が子宮の受容性に与える影響 | Blog\n  1 PV — 卵子凍結は「保険」ではない：AMHデータが示す現実 | Blog\n  1 PV — 精子DNA断片化（DFI）：何が分かっていて、検査は誰に必要か | Blog\n  1 PV — 2026 Tokyo Fertility Subsidy Updates: A Path Towar\n  1 PV — The Uterine Microbiome and Implantation Failure: B\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
