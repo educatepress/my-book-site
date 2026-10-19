@@ -1,37 +1,53 @@
 {
-  "week": "2026-10-12",
+  "week": "2026-10-19",
   "categoryPV": {
-    "⑨特定診断のピア体験": 2,
-    "分類外": 2,
-    "③身体のサイン解読": 1,
-    "①流産の恐怖・不安": 1,
-    "⑤保険・費用・アクセス": 1
+    "分類外": 8,
+    "⑧サプリ・生活改善": 1,
+    "⑨特定診断のピア体験": 1,
+    "④精神的負担・人間関係": 1,
+    "①流産の恐怖・不安": 1
   },
   "top10": [
     {
+      "path": "/blog/folic-acid-preconception-care",
+      "pv": 1
+    },
+    {
+      "path": "/blog/preconception-checkup-guide",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/autoimmune-conditions-infertility",
+      "pv": 1
+    },
+    {
       "path": "/en/blog/endometriosis-diagnosis-fertility",
-      "pv": 2
-    },
-    {
-      "path": "/blog/sperm-dna-fragmentation-infertility-hidden-cause",
       "pv": 1
     },
     {
-      "path": "/en/blog/amh-egg-freezing-reality",
+      "path": "/en/blog/fertility-partner-communication-gap",
       "pv": 1
     },
     {
-      "path": "/en/blog/anxiety-between-ultrasounds-early-pregnancy",
+      "path": "/en/blog/fertility-sex-position-myth-science",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/irregular-cycle-fertility-timing",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/ovarian-rejuvenation-prp-scientific-review",
+      "pv": 1
+    },
+    {
+      "path": "/en/blog/preconception-checkup-guide",
       "pv": 1
     },
     {
       "path": "/en/blog/sudden-morning-sickness-loss-normal",
       "pv": 1
-    },
-    {
-      "path": "/en/blog/tokyo-fertility-subsidy-2026-updates",
-      "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n⑨特定診断のピア体験: 2 PV (1記事, 平均2 PV/記事)\n分類外: 2 PV (2記事, 平均1 PV/記事)\n③身体のサイン解読: 1 PV (1記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n⑤保険・費用・アクセス: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  2 PV — Diagnosing Endometriosis: Beyond Pain—What Tests A\n  1 PV — 精子DNA断片化（DFI）：何が分かっていて、検査は誰に必要か | Blog\n  1 PV — AMH and the Egg Freezing Reality: Why It's Not an \n  1 PV — Coping with Anxiety Between Ultrasounds in Early P\n  1 PV — Morning Sickness Disappeared? Is It a Miscarriage \n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 8 PV (8記事, 平均1 PV/記事)\n⑧サプリ・生活改善: 1 PV (1記事, 平均1 PV/記事)\n⑨特定診断のピア体験: 1 PV (1記事, 平均1 PV/記事)\n④精神的負担・人間関係: 1 PV (1記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — 葉酸の正しいタイミング：妊娠前から始める理由 | Blog\n  1 PV — 妊娠前に調べておくこと：抗体価・持病・キャリアスクリーニング | Blog\n  1 PV — Autoimmune Conditions and Infertility: Uncovering \n  1 PV — Diagnosing Endometriosis: Beyond Pain—What Tests A\n  1 PV — Bridging the Gap When You and Your Partner Feel Di\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
