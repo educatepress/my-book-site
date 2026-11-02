@@ -1,41 +1,26 @@
 {
-  "week": "2026-10-26",
+  "week": "2026-11-02",
   "categoryPV": {
-    "分類外": 3,
-    "②治療プロトコルの混乱": 2,
-    "⑧サプリ・生活改善": 1,
-    "①流産の恐怖・不安": 1,
-    "⑥医療者への不信感": 1
+    "⑧サプリ・生活改善": 2,
+    "③身体のサイン解読": 2
   },
   "top10": [
     {
-      "path": "/en/blog/ivf-over-40-cumulative-success-rate",
-      "pv": 2
-    },
-    {
-      "path": "/blog/folic-acid-preconception-care",
+      "path": "/blog/coq10-egg-quality-evidence",
       "pv": 1
     },
     {
-      "path": "/en/blog/acupuncture-infertility-evidence-placebo",
+      "path": "/en/blog/folic-acid-preconception-care",
       "pv": 1
     },
     {
-      "path": "/en/blog/air-pollution-fertility-impact",
+      "path": "/en/blog/high-fsh-amh-comparison-pregnancy-potential",
       "pv": 1
     },
     {
-      "path": "/en/blog/cervical-mucus-dry-fertility-impact",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/low-hcg-not-miscarriage",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/questions-fertility-doctor-communication",
+      "path": "/en/blog/opk-bbt-accuracy-conception",
       "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 3 PV (3記事, 平均1 PV/記事)\n②治療プロトコルの混乱: 2 PV (1記事, 平均2 PV/記事)\n⑧サプリ・生活改善: 1 PV (1記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n⑥医療者への不信感: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  2 PV — IVF After 40: Looking at the Cumulative Numbers As\n  1 PV — 葉酸の正しいタイミング：妊娠前から始める理由 | Blog\n  1 PV — Does Acupuncture Help You Conceive? Where the Evid\n  1 PV — The Unseen Threat: How Air Pollution Might Impact \n  1 PV — Low Cervical Mucus Around Ovulation? Impact on Con\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n⑧サプリ・生活改善: 2 PV (2記事, 平均1 PV/記事)\n③身体のサイン解読: 2 PV (2記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — CoQ10と卵子の質：エビデンスで分かっていること・いないこと | Blog\n  1 PV — The Importance of Folic Acid and Intake Timing: A \n  1 PV — High FSH Levels: Understanding the Difference from\n  1 PV — Ovulation Predictor Kits (OPKs) vs. Basal Body Tem\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
