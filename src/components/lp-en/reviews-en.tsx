@@ -48,10 +48,13 @@ export default function ReviewsEn() {
                     </h3>
                     <div className="inline-flex flex-col items-center gap-2">
                         <div className="flex items-center gap-2 text-[0.9rem] font-medium text-[var(--color-text-dark)]">
-                            <AnimatedStars /> 5.0 (12 Reviews)
+                            <AnimatedStars /> 5.0 · 12 ratings of the Japanese edition
                         </div>
+                        <p className="text-[0.75rem] text-[var(--color-text-muted)]">
+                            From Amazon Japan, translated into English. The English edition is new — be one of its first reviewers.
+                        </p>
                         <a href="https://amzn.to/4tRV6qk" target="_blank" rel="noreferrer" onClick={() => trackCtaClick("lp-en", "cta", "reviews")} className="text-[0.8rem] text-[var(--color-sage)] hover:underline ml-1">
-                            → View all reviews on Amazon
+                            → See the English edition on Amazon
                         </a>
                     </div>
                 </FadeIn>
@@ -60,11 +63,6 @@ export default function ReviewsEn() {
                     {reviews.map((review, idx) => (
                         <FadeIn key={idx} delay={idx * 0.1}>
                             <div className="bg-white rounded-[16px] p-6 md:p-8 shadow-sm relative">
-
-                                {/* Amazon purchase badge */}
-                                <div className="absolute top-6 right-6 bg-[var(--color-gold-pale)] text-[var(--color-gold)] text-[0.7rem] font-bold px-3 py-1 rounded-full hidden sm:block">
-                                    ✓ Verified Purchase
-                                </div>
 
                                 <div className="mb-4 flex items-center gap-2">
                                     <div className="text-[var(--color-gold)] text-[0.85rem]">★★★★★ 5.0</div>
@@ -75,7 +73,7 @@ export default function ReviewsEn() {
                                 </p>
 
                                 <p className="text-[0.85rem] text-[var(--color-text-mid)] font-medium font-en">
-                                    — {review.name} (Amazon)
+                                    — {review.name} (Amazon Japan · Japanese edition, translated)
                                 </p>
                             </div>
                         </FadeIn>

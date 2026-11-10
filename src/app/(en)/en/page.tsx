@@ -51,13 +51,8 @@ const bookJsonLdEn = {
         "propertyID": "ASIN",
         "value": "B0F771VNV5"
     },
-    "numberOfPages": 180,
+    "numberOfPages": 211,
     "inLanguage": "en",
-    "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "reviewCount": "12"
-    },
     "offers": [
         {
             "@type": "Offer",

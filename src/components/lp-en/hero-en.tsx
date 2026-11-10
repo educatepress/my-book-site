@@ -83,7 +83,7 @@ export default function HeroEn() {
                             </span>
                             <div className="inline-flex items-center gap-1 bg-gradient-to-r from-[var(--color-gold-pale)] to-white border border-[#C9922E40] rounded-sm px-3 py-1.5 shadow-sm">
                                 <span className="text-[var(--color-gold)] text-[0.8rem] leading-none">★★★★★</span>
-                                <span className="text-[0.75rem] text-[var(--color-text-dark)] font-bold leading-none mt-[1px]">5.0 <span className="font-normal text-[var(--color-text-muted)] text-[0.65rem]">(Amazon)</span></span>
+                                <span className="text-[0.75rem] text-[var(--color-text-dark)] font-bold leading-none mt-[1px]">5.0 <span className="font-normal text-[var(--color-text-muted)] text-[0.65rem]">(Japanese edition, Amazon Japan)</span></span>
                             </div>
                         </div>
                     </FadeIn>
