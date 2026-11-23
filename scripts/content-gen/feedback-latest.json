@@ -1,49 +1,23 @@
 {
-  "week": "2026-11-16",
+  "week": "2026-11-23",
   "categoryPV": {
-    "分類外": 3,
-    "②治療プロトコルの混乱": 2,
-    "⑥医療者への不信感": 2,
+    "⑧サプリ・生活改善": 1,
     "①流産の恐怖・不安": 1,
-    "⑨特定診断のピア体験": 1
+    "⑤保険・費用・アクセス": 1
   },
   "top10": [
     {
-      "path": "/blog/chemical-pregnancy-future-fertility",
+      "path": "/blog/coq10-egg-quality-evidence",
       "pv": 1
     },
     {
-      "path": "/blog/decoding-sperm-morphology-teratozoospermia",
+      "path": "/blog/missed-miscarriage-second-opinion-guide",
       "pv": 1
     },
     {
-      "path": "/blog/fertility-clinic-switch-signs",
-      "pv": 1
-    },
-    {
-      "path": "/blog/fresh-vs-frozen-embryo-transfer-outcomes",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/endometriosis-diagnosis-fertility",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/family-pressure-fertility-boundaries",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/fertility-clinic-switch-signs",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/questions-fertility-doctor-communication",
-      "pv": 1
-    },
-    {
-      "path": "/en/blog/shift-work-female-fertility-impact",
+      "path": "/en/blog/tokyo-fertility-subsidy-2026-updates",
       "pv": 1
     }
   ],
-  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n分類外: 3 PV (3記事, 平均1 PV/記事)\n②治療プロトコルの混乱: 2 PV (2記事, 平均1 PV/記事)\n⑥医療者への不信感: 2 PV (2記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n⑨特定診断のピア体験: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — 化学流産（ケミカルプレグナンシー）を経験したあなたへ — 次の妊娠への影響と実際のデータ | Blo\n  1 PV — 精子奇形症の理解：受精と体外受精における精子形態の影響 | Blog\n  1 PV — 転院すべきサイン5つ — 今のクリニックに不満がある時の冷静な判断法 | Blog\n  1 PV — 新鮮胚移植と凍結胚移植：成功の可能性が高いのはどちらか | Blog\n  1 PV — Diagnosing Endometriosis: Beyond Pain—What Tests A\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
+  "summary": "【週次パフォーマンスサマリー】\nカテゴリ別PV:\n⑧サプリ・生活改善: 1 PV (1記事, 平均1 PV/記事)\n①流産の恐怖・不安: 1 PV (1記事, 平均1 PV/記事)\n⑤保険・費用・アクセス: 1 PV (1記事, 平均1 PV/記事)\n\nTOP5記事:\n  1 PV — CoQ10と卵子の質：エビデンスで分かっていること・いないこと | Blog\n  1 PV — 稽留流産の診断を受けた方へ：セカンドオピニオンの必要性と判断基準 | Blog\n  1 PV — 2026 Tokyo Fertility Subsidy Updates: A Path Towar\n\n示唆: PVが多いカテゴリのテーマを優先的に生成すべき。PVゼロのカテゴリは需要がない可能性あり。"
 }
